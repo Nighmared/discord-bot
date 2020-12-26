@@ -117,14 +117,14 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		cmd = CMD_aliases[cmd]
 	error = 0
 
-	if(cmd == "msgarchive" and perm_valid("msgarchive",permlevel)):
+	if(cmd == "msgarchive" and perm_valid(cmd,permlevel)):
 		txt = msgs.sendable()
 		if(txt.strip() == ""):
 			error = 2
 		else:
 			error = await tryForbidden(message.channel.send, msgs.sendable())
 
-	elif(cmd == "help" and perm_valid("help",permlevel)):
+	elif(cmd == "help" and perm_valid(cmd,permlevel)):
 			if(len(args)>1):
 				if(args[1] in cmd_help_dict.keys()):
 					error = await tryForbidden(message.channel.send,cmd_help_dict[args[1]])
@@ -134,7 +134,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 					txt += help_super
 				error = await tryForbidden(message.channel.send,txt)
 
-	elif(cmd =="setcache" and perm_valid("setcache",permlevel)):
+	elif(cmd =="setcache" and perm_valid(cmd,permlevel)):
 		try:
 			newLen = int(args[1])
 			newLen = msgs.set_len(newLen)
@@ -142,7 +142,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		except Exception:
 			error = 1
 	
-	elif(cmd == "settrack" and perm_valid("settrack",permlevel)):
+	elif(cmd == "settrack" and perm_valid(cmd,permlevel)):
 		try:
 			user = message.mentions[0]
 			toTrackID = user.id
@@ -157,13 +157,13 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif(cmd == "gettrack" and perm_valid(cmd,permlevel)):
 		error = await tryForbidden( message.channel.send,f"> currently tracking {toTrackName}")
 
-	elif(cmd == "say" and perm_valid("say",permlevel)):
+	elif(cmd == "say" and perm_valid(cmd,permlevel)):
 		resttxt = ""
 		for a in args[1:]:
 			resttxt += " "+a
 		error = await tryForbidden( message.channel.send,f"> {resttxt}")
 
-	elif (cmd == "setstatus" and perm_valid("setstatus",permlevel)):
+	elif (cmd == "setstatus" and perm_valid(cmd,permlevel)):
 		type = 1
 		splitbyquot = message.content.split("\"")
 		if(len(splitbyquot) not in (2,3)):
@@ -178,19 +178,19 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			if(len(splitbyquot)==3 and splitbyquot[2].isnumeric()):
 				type = int(splitbyquot[2])
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
-	elif (cmd =="execsql" and perm_valid("execsql",permlevel)):
+	elif (cmd =="execsql" and perm_valid(cmd,permlevel)):
 		res = handler._execComm(message.content[(origlen+1):].strip())
 		if(res !=-10):
 			await tryForbidden(message.channel.send,res)
 	
-	elif(cmd == "reload" and perm_valid("reload",permlevel)):
+	elif(cmd == "reload" and perm_valid(cmd,permlevel)):
 		await tryForbidden( message.channel.send,"> reloading ... [lets hope this goes fine]")
 		return 99
 
 	elif(cmd =="ac" and permlevel == 4):
 		handler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}")''')
 
-	elif(cmd == "setperm" and perm_valid("setperm",permlevel)):
+	elif(cmd == "setperm" and perm_valid(cmd,permlevel)):
 		res = handler.add_user(message.mentions[0].id, args[2])
 	else:
 		error = 1
