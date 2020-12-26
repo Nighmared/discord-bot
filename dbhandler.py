@@ -15,13 +15,11 @@ class dbhandler:
 		return res
 
 	def add_user(self,uid:int, name:str, permlev:int):
-		try:
-			print(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},{name}''')
-			self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},{name})''')
-			self.conn.commit()
-			return 0
-		except:
-			return 1
+
+		print(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},"{name}")''')
+		self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},{name})''')
+		self.conn.commit()
+		return 0
 	
 	def set_perm(self,user, newpermlev):
 		#first check if user exists
