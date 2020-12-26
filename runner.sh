@@ -1,5 +1,5 @@
 while true
 do
 python3 bot.py
-git pull
+git pull --no-edit
 done
