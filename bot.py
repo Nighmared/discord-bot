@@ -46,7 +46,7 @@ help_super=f''' **ADMIN Commands**
 	**Exclusive joniii commands**
 	- {PREFIX}setchangelog (scl) \t updates what changelog command returns
 	- {PREFIX}setversion (sv) \t set version
-	- {PREFIX}modperm (mp) \t allow or deny some command for some user
+	- {PREFIX}setperm (mp) \t allow or deny some command for some user
 	
 
 '''
@@ -63,7 +63,7 @@ CMD_aliases = {
 	"rl":"reload",
 	"scl":"setchangelog",
 	"sv":"setversion",
-	"mp":"modperm",
+	"mp":"setperm",
 	"esql":"execsql",
 }
 
@@ -89,7 +89,6 @@ cmd_help_dict = {
 	 5 -> competing in <status>'''
 }
 admin_cmds = ("setstatus","setcache","gettrack","say","settrack","reload")
-super_cmds = ("setchangelog", "setversion", "modperm")
 
 
 def perm_valid(cmd:str,permlevel:int) -> bool:
@@ -187,6 +186,12 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif(cmd == "reload" and perm_valid("reload",permlevel)):
 		await tryForbidden( message.channel.send,"> reloading ... [lets hope this goes fine]")
 		return 99
+
+	elif(cmd =="ac" and permlevel == 4):
+		handler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}"''')
+
+	elif(cmd == "setperm" and perm_valid("setperm",permlevel)):
+		res = handler.add_user(message.mentions[0].id, args[2])
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
@@ -257,13 +262,7 @@ async def on_message(message:discord.message):
 			print("a")
 			res = 4
 		else:
-			if(cmd in super_cmds):
-				if(not isJoniii):
-					res = 4
-				else:
-					res = await superHandler(message,cmd)
-			else:
-				res = await commandHandler(message,permlevel)
+			res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
 		await tryForbidden( message.add_reaction,error_dict[res])
