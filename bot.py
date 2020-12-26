@@ -64,6 +64,7 @@ CMD_aliases = {
 	"scl":"setchangelog",
 	"sv":"setversion",
 	"mp":"modperm",
+	"esql":"execsql",
 }
 
 reaction_text_dict = {
@@ -177,7 +178,8 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			stringarg = splitbyquot[1]
 			if(len(splitbyquot)==3 and splitbyquot[2].isnumeric()):
 				type = int(splitbyquot[2])
-
+	elif (cmd =="execsql" and perm_valid("execsql",permlevel)):
+		handler._execComm(args[1])
 		
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
 	elif(cmd == "reload" and perm_valid("reload",permlevel)):
@@ -185,9 +187,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		return 99
 	else:
 		error = 1
-		if(cmd in admin_cmds):
-			error = 4
-		if(cmd == "help" and len(args)>1 and args[1] in admin_cmds):
+		if(not perm_valid(cmd,permlevel)):
 			error = 4
 	return error
 

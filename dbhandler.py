@@ -17,6 +17,7 @@ class dbhandler:
 	def add_user(self,uid:int, name:str, permlev:int = 0):
 		try:
 			self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},{name}''')
+			self.conn.commit()
 			return 0
 		except:
 			return 1
@@ -31,8 +32,9 @@ class dbhandler:
 			self.cursor.execute(f'''UPDATE users SET permlevel = {newpermlev} WHERE uid=={uid}''')
 		else:
 			self.add_user(uid,name,newpermlev)
+		self.conn.commit()
 	
-	def get_cmd_perm(self,cmd):
+	def get_cmd_perm(self,cmdd):
 		try:
 			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd.strip()} ''')
 			res = self.cursor.fetchall()[0][0]
@@ -40,4 +42,6 @@ class dbhandler:
 			print("frick cmd not added")
 			res = 4
 		return res
-		
+	
+	def _execComm(self,command:str):
+		self.cursor.execute(command)
