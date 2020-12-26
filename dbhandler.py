@@ -36,8 +36,8 @@ class dbhandler:
 		try:
 			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd.strip()} ''')
 			res = self.cursor.fetchall()[0][0]
-		except IndexError:
-			print("wtf???")
+		except:
+			print("frick cmd not added")
 			res = 4
 		return res
 		
