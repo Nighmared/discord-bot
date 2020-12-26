@@ -75,7 +75,7 @@ cmd_help_dict = {
 	 4 -> 
 	 5 -> competing in <status>'''
 }
-admin_cmds = ("setstatus","setcache","gettrack","say","settrack")
+admin_cmds = ("setstatus","setcache","gettrack","say","settrack","reload")
 
 
 async def tryForbidden(func,arg):
