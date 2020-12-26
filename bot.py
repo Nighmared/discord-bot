@@ -71,7 +71,7 @@ cmd_help_dict = {
 	 4 -> 
 	 5 -> competing in <status>'''
 }
-admin_cmds = ("setstatus","setcache","gettrack","msgarchive","say","settrack")
+admin_cmds = ("setstatus","setcache","gettrack","say","settrack")
 
 
 #TODO: DB for admins, current tracker etc
