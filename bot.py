@@ -9,6 +9,8 @@ TOKEN = open(".token.txt").read()
 ADMINS = (
 	291291715598286848,
 )
+
+SUDOID = 291291715598286848
 toTrackID = 0
 toTrackName = "nobody"
 
@@ -26,6 +28,8 @@ help_string = f'''
 	**Commands** of *gotta go brr*:
 	- {PREFIX}help \t shows this message
 	- {PREFIX}msgarchive (ma) \t shows recent msgs of currently tracked user
+	- {PREFIX}changelog (cl) \t show changes made in latest update
+	- {PREFIX}info (i) \t shows some info abt bot
 	- ??
 
 **Reaction**:
@@ -40,6 +44,11 @@ help_admin=f''' **ADMIN Commands**
 	- {PREFIX}say \t say something
 	- {PREFIX}setstatus (ss) \t sets activity of bot
 	- {PREFIX}reload (rl) \t restarts bot and pulls fresh copy
+	
+	**Exclusive joniii commands**
+	- {PREFIX}setchangelog (scl) \t updates what changelog command returns
+	- {PREFIX}setversion (sv) \t set version
+	- {PREFIX}modperm (mp) \t allow or deny some command for some user
 	
 
 '''
@@ -76,7 +85,12 @@ cmd_help_dict = {
 	 5 -> competing in <status>'''
 }
 admin_cmds = ("setstatus","setcache","gettrack","say","settrack","reload")
+super_cmds = ("setchangelog", "setversion", "modperm")
 
+
+
+async def superHandler(message:discord.message,cmd:str)->int:
+	return await tryForbidden(message.channel.send,f"{cmd} is WIP")
 
 async def tryForbidden(func,arg):
 	try:
@@ -203,6 +217,7 @@ async def on_message(message:discord.message):
 	hahaa = getEmoji(guild,"haHaa")
 	isCommand = message.content.startswith(PREFIX)
 	isAdmin = message.author.id in ADMINS
+	isJoniii = message.author.id == SUDOID # for super cmds
 	cmd = message.content[1:].split(" ")[0]
 	if cmd in CMD_aliases.keys(): cmd = CMD_aliases[cmd]
 
@@ -233,7 +248,13 @@ async def on_message(message:discord.message):
 			print("a")
 			res = 4
 		else:
-			res = await commandHandler(message,isAdmin)
+			if(cmd in super_cmds):
+				if(not isJoniii):
+					res = 4
+				else:
+					res = await superHandler(message,cmd)
+			else:
+				res = await commandHandler(message,isAdmin)
 		if(res == 99): #RELOAD
 			exit(0)
 		await tryForbidden( message.add_reaction,error_dict[res])
