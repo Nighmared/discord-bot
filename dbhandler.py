@@ -41,7 +41,7 @@ class dbhandler:
 			print(self.cursor.fetchall())
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
-			print(self.fetchall())
+			print(self.cursor.fetchall())
 			print("frick cmd not added")
 			res = 4
 		return res
