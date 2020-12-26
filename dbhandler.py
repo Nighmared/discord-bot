@@ -36,7 +36,8 @@ class dbhandler:
 	
 	def get_cmd_perm(self,cmd):
 		try:
-			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd.strip()} ''')
+			print(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd} ''')
+			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')
 			print(self.cursor.fetchall())
 			res = self.cursor.fetchall()[0][0]
 		except Exception:

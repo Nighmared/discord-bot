@@ -113,7 +113,6 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	global toTrackName
 	args = message.content[1:].split(" ")
 	cmd = args[0]
-
 	if(cmd in CMD_aliases.keys()):
 		cmd = CMD_aliases[cmd]
 	error = 0
