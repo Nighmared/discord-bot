@@ -178,10 +178,12 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			stringarg = splitbyquot[1]
 			if(len(splitbyquot)==3 and splitbyquot[2].isnumeric()):
 				type = int(splitbyquot[2])
-	elif (cmd =="execsql" and perm_valid("execsql",permlevel)):
-		handler._execComm(args[1])
-		
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
+	elif (cmd =="execsql" and perm_valid("execsql",permlevel)):
+		res = handler._execComm(message.content[(len(cmd)+1):].strip())
+		if(res !=-10):
+			await tryForbidden(message.channel.send,res)
+	
 	elif(cmd == "reload" and perm_valid("reload",permlevel)):
 		await tryForbidden( message.channel.send,"> reloading ... [lets hope this goes fine]")
 		return 99

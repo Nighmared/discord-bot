@@ -34,7 +34,7 @@ class dbhandler:
 			self.add_user(uid,name,newpermlev)
 		self.conn.commit()
 	
-	def get_cmd_perm(self,cmdd):
+	def get_cmd_perm(self,cmd):
 		try:
 			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd.strip()} ''')
 			res = self.cursor.fetchall()[0][0]
@@ -45,3 +45,8 @@ class dbhandler:
 	
 	def _execComm(self,command:str):
 		self.cursor.execute(command)
+		self.conn.commit()
+		res = self.cursor.fetchall()
+		if len(res)>0:
+			return res
+		else: return -10
