@@ -93,23 +93,31 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		if(txt.strip() == ""):
 			error = 2
 		else:
-			await message.channel.send(msgs.sendable())
+			try:
+				await message.channel.send(msgs.sendable())
+			except discord.errors.Forbidden:
+				error = 5
 
 	elif(cmd == "help"):
-		if(len(args)>1):
-			if(args[1] in cmd_help_dict.keys() and isAdmin or not (args[1] in admin_cmds)):
-				await message.channel.send(cmd_help_dict[args[1]])
-		else:
-			txt = help_string
-			if(isAdmin):
-				txt += help_admin
-			await message.channel.send(txt)
+		try:
+			if(len(args)>1):
+				if(args[1] in cmd_help_dict.keys() and isAdmin or not (args[1] in admin_cmds)):
+					await message.channel.send(cmd_help_dict[args[1]])
+			else:
+				txt = help_string
+				if(isAdmin):
+					txt += help_admin
+				await message.channel.send(txt)
+		except discord.errors.Forbidden:
+			error = 5
 
 	elif(isAdmin and cmd =="setcache"):
 		try:
 			newLen = int(args[1])
 			newLen = msgs.set_len(newLen)
 			await message.channel.send(f"> updated cache length to {newLen}")
+		except discord.errors.Forbidden:
+			error = 5
 		except Exception:
 			error = 1
 	
@@ -123,16 +131,24 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 
 		except IndexError:
 			error = 3
+		except discord.errors.Forbidden:
+			error = 5
 		except Exception:
 			error = 1
 
 	elif(isAdmin and cmd == "gettrack"):
-		await message.channel.send(f"> currently tracking {toTrackName}")
+		try:
+			await message.channel.send(f"> currently tracking {toTrackName}")
+		except discord.errors.Forbidden:
+			error = 5
 	elif(isAdmin and cmd == "say"):
 		resttxt = ""
 		for a in args[1:]:
 			resttxt += " "+a
-		await message.channel.send(f"> {resttxt}")
+		try:
+			await message.channel.send(f"> {resttxt}")
+		except discord.errors.Forbidden:
+			error = 5
 
 	elif (isAdmin and cmd == "setstatus"):
 		type = 1
@@ -152,10 +168,11 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
 	elif(isAdmin and cmd == "reload"):
-		await message.channel.send("> reloading ... [lets hope this goes fine]")
+		try:
+			await message.channel.send("> reloading ... [lets hope this goes fine]")
+		except discord.errors.Forbidden:
+			print("<couldnt send confirmation in channel but reload anyway>")
 		return 99
-
-
 	else:
 		error = 1
 		if(cmd in admin_cmds):
@@ -193,6 +210,7 @@ async def on_message(message:discord.message):
 	hm = getEmoji(guild,"hm")
 	cope = getEmoji(guild,"wojak_cope")
 	c_yfu = getEmoji(guild,"code_youfuckedup")
+	hahaa = getEmoji(guild,"haHaa")
 	isCommand = message.content.startswith(PREFIX)
 	isAdmin = message.author.id in ADMINS
 	cmd = message.content[1:].split(" ")[0]
@@ -205,6 +223,7 @@ async def on_message(message:discord.message):
 		2 : hm, # no msgs to display
 		3 : c_yfu, # wrong args
 		4 : cope, #perms
+		5 : hahaa, #bot cant send here D;
 	}
 
 	if not addedEmotesToHelp:
