@@ -113,6 +113,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	global toTrackName
 	args = message.content[1:].split(" ")
 	cmd = args[0]
+	origlen = len(cmd)
 	if(cmd in CMD_aliases.keys()):
 		cmd = CMD_aliases[cmd]
 	error = 0
@@ -179,7 +180,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 				type = int(splitbyquot[2])
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
 	elif (cmd =="execsql" and perm_valid("execsql",permlevel)):
-		res = handler._execComm(message.content[(len(cmd)+1):].strip())
+		res = handler._execComm(message.content[(origlen+1):].strip())
 		if(res !=-10):
 			await tryForbidden(message.channel.send,res)
 	
