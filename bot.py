@@ -58,9 +58,14 @@ CMD_aliases = {
 	"sc":"setcache",
 	"gt":"gettrack",
 	"ma":"msgarchive",
+	"i":"info",
+	"cl":"changelog",
 	"ss":"setstatus",
 	"?":"help",
 	"rl":"reload",
+	"scl":"setchangelog",
+	"sv":"setversion",
+	"mp":"modperm",
 }
 
 reaction_text_dict = {
