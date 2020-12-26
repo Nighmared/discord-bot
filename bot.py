@@ -2,13 +2,11 @@ from logging import error
 from re import split
 import discord
 import msglist
+import dbhandler
 from sys import exit
 
 
 TOKEN = open(".token.txt").read()
-ADMINS = (
-	291291715598286848,
-)
 
 SUDOID = 291291715598286848
 toTrackID = 0
@@ -21,7 +19,7 @@ msgs = msglist.msglist(5,toTrackName)
 
 client = discord.Client()
 
-
+handler = dbhandler.dbhandler("discordbot.db")
 
 help_string = f'''
 
@@ -37,7 +35,7 @@ help_string = f'''
 
 addedEmotesToHelp = False
 
-help_admin=f''' **ADMIN Commands**
+help_super=f''' **ADMIN Commands**
 	- {PREFIX}settrack (st) \t sets which user to track
 	- {PREFIX}setcache (sc) \t sets how many msgs are cached
 	- {PREFIX}gettrack (gt) \t show currently tracked user
@@ -93,6 +91,9 @@ admin_cmds = ("setstatus","setcache","gettrack","say","settrack","reload")
 super_cmds = ("setchangelog", "setversion", "modperm")
 
 
+def perm_valid(cmd:str,permlevel:int) -> bool:
+	return permlevel>= handler.get_cmd_perm(cmd)
+
 
 async def superHandler(message:discord.message,cmd:str)->int:
 	return await tryForbidden(message.channel.send,f"{cmd} is WIP")
@@ -106,7 +107,7 @@ async def tryForbidden(func,arg):
 		return 50
 
 #TODO: DB for admins, current tracker etc !!
-async def commandHandler(message:discord.message,isAdmin:bool) -> int:
+async def commandHandler(message:discord.message,permlevel:int) -> int:
 	global toTrackID
 	global toTrackName
 	args = message.content[1:].split(" ")
@@ -116,24 +117,24 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		cmd = CMD_aliases[cmd]
 	error = 0
 
-	if(cmd == "msgarchive"):
+	if(cmd == "msgarchive" and perm_valid("msgarchive",permlevel)):
 		txt = msgs.sendable()
 		if(txt.strip() == ""):
 			error = 2
 		else:
 			error = await tryForbidden(message.channel.send, msgs.sendable())
 
-	elif(cmd == "help"):
+	elif(cmd == "help" and perm_valid("help",permlevel)):
 			if(len(args)>1):
-				if(args[1] in cmd_help_dict.keys() and isAdmin or not (args[1] in admin_cmds)):
+				if(args[1] in cmd_help_dict.keys()):
 					error = await tryForbidden(message.channel.send,cmd_help_dict[args[1]])
 			else:
 				txt = help_string
-				if(isAdmin):
-					txt += help_admin
+				if(permlevel>=1):
+					txt += help_super
 				error = await tryForbidden(message.channel.send,txt)
 
-	elif(isAdmin and cmd =="setcache"):
+	elif(cmd =="setcache" and perm_valid("setcache",permlevel)):
 		try:
 			newLen = int(args[1])
 			newLen = msgs.set_len(newLen)
@@ -141,7 +142,7 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		except Exception:
 			error = 1
 	
-	elif(isAdmin and cmd == "settrack"):
+	elif(cmd == "settrack" and perm_valid("settrack",permlevel)):
 		try:
 			user = message.mentions[0]
 			toTrackID = user.id
@@ -153,16 +154,16 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		except Exception:
 			error = 1
 
-	elif(isAdmin and cmd == "gettrack"):
+	elif(cmd == "gettrack" and perm_valid(cmd,permlevel)):
 		error = await tryForbidden( message.channel.send,f"> currently tracking {toTrackName}")
 
-	elif(isAdmin and cmd == "say"):
+	elif(cmd == "say" and perm_valid("say",permlevel)):
 		resttxt = ""
 		for a in args[1:]:
 			resttxt += " "+a
 		error = await tryForbidden( message.channel.send,f"> {resttxt}")
 
-	elif (isAdmin and cmd == "setstatus"):
+	elif (cmd == "setstatus" and perm_valid("setstatus",permlevel)):
 		type = 1
 		splitbyquot = message.content.split("\"")
 		if(len(splitbyquot) not in (2,3)):
@@ -179,7 +180,7 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 
 		
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
-	elif(isAdmin and cmd == "reload"):
+	elif(cmd == "reload" and perm_valid("reload",permlevel)):
 		await tryForbidden( message.channel.send,"> reloading ... [lets hope this goes fine]")
 		return 99
 	else:
@@ -221,8 +222,9 @@ async def on_message(message:discord.message):
 	c_yfu = getEmoji(guild,"code_youfuckedup")
 	hahaa = getEmoji(guild,"haHaa")
 	isCommand = message.content.startswith(PREFIX)
-	isAdmin = message.author.id in ADMINS
+	permlevel = handler.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID # for super cmds
+	if(isJoniii): permlevel = 4
 	cmd = message.content[1:].split(" ")[0]
 	if cmd in CMD_aliases.keys(): cmd = CMD_aliases[cmd]
 
@@ -249,7 +251,7 @@ async def on_message(message:discord.message):
 		msgs.add_msg(message)
 
 	if(isCommand):
-		if(cmd in admin_cmds and not isAdmin):
+		if not perm_valid(cmd,permlevel):
 			print("a")
 			res = 4
 		else:
@@ -259,7 +261,7 @@ async def on_message(message:discord.message):
 				else:
 					res = await superHandler(message,cmd)
 			else:
-				res = await commandHandler(message,isAdmin)
+				res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
 		await tryForbidden( message.add_reaction,error_dict[res])
