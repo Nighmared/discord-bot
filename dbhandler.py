@@ -14,7 +14,7 @@ class dbhandler:
 		
 		return res
 
-	def add_user(self,uid:int, name:str, permlev:int = 0):
+	def add_user(self,uid:int, name:str, permlev:int):
 		try:
 			self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},{name}''')
 			self.conn.commit()
