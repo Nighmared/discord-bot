@@ -59,7 +59,8 @@ reaction_text_dict = {
 	1:"nono thats not how its supposed to go",
 	2:"Nothing to display",
 	3:"You fucked up ur command mister",
-	4:"Not enough permissions"
+	4:"Not enough permissions",
+	5:"All fine but bot can't text here... F",
 }
 
 
