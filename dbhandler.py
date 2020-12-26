@@ -33,8 +33,8 @@ class dbhandler:
 			self.add_user(uid,name,newpermlev)
 	
 	def get_cmd_perm(self,cmd):
-		self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd.strip()} ''')
 		try:
+			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd.strip()} ''')
 			res = self.cursor.fetchall()[0][0]
 		except IndexError:
 			print("wtf???")
