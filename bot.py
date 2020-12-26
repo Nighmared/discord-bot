@@ -215,6 +215,7 @@ async def on_message(message:discord.message):
 
 
 	if(message.author.id == toTrackID and not isCommand):
+		print(message.content)
 		await message.add_reaction(confusedcat)
 		msgs.add_msg(message)
 
