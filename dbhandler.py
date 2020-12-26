@@ -38,7 +38,7 @@ class dbhandler:
 	def get_cmd_perm(self,cmd):
 		try:
 			print(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd} ''')
-			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')
+			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')	
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
 			print("frick cmd not added")
