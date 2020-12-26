@@ -230,6 +230,7 @@ async def on_message(message:discord.message):
 
 	if(isCommand):
 		if(cmd in admin_cmds and not isAdmin):
+			print("a")
 			res = 4
 		else:
 			res = await commandHandler(message,isAdmin)
