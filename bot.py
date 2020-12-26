@@ -2,14 +2,15 @@ from logging import error
 from re import split
 import discord
 import msglist
+from sys import exit
 
 
 TOKEN = open(".token.txt").read()
 ADMINS = (
 	291291715598286848,
 )
-toTrackID = 291291715598286848
-toTrackName = "joniii"
+toTrackID = 0
+toTrackName = "nobody"
 
 ALLOWEDGUILD = 747752542741725244
 PREFIX = "°"
@@ -38,6 +39,7 @@ help_admin=f''' **ADMIN Commands**
 	- {PREFIX}gettrack (gt) \t show currently tracked user
 	- {PREFIX}say \t say something
 	- {PREFIX}setstatus (ss) \t sets activity of bot
+	- {PREFIX}reload (rl) \t restarts bot and pulls fresh copy
 	
 
 '''
@@ -74,7 +76,7 @@ cmd_help_dict = {
 admin_cmds = ("setstatus","setcache","gettrack","say","settrack")
 
 
-#TODO: DB for admins, current tracker etc
+#TODO: DB for admins, current tracker etc !!
 async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 	global toTrackID
 	global toTrackName
@@ -114,7 +116,7 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		try:
 			user = message.mentions[0]
 			toTrackID = user.id
-			toTrackName = user.mention
+			toTrackName = user.nick
 			msgs.set_user(toTrackName)
 			await message.channel.send(f"> updated tracked user to {toTrackName}")
 
@@ -148,6 +150,10 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 
 		
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
+	elif(isAdmin and cmd == "reload"):
+		await message.channel.send("> reloading ... [lets hope this goes fine]")
+		return 99
+
 
 	else:
 		error = 1
@@ -216,6 +222,8 @@ async def on_message(message:discord.message):
 			await message.add_reaction(error_dict[4])
 			return
 		res = await commandHandler(message,isAdmin)
+		if(res == 99): #RELOAD
+			exit(0)
 		await message.add_reaction(error_dict[res])
 		
 		
