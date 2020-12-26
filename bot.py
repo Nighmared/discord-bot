@@ -71,7 +71,7 @@ cmd_help_dict = {
 	 4 -> 
 	 5 -> competing in <status>'''
 }
-admin_cmds = ("setstatus","setcache","gettrack","msgarchive","say")
+admin_cmds = ("setstatus","setcache","gettrack","msgarchive","say","settrack")
 
 
 #TODO: DB for admins, current tracker etc
@@ -188,6 +188,8 @@ async def on_message(message:discord.message):
 	c_yfu = getEmoji(guild,"code_youfuckedup")
 	isCommand = message.content.startswith(PREFIX)
 	isAdmin = message.author.id in ADMINS
+	cmd = message.content[1:].split(" ")[0]
+	if cmd in CMD_aliases.keys(): cmd = CMD_aliases[cmd]
 
 
 	error_dict = {
@@ -195,7 +197,7 @@ async def on_message(message:discord.message):
 		1 : pepegun, #invalid stuff
 		2 : hm, # no msgs to display
 		3 : c_yfu, # wrong args
-		4 : cope,
+		4 : cope, #perms
 	}
 
 	if not addedEmotesToHelp:
@@ -210,9 +212,10 @@ async def on_message(message:discord.message):
 		msgs.add_msg(message)
 
 	if(isCommand):
-		res = 1
+		if(cmd in admin_cmds and not isAdmin):
+			await message.add_reaction(error_dict[4])
+			return
 		res = await commandHandler(message,isAdmin)
-		#except Exception: res = 1
 		await message.add_reaction(error_dict[res])
 		
 		
