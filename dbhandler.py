@@ -17,7 +17,7 @@ class dbhandler:
 	def add_user(self,uid:int, name:str, permlev:int):
 
 		print(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},"{name}")''')
-		self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},{name})''')
+		self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES("{uid}","{permlev}","{name}")''')
 		self.conn.commit()
 		return 0
 	
@@ -28,7 +28,7 @@ class dbhandler:
 		self.cursor.execute(f"SELECT * FROM users WHERE uid={uid}")
 		exists = len(self.cursor.fetchall()) != 0
 		if(exists):
-			self.cursor.execute(f'''UPDATE users SET permlevel = {newpermlev} WHERE uid=={uid}''')
+			self.cursor.execute(f'''UPDATE users SET permlevel = "{newpermlev}" WHERE uid=="{uid}""''')
 		else:
 			self.add_user(uid,name,newpermlev)
 		self.conn.commit()
