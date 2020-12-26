@@ -78,6 +78,14 @@ cmd_help_dict = {
 admin_cmds = ("setstatus","setcache","gettrack","say","settrack")
 
 
+async def tryForbidden(func,arg):
+	try:
+		await func(arg)
+		return 0
+	except discord.errors.Forbidden:
+		print("forbidden uwu")
+		return 50
+
 #TODO: DB for admins, current tracker etc !!
 async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 	global toTrackID
@@ -94,31 +102,23 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		if(txt.strip() == ""):
 			error = 2
 		else:
-			try:
-				await message.channel.send(msgs.sendable())
-			except discord.errors.Forbidden:
-				error = 5
+			error = tryForbidden(message.channel.send, msgs.sendable())
 
 	elif(cmd == "help"):
-		try:
 			if(len(args)>1):
 				if(args[1] in cmd_help_dict.keys() and isAdmin or not (args[1] in admin_cmds)):
-					await message.channel.send(cmd_help_dict[args[1]])
+					error = tryForbidden(message.channel.send,cmd_help_dict[args[1]])
 			else:
 				txt = help_string
 				if(isAdmin):
 					txt += help_admin
-				await message.channel.send(txt)
-		except discord.errors.Forbidden:
-			error = 5
+				error = tryForbidden(message.channel.send,txt)
 
 	elif(isAdmin and cmd =="setcache"):
 		try:
 			newLen = int(args[1])
 			newLen = msgs.set_len(newLen)
-			await message.channel.send(f"> updated cache length to {newLen}")
-		except discord.errors.Forbidden:
-			error = 5
+			error = tryForbidden( message.channel.send,f"> updated cache length to {newLen}")
 		except Exception:
 			error = 1
 	
@@ -128,28 +128,20 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 			toTrackID = user.id
 			toTrackName = user.nick
 			msgs.set_user(toTrackName)
-			await message.channel.send(f"> updated tracked user to {toTrackName}")
-
+			error = tryForbidden( message.channel.send,f"> updated tracked user to {toTrackName}")
 		except IndexError:
 			error = 3
-		except discord.errors.Forbidden:
-			error = 5
 		except Exception:
 			error = 1
 
 	elif(isAdmin and cmd == "gettrack"):
-		try:
-			await message.channel.send(f"> currently tracking {toTrackName}")
-		except discord.errors.Forbidden:
-			error = 5
+		error = tryForbidden( message.channel.send,f"> currently tracking {toTrackName}")
+
 	elif(isAdmin and cmd == "say"):
 		resttxt = ""
 		for a in args[1:]:
 			resttxt += " "+a
-		try:
-			await message.channel.send(f"> {resttxt}")
-		except discord.errors.Forbidden:
-			error = 5
+		error = tryForbidden( message.channel.send,f"> {resttxt}")
 
 	elif (isAdmin and cmd == "setstatus"):
 		type = 1
@@ -169,10 +161,7 @@ async def commandHandler(message:discord.message,isAdmin:bool) -> int:
 		
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
 	elif(isAdmin and cmd == "reload"):
-		try:
-			await message.channel.send("> reloading ... [lets hope this goes fine]")
-		except discord.errors.Forbidden:
-			print("<couldnt send confirmation in channel but reload anyway>")
+		tryForbidden( message.channel.send,"> reloading ... [lets hope this goes fine]")
 		return 99
 	else:
 		error = 1
@@ -236,17 +225,17 @@ async def on_message(message:discord.message):
 
 	if(message.author.id == toTrackID and not isCommand):
 		print(message.content)
-		await message.add_reaction(confusedcat)
+		tryForbidden( message.add_reaction,confusedcat)
 		msgs.add_msg(message)
 
 	if(isCommand):
 		if(cmd in admin_cmds and not isAdmin):
-			await message.add_reaction(error_dict[4])
-			return
-		res = await commandHandler(message,isAdmin)
+			res = 4
+		else:
+			res = await commandHandler(message,isAdmin)
 		if(res == 99): #RELOAD
 			exit(0)
-		await message.add_reaction(error_dict[res])
+		tryForbidden( message.add_reaction,error_dict[res])
 		
 		
 
