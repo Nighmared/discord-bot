@@ -51,6 +51,7 @@ CMD_aliases = {
 	"ma":"msgarchive",
 	"ss":"setstatus",
 	"?":"help",
+	"rl":"reload",
 }
 
 reaction_text_dict = {
