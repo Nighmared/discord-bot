@@ -120,7 +120,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			error = await sendMsg(message.channel, embObj)
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
-			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY permlevel ASC, cmdname ASC''',raw=True)
+			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
 			final_cmd = []
 			for c in cmds:
 				if(c[3]<=permlevel):
@@ -301,6 +301,9 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 				await msg.delete()
 			except:
 				continue
+		
+	elif(cmd == "deepsleep" and perm_valid(cmd,permlevel)):
+		handler.set_to_misc("standby",(1,0)[int(handler.get_from_misc("standby"))])
 
 	else:
 		error = 1
@@ -338,7 +341,8 @@ async def on_message(message:discord.message):
 		4 : cope, #perms
 		5 : hahaa, #bot cant send here D;
 	}
-
+	if(int(handler.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
+		return
 
 
 	if(message.author.id == toTrackID and not isCommand):
