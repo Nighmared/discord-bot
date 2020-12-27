@@ -120,7 +120,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			error = await sendMsg(message.channel, embObj)
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
-			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1''',raw=True)
+			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY permlevel ASC, cmdname ASC''',raw=True)
 			final_cmd = []
 			for c in cmds:
 				if(c[3]<=permlevel):
