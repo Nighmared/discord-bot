@@ -147,7 +147,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			for c in cmds:
 				if(c[2]<=permlevel):
 					final_cmd.append((c[0],c[1]))
-			error = await tryForbidden(message.channel.send,str(final_cmd))
+			out = ""
+			for (cmdn,text) in final_cmd:
+				out+= f"- {cmdn} \t {text}\n"
+			error = await tryForbidden(message.channel.send,str(out))
 			
 
 	elif(cmd =="setcache" and perm_valid(cmd,permlevel)):
