@@ -47,6 +47,7 @@ help_super=f''' **ADMIN Commands**
 	- {PREFIX}setchangelog (scl) \t updates what changelog command returns
 	- {PREFIX}setversion (sv) \t set version
 	- {PREFIX}setperm (mp) \t allow or deny some command for some user
+	- {PREFIX}ac <cmdname> <permlevel> <help_text> <alias> <enabled = 0/1>
 	
 
 '''
@@ -188,7 +189,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		return 99
 
 	elif(cmd =="ac" and permlevel == 4):
-		handler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}")''')
+		handler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias","enabled") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}","{args[5]})''')
 
 	elif(cmd == "setperm" and perm_valid(cmd,permlevel)):
 		res = handler.set_perm(message.mentions[0], newpermlev=args[2])
