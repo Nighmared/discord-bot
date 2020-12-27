@@ -51,6 +51,6 @@ class dbhandler:
 		if len(res)>0:
 			out = ""
 			for r in res[0]:
-				out+= r+"\n"
+				out+= str(r)+"\n"
 			return out
 		else: return -10
