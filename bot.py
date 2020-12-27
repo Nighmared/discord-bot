@@ -106,7 +106,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		if(len(msgls)== ""):
 			error = 2
 		else:
-			embObj = discord.Embed(title="Tracker")
+			embObj = discord.Embed(title="Tracker",description=f"Recent messages by {msgls[0].author.nick}")
 			fieldStr = ""
 			for msg in msgls:
 				fieldStr+=f"{str(msg.created_at)[:-4]} {msg.author.nick}-> {msg.channel.name}: {msg.content[:100]}\n"
