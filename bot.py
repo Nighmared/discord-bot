@@ -225,7 +225,9 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif (cmd =="execsql" and perm_valid(cmd,permlevel)):
 		res = handler._execComm(message.content[(origlen+1):].strip())
 		if(res !=-10):
-			await sendMsg(message.channel,res)
+			embObj = discord.Embed(title="Query Result",color=0xf0f0f0)
+			embObj.add_field(name="Output",value=res)
+			await sendMsg(message.channel,embObj)
 	
 	elif(cmd == "reload" and perm_valid(cmd,permlevel)):
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=0x00ff00)
@@ -329,6 +331,8 @@ async def on_message(message:discord.message):
 		if(handler.shouldAnnoy()): await add_reaction( message,confusedcat)
 
 	if(isCommand):
+		if(len(last_MSG.content)>int(handler.get_from_misc("max_perm_msg_len"))):
+			await last_MSG.delete()
 		if not perm_valid(cmd,permlevel):
 			print("a")
 			res = 4
