@@ -229,6 +229,8 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			if(len(res)>1024):
 				res2 = res.split("\n")
 				for line in res2:
+					if(line.strip() == ""):
+						continue
 					firstelem = line.split(",")[0][1:]
 					embObj.add_field(name=firstelem,value=line[len(firstelem)+2:])
 			else:
