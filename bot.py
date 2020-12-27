@@ -122,7 +122,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 					final_cmd.append((c[0],c[1],c[2]))
 			embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=0xf0f000)
 			for (cmdn,text,alias) in final_cmd:
-				embObj.add_field(name=f'`{PREFIX}{cmdn}` (`{PREFIX}{alias}`)',description =f'{text.replace("_"," ")}',inline=True)
+				embObj.add_field(name=f'`{PREFIX}{cmdn}` (`{PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
 			error = await sendMsg(message.channel,embObj)
 
 	elif(cmd =="setversion" and perm_valid(cmd,permlevel)):
