@@ -205,7 +205,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		resttxt = ""
 		for a in args[1:]:
 			resttxt += " "+a
-		error = await sendMsg( message.channel.send,f" {resttxt}")
+		error = await sendMsg( message.channel,f" {resttxt}")
 
 	elif (cmd == "setstatus" and perm_valid(cmd,permlevel)):
 		type = 1
