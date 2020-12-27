@@ -28,7 +28,7 @@ class dbhandler:
 		self.cursor.execute(f'''SELECT * FROM users WHERE uid="{uid}"''')
 		exists = len(self.cursor.fetchall()) != 0
 		if(exists):
-			self.cursor.execute(f'''UPDATE users SET permlevel = "{newpermlev}" WHERE uid=="{uid}""''')
+			self.cursor.execute(f'''UPDATE users SET permlevel = "{newpermlev}" WHERE uid=="{uid}''')
 		else:
 			self.add_user(uid,name,newpermlev)
 		self.conn.commit()
