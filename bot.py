@@ -68,8 +68,20 @@ def perm_valid(cmd:str,permlevel:int) -> bool:
 	return permlevel>= handler.get_cmd_perm(cmd)
 
 
-async def superHandler(message:discord.message,cmd:str)->int:
-	return await tryForbidden(message.channel.send,f"{cmd} is WIP")
+async def sendMsg(channel,toSend):
+	print(type(toSend))
+	try:
+		await channel.send(emb=toSend)
+		return 0
+	except discord.errors.Forbidden:
+		return 5
+
+async def add_reaction(message, emote):
+	try:
+		await message.add_reaction(emote)
+		return 0
+	except discord.errors.Forbidden:
+		return 5
 
 async def tryForbidden(func,arg,msgsend=True):
 	try:
@@ -105,7 +117,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		if(txt.strip() == ""):
 			error = 2
 		else:
-			error = await tryForbidden(message.channel.send, msgs.sendable()[:2001])
+			error = await sendMsg(message.channel, msgs.sendable()[:2001])
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
 			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1''',raw=True)
@@ -116,7 +128,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			out = ""
 			for (cmdn,text,alias) in final_cmd:
 				out+= f'- {PREFIX}{cmdn} \t {text.replace("_"," ")} \t (°{alias})\n'
-			error = await tryForbidden(message.channel.send,str(out))
+			error = await sendMsg(message.channel,str(out))
 
 	elif(cmd =="setversion" and perm_valid(cmd,permlevel)):
 		try:
@@ -130,7 +142,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		out = ""
 		for id,title in res:
 			out+=f"{id}\t {title}\n"
-		error = await tryForbidden(message.channel.send,out)
+		error = await sendMsg(message.channel,out)
 
 	elif(cmd == "reloadissues" and perm_valid(cmd,permlevel)):
 		ls = issues.getIssues()
@@ -140,27 +152,27 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			for issue in ls:
 				handler.addIssue(issue)
 			
-			error = await tryForbidden(message.channel.send," > issues reloaded")
+			error = await sendMsg(message.channel," > issues reloaded")
 
 
 	elif(cmd =="setcache" and perm_valid(cmd,permlevel)):
 		try:
 			newLen = int(args[1])
 			newLen = msgs.set_len(newLen)
-			error = await tryForbidden( message.channel.send,f"> updated cache length to {newLen}")
+			error = await sendMsg( message.channel,f"> updated cache length to {newLen}")
 		except Exception:
 			error = 1
 	elif(cmd =="trackel"):
 		toTrackID = ELTHISIONID
 		toTrackName = "Aaron"
 		msgs.set_user(toTrackName)
-		error = await tryForbidden( message.channel.send,f'> updated tracked person')
+		error = await sendMsg( message.channel,f'> updated tracked person')
 	
 	elif(cmd =="endtrack" and perm_valid(cmd,permlevel)):
 		toTrackID = 0
 		toTrackName = "nobody"
 		msgs.set_user(toTrackName)
-		error = await tryForbidden(message.channel.send, '> stopped tracking')
+		error = await sendMsg(message.channel, '> stopped tracking')
 
 	elif(cmd == "settrack" and perm_valid(cmd,permlevel)):
 		try:
@@ -168,17 +180,17 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			toTrackID = user.id
 			toTrackName = user.nick
 			msgs.set_user(toTrackName)
-			error = await tryForbidden( message.channel.send,f"> updated tracked user to {toTrackName}")
+			error = await sendMsg( message.channel,f"> updated tracked user to {toTrackName}")
 		except IndexError:
 			error = 3
 		except Exception:
 			error = 1
 
 	elif(cmd == "gettrack" and perm_valid(cmd,permlevel)):
-		error = await tryForbidden( message.channel.send,f"> currently tracking {toTrackName}")
+		error = await sendMsg( message.channel,f"> currently tracking {toTrackName}")
 
 	elif(cmd == "changelog" and perm_valid(cmd,permlevel)):
-		error = await tryForbidden(message.channel.send,f'> {handler.get_from_misc("changelog")}')
+		error = await sendMsg(message.channel,f'> {handler.get_from_misc("changelog")}')
 
 	elif(cmd == "setchangelog" and perm_valid(cmd,permlevel)):
 		try:
@@ -192,7 +204,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		resttxt = ""
 		for a in args[1:]:
 			resttxt += " "+a
-		error = await tryForbidden( message.channel.send,f"> {resttxt}")
+		error = await sendMsg( message.channel.send,f"> {resttxt}")
 
 	elif (cmd == "setstatus" and perm_valid(cmd,permlevel)):
 		type = 1
@@ -213,10 +225,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif (cmd =="execsql" and perm_valid(cmd,permlevel)):
 		res = handler._execComm(message.content[(origlen+1):].strip())
 		if(res !=-10):
-			await tryForbidden(message.channel.send,res)
+			await sendMsg(message.channel,res)
 	
 	elif(cmd == "reload" and perm_valid(cmd,permlevel)):
-		await tryForbidden( message.channel.send,"> reloading ... [lets hope this goes fine]")
+		await sendMsg( message.channel,"> reloading ... [lets hope this goes fine]")
 		return 99
 
 	elif(cmd =="addcommand" and permlevel == 4):
@@ -227,7 +239,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "triggerannoy" and perm_valid(cmd,permlevel)):
 		handler.set_to_misc("annoyreaction", (not handler.shouldAnnoy()))
-		await tryForbidden(message.channel.send,f"> Turned reaction annoyance {('Off','On')[handler.shouldAnnoy()]}")
+		await sendMsg(message.channel,f"> Turned reaction annoyance {('Off','On')[handler.shouldAnnoy()]}")
 	
 	elif(cmd == "togglecmd" and perm_valid(cmd,permlevel)):
 		totogglecmd = ""
@@ -250,7 +262,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "testembed" and perm_valid(cmd,permlevel)):
 		emb = discord.Embed(title="title",description="descr",color=0x00ff00)
-		await tryForbidden(message.channel.send,emb)
+		await tryForbidden(message.channel,emb)
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
@@ -293,7 +305,7 @@ async def on_message(message:discord.message):
 	if(message.author.id == toTrackID and not isCommand):
 		#print(message.content)
 		msgs.add_msg(message)
-		if(handler.shouldAnnoy()): await tryForbidden( message.add_reaction,confusedcat,False)
+		if(handler.shouldAnnoy()): await add_reaction( message,confusedcat)
 
 	if(isCommand):
 		if not perm_valid(cmd,permlevel):
@@ -303,7 +315,7 @@ async def on_message(message:discord.message):
 			res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
-		await tryForbidden( message.add_reaction,error_dict[res],False)
+		await add_reaction( message,error_dict[res])
 		
 		
 
