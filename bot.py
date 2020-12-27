@@ -141,27 +141,27 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			for issue in ls:
 				handler.addIssue(issue)
 			
-			error = await sendMsg(message.channel," > issues reloaded")
+			error = await sendMsg(message.channel,"issues reloaded")
 
 
 	elif(cmd =="setcache" and perm_valid(cmd,permlevel)):
 		try:
 			newLen = int(args[1])
 			newLen = msgs.set_len(newLen)
-			error = await sendMsg( message.channel,f"> updated cache length to {newLen}")
+			error = await sendMsg( message.channel,f" updated cache length to {newLen}")
 		except Exception:
 			error = 1
 	elif(cmd =="trackel"):
 		toTrackID = ELTHISIONID
 		toTrackName = "Aaron"
 		msgs.set_user(toTrackName)
-		error = await sendMsg( message.channel,f'> updated tracked person')
+		error = await sendMsg( message.channel,f' updated tracked person')
 	
 	elif(cmd =="endtrack" and perm_valid(cmd,permlevel)):
 		toTrackID = 0
 		toTrackName = "nobody"
 		msgs.set_user(toTrackName)
-		error = await sendMsg(message.channel, '> stopped tracking')
+		error = await sendMsg(message.channel, ' stopped tracking')
 
 	elif(cmd == "settrack" and perm_valid(cmd,permlevel)):
 		try:
@@ -169,17 +169,17 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			toTrackID = user.id
 			toTrackName = user.nick
 			msgs.set_user(toTrackName)
-			error = await sendMsg( message.channel,f"> updated tracked user to {toTrackName}")
+			error = await sendMsg( message.channel,f" updated tracked user to {toTrackName}")
 		except IndexError:
 			error = 3
 		except Exception:
 			error = 1
 
 	elif(cmd == "gettrack" and perm_valid(cmd,permlevel)):
-		error = await sendMsg( message.channel,f"> currently tracking {toTrackName}")
+		error = await sendMsg( message.channel,f" currently tracking {toTrackName}")
 
 	elif(cmd == "changelog" and perm_valid(cmd,permlevel)):
-		error = await sendMsg(message.channel,f'> {handler.get_from_misc("changelog")}')
+		error = await sendMsg(message.channel,f' {handler.get_from_misc("changelog")}')
 
 	elif(cmd == "setchangelog" and perm_valid(cmd,permlevel)):
 		try:
@@ -193,7 +193,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		resttxt = ""
 		for a in args[1:]:
 			resttxt += " "+a
-		error = await sendMsg( message.channel.send,f"> {resttxt}")
+		error = await sendMsg( message.channel.send,f" {resttxt}")
 
 	elif (cmd == "setstatus" and perm_valid(cmd,permlevel)):
 		type = 1
@@ -217,7 +217,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			await sendMsg(message.channel,res)
 	
 	elif(cmd == "reload" and perm_valid(cmd,permlevel)):
-		await sendMsg( message.channel,"> reloading ... [lets hope this goes fine]")
+		await sendMsg( message.channel," reloading ... [lets hope this goes fine]")
 		return 99
 
 	elif(cmd =="addcommand" and permlevel == 4):
@@ -228,7 +228,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "triggerannoy" and perm_valid(cmd,permlevel)):
 		handler.set_to_misc("annoyreaction", (not handler.shouldAnnoy()))
-		await sendMsg(message.channel,f"> Turned reaction annoyance {('Off','On')[handler.shouldAnnoy()]}")
+		await sendMsg(message.channel,f" Turned reaction annoyance {('Off','On')[handler.shouldAnnoy()]}")
 	
 	elif(cmd == "togglecmd" and perm_valid(cmd,permlevel)):
 		totogglecmd = ""
