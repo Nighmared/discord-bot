@@ -75,11 +75,13 @@ async def sendMsg(channel,toSend):
 	try:
 		if(type(toSend) == discord.embeds.Embed):
 			last_MSG = await channel.send(embed=toSend)
+			print(last_MSG)
 		else:
 			embVar = discord.Embed(title="GOTTA FIX THIS CMD", description=toSend,color=0xff0000)
 			last_MSG = await channel.send(embed = embVar)
 		return 0
 	except discord.errors.Forbidden:
+		print("adf")
 		return 5
 
 async def add_reaction(message, emote):
