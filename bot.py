@@ -266,7 +266,7 @@ async def on_message(message:discord.message):
 	guild = message.guild
 	
 	isCommand = message.content.startswith(PREFIX)
-	permlevel = handler.get_perm_level(message.author.id)
+	permlevel = handler.get_perm_level(handler.find_alias(message.author.id))
 	isJoniii = message.author.id == SUDOID # for super cmds
 	if(isJoniii): permlevel = 4
 	cmd = message.content[1:].split(" ")[0]
