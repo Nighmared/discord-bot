@@ -48,7 +48,7 @@ class dbhandler:
 		return self.cursor.fetchall()[0][0]
 
 	def set_to_misc(self,key,value):
-		self.cursor.execute(f'''update misc value="{value}" where key=="{key}"''')
+		self.cursor.execute(f'''update misc SET value="{value}" where key=="{key}"''')
 	
 	def _execComm(self,command:str):
 		self.cursor.execute(command)
