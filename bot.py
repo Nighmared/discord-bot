@@ -188,7 +188,11 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		error = await tryForbidden(message.channel.send,f'> {handler.get_from_misc("changelog")}')
 
 	elif(cmd == "setchangelog" and perm_valid(cmd,permlevel)):
-		handler.set_to_misc("changelog",args[1])
+		try:
+			handler.set_to_misc("changelog",args[1])
+			error = 0
+		except:
+			error = 1
 
 	elif(cmd == "say" and perm_valid(cmd,permlevel)):
 		resttxt = ""
