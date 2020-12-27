@@ -252,7 +252,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif(cmd == "testembed" and perm_valid(cmd,permlevel)):
 		emb = discord.Embed(title="title",description="descr",color=0x00ff00)
 		emb.add_field(name="test1",value="val1",inline=False)
-		emb.add_field(name="test2", value="val2", inline = True)
+		emb.add_field(name="", value="val2", inline = True)
 		await sendMsg(message.channel,emb)
 	else:
 		error = 1
