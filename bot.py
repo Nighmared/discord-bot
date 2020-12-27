@@ -268,6 +268,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			arg = int(args[1])
 			handler.fixissue(arg)
 		except IndexError:
+			print(args)
 			error = 3
 		except:
 			error = 2
