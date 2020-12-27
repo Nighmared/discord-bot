@@ -21,8 +21,8 @@ class msglist:
 			self.ls.pop(0)
 		res = ""
 		for msg in self.ls:
-			res += f"> {msg.created_at} {self.uName} > {msg.content[:100]}"
+			res += f"{msg.created_at} {self.uName} > {msg.content[:100]}"
 			res+="\n"
 		return res
 	def sendable(self):
-		return self.__repr__()
+		return self.ls

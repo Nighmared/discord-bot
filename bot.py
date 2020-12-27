@@ -102,10 +102,12 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	error = 0
 
 	if(cmd == "msgarchive" and perm_valid(cmd,permlevel)):
-		txt = msgs.sendable()
-		if(txt.strip() == ""):
+		msgls = msgs.sendable()
+		if(len(msgls)== ""):
 			error = 2
 		else:
+			embObj = discord.Embed(title="Tracker")
+
 			error = await sendMsg(message.channel, msgs.sendable()[:2001])
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
