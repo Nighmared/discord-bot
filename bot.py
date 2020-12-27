@@ -73,6 +73,8 @@ async def superHandler(message:discord.message,cmd:str)->int:
 
 async def tryForbidden(func,arg):
 	try:
+		if(func == discord.channel.send):
+			print("a")
 		await func(arg)
 		return 0
 	except discord.errors.Forbidden:
