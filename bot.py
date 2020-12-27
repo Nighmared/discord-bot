@@ -240,7 +240,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif(cmd == "togglecmd" and perm_valid(cmd,permlevel)):
 		totogglecmd = ""
 		try:
-			totogglecmd = args[1]
+			totogglecmd = handler.find_alias(args[1])
 			handler._execComm(f'''UPDATE commands SET enabled={(1,0)[handler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
 		except IndexError:
 			error = 3
