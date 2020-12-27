@@ -89,6 +89,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	cmd = handler.find_alias(cmd)
 	if not handler.cmd_is_enabled(cmd):
 		error = 4
+		print(f"disabled cmd: {cmd}")
 		return error
 	error = 0
 
@@ -201,6 +202,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			if(len(splitbyquot)==3 and splitbyquot[2].isnumeric()):
 				type = int(splitbyquot[2])
 		await client.change_presence(activity=discord.Activity(name=stringarg,type= type))
+	
 	elif (cmd =="execsql" and perm_valid(cmd,permlevel)):
 		res = handler._execComm(message.content[(origlen+1):].strip())
 		if(res !=-10):
@@ -219,16 +221,21 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif(cmd == "triggerannoy" and perm_valid(cmd,permlevel)):
 		handler.set_to_misc("annoyreaction", (not handler.shouldAnnoy()))
 		await tryForbidden(message.channel.send,f"> Turned reaction annoyance {('Off','On')[handler.shouldAnnoy()]}")
+	
+	elif(cmd == "togglecmd" and perm_valid(cmd,permlevel)):
+		totogglecmd = ""
+		try:
+			totogglecmd = args[1]
+			handler._execComm(f'''UPDATE commands SET enabled={(1,0)[handler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
+		except IndexError:
+			error = 3
+		except:
+			error = 2
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
 			error = 4
 	return error
-
-
-def getEmoji(guild,name):
-	return discord.utils.get(guild.emojis,name=name)
-
 
 @client.event
 async def on_ready():
