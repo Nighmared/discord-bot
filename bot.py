@@ -125,7 +125,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		if(txt.strip() == ""):
 			error = 2
 		else:
-			error = await tryForbidden(message.channel.send, msgs.sendable())
+			error = await tryForbidden(message.channel.send, msgs.sendable()[:2001])
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
 			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1''',raw=True)
