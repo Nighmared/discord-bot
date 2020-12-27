@@ -236,7 +236,6 @@ async def on_message(message:discord.message):
 
 	guild = message.guild
 	
-	print(cope._s)
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = handler.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID # for super cmds
