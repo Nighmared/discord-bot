@@ -236,7 +236,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		res = handler.set_perm(message.mentions[0], newpermlev=args[2])
 	
 	elif(cmd == "triggerannoy" and perm_valid(cmd,permlevel)):
-		handler.set_to_misc("annoyreaction", not handler.shouldAnnoy())
+		handler.set_to_misc("annoyreaction", (not handler.shouldAnnoy()))
 		await tryForbidden(message.channel.send,f"> Turned reaction annoyance {('Off','On')[handler.shouldAnnoy()]}")
 	else:
 		error = 1
