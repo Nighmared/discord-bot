@@ -107,6 +107,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			error = 2
 		else:
 			embObj = discord.Embed(title="Tracker")
+			fieldStr = ""
+			for msg in msgls:
+				fieldStr+=f"{str(msg.created_at)[:-4]} {msg.author.nick}-> {msg.channel.name}: {msg.content[:100]}\n"
+			embObj.add_field(name="Messagehistory",value=fieldStr,inline=True)
 
 			error = await sendMsg(message.channel, embObj)
 
