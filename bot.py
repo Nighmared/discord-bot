@@ -3,7 +3,7 @@ from re import split
 import discord
 import msglist
 import dbhandler
-from sys import exit, tracebacklimit
+from sys import exit
 
 
 
