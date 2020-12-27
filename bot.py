@@ -6,6 +6,7 @@ import dbhandler
 from sys import exit
 
 
+
 TOKEN = open(".token.txt").read()
 
 SUDOID = 291291715598286848
@@ -18,6 +19,19 @@ PREFIX = "°"
 msgs = msglist.msglist(5,toTrackName)
 
 client = discord.Client()
+
+
+#EMOJIS
+pepelove = client.get_emoji(792668124322201610)
+pepegun = client.get_emoji(792668155616952320)
+confusedcat = client.get_emoji(792668214185164811)
+hm = client.get_emoji(792668245973925919)
+cope = client.get_emoji(792668283505475584)
+c_yfu = client.get_emoji(792668458281730059)
+hahaa = client.get_emoji(747783377536680066)
+########
+
+
 
 handler = dbhandler.dbhandler("discordbot.db")
 
@@ -218,17 +232,11 @@ async def on_message(message:discord.message):
 		return
 
 	#allow only one server
-	if(message.guild.id != ALLOWEDGUILD):
-		return
+#	if(message.guild.id != ALLOWEDGUILD):return
 
 	guild = message.guild
-	pepelove = getEmoji(guild,"pepelove")
-	pepegun = getEmoji(guild,"pepegun")
-	confusedcat = getEmoji(guild,"confusedcat")
-	hm = getEmoji(guild,"hm")
-	cope = getEmoji(guild,"wojak_cope")
-	c_yfu = getEmoji(guild,"code_youfuckedup")
-	hahaa = getEmoji(guild,"haHaa")
+	
+	print(cope._s)
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = handler.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID # for super cmds
