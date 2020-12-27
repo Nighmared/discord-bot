@@ -280,7 +280,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		if(last_MSG == None):
 			error = 3
 		else:
-			last_MSG.delete()
+			await last_MSG.delete()
 			last_MSG = None
 			error = 0
 
