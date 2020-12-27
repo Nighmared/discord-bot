@@ -75,4 +75,5 @@ class dbhandler:
 	def shouldAnnoy(self)->bool:
 		self.cursor.execute('''SELECT value FROM misc WHERE key=="annoyreaction"''')
 		res = self.cursor.fetchall()[0][0]
+		print(res)
 		return (int(res)>0)
