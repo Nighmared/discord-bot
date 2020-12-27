@@ -10,6 +10,8 @@ from sys import exit
 
 TOKEN = open(".token.txt").read()
 
+last_MSG = None
+
 SUDOID = 291291715598286848
 toTrackID = 0
 toTrackName = "nobody"
@@ -69,14 +71,13 @@ def perm_valid(cmd:str,permlevel:int) -> bool:
 
 
 async def sendMsg(channel,toSend):
-	print(type(toSend))
+	global last_MSG
 	try:
 		if(type(toSend) == discord.embeds.Embed):
 			await channel.send(embed=toSend)
 		else:
 			embVar = discord.Embed(title="GOTTA FIX THIS CMD", description=toSend,color=0xff0000)
-			a = await channel.send(embed = embVar)
-			print("\n"*3,a,"\n"*2)
+			last_MSG = await channel.send(embed = embVar)
 		return 0
 	except discord.errors.Forbidden:
 		return 5
@@ -92,6 +93,7 @@ async def add_reaction(message, emote):
 async def commandHandler(message:discord.message,permlevel:int) -> int:
 	global toTrackID
 	global toTrackName
+	global last_MSG
 	args = message.content[1:].split(" ")
 	cmd = args[0]
 	origlen = len(cmd)
@@ -271,6 +273,15 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		embObj.add_field(name="Version",value=handler.get_from_misc("version"), inline=False)
 		embObj.add_field(name="Uptime",value="--")
 		error = await sendMsg(message.channel,embObj)
+	
+	elif(cmd == "deletelast" and perm_valid(cmd,permlevel)):
+		if(last_MSG == None):
+			error = 4
+		else:
+			last_MSG.delete()
+			last_MSG = None
+			error = 0
+
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
