@@ -142,9 +142,8 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			error = await tryForbidden(message.channel.send, msgs.sendable())
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
-			if(len(args)>1):
-				if(args[1] in cmd_help_dict.keys()):
-					error = await tryForbidden(message.channel.send,cmd_help_dict[args[1]])
+			if(len(args)>1 and args[1] in cmd_help_dict.keys()):
+				error = await tryForbidden(message.channel.send,cmd_help_dict[args[1]])
 			else:
 				txt = help_string
 				if(permlevel>=1):

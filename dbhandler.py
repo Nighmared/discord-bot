@@ -16,7 +16,7 @@ class dbhandler:
 
 	def add_user(self,uid:int, name:str, permlev:int):
 
-		print(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},"{name}")''')
+		#print(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},"{name}")''')
 		self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES("{uid}","{permlev}","{name}")''')
 		self.conn.commit()
 		return 0
@@ -36,11 +36,11 @@ class dbhandler:
 	
 	def get_cmd_perm(self,cmd):
 		try:
-			print(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd} ''')
+			#print(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd} ''')
 			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')	
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
-			print("frick cmd not added")
+			print("frick cmd not added",cmd)
 			res = 4
 		return res
 	
@@ -49,5 +49,8 @@ class dbhandler:
 		self.conn.commit()
 		res = self.cursor.fetchall()
 		if len(res)>0:
-			return res
+			out = ""
+			for r in res[0]:
+				out+= r+"\n"
+			return out
 		else: return -10
