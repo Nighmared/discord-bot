@@ -226,7 +226,13 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		res = handler._execComm(message.content[(origlen+1):].strip())
 		if(res !=-10):
 			embObj = discord.Embed(title="Query Result",color=0xf0f0f0)
-			embObj.add_field(name="Output",value=res)
+			if(len(res)>1024):
+				res2 = res.split("\n")
+				for line in res2:
+					firstelem = line.split(",")[0][1:]
+					embObj.add_field(name=firstelem,value=line[len(firstelem)+2:])
+			else:
+				embObj.add_field(name="Output",value=res)
 			await sendMsg(message.channel,embObj)
 	
 	elif(cmd == "reload" and perm_valid(cmd,permlevel)):
