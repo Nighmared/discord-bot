@@ -22,13 +22,13 @@ client = discord.Client()
 
 
 #EMOJIS
-pepelove = client.get_emoji(792668124322201610)
-pepegun = client.get_emoji(792668155616952320)
-confusedcat = client.get_emoji(792668214185164811)
-hm = client.get_emoji(792668245973925919)
-cope = client.get_emoji(792668283505475584)
-c_yfu = client.get_emoji(792668458281730059)
-hahaa = client.get_emoji(747783377536680066)
+pepelove = "<:pepelove:778369435244429344>"
+pepegun = "<:pepegun:747783377716904008>"
+confusedcat = "<:confusedcat:771041402930987068>"
+hm = "<:hm:779012743583498240>"
+cope = "<:wojak_cope:792668283505475584>"
+c_yfu = "<:code_youfuckedup:785435875030728724>"
+hahaa = "<:haHaa:747783377536680066>"
 ########
 
 
