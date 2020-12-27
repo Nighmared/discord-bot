@@ -71,7 +71,7 @@ def perm_valid(cmd:str,permlevel:int) -> bool:
 async def superHandler(message:discord.message,cmd:str)->int:
 	return await tryForbidden(message.channel.send,f"{cmd} is WIP")
 
-async def tryForbidden(func,arg,msgsend=False):
+async def tryForbidden(func,arg,msgsend=True):
 	try:
 		if(msgsend):
 			if(type(arg)==discord.Embed):
@@ -293,7 +293,7 @@ async def on_message(message:discord.message):
 	if(message.author.id == toTrackID and not isCommand):
 		#print(message.content)
 		msgs.add_msg(message)
-		if(handler.shouldAnnoy()): await tryForbidden( message.add_reaction,confusedcat)
+		if(handler.shouldAnnoy()): await tryForbidden( message.add_reaction,confusedcat,False)
 
 	if(isCommand):
 		if not perm_valid(cmd,permlevel):
@@ -303,7 +303,7 @@ async def on_message(message:discord.message):
 			res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
-		await tryForbidden( message.add_reaction,error_dict[res])
+		await tryForbidden( message.add_reaction,error_dict[res],False)
 		
 		
 
