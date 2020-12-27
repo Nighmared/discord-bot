@@ -13,4 +13,5 @@ def getIssues()->list:
 		out = []
 		for issue in res:
 			out.append((issue["number"],issue["title"]))
-		return out.sort()
+		out.sort()
+		return out
