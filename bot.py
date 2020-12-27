@@ -74,7 +74,7 @@ async def sendMsg(channel,toSend):
 	global last_MSG
 	try:
 		if(type(toSend) == discord.embeds.Embed):
-			await channel.send(embed=toSend)
+			last_MSG = await channel.send(embed=toSend)
 		else:
 			embVar = discord.Embed(title="GOTTA FIX THIS CMD", description=toSend,color=0xff0000)
 			last_MSG = await channel.send(embed = embVar)
