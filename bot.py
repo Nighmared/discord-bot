@@ -321,7 +321,7 @@ async def on_message(message:discord.message):
 	
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = handler.get_perm_level(message.author.id)
-	isJoniii = message.author.id == SUDOID # for super cmds
+	isJoniii = message.author.id == SUDOID #hardcode that sucker
 	if(isJoniii): permlevel = 5
 	cmd = handler.find_alias(message.content[1:].split(" ")[0].lower())
 
@@ -350,6 +350,7 @@ async def on_message(message:discord.message):
 		else:
 			res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
+			message.delete(delay=0.5)
 			exit(0)
 		await add_reaction( message,error_dict[res])
 		await message.delete(delay=3)
