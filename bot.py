@@ -184,6 +184,9 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif(cmd == "gettrack" and perm_valid(cmd,permlevel)):
 		error = await tryForbidden( message.channel.send,f"> currently tracking {toTrackName}")
 
+	elif(cmd == "changelog" and perm_valid(cmd,permlevel)):
+		error = await tryForbidden(message.channel.send, handler.get_from_misc(args[1]))
+
 	elif(cmd == "say" and perm_valid(cmd,permlevel)):
 		resttxt = ""
 		for a in args[1:]:
