@@ -3,6 +3,7 @@ from re import split
 import discord
 import msglist
 import dbhandler
+import issues
 from sys import exit
 
 
@@ -51,22 +52,6 @@ help_string = f'''
 
 addedEmotesToHelp = False
 
-help_super=f''' **ADMIN Commands**
-	- {PREFIX}settrack (st) \t sets which user to track
-	- {PREFIX}setcache (sc) \t sets how many msgs are cached
-	- {PREFIX}gettrack (gt) \t show currently tracked user
-	- {PREFIX}say \t say something
-	- {PREFIX}setstatus (ss) \t sets activity of bot
-	- {PREFIX}reload (rl) \t restarts bot and pulls fresh copy
-	
-	**Exclusive joniii commands**
-	- {PREFIX}setchangelog (scl) \t updates what changelog command returns
-	- {PREFIX}setversion (sv) \t set version
-	- {PREFIX}setperm (mp) \t allow or deny some command for some user
-	- {PREFIX}ac <cmdname> <permlevel> <help_text> <alias> <enabled = 0/1>
-	
-
-'''
 
 reaction_text_dict = {
 	0:"Everything gud",
@@ -102,6 +87,9 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	cmd = args[0]
 	origlen = len(cmd)
 	cmd = handler.find_alias(cmd)
+	if not handler.cmd_is_enabled(cmd):
+		error = 4
+		return error
 	error = 0
 
 	if(cmd == "msgarchive" and perm_valid(cmd,permlevel)):
@@ -121,7 +109,31 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			for (cmdn,text,alias) in final_cmd:
 				out+= f'- {PREFIX}{cmdn} \t {text.replace("_"," ")} \t (°{alias})\n'
 			error = await tryForbidden(message.channel.send,str(out))
+
+	elif(cmd =="setversion" and perm_valid(cmd,permlevel)):
+		try:
+			handler.set_to_misc("version",args[1])
+			error = 0
+		except:
+			error = 1	
+	
+	elif(cmd == "showissues" and perm_valid(cmd,permlevel)):
+		res = handler._execComm("select * from issues",True)
+		out = ""
+		for id,title in res:
+			out+=f"{id}\t {title}\n"
+		error = await tryForbidden(message.channel.send,out)
+
+	elif(cmd == "reloadissues" and perm_valid(cmd,permlevel)):
+		ls = issues.getIssues()
+		if ls[0][0] == -1:
+			error = 1
+		else:
+			for issue in ls:
+				handler.addIssue(issue)
 			
+			error = await tryForbidden(message.channel.send," > issues reloaded")
+
 
 	elif(cmd =="setcache" and perm_valid(cmd,permlevel)):
 		try:

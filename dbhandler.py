@@ -48,7 +48,7 @@ class dbhandler:
 		return self.cursor.fetchall()[0][0]
 
 	def set_to_misc(self,key,value):
-		self.cursor.execute(f'''update misc SET value="{value.replace("_"," ")}" where key=="{key}"''')
+		self.cursor.execute(f'''update misc SET value="{str(value).replace("_"," ")}" where key=="{key}"''')
 		self.conn.commit()
 	
 	def find_alias(self, shortcut:str)->str:
@@ -76,3 +76,17 @@ class dbhandler:
 		res = self.get_from_misc("annoyreaction")
 		
 		return(res.strip() == "True")
+
+	def addIssue(self,issueTuple):
+		id,title = issueTuple
+		self.cursor.execute(f'''SELECT * FROM issues WHERE id=={id}''')
+		res = self.cursor.fetchall()
+		if(len(res) == 0):
+			self.cursor.execute(f'''INSERT INTO issues(id,title) VALUES({id},"{title}")''')
+		self.conn.commit()
+	
+
+	def cmd_is_enabled(self,cmd:str)->bool:
+		self.cursor.execute(f'''select enabled from commands where cmdname=="{cmd}"''')
+		enabled = int(self.cursor.fetchall())>0
+		return enabled
