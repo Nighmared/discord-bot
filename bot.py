@@ -75,7 +75,8 @@ async def sendMsg(channel,toSend):
 			await channel.send(embed=toSend)
 		else:
 			embVar = discord.Embed(title="GOTTA FIX THIS CMD", description=toSend,color=0xff0000)
-			await channel.send(embed = embVar)
+			a = await channel.send(embed = embVar)
+			print("\n"*3,a,"\n"*2)
 		return 0
 	except discord.errors.Forbidden:
 		return 5
