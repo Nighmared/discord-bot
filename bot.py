@@ -143,7 +143,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
 			cmds = handler._execComm('''SELECT cmdname,helptext from commands where enabled==1''',True)
-			error = tryForbidden(message.channel.send,str(cmds))
+			error = await tryForbidden(message.channel.send,str(cmds))
 
 	elif(cmd =="setcache" and perm_valid(cmd,permlevel)):
 		try:
