@@ -159,11 +159,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		except Exception:
 			error = 1
 	elif(cmd =="trackel"):
-		try:
-			toTrackID = ELTHISIONID
-			toTrackName = "Aaron"
-			msgs.set_user(toTrackName)
-			error = await tryForbidden( message.channel.send,f'> updated tracked person')
+		toTrackID = ELTHISIONID
+		toTrackName = "Aaron"
+		msgs.set_user(toTrackName)
+		error = await tryForbidden( message.channel.send,f'> updated tracked person')
 	
 	elif(cmd =="endtrack" and perm_valid(cmd,permlevel)):
 		toTrackID = 0
