@@ -97,7 +97,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	global toTrackName
 	global last_MSG
 	args = message.content[1:].split(" ")
-	cmd = args[0]
+	cmd = args[0].lower()
 	origlen = len(cmd)
 	cmd = handler.find_alias(cmd)
 	if not handler.cmd_is_enabled(cmd):
@@ -294,6 +294,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			await last_MSG.pop().delete()
 			error = 0
 
+	elif(cmd == "deleteall" and perm_valid(cmd,permlevel)):
+		for msg in last_MSG:
+			await msg.delete()
+
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
@@ -318,8 +322,8 @@ async def on_message(message:discord.message):
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = handler.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID # for super cmds
-	if(isJoniii): permlevel = 4
-	cmd = handler.find_alias(message.content[1:].split(" ")[0])
+	if(isJoniii): permlevel = 5
+	cmd = handler.find_alias(message.content[1:].split(" ")[0].lower())
 
 
 	error_dict = {
