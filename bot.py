@@ -1,7 +1,6 @@
 from logging import error
 from re import split
 import discord
-from discord.enums import _is_descriptor
 import msglist
 import dbhandler
 import issues
