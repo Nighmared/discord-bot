@@ -124,6 +124,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			for (cmdn,text,alias) in final_cmd:
 				out+= f' `{PREFIX}{cmdn}`` \t {text.replace("_"," ")} \t (`°{alias}``)\n'
 			embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=0xf0f000)
+			print(len(out))
 			embObj.add_field(name="Commands",value=out,inline=False)
 			error = await sendMsg(message.channel,embObj)
 
