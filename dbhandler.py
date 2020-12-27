@@ -50,7 +50,7 @@ class dbhandler:
 		res = self.cursor.fetchall()
 		if len(res)>0:
 			out = ""
-			for r in res[0]:
+			for r in res:
 				out+= str(r)+"\n"
 			return out
 		else: return -10
