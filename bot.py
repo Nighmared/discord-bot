@@ -270,8 +270,6 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		except IndexError:
 			print(args)
 			error = 3
-		except:
-			error = 2
 	
 	elif(cmd == "testembed" and perm_valid(cmd,permlevel)):
 		emb = discord.Embed(title="title",description="descr",color=0x00ff00)
