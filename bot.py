@@ -191,7 +191,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		error = await sendMsg( message.channel,f" currently tracking {toTrackName}")
 
 	elif(cmd == "changelog" and perm_valid(cmd,permlevel)):
-		embObj = discord.Embed(title="Latest Changes",_description=handler.get_from_misc("changelog"),color=0xaaaa00)
+		embObj = discord.Embed(title="Latest Changes",description=handler.get_from_misc("changelog"),color=0xaaaa00)
 		error = await sendMsg(message.channel,embObj)
 
 	elif(cmd == "setchangelog" and perm_valid(cmd,permlevel)):
