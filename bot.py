@@ -71,12 +71,17 @@ def perm_valid(cmd:str,permlevel:int) -> bool:
 async def superHandler(message:discord.message,cmd:str)->int:
 	return await tryForbidden(message.channel.send,f"{cmd} is WIP")
 
-async def tryForbidden(func,arg):
+async def tryForbidden(func,arg,msgsend=False):
 	try:
-		if(func == discord.TextChannel.send):
-			print("a")
-		await func(arg)
-		return 0
+		if(msgsend):
+			if(type(arg)==discord.Embed):
+				await func(embed=arg)
+			else:
+				tmpemb = discord.Embed(title="GOT WORK TO DO",description=arg,color=0xff0000)
+				await func(embed=arg)
+		else:
+			await func(arg)
+			return 0
 	except discord.errors.Forbidden:
 		#print("forbidden uwu")
 		return 50
