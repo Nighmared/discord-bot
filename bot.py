@@ -71,7 +71,10 @@ def perm_valid(cmd:str,permlevel:int) -> bool:
 async def sendMsg(channel,toSend):
 	print(type(toSend))
 	try:
-		await channel.send(emb=toSend)
+		if(type(toSend) == discord.embeds.Embed):
+			await channel.send(embed=toSend)
+		else:
+			await channel.send(toSend+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 		return 0
 	except discord.errors.Forbidden:
 		return 5
@@ -82,21 +85,6 @@ async def add_reaction(message, emote):
 		return 0
 	except discord.errors.Forbidden:
 		return 5
-
-async def tryForbidden(func,arg,msgsend=True):
-	try:
-		if(msgsend):
-			if(type(arg)==discord.Embed):
-				await func(embed=arg)
-			else:
-				tmpemb = discord.Embed(title="GOT WORK TO DO",description=arg,color=0xff0000)
-				await func(embed=arg)
-		else:
-			await func(arg)
-			return 0
-	except discord.errors.Forbidden:
-		#print("forbidden uwu")
-		return 50
 
 #TODO: DB for admins, current tracker etc !!
 async def commandHandler(message:discord.message,permlevel:int) -> int:
