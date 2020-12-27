@@ -331,16 +331,13 @@ async def on_message(message:discord.message):
 
 	if(isCommand):
 		if(len(last_MSG)>0 and len(last_MSG[-1].embeds[0])>int(handler.get_from_misc("max_perm_msg_len"))):
-			print("trydel")
 			await last_MSG.pop().delete()
 		if not perm_valid(cmd,permlevel):
-			print("a")
 			res = 4
 		else:
 			res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
-		print(res)
 		await add_reaction( message,error_dict[res])
 		
 		
