@@ -232,7 +232,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 					if(line.strip() == ""):
 						continue
 					firstelem = line.split(",")[0][1:]
-					embObj.add_field(name=firstelem,value=line[len(firstelem)+2:])
+					embObj.add_field(name=firstelem,value=line[len(firstelem)+2:],inline=False)
 			else:
 				embObj.add_field(name="Output",value=res)
 			await sendMsg(message.channel,embObj)
