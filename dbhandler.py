@@ -86,7 +86,6 @@ class dbhandler:
 		self.conn.commit()
 	
 	def fixissue(self,id:int):
-		print("HIIII")
 		self.cursor.execute(f'''DELETE FROM issues WHERE id=={id}''')
 
 	def cmd_is_enabled(self,cmd:str)->bool:
