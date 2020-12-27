@@ -8,9 +8,11 @@ from sys import exit
 
 
 
+
+
 TOKEN = open(".token.txt").read()
 
-last_MSG = None
+last_MSG = []
 
 SUDOID = 291291715598286848
 toTrackID = 0
@@ -74,14 +76,12 @@ async def sendMsg(channel,toSend):
 	global last_MSG
 	try:
 		if(type(toSend) == discord.embeds.Embed):
-			last_MSG = await channel.send(embed=toSend)
-			print(last_MSG)
+			last_MSG.append(await channel.send(embed=toSend))
 		else:
 			embVar = discord.Embed(title="GOTTA FIX THIS CMD", description=toSend,color=0xff0000)
-			last_MSG = await channel.send(embed = embVar)
+			last_MSG.append(await channel.send(embed = embVar))
 		return 0
 	except discord.errors.Forbidden:
-		print("adf")
 		return 5
 
 async def add_reaction(message, emote):
@@ -279,11 +279,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		error = await sendMsg(message.channel,embObj)
 	
 	elif(cmd == "deletelast" and perm_valid(cmd,permlevel)):
-		if(last_MSG == None):
+		if(len(last_MSG) == 0):
 			error = 3
 		else:
-			await last_MSG.delete()
-			last_MSG = None
+			await last_MSG.pop().delete()
 			error = 0
 
 	else:
@@ -331,8 +330,9 @@ async def on_message(message:discord.message):
 		if(handler.shouldAnnoy()): await add_reaction( message,confusedcat)
 
 	if(isCommand):
-		if(last_MSG != None and len(last_MSG.content)>int(handler.get_from_misc("max_perm_msg_len"))):
-			await last_MSG.delete()
+		print(len(last_MSG[-1].content),"\n",int(handler.get_from_misc("max_perm_msg_len")))
+		if(len(last_MSG)>0 and len(last_MSG[-1].content)>int(handler.get_from_misc("max_perm_msg_len"))):
+			await last_MSG.pop().delete()
 		if not perm_valid(cmd,permlevel):
 			print("a")
 			res = 4
