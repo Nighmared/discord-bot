@@ -85,6 +85,8 @@ class dbhandler:
 			self.cursor.execute(f'''INSERT INTO issues(id,title) VALUES({id},"{title}")''')
 		self.conn.commit()
 	
+	def fixissue(self,id:int):
+		self.cursor.execute('''DELETE FROM issues WHERE id=={id}''')
 
 	def cmd_is_enabled(self,cmd:str)->bool:
 		self.cursor.execute(f'''select enabled from commands where cmdname=="{cmd}"''')

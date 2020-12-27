@@ -231,6 +231,15 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			error = 3
 		except:
 			error = 2
+	
+	elif(cmd == "fixissue" and perm_valid(cmd,permlevel)):
+		try:
+			arg = args[1]
+			handler.fixissue(arg)
+		except IndexError:
+			error = 3
+		except:
+			error = 2
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
@@ -244,7 +253,6 @@ async def on_ready():
 @client.event
 async def on_message(message:discord.message):
 	global addedEmotesToHelp
-	global help_string
 
 	#block bots
 	if(message.author.bot):
@@ -268,11 +276,6 @@ async def on_message(message:discord.message):
 		4 : cope, #perms
 		5 : hahaa, #bot cant send here D;
 	}
-
-	if not addedEmotesToHelp:
-		addedEmotesToHelp = True
-		for key in error_dict.keys():
-			help_string+=f"{error_dict[key]}\t{reaction_text_dict[key]}\n"
 
 
 
