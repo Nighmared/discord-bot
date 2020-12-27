@@ -94,19 +94,6 @@ reaction_text_dict = {
 }
 
 
-cmd_help_dict = {
-	"setstatus":'''
-	> sets status
-	`°setstatus "newstatus" [type]`
-	types:
-	 1 -> playing <status>
-	 2 -> listening to <status>
-	 3 -> watching <status>
-	 4 -> 
-	 5 -> competing in <status>'''
-}
-admin_cmds = ("setstatus","setcache","gettrack","say","settrack","reload")
-
 
 def perm_valid(cmd:str,permlevel:int) -> bool:
 	return permlevel>= handler.get_cmd_perm(cmd)
@@ -266,7 +253,7 @@ async def on_message(message:discord.message):
 	guild = message.guild
 	
 	isCommand = message.content.startswith(PREFIX)
-	permlevel = handler.get_perm_level(handler.find_alias(message.author.id))
+	permlevel = handler.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID # for super cmds
 	if(isJoniii): permlevel = 4
 	cmd = message.content[1:].split(" ")[0]
