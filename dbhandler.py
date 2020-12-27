@@ -74,4 +74,5 @@ class dbhandler:
 	
 	def shouldAnnoy(self)->bool:
 		res = self.get_from_misc("annoyreaction")
+		print(res,bool(res))
 		return(bool(res))
