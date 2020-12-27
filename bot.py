@@ -350,7 +350,7 @@ async def on_message(message:discord.message):
 		else:
 			res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
-			await message.delete(delay=0.5)
+			await message.delete()
 			exit(0)
 		await add_reaction( message,error_dict[res])
 		await message.delete(delay=3)
