@@ -108,7 +108,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		else:
 			embObj = discord.Embed(title="Tracker")
 
-			error = await sendMsg(message.channel, msgs.sendable()[:2001])
+			error = await sendMsg(message.channel, embObj)
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
 			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1''',raw=True)
