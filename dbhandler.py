@@ -50,6 +50,14 @@ class dbhandler:
 	def set_to_misc(self,key,value):
 		self.cursor.execute(f'''update misc SET value="{value}" where key=="{key}"''')
 	
+	def find_alias(self, shortcut:str)->str:
+		self.cursor.execute(f'''SELECT cmdname FROM commands WHERE alias=="{shortcut}"''')
+		res = self.cursor.fetchall()
+		if(len(res)==0):
+			return None
+		else:
+			return shortcut
+
 	def _execComm(self,command:str, raw=False):
 		self.cursor.execute(command)
 		self.conn.commit()

@@ -130,8 +130,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	args = message.content[1:].split(" ")
 	cmd = args[0]
 	origlen = len(cmd)
-	if(cmd in CMD_aliases.keys()):
-		cmd = CMD_aliases[cmd]
+	cmd = handler.find_alias(cmd)
 	error = 0
 
 	if(cmd == "msgarchive" and perm_valid(cmd,permlevel)):
@@ -142,14 +141,14 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			error = await tryForbidden(message.channel.send, msgs.sendable())
 
 	elif(cmd == "help" and perm_valid(cmd,permlevel)):
-			cmds = handler._execComm('''SELECT cmdname,helptext,permlevel from commands where enabled==1''',True)
+			cmds = handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1''',raw=True)
 			final_cmd = []
 			for c in cmds:
-				if(c[2]<=permlevel):
-					final_cmd.append((c[0],c[1]))
+				if(c[3]<=permlevel):
+					final_cmd.append((c[0],c[1],c[2]))
 			out = ""
-			for (cmdn,text) in final_cmd:
-				out+= f'- {cmdn} \t {text.replace("_"," ")}\n'
+			for (cmdn,text,alias) in final_cmd:
+				out+= f'- {cmdn} \t {text.replace("_"," ")} \t (°{alias})\n'
 			error = await tryForbidden(message.channel.send,str(out))
 			
 
