@@ -262,7 +262,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "testembed" and perm_valid(cmd,permlevel)):
 		emb = discord.Embed(title="title",description="descr",color=0x00ff00)
-		await tryForbidden(message.channel,emb)
+		await sendMsg(message.channel,emb)
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
