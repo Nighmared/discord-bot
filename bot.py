@@ -265,7 +265,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "fixissue" and perm_valid(cmd,permlevel)):
 		try:
-			arg = args[1]
+			arg = int(args[1])
 			handler.fixissue(arg)
 		except IndexError:
 			error = 3
