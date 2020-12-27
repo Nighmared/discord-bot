@@ -122,7 +122,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 					final_cmd.append((c[0],c[1],c[2]))
 			out = ""
 			for (cmdn,text,alias) in final_cmd:
-				out+= f'`{PREFIX}{cmdn}`\t{text.replace("_"," ")}\t(`°{alias}`)\n'
+				out+= f'`{PREFIX}{cmdn}` - {text.replace("_"," ")}  (`°{alias}`)\n'
 			embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=0xf0f000)
 			print(len(out))
 			embObj.add_field(name="Commands",value=out,inline=False)
