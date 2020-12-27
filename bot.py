@@ -330,8 +330,8 @@ async def on_message(message:discord.message):
 		if(handler.shouldAnnoy()): await add_reaction( message,confusedcat)
 
 	if(isCommand):
-		if(len(last_MSG)>0):print(len(last_MSG[-1]),"\n",int(handler.get_from_misc("max_perm_msg_len")))
-		if(len(last_MSG)>0 and len(last_MSG[-1])>int(handler.get_from_misc("max_perm_msg_len"))):
+		if(len(last_MSG)>0):print(len(last_MSG[-1].embeds[0]),"\n",int(handler.get_from_misc("max_perm_msg_len")))
+		if(len(last_MSG)>0 and len(last_MSG[-1].embeds[0])>int(handler.get_from_misc("max_perm_msg_len"))):
 			await last_MSG.pop().delete()
 		if not perm_valid(cmd,permlevel):
 			print("a")
