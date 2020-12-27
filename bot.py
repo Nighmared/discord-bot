@@ -120,7 +120,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			for c in cmds:
 				if(c[3]<=permlevel):
 					final_cmd.append((c[0],c[1],c[2]))
-			embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=0xf00f0)
+			embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=0x00f0f0)
 			for (cmdn,text,alias) in final_cmd:
 				embObj.add_field(name=f'`{PREFIX}{cmdn}` (`{PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
 			error = await sendMsg(message.channel,embObj)
@@ -134,10 +134,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "showissues" and perm_valid(cmd,permlevel)):
 		res = handler._execComm("select * from issues",True)
-		out = ""
+		embObj = discord.Embed(title="Issues",color=0xff0f00)
 		for id,title in res:
-			out+=f"{id}\t {title}\n"
-		error = await sendMsg(message.channel,out)
+			embObj.add_field(name=id,value=title,inline=False)
+		error = await sendMsg(message.channel,embObj)
 
 	elif(cmd == "reloadissues" and perm_valid(cmd,permlevel)):
 		ls = issues.getIssues()
