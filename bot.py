@@ -1,6 +1,7 @@
 from logging import error
 from re import split
 import discord
+from discord.enums import _is_descriptor
 import msglist
 import dbhandler
 import issues
@@ -190,7 +191,8 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		error = await sendMsg( message.channel,f" currently tracking {toTrackName}")
 
 	elif(cmd == "changelog" and perm_valid(cmd,permlevel)):
-		error = await sendMsg(message.channel,f' {handler.get_from_misc("changelog")}')
+		embObj = discord.Embed(title="Latest Changes",_description=handler.get_from_misc("changelog"),color=0xaaaa00)
+		error = await sendMsg(message.channel,embObj)
 
 	elif(cmd == "setchangelog" and perm_valid(cmd,permlevel)):
 		try:
@@ -347,7 +349,7 @@ async def on_message(message:discord.message):
 		if(res == 99): #RELOAD
 			exit(0)
 		await add_reaction( message,error_dict[res])
-		await message.delete(3)
+		await message.delete(delay=3)
 		
 		
 
