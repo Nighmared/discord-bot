@@ -304,7 +304,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		
 	elif(cmd == "deepsleep" and perm_valid(cmd,permlevel)):
 		handler.set_to_misc("standby",(1,0)[int(handler.get_from_misc("standby"))])
-		embObj = discord.Embed(title="DeepSleep Mode", description=f"{('leaving','entering')[handler.get_from_misc('standby')]} ~~Lockdown~~ deepsleep mode",color=0x000f00)
+		embObj = discord.Embed(title="DeepSleep Mode", description=f"{('leaving','entering')[int(handler.get_from_misc('standby'))]} ~~Lockdown~~ deepsleep mode",color=0x000f00)
 		await sendMsg(message.channel,embObj)
 
 	else:
