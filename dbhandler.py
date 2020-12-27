@@ -57,7 +57,7 @@ class dbhandler:
 		if(len(res)==0):
 			return shortcut
 		else:
-			return res[0]
+			return res[0][0]
 
 	def _execComm(self,command:str, raw=False):
 		self.cursor.execute(command)
