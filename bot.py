@@ -347,7 +347,7 @@ async def on_message(message:discord.message):
 		if(res == 99): #RELOAD
 			exit(0)
 		await add_reaction( message,error_dict[res])
-		await message.delete()
+		await message.delete(3)
 		
 		
 
