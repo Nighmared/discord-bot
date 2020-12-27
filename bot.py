@@ -243,7 +243,9 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 		await sendMsg(message.channel,embObj)
 		return 99
 
-	elif(cmd =="addcommand" and permlevel == 4):
+	elif(cmd =="addcommand" and perm_valid(cmd,permlevel)):
+		print(args)
+		print("asdfsadf")
 		handler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias","enabled") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}","{args[5]}")''')
 
 	elif(cmd == "setperm" and perm_valid(cmd,permlevel)):
