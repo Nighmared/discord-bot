@@ -129,8 +129,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	global toTrackName
 	args = message.content[1:].split(" ")
 	cmd = args[0]
+	print("before",cmd)
 	origlen = len(cmd)
 	cmd = handler.find_alias(cmd)
+	print("after",cmd)
 	error = 0
 
 	if(cmd == "msgarchive" and perm_valid(cmd,permlevel)):
