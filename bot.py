@@ -192,6 +192,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			handler.set_to_misc("changelog",args[1])
 			error = 0
 		except:
+			print("UWU SHIT GONE WRONG IN SCL HANDLING bot.py")
 			error = 1
 
 	elif(cmd == "say" and perm_valid(cmd,permlevel)):
