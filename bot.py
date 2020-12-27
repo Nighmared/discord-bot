@@ -102,7 +102,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	cmd = handler.find_alias(cmd)
 	if not handler.cmd_is_enabled(cmd):
 		error = 4
-		print(f"disabled cmd: {cmd}")
+		print(f"disabled/invalid cmd: {cmd}")
 		return error
 	error = 0
 
@@ -295,7 +295,10 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 
 	elif(cmd == "deleteall" and perm_valid(cmd,permlevel)):
 		for msg in last_MSG:
-			await msg.delete()
+			try:
+				await msg.delete()
+			except:
+				continue
 
 	else:
 		error = 1
