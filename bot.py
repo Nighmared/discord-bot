@@ -68,22 +68,6 @@ help_super=f''' **ADMIN Commands**
 
 '''
 
-CMD_aliases = {
-	"st":"settrack",
-	"sc":"setcache",
-	"gt":"gettrack",
-	"ma":"msgarchive",
-	"i":"info",
-	"cl":"changelog",
-	"ss":"setstatus",
-	"?":"help",
-	"rl":"reload",
-	"scl":"setchangelog",
-	"sv":"setversion",
-	"mp":"setperm",
-	"esql":"execsql",
-}
-
 reaction_text_dict = {
 	0:"Everything gud",
 	1:"nono thats not how its supposed to go",
@@ -249,15 +233,12 @@ async def on_message(message:discord.message):
 
 	#allow only one server
 #	if(message.guild.id != ALLOWEDGUILD):return
-
-	guild = message.guild
 	
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = handler.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID # for super cmds
 	if(isJoniii): permlevel = 4
-	cmd = message.content[1:].split(" ")[0]
-	if cmd in CMD_aliases.keys(): cmd = CMD_aliases[cmd]
+	cmd = handler.find_alias(message.content[1:].split(" ")[0])
 
 
 	error_dict = {
