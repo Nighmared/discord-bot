@@ -45,7 +45,7 @@ class dbhandler:
 		return res
 	def get_from_misc(self,key):
 		self.cursor.execute(f'''select value from misc where key=="{key}"''')
-		return self.cusor.fetchall()[0][0]
+		return self.cursor.fetchall()[0][0]
 	
 	def _execComm(self,command:str):
 		self.cursor.execute(command)
