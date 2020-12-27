@@ -266,7 +266,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	elif(cmd == "info" and perm_valid(cmd,permlevel)):
 		embObj = discord.Embed(title=client.user.name,description="Info about the greatest bot",color=0x0f0f00,url="http://brrr.nighmared.tech")
 		embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
-		embObj.set_author("joniii")
+		embObj.set_author(name="joniii")
 		embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech",inline=False)
 		embObj.add_field(name="Version",value=handler.get_from_misc("version"), inline=False)
 		embObj.add_field(name="Uptime",value="--")
