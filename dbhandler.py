@@ -48,7 +48,7 @@ class dbhandler:
 		return self.cursor.fetchall()[0][0]
 
 	def set_to_misc(self,key,value):
-		self.cursor.execute(f'''update misc SET value="{value}" where key=="{key}"''')
+		self.cursor.execute(f'''update misc SET value="{value.replace("_"," ")}" where key=="{key}"''')
 		self.conn.commit()
 	
 	def find_alias(self, shortcut:str)->str:
