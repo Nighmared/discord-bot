@@ -149,7 +149,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 					final_cmd.append((c[0],c[1]))
 			out = ""
 			for (cmdn,text) in final_cmd:
-				out+= f"- {cmdn} \t {text}\n"
+				out+= f'- {cmdn} \t {text.replace("_"," ")}\n'
 			error = await tryForbidden(message.channel.send,str(out))
 			
 
