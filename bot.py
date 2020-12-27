@@ -31,7 +31,7 @@ pepelove = "<:pepelove:778369435244429344>"
 pepegun = "<:pepegun:747783377716904008>"
 confusedcat = "<:confusedcat:771041402930987068>"
 hm = "<:hm:779012743583498240>"
-cope = "<:wojak_cope:792668283505475584>"
+cope = "<:wojak_cope:767839352255676417>"
 c_yfu = "<:code_youfuckedup:785435875030728724>"
 hahaa = "<:haHaa:747783377536680066>"
 ########
@@ -276,7 +276,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "deletelast" and perm_valid(cmd,permlevel)):
 		if(last_MSG == None):
-			error = 4
+			error = 3
 		else:
 			last_MSG.delete()
 			last_MSG = None
