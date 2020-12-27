@@ -334,6 +334,7 @@ async def on_message(message:discord.message):
 			res = await commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
+		print(res)
 		await add_reaction( message,error_dict[res])
 		
 		
