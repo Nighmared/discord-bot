@@ -49,6 +49,7 @@ class dbhandler:
 
 	def set_to_misc(self,key,value):
 		self.cursor.execute(f'''update misc SET value="{value}" where key=="{key}"''')
+		self.conn.commit()
 	
 	def find_alias(self, shortcut:str)->str:
 		self.cursor.execute(f'''SELECT cmdname FROM commands WHERE alias=="{shortcut}"''')
@@ -70,3 +71,8 @@ class dbhandler:
 				out+= str(r)+"\n"
 			return out
 		else: return -10
+	
+	def shouldAnnoy(self)->bool:
+		self.cursor.execute('''SELECT value FROM misc WHERE key=="annoyreaction"''')
+		res = self.cursor.fetchall()[0]
+		return (int(res)>0)

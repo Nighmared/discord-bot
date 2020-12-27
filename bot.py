@@ -232,6 +232,9 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 
 	elif(cmd == "setperm" and perm_valid(cmd,permlevel)):
 		res = handler.set_perm(message.mentions[0], newpermlev=args[2])
+	
+	elif(cmd == "triggerannoy" and perm_valid(cmd,permlevel)):
+		handler.set_to_misc("annoyreaction", not handler.shouldAnnoy())
 	else:
 		error = 1
 		if(not perm_valid(cmd,permlevel)):
@@ -287,8 +290,8 @@ async def on_message(message:discord.message):
 
 	if(message.author.id == toTrackID and not isCommand):
 		#print(message.content)
-		await tryForbidden( message.add_reaction,confusedcat)
 		msgs.add_msg(message)
+		if(handler.shouldAnnoy()): await tryForbidden( message.add_reaction,confusedcat)
 
 	if(isCommand):
 		if not perm_valid(cmd,permlevel):
