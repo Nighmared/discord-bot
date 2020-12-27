@@ -224,6 +224,7 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 	
 	elif(cmd == "reload" and perm_valid(cmd,permlevel)):
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=0x00ff00)
+		await sendMsg(message.channel,embObj)
 		return 99
 
 	elif(cmd =="addcommand" and permlevel == 4):
