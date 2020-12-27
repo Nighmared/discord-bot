@@ -36,13 +36,13 @@ class dbhandler:
 	
 	def get_cmd_perm(self,cmd):
 		try:
-			#print(f'''SELECT permlevel FROM commands WHERE cmdname=={cmd} ''')
 			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')	
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
 			print("frick cmd not added",cmd)
 			res = 4
 		return res
+
 	def get_from_misc(self,key):
 		self.cursor.execute(f'''select value from misc where key=="{key}"''')
 		return self.cursor.fetchall()[0][0]
@@ -73,6 +73,5 @@ class dbhandler:
 		else: return -10
 	
 	def shouldAnnoy(self)->bool:
-		self.cursor.execute('''SELECT value FROM misc WHERE key=="annoyreaction"''')
-		res = self.cursor.fetchall()[0][0]
+		res = self.get_from_misc("shouldannoy")
 		return(bool(res))
