@@ -3,7 +3,7 @@ from re import split
 import discord
 import msglist
 import dbhandler
-from sys import exit
+from sys import exit, tracebacklimit
 
 
 
@@ -12,6 +12,8 @@ TOKEN = open(".token.txt").read()
 SUDOID = 291291715598286848
 toTrackID = 0
 toTrackName = "nobody"
+
+ELTHISIONID = 123841216662994944
 
 ALLOWEDGUILD = 747752542741725244
 PREFIX = "°"
@@ -156,7 +158,19 @@ async def commandHandler(message:discord.message,permlevel:int) -> int:
 			error = await tryForbidden( message.channel.send,f"> updated cache length to {newLen}")
 		except Exception:
 			error = 1
+	elif(cmd =="trackel"):
+		try:
+			toTrackID = ELTHISIONID
+			toTrackName = "Aaron"
+			msgs.set_user(toTrackName)
+			error = await tryForbidden( message.channel.send,f'> updated tracked person')
 	
+	elif(cmd =="endtrack" and perm_valid(cmd,permlevel)):
+		toTrackID = 0
+		toTrackName = "nobody"
+		msgs.set_user(toTrackName)
+		error = await tryForbidden(message.channel.send, '> stopped tracking')
+
 	elif(cmd == "settrack" and perm_valid(cmd,permlevel)):
 		try:
 			user = message.mentions[0]
