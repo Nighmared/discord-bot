@@ -88,5 +88,5 @@ class dbhandler:
 
 	def cmd_is_enabled(self,cmd:str)->bool:
 		self.cursor.execute(f'''select enabled from commands where cmdname=="{cmd}"''')
-		enabled = int(self.cursor.fetchall())>0
+		enabled = int(self.cursor.fetchall()[0])>0
 		return enabled
