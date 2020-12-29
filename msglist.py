@@ -1,5 +1,5 @@
 class msglist:
-	def __init__(self,maxlen,tracked_user = "Elthision"):
+	def __init__(self,maxlen,tracked_user = "nobody"):
 		self.maxlen = maxlen
 		self.ls = []
 		self.uName = tracked_user
