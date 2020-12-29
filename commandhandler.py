@@ -14,7 +14,7 @@ class commandhandler:
 		self.toTrackID = 0
 		self.toTrackName = "nobody"
 		self.toTrackUser = None
-		self.last_msg = []
+		self.last_MSG = []
 		self.PREFIX = PREFIX
 		self.client = client
 
