@@ -26,10 +26,10 @@ class commandhandler:
 	async def sendMsg(self,channel,toSend):
 		try:
 			if(type(toSend) == discord.embeds.Embed):
-				self.last_msg.append(await channel.send(embed=toSend))
+				self.last_MSG.append(await channel.send(embed=toSend))
 			else:
 				embVar = discord.Embed(title="GOTTA FIX THIS CMD", description=toSend,color=0xff0000)
-				self.last_msg.append(await channel.send(embed = embVar))
+				self.last_MSG.append(await channel.send(embed = embVar))
 			return 0
 		except discord.errors.Forbidden:
 			return 5
