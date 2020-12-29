@@ -101,7 +101,7 @@ async def on_message(message:discord.message):
 		if not perm_valid(cmd,permlevel):
 			res = 4
 		else:
-			res = await handler(message,permlevel)
+			res = await handler.commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
 		await add_reaction( message,error_dict[res])
