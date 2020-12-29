@@ -21,7 +21,7 @@ class commandhandler:
 
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
-		return permlevel >= self.handler.get_cmd_perm(cmd)
+		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
 	async def sendMsg(self,channel,toSend):
 		try:
@@ -39,8 +39,8 @@ class commandhandler:
 		args = message.content[1:].split(" ")
 		cmd = args[0].lower()
 		origlen = len(cmd)
-		cmd = self.handler.find_alias(cmd)
-		if not self.handler.cmd_is_enabled(cmd):
+		cmd = self.dbhandler.find_alias(cmd)
+		if not self.dbhandler.cmd_is_enabled(cmd):
 			error = 4
 			print(f"disabled/invalid cmd: {cmd}")
 			return error
@@ -60,7 +60,7 @@ class commandhandler:
 				error = await self.sendMsg(message.channel, embObj)
 
 		elif(cmd == "help" and self.perm_valid(cmd,permlevel)):
-				cmds = self.handler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
+				cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
 				final_cmd = []
 				for c in cmds:
 					if(c[3]<=permlevel):
@@ -78,7 +78,7 @@ class commandhandler:
 				error = 1	
 		
 		elif(cmd == "showissues" and self.perm_valid(cmd,permlevel)):
-			res = self.handler._execComm("select * from issues",True)
+			res = self.dbhandler._execComm("select * from issues",True)
 			embObj = discord.Embed(title="Issues",color=0xff0f00)
 			for id,title in res:
 				embObj.add_field(name=id,value=title,inline=False)
@@ -158,7 +158,7 @@ class commandhandler:
 			await self.client.change_presence(activity=discord.Activity(name=stringarg,type= type))
 		
 		elif (cmd =="execsql" and self.perm_valid(cmd,permlevel)):
-			res = self.handler._execComm(message.content[(origlen+1):].strip())
+			res = self.dbhandler._execComm(message.content[(origlen+1):].strip())
 			if(res !=-10):
 				embObj = discord.Embed(title="Query Result",color=0xf0f0f0)
 				if(len(res)>1024):
@@ -183,16 +183,16 @@ class commandhandler:
 			self.dbhandler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias","enabled") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}","{args[5]}")''')
 
 		elif(cmd == "setperm" and self.perm_valid(cmd,permlevel)):
-			res = self.handler.set_perm(message.mentions[0], newpermlev=args[2])
+			res = self.dbhandler.set_perm(message.mentions[0], newpermlev=args[2])
 		
 		elif(cmd == "triggerannoy" and self.perm_valid(cmd,permlevel)):
-			self.dbhandler.set_to_misc("annoyreaction", (not self.handler.shouldAnnoy()))
+			self.dbhandler.set_to_misc("annoyreaction", (not self.dbhandler.shouldAnnoy()))
 			await self.sendMsg(message.channel,f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}")
 		
 		elif(cmd == "togglecmd" and self.perm_valid(cmd,permlevel)):
 			totogglecmd = ""
 			try:
-				totogglecmd = self.handler.find_alias(args[1])
+				totogglecmd = self.dbhandler.find_alias(args[1])
 				self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
 			except IndexError:
 				error = 3
@@ -237,7 +237,7 @@ class commandhandler:
 					continue
 			
 		elif(cmd == "deepsleep" and self.perm_valid(cmd,permlevel)):
-			self.handler.set_to_misc("standby",(1,0)[int(self.handler.get_from_misc("standby"))])
+			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
 			embObj = discord.Embed(title="DeepSleep Mode", description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ deepsleep mode",color=0x000f00)
 			await self.sendMsg(message.channel,embObj)
 
