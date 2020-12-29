@@ -79,7 +79,7 @@ class commandhandler:
 		
 		elif(cmd == "showissues" and self.perm_valid(cmd,permlevel)):
 			res = self.dbhandler._execComm("select * from issues",True)
-			embObj = discord.Embed(title="Issues",color=0xff0f00)
+			embObj = discord.Embed(title="Issues",color=0x0000f0)
 			for id,title in res:
 				embObj.add_field(name=id,value=title,inline=False)
 			error = await self.sendMsg(message.channel,embObj)
