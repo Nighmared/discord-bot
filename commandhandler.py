@@ -222,10 +222,10 @@ class commandhandler:
 				error = 3
 		
 		elif(cmd == "testembed" and self.perm_valid(cmd,permlevel)):
-			emb = discord.Embed(title="title",description="descr",color=0x00ff00)
-			emb.add_field(name="test1",value="val1",inline=False)
-			emb.add_field(name="test2", value="val2", inline = True)
-			await self.sendMsg(message.channel,emb)
+			embObj = discord.Embed(title="title",description="descr",color=0x00ff00)
+			embObj.add_field(name="test1",value="val1",inline=False)
+			embObj.add_field(name="test2", value="val2", inline = True)
+			await self.sendMsg(message.channel,embObj)
 		
 		elif(cmd == "info" and self.perm_valid(cmd,permlevel)):
 			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=self.SYSTEMCOLOR,url="http://brrr.nighmared.tech")

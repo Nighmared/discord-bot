@@ -96,8 +96,6 @@ async def on_message(message:discord.message):
 		if(db.shouldAnnoy()): await add_reaction( message,confusedcat)
 
 	if(isCommand):
-	#	if(len(last_MSG)>0 and len(last_MSG[-1].embeds[0])>int(handler.get_from_misc("max_perm_msg_len"))):
-	#		await last_MSG.pop().delete()
 		if not perm_valid(cmd,permlevel):
 			res = 4
 		else:
@@ -107,6 +105,4 @@ async def on_message(message:discord.message):
 		await add_reaction( message,error_dict[res])
 		await message.delete(delay=3)
 		
-		
-
 client.run(TOKEN)
