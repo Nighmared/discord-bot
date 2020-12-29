@@ -98,6 +98,6 @@ class dbhandler:
 	
 	def get_emote(self,id:int)->str:
 		self.cursor.execute(f'''SELECT value FROM emotes WHERE id=={id}''')
-		res = self.cursor.fetchall()[0]
+		res = self.cursor.fetchall()[0][0]
 		print(res)
 		return res
