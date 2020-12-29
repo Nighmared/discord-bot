@@ -77,7 +77,7 @@ class commandhandler:
 				for(emote,desc) in emotes:
 					print(emote)
 					embObj.add_field(name=emote,value=desc,inline=False)
-
+				print(embObj.fields)
 				error = await self.sendMsg(message.channel,embObj)
 				print(error)
 
