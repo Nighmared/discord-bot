@@ -77,8 +77,9 @@ class commandhandler:
 					embObj.add_field(name=f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
 				
 				embObj.add_field(name="Reactions:",value="meanings of different emotes used as command feedback",inline=False)
-				
+				print(len(emotes))
 				for(emote,desc) in emotes:
+					print(emote)
 					embObj.add_field(name=emote,value=desc,inline=False)
 
 				error = await self.sendMsg(message.channel,embObj)
