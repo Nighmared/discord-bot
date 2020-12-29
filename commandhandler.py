@@ -3,6 +3,13 @@ import discord
 import issues
 import msglist
 class commandhandler:
+	ISSUECOLOR = 0x0000f0 #blue
+	TRACKERCOLOR = 0x660066 #pinkish
+	SYSTEMCOLOR = 0x00ff00 # green
+	QUERYCOLOR = ffcc00 # yellow
+
+
+
 	def __init__(self,
 	dbhandler:dbhandler.dbhandler,
 	msgs:msglist,
@@ -51,7 +58,7 @@ class commandhandler:
 			if(len(msgls)== ""):
 				error = 2
 			else:
-				embObj = discord.Embed(title="Tracker",description=f"Recent messages by {msgls[0].author.nick}")
+				embObj = discord.Embed(title="Tracker",description=f"Recent messages by {msgls[0].author.nick}",color = self.TRACKERCOLOR)
 				fieldStr = ""
 				for msg in msgls:
 					fieldStr+=f"{str(msg.created_at)[:-4]} {msg.author.nick}-> {msg.channel.name}: {msg.content[:100]}\n"
@@ -79,7 +86,7 @@ class commandhandler:
 		
 		elif(cmd == "showissues" and self.perm_valid(cmd,permlevel)):
 			res = self.dbhandler._execComm("select * from issues",True)
-			embObj = discord.Embed(title="Issues",color=0x0000f0)
+			embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
 			for id,title in res:
 				embObj.add_field(name=id,value=title,inline=False)
 			error = await self.sendMsg(message.channel,embObj)
@@ -92,13 +99,15 @@ class commandhandler:
 				for issue in ls:
 					self.dbhandler.addIssue(issue)
 				
-				error = await self.sendMsg(message.channel,"issues reloaded")
+				embObj = discord.Embed(title="Issues",description="Issues reloaded",color=self.ISSUECOLOR)
+				error = await self.sendMsg(message.channel,embObj)
 
 		elif(cmd =="setcache" and self.perm_valid(cmd,permlevel)):
 			try:
 				newLen = int(args[1])
 				newLen = self.msgs.set_len(newLen)
-				error = await self.sendMsg( message.channel,f" updated cache length to {newLen}")
+				embObj = discord.Embed(title="Tracker",description=f"updated cache length to {newLen}",color=self.TRACKERCOLOR)
+				error = await self.sendMsg( message.channel,embObj)
 			except Exception:
 				error = 1
 		
@@ -106,7 +115,8 @@ class commandhandler:
 			toTrackID = 0
 			toTrackName = "nobody"
 			self.msgs.set_user(toTrackName)
-			error = await self.sendMsg(message.channel, ' stopped tracking')
+			embObj = discord.Embed(title="Tracker",description="stopped tracking",color=self.TRACKERCOLOR)
+			error = await self.sendMsg(message.channel,embObj)
 
 		elif(cmd == "settrack" and self.perm_valid(cmd,permlevel)):
 			try:
@@ -114,17 +124,20 @@ class commandhandler:
 				toTrackID = user.id
 				toTrackName = user.nick
 				self.msgs.set_user(toTrackName)
-				error = await self.sendMsg( message.channel,f" updated tracked user to {toTrackName}")
+				embObj = discord.Embed(title="Tracker",description=f"updated tracked user to {toTrackName}",color = self.TRACKERCOLOR)
+				error = await self.sendMsg( message.channel,embObj)
 			except IndexError:
 				error = 3
 			except Exception:
 				error = 1
 
 		elif(cmd == "gettrack" and self.perm_valid(cmd,permlevel)):
-			error = await self.sendMsg( message.channel,f" currently tracking {self.toTrackName}")
+			embObj = discord.Embed(title="Tracker", description=f"currently tracking {self.toTrackName}",color = self.TRACKERCOLOR)
+
+			error = await self.sendMsg( message.channel,embObj)
 
 		elif(cmd == "changelog" and self.perm_valid(cmd,permlevel)):
-			embObj = discord.Embed(title="Latest Changes",description= self.dbhandler.get_from_misc("changelog"), color=0xaaaa00)
+			embObj = discord.Embed(title="Latest Changes",description= self.dbhandler.get_from_misc("changelog"), color=self.SYSTEMCOLOR)
 			error = await self.sendMsg(message.channel,embObj)
 
 		elif(cmd == "setchangelog" and self.perm_valid(cmd,permlevel)):
@@ -132,14 +145,14 @@ class commandhandler:
 				self.dbhandler.set_to_misc("changelog",args[1])
 				error = 0
 			except:
-				print("UWU SHIT GONE WRONG IN SCL HANDLING bot.py")
+				print("UWU SHIT GONE WRONG IN SCL HANDLING")
 				error = 1
 
-		elif(cmd == "say" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "say" and self.perm_valid(cmd,permlevel)): #No embed as should rly just say stuff 
 			resttxt = ""
 			for a in args[1:]:
 				resttxt += " "+a
-			error = await self.sendMsg( message.channel,f" {resttxt}")
+			error = await self.sendMsg( message.channel,f"{resttxt}")
 
 		elif (cmd == "setstatus" and self.perm_valid(cmd,permlevel)):
 			type = 1
@@ -160,7 +173,7 @@ class commandhandler:
 		elif (cmd =="execsql" and self.perm_valid(cmd,permlevel)):
 			res = self.dbhandler._execComm(message.content[(origlen+1):].strip())
 			if(res !=-10):
-				embObj = discord.Embed(title="Query Result",color=0xf0f0f0)
+				embObj = discord.Embed(title="Query Result",color=self.QUERYCOLOR)
 				if(len(res)>1024):
 					res2 = res.split("\n")
 					for line in res2:
@@ -173,7 +186,7 @@ class commandhandler:
 				await self.sendMsg(message.channel,embObj)
 		
 		elif(cmd == "reload" and self.perm_valid(cmd,permlevel)):
-			embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=0x00ff00)
+			embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
 			await self.sendMsg(message.channel,embObj)
 			return 99
 
@@ -187,7 +200,8 @@ class commandhandler:
 		
 		elif(cmd == "triggerannoy" and self.perm_valid(cmd,permlevel)):
 			self.dbhandler.set_to_misc("annoyreaction", (not self.dbhandler.shouldAnnoy()))
-			await self.sendMsg(message.channel,f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}")
+			embObj = discord.Embed(title="Tracker", description=f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}",color = self.TRACKERCOLOR)
+			await self.sendMsg(message.channel,embObj)
 		
 		elif(cmd == "togglecmd" and self.perm_valid(cmd,permlevel)):
 			totogglecmd = ""
@@ -214,7 +228,7 @@ class commandhandler:
 			await self.sendMsg(message.channel,emb)
 		
 		elif(cmd == "info" and self.perm_valid(cmd,permlevel)):
-			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=0x0f0f00,url="http://brrr.nighmared.tech")
+			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=self.SYSTEMCOLOR,url="http://brrr.nighmared.tech")
 			embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
 			embObj.set_author(name="joniii")
 			embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech",inline=False)
@@ -238,7 +252,10 @@ class commandhandler:
 			
 		elif(cmd == "deepsleep" and self.perm_valid(cmd,permlevel)):
 			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
-			embObj = discord.Embed(title="DeepSleep Mode", description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ deepsleep mode",color=0x000f00)
+			embObj = discord.Embed(
+				title="DeepSleep Mode",
+				description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ deepsleep mode",
+				color=self.SYSTEMCOLOR)
 			await self.sendMsg(message.channel,embObj)
 
 		else:
