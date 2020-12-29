@@ -96,6 +96,7 @@ class commandhandler:
 			if ls[0][0] == -1:
 				error = 1
 			else:
+				self.dbhandler._execComm("delete * from issues")
 				for issue in ls:
 					self.dbhandler.addIssue(issue)
 				
