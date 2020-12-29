@@ -67,7 +67,7 @@ class commandhandler:
 
 		elif(cmd == "help" and self.perm_valid(cmd,permlevel)):
 				cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
-				emotes = self.dbhandler._execComm('''SELECT value,desc FROM emotes ORDER BY id ASC''')
+				emotes = self.dbhandler._execComm('''SELECT value,desc FROM emotes ORDER BY id ASC''',raw=True)
 				final_cmd = []
 				for c in cmds:
 					if(c[3]<=permlevel):
