@@ -83,6 +83,7 @@ class commandhandler:
 					embObj.add_field(name=emote,value=desc,inline=False)
 
 				error = await self.sendMsg(message.channel,embObj)
+				print(error)
 
 		elif(cmd =="setversion" and self.perm_valid(cmd,permlevel)):
 			try:
