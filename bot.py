@@ -77,15 +77,6 @@ async def on_message(message:discord.message):
 	if(isJoniii): permlevel = 5
 	cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
 
-
-	error_dict = {
-		0 : pepelove, #success
-		1 : pepegun, #invalid stuff
-		2 : hm, # no msgs to display
-		3 : c_yfu, # wrong args
-		4 : cope, #perms
-		5 : hahaa, #bot cant send here D;
-	}
 	if(int(db.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
 		return
 
@@ -102,7 +93,7 @@ async def on_message(message:discord.message):
 			res = await handler.commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			exit(0)
-		await add_reaction( message,error_dict[res])
+		await add_reaction( message,db.get_emote(res))
 		await message.delete(delay=3)
 		
 client.run(TOKEN)
