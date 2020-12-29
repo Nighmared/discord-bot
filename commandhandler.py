@@ -31,15 +31,12 @@ class commandhandler:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
 	async def sendMsg(self,channel,toSend):
-		try:
-			if(type(toSend) == discord.embeds.Embed):
-				self.last_MSG.append(await channel.send(embed=toSend))
-			else: #only the case for say command
-				self.last_MSG.append(await channel.send(str(toSend)))
-			return 0
-		
+		if(type(toSend) == discord.embeds.Embed):
+			self.last_MSG.append(await channel.send(embed=toSend))
+		else: #only the case for say command
+			self.last_MSG.append(await channel.send(str(toSend)))
+		return 0
 	
-
 	async def commandHandler(self,message:discord.message,permlevel:int) -> int:
 		args = message.content[1:].split(" ")
 		cmd = args[0].lower()
