@@ -3,9 +3,9 @@ import discord
 import issues
 import msglist
 class commandhandler:
-	ISSUECOLOR = 0x0000f0 #blue
+	ISSUECOLOR = 0x00f0f0 #lightblue
 	TRACKERCOLOR = 0x660066 #pinkish
-	SYSTEMCOLOR = 0x00ff00 # green
+	SYSTEMCOLOR = 0x009900# green
 	QUERYCOLOR = 0xffcc00 # yellow
 
 
@@ -72,7 +72,7 @@ class commandhandler:
 				for c in cmds:
 					if(c[3]<=permlevel):
 						final_cmd.append((c[0],c[1],c[2]))
-				embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=0x00f0f0)
+				embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
 				for (cmdn,text,alias) in final_cmd:
 					embObj.add_field(name=f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
 				error = await self.sendMsg(message.channel,embObj)
