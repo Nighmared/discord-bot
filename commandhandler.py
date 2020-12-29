@@ -76,6 +76,8 @@ class commandhandler:
 				for (cmdn,text,alias) in final_cmd:
 					embObj.add_field(name=f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
 				
+				embObj.add_field("Reactions:",value="meanings of different emotes used as command feedback",inline=False)
+				
 				for(emote,desc) in emotes:
 					embObj.add_field(name=emote,value=desc,inline=False)
 
