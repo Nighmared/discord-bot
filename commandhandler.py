@@ -6,7 +6,7 @@ class commandhandler:
 	ISSUECOLOR = 0x0000f0 #blue
 	TRACKERCOLOR = 0x660066 #pinkish
 	SYSTEMCOLOR = 0x00ff00 # green
-	QUERYCOLOR = ffcc00 # yellow
+	QUERYCOLOR = 0xffcc00 # yellow
 
 
 
