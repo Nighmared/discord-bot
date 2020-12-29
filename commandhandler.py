@@ -67,6 +67,7 @@ class commandhandler:
 
 		elif(cmd == "help" and self.perm_valid(cmd,permlevel)):
 				cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
+				emotes = self.dbhandler._execComm('''SELECT value,desc FROM emotes ORDER BY id ASC''')
 				final_cmd = []
 				for c in cmds:
 					if(c[3]<=permlevel):
@@ -74,6 +75,10 @@ class commandhandler:
 				embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
 				for (cmdn,text,alias) in final_cmd:
 					embObj.add_field(name=f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
+				
+				for(emote,desc) in emotes:
+					embObj.add_field(name=emote,description=desc,inline=False)
+
 				error = await self.sendMsg(message.channel,embObj)
 
 		elif(cmd =="setversion" and self.perm_valid(cmd,permlevel)):

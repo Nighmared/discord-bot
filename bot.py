@@ -67,9 +67,6 @@ async def on_message(message:discord.message):
 	#block bots
 	if(message.author.bot):
 		return
-
-	#allow only one server
-#	if(message.guild.id != ALLOWEDGUILD):return
 	
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = db.get_perm_level(message.author.id)
@@ -79,7 +76,6 @@ async def on_message(message:discord.message):
 
 	if(int(db.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
 		return
-
 
 	if(message.author.id == handler.toTrackID and not isCommand):
 		#print(message.content)
