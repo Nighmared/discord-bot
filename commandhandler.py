@@ -37,8 +37,7 @@ class commandhandler:
 			else: #only the case for say command
 				self.last_MSG.append(await channel.send(str(toSend)))
 			return 0
-		except discord.errors.Forbidden:
-			return 5
+		
 	
 
 	async def commandHandler(self,message:discord.message,permlevel:int) -> int:
