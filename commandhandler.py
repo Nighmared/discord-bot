@@ -71,16 +71,12 @@ class commandhandler:
 				embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
 				for (cmdn,text,alias) in final_cmd:
 					embObj.add_field(name=f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
-				
-				embObj.add_field(name="Reactions:",value="meanings of different emotes used as command feedback",inline=False)
-				print(len(emotes))
-				for(emote,desc) in emotes:
-					print(emote)
-					embObj.add_field(name=emote,value=desc,inline=False)
-				print(embObj.fields)
 				error = await self.sendMsg(message.channel,embObj)
-				print(error)
-
+				embObj = discord.Embed(title="Reactions",description="meanings of different emotes used as command feedback",color = self.SYSTEMCOLOR)
+				for(emote,desc) in emotes:
+					embObj.add_field(name=emote,value=desc,inline=False)
+				error = max(error, await self.sendMsg(message.channel,embObj))
+			
 		elif(cmd =="setversion" and self.perm_valid(cmd,permlevel)):
 			try:
 				self.dbhandler.set_to_misc("version",args[1])
