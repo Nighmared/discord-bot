@@ -30,19 +30,6 @@ hahaa = "<:haHaa:747783377536680066>"
 
 
 
-addedEmotesToHelp = False
-
-
-reaction_text_dict = {
-	0:"Everything gud",
-	1:"nono thats not how its supposed to go",
-	2:"Nothing to display",
-	3:"You fucked up ur command mister",
-	4:"Not enough permissions",
-	5:"All fine but bot can't text here... F",
-}
-
-
 
 def perm_valid(cmd:str,permlevel:int) -> bool:
 	return permlevel>= db.get_cmd_perm(cmd)
@@ -62,9 +49,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message:discord.message):
-	global addedEmotesToHelp
 
-	#block bots
+	#block bots and elthision
 	if(message.author.bot):
 		return
 	
@@ -73,6 +59,13 @@ async def on_message(message:discord.message):
 	isJoniii = message.author.id == SUDOID #hardcode that sucker
 	if(isJoniii): permlevel = 5
 	cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
+
+	if(isCommand or message.author.id == 794342658797469725):
+		log = open("log.txt","a")
+		log.write(f"{message.author.name}>{message.content}")
+		if(message.author.id == 794342658797469725):
+			return
+
 
 	if(int(db.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
 		return
