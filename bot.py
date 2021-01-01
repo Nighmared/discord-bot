@@ -59,14 +59,19 @@ async def on_message(message:discord.message):
 	isJoniii = message.author.id == SUDOID #hardcode that sucker
 	if(isJoniii): permlevel = 5
 	cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
-	if(cmd == ""):
-		return
 
 	if(isCommand or message.author.id == 123841216662994944):
 		log = open("log.txt","a")
 		log.write(f"{message.author.name}>{message.content}\n")
 		if(message.author.id == 123841216662994944):
 			return
+
+
+
+	if(cmd == ""):
+		return
+
+	
 
 
 	if(int(db.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
