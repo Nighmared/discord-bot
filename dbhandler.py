@@ -52,12 +52,18 @@ class dbhandler:
 		self.conn.commit()
 	
 	def find_alias(self, shortcut:str)->str:
-		self.cursor.execute(f'''SELECT cmdname FROM commands WHERE alias=="{shortcut}"''')
+		self.cursor.execute('''select cmdname,alias FROM commands WHERE enabled==1''')
 		res = self.cursor.fetchall()
-		if(len(res)==0):
+		aliases = {}
+		for (cmdname,alias) in res:
+			aliases[alias] = cmdname
+		
+		if shortcut in aliases.keys():
+			return aliases[shortcut]
+		elif shortcut in aliases.values():
 			return shortcut
 		else:
-			return res[0][0]
+			return ""
 
 	def _execComm(self,command:str, raw=False):
 		self.cursor.execute(command)
