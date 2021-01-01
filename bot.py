@@ -62,10 +62,10 @@ async def on_message(message:discord.message):
 	if(cmd == ""):
 		return
 
-	if(isCommand or message.author.id == 794342658797469725):
+	if(isCommand or message.author.id == 123841216662994944):
 		log = open("log.txt","a")
 		log.write(f"{message.author.name}>{message.content}\n")
-		if(message.author.id == 794342658797469725):
+		if(message.author.id == 123841216662994944):
 			return
 
 
