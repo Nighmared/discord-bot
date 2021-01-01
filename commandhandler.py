@@ -42,6 +42,8 @@ class commandhandler:
 		cmd = args[0].lower()
 		origlen = len(cmd)
 		cmd = self.dbhandler.find_alias(cmd)
+		if(cmd == ""):
+			return 3
 		if not self.dbhandler.cmd_is_enabled(cmd):
 			error = 4
 			print(f"disabled/invalid cmd: {cmd}")
