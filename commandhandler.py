@@ -270,7 +270,7 @@ class commandhandler:
 		
 		elif(cmd == "neko" and self.perm_valid(cmd,permlevel)):
 			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
-			await self.sendMsg(embObj)
+			await self.sendMsg(message.channel,embObj)
 		else:
 			error = 1
 			if(not self.perm_valid(cmd,permlevel)):
