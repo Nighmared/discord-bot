@@ -4,6 +4,7 @@ import discord
 import msglist
 import dbhandler
 import commandhandler
+import uptime
 from sys import exit
 
 
@@ -13,9 +14,8 @@ PREFIX = "°"
 msgs = msglist.msglist(5)
 client = discord.Client()
 db = dbhandler.dbhandler("discordbot.db")
-handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client)
-
-
+time_tracker = uptime.uptime()
+handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
 
 #EMOJIS
 pepelove = "<:pepelove:778369435244429344>"
@@ -26,6 +26,7 @@ cope = "<:wojak_cope:767839352255676417>"
 c_yfu = "<:code_youfuckedup:785435875030728724>"
 hahaa = "<:haHaa:747783377536680066>"
 ########
+
 
 
 

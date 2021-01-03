@@ -14,6 +14,7 @@ class commandhandler:
 	dbhandler:dbhandler.dbhandler,
 	msgs:msglist,
 	PREFIX:str,
+	time_tracker,
 	client,
 	):
 		self.msgs = msgs
@@ -24,6 +25,7 @@ class commandhandler:
 		self.last_MSG = []
 		self.PREFIX = PREFIX
 		self.client = client
+		self.uptime_tracker = time_tracker
 
 
 
@@ -238,7 +240,7 @@ class commandhandler:
 			embObj.set_author(name="joniii")
 			embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech",inline=False)
 			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
-			embObj.add_field(name="Uptime",value="--")
+			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime())
 			error = await self.sendMsg(message.channel,embObj)
 		
 		elif(cmd == "deletelast" and self.perm_valid(cmd,permlevel)):
