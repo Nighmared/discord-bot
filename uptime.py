@@ -12,10 +12,10 @@ class uptime:
 		hours = int(mins/60)
 		days = int(hours/24)
 		years = int(days/365)
-		secs %= 60
-		mins %= 60
-		hours %= 24
-		days %= 365
+		secs  = str(secs%60)
+		mins  = str(mins%60)
+		hours = str(hours%24)
+		days = str(days%365)
 		out = ""
 		if years>0 :
 			out+=years+" Years "
