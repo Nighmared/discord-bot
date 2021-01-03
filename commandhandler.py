@@ -1,12 +1,15 @@
+from discord import colour
 import dbhandler
 import discord
 import issues
 import msglist
+import neko
 class commandhandler:
 	ISSUECOLOR = 0x00f0f0 #lightblue
 	TRACKERCOLOR = 0x660066 #pinkish
 	SYSTEMCOLOR = 0x009900# green
 	QUERYCOLOR = 0xffcc00 # yellow
+	NEKOCOLOR = 0xcc6699
 
 
 
@@ -264,7 +267,10 @@ class commandhandler:
 				description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ deepsleep mode",
 				color=self.SYSTEMCOLOR)
 			await self.sendMsg(message.channel,embObj)
-
+		
+		elif(cmd == "neko" and self.perm_valid(cmd,permlevel)):
+			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
+			await self.sendMsg(embObj)
 		else:
 			error = 1
 			if(not self.perm_valid(cmd,permlevel)):
