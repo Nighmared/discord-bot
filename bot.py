@@ -71,6 +71,7 @@ async def on_message(message:discord.message):
 	if(cmd == ""):
 		return
 
+
 	
 
 

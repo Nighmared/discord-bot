@@ -32,12 +32,14 @@ class commandhandler:
 	
 	async def sendMsg(self,channel,toSend):
 		if(type(toSend) == discord.embeds.Embed):
+			toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}")
 			self.last_MSG.append(await channel.send(embed=toSend))
 		else: #only the case for say command
 			self.last_MSG.append(await channel.send(str(toSend)))
 		return 0
 	
 	async def commandHandler(self,message:discord.message,permlevel:int) -> int:
+		self.curr_msg = message
 		args = message.content[1:].split(" ")
 		cmd = args[0].lower()
 		origlen = len(cmd)
