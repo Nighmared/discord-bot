@@ -7,7 +7,7 @@ class uptime:
 	def getUptime(self):
 		curr = dt.now()
 		diff = curr-self.start
-		secs = diff.seconds()
+		secs = diff.seconds
 		mins = int(secs/60)
 		hours = int(mins/60)
 		days = int(hours/24)
