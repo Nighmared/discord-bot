@@ -66,7 +66,7 @@ async def on_message(message:discord.message):
 		log.write(f"{message.author.name}>{message.content}\n")
 
 
-	if(cmd == ""):
+	if(isCommand and cmd == ""):
 		return
 
 
