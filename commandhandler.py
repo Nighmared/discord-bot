@@ -4,6 +4,19 @@ import discord
 import issues
 import msglist
 import neko
+
+
+class fake_msg:
+	def __init__(self,message):
+		self.content = message.content
+		self.author = message.author
+		self.channel = message.channel
+		self.mentions = message.mentions
+		self.id = message.id
+	
+
+
+
 class commandhandler:
 	ISSUECOLOR = 0x00f0f0 #lightblue
 	TRACKERCOLOR = 0x660066 #pinkish
@@ -285,10 +298,3 @@ class commandhandler:
 
 
 
-class fake_msg:
-	def __init__(self,message):
-		self.content = message.content
-		self.author = message.author
-		self.channel = message.channel
-		self.mentions = message.mentions
-		self.id = message.id
