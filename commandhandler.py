@@ -216,9 +216,10 @@ class commandhandler:
 		elif(cmd == "togglecmd" and self.perm_valid(cmd,permlevel)):
 			totogglecmd = ""
 			try:
-				totogglecmd = self.dbhandler.find_alias(args[1])
+				totogglecmd = self.dbhandler.find_alias(args[1].strip())
 				print(args[1])
 				print(totogglecmd)
+				print((1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)],"asdfasdf")
 				self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
 			except IndexError:
 				error = 3
