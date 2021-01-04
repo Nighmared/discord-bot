@@ -6,14 +6,6 @@ import msglist
 import neko
 
 
-class fake_msg:
-	def __init__(self,message):
-		self.content = message.content
-		self.author = message.author
-		self.channel = message.channel
-		self.mentions = message.mentions
-		self.id = message.id
-	
 
 
 
@@ -83,7 +75,7 @@ class commandhandler:
 
 				error = await self.sendMsg(message.channel, embObj)
 		elif(cmd =="repeatcmd" and self.perm_valid(cmd,permlevel)):
-			msg_to_pass = fake_message(message)
+			msg_to_pass = fake_msg(message)
 			reps = min(20,args[-1])
 			for a in range(0,reps):
 				await self.commandHandler(msg_to_pass,permlevel)
@@ -298,3 +290,12 @@ class commandhandler:
 
 
 
+
+class fake_msg:
+	def __init__(self,message):
+		self.content = message.content
+		self.author = message.author
+		self.channel = message.channel
+		self.mentions = message.mentions
+		self.id = message.id
+	
