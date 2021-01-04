@@ -131,7 +131,7 @@ class commandhandler:
 		elif(cmd == "settrack" and self.perm_valid(cmd,permlevel)):
 			try:
 				user = message.mentions[0]
-				print(user)
+				print(user.id)
 				self.toTrackID = user.id
 				self.toTrackName = user.nick
 				self.msgs.set_user(self.toTrackName)
