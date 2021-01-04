@@ -77,8 +77,8 @@ async def on_message(message:discord.message):
 		return
 
 	if(message.author.id == handler.toTrackID and not isCommand):
-		#print(message.content)
 		msgs.add_msg(message)
+		print("here")
 		if(db.shouldAnnoy()): await add_reaction( message,confusedcat)
 
 	if(isCommand):
