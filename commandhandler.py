@@ -76,7 +76,11 @@ class commandhandler:
 				error = await self.sendMsg(message.channel, embObj)
 		elif(cmd =="repeatcmd" and self.perm_valid(cmd,permlevel)):
 			msg_to_pass = fake_msg(message)
-			reps = min(20,args[-1])
+			reps = 20
+			try:
+				reps = min(reps,int(args[-1]))
+			except:
+				reps = reps
 			for a in range(0,reps):
 				await self.commandHandler(msg_to_pass,permlevel)
 
