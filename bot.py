@@ -51,7 +51,7 @@ async def on_ready():
 @client.event
 async def on_message(message:discord.message):
 
-	#block bots and elthision
+	#block bots
 	if(message.author.bot and not message.author.id == handler.toTrackID):
 		return
 	
@@ -64,9 +64,6 @@ async def on_message(message:discord.message):
 	if(isCommand or message.author.id == 123841216662994944):
 		log = open("log.txt","a")
 		log.write(f"{message.author.name}>{message.content}\n")
-		#if(message.author.id == 123841216662994944):
-		#	return
-
 
 
 	if(cmd == ""):

@@ -95,13 +95,11 @@ class dbhandler:
 		self.cursor.execute(f'''DELETE FROM issues WHERE id=={id}''')
 
 	def cmd_is_enabled(self,cmd:str)->bool:
-		print(f"[dbhandler.py] checking if {cmd} is enabled")
 		self.cursor.execute(f'''select enabled from commands where cmdname=="{cmd}"''')
 		try:
 			enabled = int(self.cursor.fetchall()[0][0])>0
 		except IndexError:
 			enabled = False
-		print("[dbhandler.py] result:",enabled)
 		return enabled
 	
 	def get_emote(self,id:int)->str:
