@@ -217,6 +217,7 @@ class commandhandler:
 			totogglecmd = ""
 			try:
 				totogglecmd = self.dbhandler.find_alias(args[1])
+				print(args[1])
 				print(totogglecmd)
 				self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
 			except IndexError:
