@@ -74,16 +74,6 @@ class commandhandler:
 				embObj.add_field(name="Messagehistory",value=fieldStr,inline=True)
 
 				error = await self.sendMsg(message.channel, embObj)
-		elif(cmd =="repeatcmd" and self.perm_valid(cmd,permlevel)):
-			msg_to_pass = fake_msg(message)
-			reps = 20
-			try:
-				reps = min(reps,int(args[-1]))
-			except:
-				reps = reps
-			for a in range(0,reps):
-				print(a)
-				await self.commandHandler(msg_to_pass,permlevel)
 
 		elif(cmd == "help" and self.perm_valid(cmd,permlevel)):
 				cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
