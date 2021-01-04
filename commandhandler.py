@@ -70,7 +70,7 @@ class commandhandler:
 
 				error = await self.sendMsg(message.channel, embObj)
 		elif(cmd =="repeatcmd" and self.perm_valid(cmd,permlevel)):
-			send_obj = discord.Message()
+			send_obj = discord.Message(channel=message.channel, state=1,data=message.content[origlen+1:])
 			send_obj.content = message.content[origlen+1:]
 			reps = min(10,args[-1])
 			for a in range(0,reps):
