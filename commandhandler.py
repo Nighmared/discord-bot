@@ -131,9 +131,8 @@ class commandhandler:
 		elif(cmd == "settrack" and self.perm_valid(cmd,permlevel)):
 			try:
 				user = message.mentions[0]
-				print(user.id)
 				self.toTrackID = user.id
-				self.toTrackName = user.nick
+				self.toTrackName = user.mention
 				self.msgs.set_user(self.toTrackName)
 				embObj = discord.Embed(title="Tracker",description=f"updated tracked user to {self.toTrackName}",color = self.TRACKERCOLOR)
 				error = await self.sendMsg( message.channel,embObj)
@@ -203,7 +202,6 @@ class commandhandler:
 
 		elif(cmd =="addcommand" and self.perm_valid(cmd,permlevel)):
 			print(args)
-			print("asdfsadf")
 			self.dbhandler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias","enabled") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}","{args[5]}")''')
 
 		elif(cmd == "setperm" and self.perm_valid(cmd,permlevel)):
@@ -218,9 +216,6 @@ class commandhandler:
 			totogglecmd = ""
 			try:
 				totogglecmd = self.dbhandler.find_alias(args[1].strip())
-				print(args[1])
-				print(totogglecmd)
-				print((1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)],"asdfasdf")
 				self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
 			except IndexError:
 				error = 3
