@@ -297,7 +297,9 @@ class commandhandler:
 
 class fake_msg:
 	def __init__(self,message):
-		self.content = message.content
+		msg_cont = message.content
+		cmdlen = len(message.content.split(" ")[0])
+		self.content = message.content[cmdlen:]
 		self.author = message.author
 		self.channel = message.channel
 		self.mentions = message.mentions
