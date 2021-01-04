@@ -131,10 +131,11 @@ class commandhandler:
 		elif(cmd == "settrack" and self.perm_valid(cmd,permlevel)):
 			try:
 				user = message.mentions[0]
-				toTrackID = user.id
-				toTrackName = user.nick
-				self.msgs.set_user(toTrackName)
-				embObj = discord.Embed(title="Tracker",description=f"updated tracked user to {toTrackName}",color = self.TRACKERCOLOR)
+				print(user)
+				self.toTrackID = user.id
+				self.toTrackName = user.nick
+				self.msgs.set_user(self.toTrackName)
+				embObj = discord.Embed(title="Tracker",description=f"updated tracked user to {self.toTrackName}",color = self.TRACKERCOLOR)
 				error = await self.sendMsg( message.channel,embObj)
 			except IndexError:
 				error = 3
