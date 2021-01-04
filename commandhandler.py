@@ -82,6 +82,7 @@ class commandhandler:
 			except:
 				reps = reps
 			for a in range(0,reps):
+				print(a)
 				await self.commandHandler(msg_to_pass,permlevel)
 
 		elif(cmd == "help" and self.perm_valid(cmd,permlevel)):
