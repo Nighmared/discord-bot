@@ -52,7 +52,7 @@ async def on_ready():
 async def on_message(message:discord.message):
 
 	#block bots and elthision
-	if(message.author.bot):
+	if(message.author.bot and not message.author.id == handler.toTrackID):
 		return
 	
 	isCommand = message.content.startswith(PREFIX)
