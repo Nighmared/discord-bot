@@ -1,4 +1,5 @@
 from discord import colour
+from discord.embeds import Embed
 import dbhandler
 import discord
 import issues
@@ -97,6 +98,10 @@ class commandhandler:
 				error = 0
 			except:
 				error = 1	
+		elif(cmd == "easter"):
+			embObj = discord.Embed(title="What is this?", description="cmljZXB1cml0eXRlc3QubW9iaS9bZGN0YWdfb2ZfMjIzOTMyNzc1NDc0OTIxNDcyXS5odG1s")
+			error = await self.sendMsg(toSend=embObj,channel=message.channel);
+			await self.last_MSG[-1].delete(delay=.5);
 		
 		elif(cmd == "showissues" and self.perm_valid(cmd,permlevel)):
 			res = self.dbhandler._execComm("select * from issues",True)
