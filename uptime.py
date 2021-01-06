@@ -17,7 +17,7 @@ class uptime:
 		hours %= 24
 		days %= 365
 		out = ""
-		print("[uptime.py debugging]> ",diff,years,days,hours,mins,"  [diff  yrs  days  hours  mins]")
+		print("[uptime.py debugging]> ",diff,years,days,hours,mins,secs,"  [diff  yrs  days  hours  mins secs]")
 
 		if years>0 :
 			out+= f"{years} Years "
