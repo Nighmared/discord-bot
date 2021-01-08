@@ -10,14 +10,14 @@ class uptime:
 		secs = diff.seconds
 		mins = int(secs/60)
 		hours = int(mins/60)
-		days = int(hours/24)
+		days = diff.days
 		years = int(days/365)
 		secs %= 60
 		mins %= 60
 		hours %= 24
 		days %= 365
 		out = ""
-		print("[uptime.py debugging]> ",diff,years,days,hours,mins,secs,"  [diff  yrs  days  hours  mins secs]")
+	#	print("[uptime.py debugging]> ",diff,years,days,hours,mins,secs"  [diff  yrs  days  hours  mins secs]")
 
 		if years>0 :
 			out+= f"{years} Years "
