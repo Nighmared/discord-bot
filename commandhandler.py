@@ -96,7 +96,7 @@ class commandhandler:
 						currFieldCont = txt
 					else:
 						currFieldCont+= txt
-				print(embObj)
+				print(embObj.fields)
 				error = await self.sendMsg(message.channel,embObj)
 				embObj = discord.Embed(title="Reactions",description="meanings of different emotes used as command feedback",color = self.SYSTEMCOLOR)
 				for(emote,desc) in emotes:
