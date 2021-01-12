@@ -89,6 +89,7 @@ class commandhandler:
 				currFieldCont = ""
 				currFieldIndex = 1
 				for (cmdn,text,alias) in final_cmd:
+					print(cmd)
 					txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
 					if(len(currFieldCont+txt)>2000):
 						print("adding field lol")
