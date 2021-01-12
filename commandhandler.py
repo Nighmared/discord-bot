@@ -183,9 +183,9 @@ class commandhandler:
 			text = parts[0]
 			try: repnum = int(parts[1])
 			except: repnum = 0
-			error = await self.sendMsg( message.channel,f"{resttxt}")
+			error = await self.sendMsg( message.channel,f"{text}")
 			for counter in range(0,repnum):
-				await self.sendMsg( message.channel,f"{resttxt}")
+				await self.sendMsg( message.channel,f"{text}")
 
 		elif (cmd == "setstatus" and self.perm_valid(cmd,permlevel)):
 			type = 1
