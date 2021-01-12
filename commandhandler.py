@@ -220,14 +220,14 @@ class commandhandler:
 			res = self.dbhandler._execComm(message.content[(origlen+1):].strip())
 			if(res !=-10):
 				embObj = discord.Embed(title="Query Result",color=self.QUERYCOLOR)
-				if(len(res)>1024):
+				if(len(res)>self.EMBEDSIZELIMIT):
 					res2 = res.split("\n")
 					curr_page_num = 1
 					curr_page_cont = ""
 					for line in res2:
 						if(line.strip() == ""):
 							continue
-						if(len(curr_page_cont+line+2)>self.EMBEDSIZELIMIT):
+						if(len(curr_page_cont+line)+2>self.EMBEDSIZELIMIT):
 							embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont)
 							curr_page_cont = ""
 							curr_page_num+=1
