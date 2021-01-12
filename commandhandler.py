@@ -176,12 +176,13 @@ class commandhandler:
 
 		elif(cmd == "say" and self.perm_valid(cmd,permlevel)): #No embed as should rly just say stuff 
 			resttxt = ""
-			parts = args.split("#")
+			
+			for a in args[1:]:
+				resttxt += " "+a
+			parts = resttxt.split("#")
 			text = parts[0]
 			try: repnum = int(parts[1])
 			except: repnum = 0
-			for a in text:
-				resttxt += " "+a
 			error = await self.sendMsg( message.channel,f"{resttxt}")
 			for counter in range(0,repnum):
 				await self.sendMsg( message.channel,f"{resttxt}")
