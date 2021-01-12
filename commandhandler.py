@@ -84,8 +84,18 @@ class commandhandler:
 					if(c[3]<=permlevel):
 						final_cmd.append((c[0],c[1],c[2]))
 				embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
+
+				txt = []
+				currFieldCont = ""
+				currFieldIndex = 1
 				for (cmdn,text,alias) in final_cmd:
-					embObj.add_field(name=f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)',value =f'{text.replace("_"," ")}',inline=True)
+					txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
+					if(len(currFieldCont+txt)>2000):
+						embObj.add_field(title=f"Page {currFieldIndex}", description=currFieldCont)
+						currFieldIndex+=1
+						currFieldCont = txt
+					else:
+						currFieldCont+= txt
 				error = await self.sendMsg(message.channel,embObj)
 				embObj = discord.Embed(title="Reactions",description="meanings of different emotes used as command feedback",color = self.SYSTEMCOLOR)
 				for(emote,desc) in emotes:
