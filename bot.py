@@ -10,12 +10,7 @@ from datetime import datetime
 from sys import exit
 import subprocess as sub # needed for softreload to pull from git kekw
 
-MODULES = (
-	msglist,
-	dbhandler,
-	commandhandler,
-	uptime,
-)
+#MODULES = (	msglist,dbhandler,commandhandler,	uptime,)
 
 
 
@@ -110,10 +105,11 @@ async def on_message(message:discord.message):
 			res = 4
 	#special case with softreload that only reloads the modules
 		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
+			modules = dir()
 			sub.run(["git","pull","--no-edit"]) # git pull --no-edit
 			modulenames = ""
 			starttime = time_tracker.start
-			for module in MODULES:
+			for module in modules:
 				reload(module)
 				modulenames+= module.__name__ +"\n"
 			
