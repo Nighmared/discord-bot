@@ -300,7 +300,7 @@ class commandhandler:
 		elif(cmd == "deleteall" and self.perm_valid(cmd,permlevel)):
 			while(len(self.last_MSG)>0):
 				try:
-					self.last_MSG.pop().delete()
+					await self.last_MSG.pop().delete()
 				except:
 					continue
 			
