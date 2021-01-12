@@ -227,7 +227,7 @@ class commandhandler:
 					for line in res2:
 						if(line.strip() == ""):
 							continue
-						if(len(curr_page_cont+line)>self.EMBEDSIZELIMIT):
+						if(len(curr_page_cont+line+2)>self.EMBEDSIZELIMIT):
 							embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont)
 							curr_page_cont = ""
 							curr_page_num+=1
