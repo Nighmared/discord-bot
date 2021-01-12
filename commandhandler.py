@@ -102,7 +102,7 @@ class commandhandler:
 				embObj.add_field(name=f"Page {currFieldIndex}",value=currFieldCont)
 				emote_val = ""
 				for(emote,desc) in emotes:
-					emote_val+= f"{emote}\t {desc}"
+					emote_val+= f"{emote}\t{desc}\n"
 				embObj.add_field(name="Emotes",value=emote_val)
 				error = await self.sendMsg(message.channel,embObj)
 			
