@@ -96,6 +96,7 @@ class commandhandler:
 						currFieldCont = txt
 					else:
 						currFieldCont+= txt
+				print(embObj)
 				error = await self.sendMsg(message.channel,embObj)
 				embObj = discord.Embed(title="Reactions",description="meanings of different emotes used as command feedback",color = self.SYSTEMCOLOR)
 				for(emote,desc) in emotes:
@@ -116,7 +117,6 @@ class commandhandler:
 		elif(cmd =="easterranks" and self.perm_valid(cmd,permlevel)):
 			txt = self.dbhandler.get_from_misc("easter")
 			embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description=txt)
-			print(embObj)
 			error = await self.sendMsg(toSend= embObj, channel = message.channel)
 
 		
