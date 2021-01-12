@@ -106,3 +106,13 @@ class dbhandler:
 		self.cursor.execute(f'''SELECT value FROM emotes WHERE id=={id}''')
 		res = self.cursor.fetchall()[0][0]
 		return res
+	
+	def create_backup(self):
+		try:
+			backup = sql.connect("backup.db")
+			self.conn.backup(backup)
+			backup.commit()
+			backup.close()
+			return 0
+		except:
+			return 3
