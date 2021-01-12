@@ -301,9 +301,7 @@ class commandhandler:
 			while(len(self.last_MSG)>0):
 				try:
 					await self.last_MSG.pop().delete()
-				except:
-					continue
-			
+
 		elif(cmd == "deepsleep" and self.perm_valid(cmd,permlevel)):
 			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
 			embObj = discord.Embed(
