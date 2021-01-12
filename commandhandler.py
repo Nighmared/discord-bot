@@ -98,12 +98,13 @@ class commandhandler:
 						currFieldCont = txt
 					else:
 						currFieldCont+= txt
+				
 				embObj.add_field(name=f"Page {currFieldIndex}",value=currFieldCont)
-				error = await self.sendMsg(message.channel,embObj)
-				embObj = discord.Embed(title="Reactions",description="meanings of different emotes used as command feedback",color = self.SYSTEMCOLOR)
+				emote_val = ""
 				for(emote,desc) in emotes:
-					embObj.add_field(name=emote,value=desc,inline=False)
-				error = max(error, await self.sendMsg(message.channel,embObj))
+					emote_val+= f"{emote}\t {desc}"
+				embObj.add_field(name="Emotes",value=emote_val)
+				error = await self.sendMsg(message.channel,embObj)
 			
 		elif(cmd =="setversion" and self.perm_valid(cmd,permlevel)):
 			try:
