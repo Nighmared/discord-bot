@@ -89,17 +89,14 @@ class commandhandler:
 				currFieldCont = ""
 				currFieldIndex = 1
 				for (cmdn,text,alias) in final_cmd:
-					print(cmdn)
 					txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
-					print(len(currFieldCont))
 					if(len(currFieldCont+txt)>2000):
-						print("adding field lol")
 						embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
 						currFieldIndex+=1
 						currFieldCont = txt
 					else:
 						currFieldCont+= txt
-				print(embObj.fields,currFieldIndex)
+				embObj.add_field(name=f"Page {currFieldIndex}",value=currFieldCont)
 				error = await self.sendMsg(message.channel,embObj)
 				embObj = discord.Embed(title="Reactions",description="meanings of different emotes used as command feedback",color = self.SYSTEMCOLOR)
 				for(emote,desc) in emotes:
