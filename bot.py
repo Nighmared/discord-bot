@@ -26,13 +26,17 @@ time_tracker = uptime.uptime(STARTTIME)
 handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
 
 
-#FIXME this is dumb, make less dumb ffs
+#FIXME this is dumb, make less dumb ffs -> give all classes "backup" and "restore" methods so it can be just iterating over stuff
 def get_ready():
 	global msgs,client,db,time_tracker,handler
 	msgs = msglist.msglist(5)
 	db = dbhandler.dbhandler("discordbot.db")
 	time_tracker = uptime.uptime(STARTTIME)
+
+	last_msgs_backup = handler.last_MSG
 	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
+	handler.last_MSG = last_msgs_backup
+
 
 #EMOJIS
 pepelove = "<:pepelove:778369435244429344>"
