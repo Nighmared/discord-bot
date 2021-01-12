@@ -294,7 +294,7 @@ class commandhandler:
 		elif(cmd == "neko" and self.perm_valid(cmd,permlevel)):
 			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
 			await self.sendMsg(message.channel,embObj)
-		elif(cmd == "backup" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
 			error = self.dbhandler.create_backup()
 			res = ("Created Backup of DB","Something went wrong")[error >0]
 			embObj = discord.Embed(title="Backup", description=res,color = self.QUERYCOLOR)
