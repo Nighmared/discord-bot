@@ -17,6 +17,8 @@ class commandhandler:
 	SYSTEMCOLOR = 0x009900# green
 	QUERYCOLOR = 0xffcc00 # yellow
 	NEKOCOLOR = 0xcc6699
+	EMBEDSIZELIMIT = 1024
+	MAXNUMBEROFEMBEDS = 25
 
 
 
@@ -90,7 +92,7 @@ class commandhandler:
 				currFieldIndex = 1
 				for (cmdn,text,alias) in final_cmd:
 					txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
-					if(len(currFieldCont+txt)>1024):
+					if(len(currFieldCont+txt)>self.EMBEDSIZELIMIT):
 						embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
 						currFieldIndex+=1
 						currFieldCont = txt
@@ -220,11 +222,17 @@ class commandhandler:
 				embObj = discord.Embed(title="Query Result",color=self.QUERYCOLOR)
 				if(len(res)>1024):
 					res2 = res.split("\n")
+					curr_page_num = 1
+					curr_page_cont = ""
 					for line in res2:
 						if(line.strip() == ""):
 							continue
-						firstelem = line.split(",")[0][1:]
-						embObj.add_field(name=firstelem,value=line[len(firstelem)+2:],inline=False)
+						if(len(curr_page_cont+line)>self.EMBEDSIZELIMIT):
+							embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont)
+							curr_page_cont = ""
+							curr_page_num+=1
+						else:
+							curr_page_cont+=line+"\n"
 				else:
 					embObj.add_field(name="Output",value=res)
 				await self.sendMsg(message.channel,embObj)
