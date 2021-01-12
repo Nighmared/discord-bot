@@ -92,7 +92,7 @@ class commandhandler:
 					txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
 					if(len(currFieldCont+txt)>2000):
 						print("adding field lol")
-						embObj.add_field(title=f"Page {currFieldIndex}", description=currFieldCont)
+						embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
 						currFieldIndex+=1
 						currFieldCont = txt
 					else:
