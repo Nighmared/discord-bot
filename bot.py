@@ -123,6 +123,7 @@ async def on_message(message:discord.message):
 			except:
 				res = 1
 				embObj = discord.Embed(title="Soft Reloading",description="Aw something went wrong... Maybe try a hard reload?")
+			handler.curr_msg = message
 			res = max(await handler.sendMsg( channel=message.channel,toSend = embObj),res)
 
 		else:
