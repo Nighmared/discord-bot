@@ -91,6 +91,7 @@ class commandhandler:
 				for (cmdn,text,alias) in final_cmd:
 					print(cmdn)
 					txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
+					print(len(currFieldCont))
 					if(len(currFieldCont+txt)>2000):
 						print("adding field lol")
 						embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
