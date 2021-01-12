@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 class uptime:
-	def __init__(self):
-		self.start = dt.now()
+	def __init__(self,starttime):
+		self.start = starttime
 	
 
 	def getUptime(self):

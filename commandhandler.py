@@ -98,11 +98,16 @@ class commandhandler:
 				error = 0
 			except:
 				error = 1	
-		elif(cmd == "easter"):
+		elif(cmd == "easter" and self.perm_valid(cmd,permlevel)):
 			embObj = discord.Embed(title="What is this?", description="cmljZXB1cml0eXRlc3QubW9iaS9bZGlzY29yZG5hbWVfb2ZfMjIzOTMyNzc1NDc0OTIxNDcyXS5odG1s")
 			error = await self.sendMsg(toSend=embObj,channel=message.channel);
-			await self.last_MSG[-1].delete(delay=.5);
-			self.last_MSG.pop(-1)
+			await self.last_MSG.pop(-1).delete(delay=.5);
+			
+		elif(cmd =="easterranks" and self.perm_valid(cmd,permlevel)):
+			txt = self.dbhandler.get_from_misc("easter")
+			embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description=txt)
+			error = await self.sendMsg(toSend= embObj, channel = message.channel)
+
 		
 		elif(cmd == "showissues" and self.perm_valid(cmd,permlevel)):
 			res = self.dbhandler._execComm("select * from issues",True)

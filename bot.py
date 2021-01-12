@@ -1,21 +1,42 @@
-from logging import error
-from re import split
-import discord
-import msglist
-import dbhandler
-import commandhandler
-import uptime
+from logging import error #for discord errors
+from re import split #for cmd handling
+import discord # api library
+import msglist # module for message tracking
+import dbhandler # module for all things sqlite
+import commandhandler # module for commandhandling
+import uptime #module to track uptime of bot
+from importlib import reload
+from datetime import datetime
 from sys import exit
+
+MODULES = (
+	msglist,
+	dbhandler,
+	commandhandler,
+	uptime,
+)
+
+
 
 
 SUDOID = 291291715598286848
 TOKEN = open(".token.txt").read()
 PREFIX = "°"
+STARTTIME = datetime.now()
 msgs = msglist.msglist(5)
 client = discord.Client()
 db = dbhandler.dbhandler("discordbot.db")
-time_tracker = uptime.uptime()
+time_tracker = uptime.uptime(STARTTIME)
 handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
+
+
+#FIXME this is dumb, make less dumb ffs
+def get_ready():
+	global msgs,client,db,time_tracker,handler
+	msgs = msglist.msglist(5)
+	db = dbhandler.dbhandler("discordbot.db")
+	time_tracker = uptime.uptime(STARTTIME)
+	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
 
 #EMOJIS
 pepelove = "<:pepelove:778369435244429344>"
@@ -70,7 +91,10 @@ async def on_message(message:discord.message):
 		return
 
 
-	
+
+
+		
+			
 
 
 	if(int(db.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
@@ -83,6 +107,24 @@ async def on_message(message:discord.message):
 	if(isCommand):
 		if not perm_valid(cmd,permlevel):
 			res = 4
+	#special case with softreload that only reloads the modules
+		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
+			modulenames = ""
+			starttime = time_tracker.start
+			for module in MODULES:
+				reload(module)
+				modulenames+= module.__name__ +"\n"
+			
+			try:
+				get_ready()
+				embObj = discord.Embed(title="Soft Reloading")
+				embObj.add_field(name="Reloaded modules:",value=modulenames)
+				res = 0
+			except:
+				res = 1
+				embObj = discord.Embed(title="Soft Reloading",description="Aw something went wrong... Maybe try a hard reload?")
+			res = max(await handler.sendMsg( channel=message.channel,toSend = embObj),res)
+
 		else:
 			res = await handler.commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
