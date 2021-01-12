@@ -233,6 +233,7 @@ class commandhandler:
 							curr_page_num+=1
 						else:
 							curr_page_cont+=line+"\n"
+					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont)
 				else:
 					embObj.add_field(name="Output",value=res)
 				await self.sendMsg(message.channel,embObj)
