@@ -116,6 +116,7 @@ class commandhandler:
 		elif(cmd =="easterranks" and self.perm_valid(cmd,permlevel)):
 			txt = self.dbhandler.get_from_misc("easter")
 			embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description=txt)
+			print(embObj)
 			error = await self.sendMsg(toSend= embObj, channel = message.channel)
 
 		
