@@ -8,7 +8,7 @@ def getIssues()->list:
 	url = f"https://api.github.com/repos/{author}/{repo_name}/issues"
 	r = requests.get(url)
 	if(r.status_code != 200):
-		print(r.status_code,"fck")
+		print(f"[issues.py] (getIssues) {r.status_code} <- fucky response  from gh")
 		return [(-1,-1)]
 	else:
 		res = r.json()

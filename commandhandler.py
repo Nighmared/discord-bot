@@ -59,7 +59,7 @@ class commandhandler:
 			return 3
 		if not self.dbhandler.cmd_is_enabled(cmd):
 			error = 4
-			print(f"disabled/invalid cmd: {cmd}")
+			print(f"[commandhandler.py] disabled/invalid cmd: {cmd}")
 			return error
 		error = 0
 
@@ -171,7 +171,7 @@ class commandhandler:
 				self.dbhandler.set_to_misc("changelog",args[1])
 				error = 0
 			except:
-				print("UWU SHIT GONE WRONG IN SCL HANDLING")
+				print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
 				error = 1
 
 		elif(cmd == "say" and self.perm_valid(cmd,permlevel)): #No embed as should rly just say stuff 
@@ -217,7 +217,6 @@ class commandhandler:
 			return 99
 
 		elif(cmd =="addcommand" and self.perm_valid(cmd,permlevel)):
-			print(args)
 			self.dbhandler._execComm(f'''INSERT INTO commands("cmdname","permlevel","helptext","alias","enabled") VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}","{args[5]}")''')
 
 		elif(cmd == "setperm" and self.perm_valid(cmd,permlevel)):
@@ -243,7 +242,6 @@ class commandhandler:
 				arg = int(args[1])
 				self.dbhandler.fixissue(arg)
 			except IndexError:
-				print(args)
 				error = 3
 		
 		elif(cmd == "testembed" and self.perm_valid(cmd,permlevel)):

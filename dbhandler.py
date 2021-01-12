@@ -11,14 +11,12 @@ class dbhandler:
 		try:
 			res = self.cursor.fetchall()[0][0]
 		except IndexError:
-			#print(self.cursor.fetchall())
 			res = 0 # no entry for uid
 		
 		return res
 
 	def add_user(self,uid:int, name:str, permlev:int):
 
-		#print(f'''INSERT INTO users(uid, permlevel, name) VALUES({uid},{permlev},"{name}")''')
 		self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES("{uid}","{permlev}","{name}")''')
 		self.conn.commit()
 		return 0
@@ -41,7 +39,7 @@ class dbhandler:
 			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')	
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
-			print("frick cmd not added",cmd)
+			print("[dbhandler.py] (get_cmd_perm) frick cmd not added",cmd)
 			res = 4
 		return res
 

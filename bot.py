@@ -67,7 +67,7 @@ async def add_reaction(message, emote):
 
 @client.event
 async def on_ready():
-	print(f'{client.user} has connected')
+	print(f'[bot.py] {client.user} has connected')
 
 @client.event
 async def on_message(message:discord.message):
@@ -89,13 +89,6 @@ async def on_message(message:discord.message):
 
 	if(isCommand and cmd == ""):
 		return
-
-
-
-
-		
-			
-
 
 	if(int(db.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
 		return
@@ -131,6 +124,7 @@ async def on_message(message:discord.message):
 				res = 1
 				embObj = discord.Embed(title="Soft Reloading",description="Aw something went wrong... Maybe try a hard reload?")
 			handler.curr_msg = message
+			print("[bot.py] back from softreload")
 			res = max(await handler.sendMsg( channel=message.channel,toSend = embObj),res)
 
 		else:
