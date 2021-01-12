@@ -325,10 +325,6 @@ class commandhandler:
 		return error
 
 
-
-
-
-
 class fake_msg:
 	def __init__(self,message):
 		msg_cont = message.content
