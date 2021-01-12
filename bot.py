@@ -110,7 +110,7 @@ async def on_message(message:discord.message):
 			res = 4
 	#special case with softreload that only reloads the modules
 		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
-			sub.run("git pull")
+			sub.run(["git","pull","--no-edit"]) # git pull --no-edit
 			modulenames = ""
 			starttime = time_tracker.start
 			for module in MODULES:
