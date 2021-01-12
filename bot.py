@@ -8,6 +8,7 @@ import uptime #module to track uptime of bot
 from importlib import reload
 from datetime import datetime
 from sys import exit
+import subprocess as sub # needed for softreload to pull from git kekw
 
 MODULES = (
 	msglist,
@@ -109,6 +110,7 @@ async def on_message(message:discord.message):
 			res = 4
 	#special case with softreload that only reloads the modules
 		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
+			sub.run("git pull")
 			modulenames = ""
 			starttime = time_tracker.start
 			for module in MODULES:
