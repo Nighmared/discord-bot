@@ -103,7 +103,7 @@ class commandhandler:
 				emote_val = ""
 				for(emote,desc) in emotes:
 					emote_val+= f"{emote}\t{desc}\n"
-				embObj.add_field(name="Emotes",value=emote_val)
+				embObj.add_field(name="Emotes",value=emote_val,inline=False)
 				error = await self.sendMsg(message.channel,embObj)
 			
 		elif(cmd =="setversion" and self.perm_valid(cmd,permlevel)):
