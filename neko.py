@@ -14,4 +14,4 @@ answers = (
 
 def getNeko():
 	indx = int(random.random()*len(answers))
-	return answers[indx]
+	return answers[indx]+"!!!!"
