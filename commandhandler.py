@@ -1,12 +1,13 @@
 from discord import colour
 from discord.embeds import Embed
+import importlib
 import dbhandler
 import discord
 import issues
 import msglist
 import neko
 
-
+IMPORTS = (neko,issues)
 
 
 
@@ -35,6 +36,9 @@ class commandhandler:
 		self.PREFIX = PREFIX
 		self.client = client
 		self.uptime_tracker = time_tracker
+
+		for module in IMPORTS:
+			importlib.reload(module)
 
 
 
