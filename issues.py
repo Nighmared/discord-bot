@@ -2,6 +2,8 @@ import requests
 repo_name = "discord-bot"
 author = "nighmared"
 
+IMPORTS = ()
+
 def getIssues()->list:
 	url = f"https://api.github.com/repos/{author}/{repo_name}/issues"
 	r = requests.get(url)

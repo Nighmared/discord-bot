@@ -1,4 +1,6 @@
 import sqlite3 as sql
+IMPORTS = () 
+
 class dbhandler:
 	def __init__(self,filename):
 		self.conn = sql.connect(filename)

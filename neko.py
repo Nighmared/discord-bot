@@ -1,4 +1,7 @@
 import random
+
+IMPORTS =()
+
 answers = (
 	"nope",
 	"must be hard giving in to such lowly desires",
