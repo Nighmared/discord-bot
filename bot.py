@@ -87,9 +87,6 @@ async def on_message(message:discord.message):
 		log.write(f"{message.author.name}>{message.content}\n")
 
 
-	if(isCommand and cmd == ""):
-		return
-
 	if(int(db.get_from_misc("standby")) == 1  and not cmd == "deepsleep"): #ignore everything in standby
 		return
 
@@ -100,6 +97,7 @@ async def on_message(message:discord.message):
 	if(isCommand):
 		if not perm_valid(cmd,permlevel):
 			res = 4
+
 	#special case with softreload that only reloads the modules
 		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
 			sub.run(["git","pull","--no-edit"]) # git pull --no-edit
