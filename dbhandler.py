@@ -114,5 +114,5 @@ class dbhandler:
 			backup.commit()
 			backup.close()
 			return 0
-		except:
-			return 3
+		#except:
+		#	return 3
