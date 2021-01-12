@@ -37,10 +37,6 @@ class commandhandler:
 		self.client = client
 		self.uptime_tracker = time_tracker
 
-		for module in IMPORTS:
-			importlib.reload(module)
-
-
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)

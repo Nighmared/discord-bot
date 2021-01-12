@@ -113,6 +113,7 @@ async def on_message(message:discord.message):
 				modulenames+= module.__name__ +"\n"
 				try:
 					for subimport in module.IMPORTS:
+						reload(subimport)
 						modulenames+= f"\t|-{subimport.__name__}\n"
 				except:
 					continue
