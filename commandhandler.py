@@ -299,8 +299,7 @@ class commandhandler:
 
 		elif(cmd == "deleteall" and self.perm_valid(cmd,permlevel)):
 			while(len(self.last_MSG)>0):
-				try:
-					await self.last_MSG.pop().delete()
+				await self.last_MSG.pop().delete()
 
 		elif(cmd == "deepsleep" and self.perm_valid(cmd,permlevel)):
 			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
