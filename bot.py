@@ -95,7 +95,8 @@ async def on_message(message:discord.message):
 		if(db.shouldAnnoy()): await add_reaction( message,confusedcat)
 
 	if(isCommand):
-		if not perm_valid(cmd,permlevel):
+		
+		if cmd =="" or not perm_valid(cmd,permlevel):
 			res = 4
 
 	#special case with softreload that only reloads the modules
