@@ -76,6 +76,9 @@ async def on_message(message:discord.message):
 	if(message.author.bot and not message.author.id == handler.toTrackID):
 		return
 	
+	#count messages per user
+	db.increment_user_message_count(message.author.id,message.author.name)
+	
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = db.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID #hardcode that sucker
@@ -104,15 +107,18 @@ async def on_message(message:discord.message):
 			sub.run(["git","pull","--no-edit"]) # git pull --no-edit
 			modulenames = ""
 			starttime = time_tracker.start
+			submodules = set()
 			for module in IMPORTS:
 				reload(module)
 				modulenames+= module.__name__ +"\n"
 				try:
 					for subimport in module.IMPORTS:
-						reload(subimport)
-						modulenames+= f"\t|-{subimport.__name__}\n"
+						submodules.add(subimport)
 				except:
 					continue
+			for submodule in submodules:
+				reload(submodule)
+				modulenames+= f"\t|-{submodule.__name__}\n"
 			
 			try:
 				get_ready()

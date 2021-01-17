@@ -20,7 +20,17 @@ class dbhandler:
 		self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES("{uid}","{permlev}","{name}")''')
 		self.conn.commit()
 		return 0
-	
+
+	def increment_user_message_count(self,uid,name:str):
+		self.cursor.execute('''SELECT uid,msgcount FROM users''',raw = True)
+		messagecounts = {}
+		for uid,msgcount in self.cursor.fetchall()[0]:
+			messagecounts[uid] = int(msgcount)
+		if(str(uid) in messagecounts.keys()):
+			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[uid]+1} WHERE uid='{uid}' ''')
+		else:
+			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({uid},0,'{name}',1)''')
+		
 	def set_perm(self,user, newpermlev):
 		#first check if user exists
 		uid = user.id
