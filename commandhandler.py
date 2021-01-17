@@ -273,6 +273,7 @@ class commandhandler:
 		error = await self.sendMsg(channel,f"{text}")
 		for counter in range(0,repnum):
 			await self.sendMsg(channel,f"{text}")
+		return error
 	async def setstatus(self,cont,args)->int:
 		type = 1
 		splitbyquot = cont.split("\"")
