@@ -28,6 +28,7 @@ class dbhandler:
 			messagecounts[uid] = int(msgcount)
 		print(messagecounts.keys())
 		if(uid in messagecounts.keys()):
+			print(uid,name)
 			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[uid]+1} WHERE uid='{uid}' ''')
 		else:
 			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({uid},0,'{name}',1)''')
@@ -40,7 +41,7 @@ class dbhandler:
 		res = self.cursor.fetchall()
 		exists = len(res) != 0
 		if(exists):
-			self.cursor.execute(f'''UPDATE users SET permlevel = "{newpermlev}" WHERE uid=={uid}''')
+			self.cursor.execute(f'''UPDATE users SET permlevel = "{newpermlev}" WHERE uid=='{uid}' ''')
 		else:
 			self.add_user(uid,name,newpermlev)
 		self.conn.commit()
