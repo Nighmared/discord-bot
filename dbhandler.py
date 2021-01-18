@@ -24,7 +24,7 @@ class dbhandler:
 	def increment_user_message_count(self,uid,name:str):
 		self.cursor.execute('''SELECT uid,msgcount FROM users''')
 		messagecounts = {}
-		for uid,msgcount in self.cursor.fetchall()[0]:
+		for uid,msgcount in self.cursor.fetchall():
 			messagecounts[uid] = int(msgcount)
 		if(str(uid) in messagecounts.keys()):
 			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[uid]+1} WHERE uid='{uid}' ''')
