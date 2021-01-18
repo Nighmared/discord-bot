@@ -77,8 +77,10 @@ async def on_message(message:discord.message):
 		return
 	
 	#count messages per user
+	print(message.author)
 	db.increment_user_message_count(message.author.id,message.author.name)
 	
+
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = db.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID #hardcode that sucker
