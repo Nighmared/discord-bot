@@ -413,7 +413,7 @@ class commandhandler:
 			error = self.sendMsg(channel,embObj)
 		except:
 			error=1
-		return error
+		return 0 if error is None else error
 
 class fake_msg:
 	def __init__(self,message):
