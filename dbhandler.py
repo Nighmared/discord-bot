@@ -27,7 +27,7 @@ class dbhandler:
 		for uid,msgcount in self.cursor.fetchall():
 			messagecounts[uid] = int(msgcount)
 		print(messagecounts.keys())
-		if(str(uid) in messagecounts.keys()):
+		if(uid in messagecounts.keys()):
 			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[uid]+1} WHERE uid='{uid}' ''')
 		else:
 			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({uid},0,'{name}',1)''')
