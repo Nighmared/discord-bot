@@ -408,10 +408,13 @@ class commandhandler:
 		return error
 	async def mostmessages(self,channel)->int:
 		try:
-			print("1")
 			res = self.dbhandler.get_most_messages()
-			print("2")
-			embObj = discord.Embed(title="Message Leaderboard",description=str(res), color=self.TRACKERCOLOR)
+			embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages", color=self.TRACKERCOLOR)
+			field_value = ""
+			rank = 1
+			for entry in res:
+				field_value += f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}"
+				rank += 1
 			error = await self.sendMsg(channel,embObj)
 		except:
 			error=1

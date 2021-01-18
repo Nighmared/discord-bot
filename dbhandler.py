@@ -33,7 +33,7 @@ class dbhandler:
 
 	def get_most_messages(self):
 		self.cursor.execute('''SELECT name,msgcount FROM users ORDER BY msgcount DESC''')
-		res = self.cursor.fetchall()
+		res = self.cursor.fetchall()[0]
 		return res
 
 	def set_perm(self,user, newpermlev):
