@@ -415,6 +415,7 @@ class commandhandler:
 			for entry in res:
 				field_value += f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}"
 				rank += 1
+			embObj.add_field(name="Positions",value=field_value)
 			error = await self.sendMsg(channel,embObj)
 		except:
 			error=1
