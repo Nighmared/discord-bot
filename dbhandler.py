@@ -22,7 +22,7 @@ class dbhandler:
 		return 0
 
 	def increment_user_message_count(self,uid,name:str):
-		self.cursor.execute('''SELECT uid,msgcount FROM users''',raw = True)
+		self.cursor.execute('''SELECT uid,msgcount FROM users''')
 		messagecounts = {}
 		for uid,msgcount in self.cursor.fetchall()[0]:
 			messagecounts[uid] = int(msgcount)
