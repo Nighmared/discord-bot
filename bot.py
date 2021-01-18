@@ -77,7 +77,6 @@ async def on_message(message:discord.message):
 		return
 	
 	#count messages per user
-	print(message.author.id)
 	db.increment_user_message_count(message.author.id, message.author.name)
 	
 
@@ -101,7 +100,7 @@ async def on_message(message:discord.message):
 
 	if(isCommand):
 		
-		if cmd =="" or not perm_valid(cmd,permlevel):
+		if cmd =="" or not perm_valid(cmd,permlevel): #!!! perms already checked heree
 			res = 4
 
 	#special case with softreload that only reloads the modules

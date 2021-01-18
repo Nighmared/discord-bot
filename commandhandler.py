@@ -68,6 +68,7 @@ class commandhandler:
 			return error
 		error = 0
 
+
 		if(cmd == "msgarchive" and self.perm_valid(cmd,permlevel)):
 			error = await self.msgarchive(message.channel)
 
@@ -132,6 +133,10 @@ class commandhandler:
 			embObj = discord.Embed(title="Tracker", description=f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}",color = self.TRACKERCOLOR)
 			await self.sendMsg(message.channel,embObj)
 		
+		elif(cmd == "mostmessages"):
+			error = await self.mostmessages(channel=message.channel)
+
+
 		elif(cmd == "togglecmd" and self.perm_valid(cmd,permlevel)):
 			totogglecmd = ""
 			try:
@@ -400,6 +405,14 @@ class commandhandler:
 		txt = self.dbhandler.get_from_misc("easter")
 		embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description=txt)
 		error = await self.sendMsg(toSend= embObj, channel = channel)
+		return error
+	async def mostmessages(self,channel)->int:
+		try:
+			res = self.dbhandler.get_most_messages()
+			embObj = discord.Embed(title="Message Leaderboard",description=str(res), color=self.TRACKERCOLOR)
+			error = self.sendMsg(channel,embObj)
+		except:
+			error=1
 		return error
 
 class fake_msg:

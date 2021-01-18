@@ -32,7 +32,12 @@ class dbhandler:
 			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[author_uid]+1} WHERE uid='{author_uid}' ''')
 		else:
 			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({author_uid},0,'{name}',1)''')
-		
+
+	def get_most_messages(self):
+		self.cursor.execute('''SELECT name,msgcount FROM users ORDER BY msgcount DESC''')
+		res = self.cursor.fetchall()
+		return res
+
 	def set_perm(self,user, newpermlev):
 		#first check if user exists
 		uid = user.id
