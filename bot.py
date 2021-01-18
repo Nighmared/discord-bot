@@ -78,7 +78,7 @@ async def on_message(message:discord.message):
 	
 	#count messages per user
 	print(message.author.id)
-	db.increment_user_message_count(message.author.id,message.author.name)
+	db.increment_user_message_count(message.author.id, message.author.name)
 	
 
 	isCommand = message.content.startswith(PREFIX)

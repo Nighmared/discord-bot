@@ -21,17 +21,17 @@ class dbhandler:
 		self.conn.commit()
 		return 0
 
-	def increment_user_message_count(self,uid,name:str):
+	def increment_user_message_count(self,author_uid:int,name:str):
 		self.cursor.execute('''SELECT uid,msgcount FROM users''')
 		messagecounts = {}
 		for uid,msgcount in self.cursor.fetchall():
 			messagecounts[uid] = int(msgcount)
 		print(messagecounts.keys())
-		if(uid in messagecounts.keys()):
-			print(uid,name)
-			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[uid]+1} WHERE uid='{uid}' ''')
+		if(author_uid in messagecounts.keys()):
+			print(author_uid,name)
+			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[author_uid]+1} WHERE uid='{author_uid}' ''')
 		else:
-			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({uid},0,'{name}',1)''')
+			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({author_uid},0,'{name}',1)''')
 		
 	def set_perm(self,user, newpermlev):
 		#first check if user exists
