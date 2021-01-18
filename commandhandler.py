@@ -204,7 +204,7 @@ class commandhandler:
 			error = 1
 			if(not self.perm_valid(cmd,permlevel)):
 				error = 4
-		return error
+		return 0 if error is None else error #quick fix until i properly refactored all cmds
 
 	async def setversion(self,version)-> int:
 		try:
