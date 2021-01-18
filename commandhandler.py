@@ -412,7 +412,7 @@ class commandhandler:
 			res = self.dbhandler.get_most_messages()
 			print("2")
 			embObj = discord.Embed(title="Message Leaderboard",description=str(res), color=self.TRACKERCOLOR)
-			error = self.sendMsg(channel,embObj)
+			error = await self.sendMsg(channel,embObj)
 		except:
 			error=1
 		return error
