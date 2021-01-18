@@ -408,12 +408,14 @@ class commandhandler:
 		return error
 	async def mostmessages(self,channel)->int:
 		try:
+			print("1")
 			res = self.dbhandler.get_most_messages()
+			print("2")
 			embObj = discord.Embed(title="Message Leaderboard",description=str(res), color=self.TRACKERCOLOR)
 			error = self.sendMsg(channel,embObj)
 		except:
 			error=1
-		return 0 if error is None else error
+		return error
 
 class fake_msg:
 	def __init__(self,message):
