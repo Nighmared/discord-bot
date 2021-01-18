@@ -407,16 +407,15 @@ class commandhandler:
 		error = await self.sendMsg(toSend= embObj, channel = channel)
 		return error
 	async def mostmessages(self,channel)->int:
-		try:
-			res = self.dbhandler.get_most_messages()
-			embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages", color=self.TRACKERCOLOR)
-			field_value = ""
-			rank = 1
-			for entry in res:
-				field_value += f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}"
-				rank += 1
-			embObj.add_field(name="Positions",value=field_value)
-			error = await self.sendMsg(channel,embObj)
+		res = self.dbhandler.get_most_messages()
+		embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages", color=self.TRACKERCOLOR)
+		field_value = ""
+		rank = 1
+		for entry in res:
+			field_value += f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}"
+			rank += 1
+		embObj.add_field(name="Positions",value=field_value)
+		error = await self.sendMsg(channel,embObj)
 		return error
 
 class fake_msg:
