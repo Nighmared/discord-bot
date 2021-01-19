@@ -267,7 +267,7 @@ class commandhandler:
 		embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
 
 		txt = []
-		currFieldCont = ""
+		currFieldCont = " "
 		currFieldIndex = 1
 		for (cmdn,text,alias) in final_cmd:
 			txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
