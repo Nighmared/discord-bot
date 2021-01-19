@@ -336,10 +336,10 @@ class commandhandler:
 						if(curr_page_num>24):
 							curr_page_cont="[.....]"
 							break
-						curr_page_cont = "```" + line+"\n"
+						curr_page_cont = "```python\n" + line+"\n"
 					else:
 						curr_page_cont+= line+"\n"
-				curr_page_cont = "```python\n" + line+"\n"
+				curr_page_cont+= "```"
 				embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont,inline=False)
 				error = await self.sendMsg(channel=channel, toSend=embObj)
 
