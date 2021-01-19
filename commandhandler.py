@@ -257,7 +257,7 @@ class commandhandler:
 		return error
 	async def help(self,channel,permlevel,args)-> int:
 		if len(args)>1 and args[1].isnumeric:
-			permlevel = args[1]
+			permlevel = int(args[1])
 		cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
 		emotes = self.dbhandler._execComm('''SELECT value,desc FROM emotes ORDER BY id ASC''',raw=True)
 		final_cmd = []
