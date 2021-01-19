@@ -8,10 +8,10 @@ IMPORTS=(dbhandler)
 
 
 class handler:
-	RANDLIMIT = 10
 	SIGMADEFAULT = 20
 	def __init__(self,dbhandler:dbhandler.dbhandler) -> None:
 		self.db = dbhandler
+		self.RANDLIMIT = int(self.db.get_from_misc("nh_random_limit"))
 
 	def get_img(self,sigma=SIGMADEFAULT)->str:
 		path,indx = self.__download_random_image()
@@ -30,14 +30,12 @@ class handler:
 
 	def __download_random_image(self)->str:
 		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
-		print(cached_ids)
 		indx = int(random.random()*self.RANDLIMIT)
 		if indx in cached_ids: #if already been downloaded
 			return None,indx
 		response = requests.get(f"https://nhentai.net/g/{indx}/1")
 		while(response.status_code == 404):
 			indx = int(random.random()*self.RANDLIMIT)
-			print(indx)
 			if indx in cached_ids: #if already been downloaded
 				return None,indx
 			response = requests.get(f"https://nhentai.net/g/{indx}/1")
