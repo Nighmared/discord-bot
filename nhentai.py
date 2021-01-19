@@ -24,7 +24,7 @@ def get_img()->str:
 	
 	path = f"nhentai/SPOILER_{indx}.jpg"
 	
-	return link
+	return path
 
 
 #>>> while rep.status_code==404: rep =requests.get(f"https://nhentai.net/g/{int(random.random()*1000)}/1")

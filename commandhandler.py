@@ -450,7 +450,7 @@ class commandhandler:
 		link = nhentai.get_img()
 		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
 		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
-		file_to_send = discord.File(DEBUGLINK,filename="SPOILER_nh.jpg")
+		file_to_send = discord.File(link,filename="SPOILER_nh.jpg")
 		embObj.set_image(url="attachment://SPOILER_nh.jpg")
 		error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
 
