@@ -329,7 +329,7 @@ class commandhandler:
 					color = self.SYSTEMCOLOR
 					)
 				for line in cont.split("\n"):
-					if len(curr_page_cont+line+2)>self.EMBEDSIZELIMIT-20:
+					if len(curr_page_cont+line)+2>self.EMBEDSIZELIMIT-20:
 						curr_page_cont+="```"
 						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont)
 						curr_page_num+=1
