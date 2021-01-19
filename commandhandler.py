@@ -413,17 +413,17 @@ class commandhandler:
 		rank = 1
 		field_count = 1
 		for entry in res:
-			to_add = f"> {str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
+			to_add = f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
 			if len(field_value+to_add)>self.EMBEDSIZELIMIT:
-				if(field_count>24):
+				if(field_count>3):
 					break
-				embObj.add_field(name=f"Page {field_count}",value=field_value)
+				embObj.add_field(name=f"Page {field_count}",value=field_value,inline=False)
 				field_count += 1
 				field_value = to_add
 			else:				
 				field_value += to_add
 			rank += 1
-		embObj.add_field(name=f"Page {field_count}",value=field_value)
+		embObj.add_field(name=f"Page {field_count}",value=field_value,inline=False)
 		error = await self.sendMsg(channel,embObj)
 		return error
 
