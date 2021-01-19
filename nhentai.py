@@ -15,9 +15,11 @@ def get_img()->str:
 	match = re.search('(https://i\.nhentai\.net).*?\"',cont)
 	link = match.group(0).rstrip('"')
 	print("[nhentai.py] ",link)
-	img_response = requests.get(link)
-	file = open("nhentai/SPOILER_{indx}.jpg",'w')
-	file.write(str(response.raw))
+	img_response = requests.get(link,stream=True)
+	file = open("nhentai/SPOILER_{indx}.jpg",'wb')
+	#file.write(response.raw)
+	for chunk in img_response.iter_content(1024):
+		file.write(chunk)
 	file.close()
 	
 	path = f"nhentai/SPOILER_{indx}.jpg"
