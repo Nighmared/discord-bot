@@ -339,7 +339,7 @@ class commandhandler:
 						curr_page_cont = "```" + line+"\n"
 					else:
 						curr_page_cont+= line+"\n"
-				curr_page_cont = "```" + line+"\n"
+				curr_page_cont = "```python\n" + line+"\n"
 				embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont,inline=False)
 				error = await self.sendMsg(channel=channel, toSend=embObj)
 
