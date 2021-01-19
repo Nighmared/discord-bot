@@ -210,6 +210,8 @@ class commandhandler:
 				error = await self.nhentai(message.channel)
 			else:
 				error = 2
+		elif(cmd == "togglensfw"):
+			error = await self.togglensfw(message.channel)
 		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
 			error = self.dbhandler.create_backup()
 			res = ("Created Backup of DB","Something went wrong")[error >0]
@@ -460,6 +462,11 @@ class commandhandler:
 		file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 		embObj.set_image(url="attachment://SPOILER_FILE.jpg")
 		error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
+	async def togglensfw(self,channel):
+		new_state = self.dbhandler.toggle_nsfw()
+		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('of','on')[new_state]}")
+		error = await self.sendMsg(toSend=embObj,channel=channel)
+		return error
 
 class fake_msg:
 	def __init__(self,message):
