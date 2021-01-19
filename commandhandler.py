@@ -444,7 +444,7 @@ class commandhandler:
 		error = await self.sendMsg(channel,embObj)
 		return error
 	async def nhentai(self,channel)->int:
-		link = nhentai.get_img(channel)
+		link = nhentai.get_img()
 		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
 		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
 		embObj.set_image(DEBUGLINK)
