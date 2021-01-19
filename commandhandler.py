@@ -206,7 +206,7 @@ class commandhandler:
 			await self.sendMsg(message.channel,embObj)
 		elif(cmd == "nhentai"):
 			if message.channel.is_nsfw():
-				error = await self.nhentai(message.channel,args)
+				error = await self.nhentai(message.channel)
 			else:
 				error = 2
 		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
