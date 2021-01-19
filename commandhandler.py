@@ -6,8 +6,9 @@ import discord
 import issues
 import msglist
 import neko
+import nhentai
 
-IMPORTS = (neko,issues)
+IMPORTS = (neko,issues,nhentai)
 
 
 
@@ -200,6 +201,11 @@ class commandhandler:
 		elif(cmd == "neko" and self.perm_valid(cmd,permlevel)):
 			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
 			await self.sendMsg(message.channel,embObj)
+		elif(cmd == "nhentai"):
+			if message.channel.is_nsfw():
+				error = await self.nhentai(message.channel)
+			else:
+				error = 2
 		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
 			error = self.dbhandler.create_backup()
 			res = ("Created Backup of DB","Something went wrong")[error >0]
@@ -437,6 +443,12 @@ class commandhandler:
 		embObj.add_field(name=f"Page {field_count}",value=field_value,inline=False)
 		error = await self.sendMsg(channel,embObj)
 		return error
+	async def nhentai(self,channel)->int:
+		link = nhentai.get_img(channel)
+		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
+		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
+		embObj.set_image(DEBUGLINK)
+		error = await self.sendMsg(toSend=embObj,channel = channel)
 
 class fake_msg:
 	def __init__(self,message):
