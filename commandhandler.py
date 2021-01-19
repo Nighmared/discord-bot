@@ -1,5 +1,6 @@
 from discord import colour
 from discord.embeds import Embed
+from sqlite3 import OperationalError
 import importlib
 import dbhandler
 import discord
@@ -320,7 +321,12 @@ class commandhandler:
 			error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
 		return error
 	async def execsql(self,channel,cont:str,origlen:int)->int:
-		res = self.dbhandler._execComm(cont[(origlen+1):].strip())
+		try:
+			res = self.dbhandler._execComm(cont[(origlen+1):].strip())
+		except OperationalError:
+			print("[commandhandler.py] Something went wrong with sqlite")
+			return 3 # command is fuckd up probably
+
 		if(res !=-10):
 			embObj = discord.Embed(title="Query Result",color=self.QUERYCOLOR)
 			if(len(res)>self.EMBEDSIZELIMIT):
@@ -336,10 +342,8 @@ class commandhandler:
 						curr_page_num+=1
 					else:
 						curr_page_cont+=line+"\n"
-				print(curr_page_cont)
 				embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont)
 			else:
-				print(res)
 				embObj.add_field(name="Output",value=res)
 			await self.sendMsg(channel,embObj)
 		return 0

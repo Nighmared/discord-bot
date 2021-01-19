@@ -21,7 +21,7 @@ class dbhandler:
 		self.conn.commit()
 		return 0
 
-	def increment_user_message_count(self,author_uid:int,name:str,mention=None):
+	def increment_user_message_count(self,author_uid:int,name:str,mention):
 		self.cursor.execute('''SELECT uid,msgcount,name FROM users''')
 		uid_dict = {}
 		for uid,msgcount,uname in self.cursor.fetchall():
