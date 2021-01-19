@@ -447,7 +447,7 @@ class commandhandler:
 		error = await self.sendMsg(channel,embObj)
 		return error
 	async def nhentai(self,channel)->int:
-		sigma = int(self.dbhandler.get_from_misc("blursigma"))
+		sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
 		link = nhentai.get_img(sigma)
 		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
 		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
