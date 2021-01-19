@@ -21,15 +21,17 @@ class dbhandler:
 		self.conn.commit()
 		return 0
 
-	def increment_user_message_count(self,author_uid:int,name:str):
-		self.cursor.execute('''SELECT uid,msgcount FROM users''')
-		messagecounts = {}
-		for uid,msgcount in self.cursor.fetchall():
-			messagecounts[uid] = int(msgcount)
-		if(author_uid in messagecounts.keys()):
-			self.cursor.execute(f'''UPDATE users SET msgcount={messagecounts[author_uid]+1} WHERE uid='{author_uid}' ''')
+	def increment_user_message_count(self,author_uid:int,name:str,mention=None):
+		self.cursor.execute('''SELECT uid,msgcount,name FROM users''')
+		uid_dict = {}
+		for uid,msgcount,uname in self.cursor.fetchall():
+			uid_dict[uid] = (int(msgcount),uname)
+		if(author_uid in uid_dict.keys()):
+			if(uid_dict[author_uid][1] != mention):
+				self.cursor.execute(f'''UPDATE users SET name='{mention}' where uid='{author_uid}' ''')
+			self.cursor.execute(f'''UPDATE users SET msgcount={uid_dict[author_uid][0]+1} WHERE uid='{author_uid}' ''')
 		else:
-			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({author_uid},0,'{name}',1)''')
+			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount) VALUES({author_uid},0,'{mention}',1)''')
 
 	def get_most_messages(self):
 		self.cursor.execute('''SELECT name,msgcount FROM users ORDER BY msgcount DESC''')
