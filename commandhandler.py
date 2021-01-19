@@ -469,6 +469,12 @@ class commandhandler:
 		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
 		error = await self.sendMsg(toSend=embObj,channel=channel)
 		return error
+	async def nhentaiblock(self,args)->int:
+		if len(args)>1 and args[1].isnumeric:
+			error = self.nh_handler.nhentai_block(args[1])
+		else:
+			error =3
+		return error
 
 class fake_msg:
 	def __init__(self,message):

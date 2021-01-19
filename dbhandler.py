@@ -157,3 +157,6 @@ class dbhandler:
 		self.set_to_misc("nsfw",new_val)
 		self.conn.commit()
 		return new_val>0
+	def nhentai_block(self,id)->None:
+		self.cursor.execute(f'''UPDATE nhentai SET blocked=1 WHERE id={id}''')
+		self.conn.commit()
