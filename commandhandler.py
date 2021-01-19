@@ -450,8 +450,8 @@ class commandhandler:
 	async def nhentai(self,channel)->int:
 		sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
 		link = self.nh_handler.get_img(sigma)
-	#	DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
-		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
+		img_id = link.rstrip(".blurred.jpg")
+		embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR)
 		file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 		embObj.set_image(url="attachment://SPOILER_FILE.jpg")
 		error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
