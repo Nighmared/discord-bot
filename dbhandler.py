@@ -161,6 +161,6 @@ class dbhandler:
 		return new_val>0
 	def nhentai_block(self,id)->None:
 		self.cursor.execute(f'''select blocked from nhentai where id={id}''')
-		curr_state = self.cursor.fetchall()[0]
+		curr_state = self.cursor.fetchall()[0][0]
 		self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
 		self.conn.commit()
