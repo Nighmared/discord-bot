@@ -16,7 +16,7 @@ class handler:
 	def get_img(self,sigma=SIGMADEFAULT)->str:
 		path,indx = self.__download_random_image()
 		if path is None:
-			blurpath = self.db.get_nhentai_path_by_id(indx)
+			blurpath = self.db.get_nhentai_path_by_id(indx)[0]
 		else:
 			blurpath = self.__blur(path,sigma)
 			self.db.add_nhentai_file(id=indx, path_to_blurred=blurpath)
