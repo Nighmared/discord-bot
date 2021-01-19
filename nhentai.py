@@ -5,12 +5,21 @@ IMPORTS=()
 RANDLIMIT = 10000
 
 def get_img()->str:
-	response = requests.get(f"https://nhentai.net/g/{int(random.random()*RANDLIMIT)}/1")
-	while(response.status_code == 404): response = requests.get(f"https://nhentai.net/g/{int(random.random()*RANDLIMIT)}/1")
-	cont = response.text
+	indx = int(random.random()*RANDLIMIT)
+	response = requests.get(f"https://nhentai.net/g/{indx}/1")
+	while(response.status_code == 404):
+		indx = int(random.random()*RANDLIMIT)
+		response = requests.get(f"https://nhentai.net/g/{indx}/1")
 	match = re.search('(https://i\.nhentai\.net).*?\"',cont)
 	link = match.group(0).rstrip('"')
 	print("[nhentai.py] ",link)
+	img_response = requests.get(link)
+	file = open("nhentai/SPOILER_{indx}.jpg",'w')
+	file.write(response.raw)
+	file.close()
+	cont = response.text
+	path = f"nhentai/SPOILER_{indx}.jpg"
+	
 	return link
 
 

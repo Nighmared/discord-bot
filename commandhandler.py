@@ -44,10 +44,13 @@ class commandhandler:
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
-	async def sendMsg(self,channel,toSend):
+	async def sendMsg(self,channel,toSend,file=None):
 		if(type(toSend) == discord.embeds.Embed):
 			toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}")
-			self.last_MSG.append(await channel.send(embed=toSend))
+			if file is not None:
+				self.last_MSG.append(await channel.send(file=file,embed=toSend))
+			else:
+				self.last_MSG.append(await channel.send(embed=toSend))
 		else: #only the case for say command
 			self.last_MSG.append(await channel.send(str(toSend)))
 		return 0
@@ -447,9 +450,9 @@ class commandhandler:
 		link = nhentai.get_img()
 		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
 		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
-		embObj.set_image(url=link )
-		embObj
-		error = await self.sendMsg(toSend=embObj,channel = channel)
+		file_to_send = discord.File(DEBUGLINK,filename="SPOILER_nh.jpg")
+		embObj.set_image(url="attachment://SPOILER_nh.jpg")
+		error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
 
 class fake_msg:
 	def __init__(self,message):
