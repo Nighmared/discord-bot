@@ -88,67 +88,70 @@ class commandhandler:
 			return error
 		error = 0
 
+		if not self.perm_valid(cmd,permlevel):
+			return 4
 
-		if(cmd == "msgarchive" and self.perm_valid(cmd,permlevel)):
+
+		if(cmd == "msgarchive"):
 			error = await self.msgarchive(message.channel)
 
-		elif(cmd == "help" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "help"):
 			error = await self.help(message.channel,permlevel,args)
 			
-		elif(cmd =="setversion" and self.perm_valid(cmd,permlevel)):
+		elif(cmd =="setversion"):
 			error = await self.setversion(version=args[1])
 	
-		elif(cmd == "easter" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "easter"):
 			error = await self.easter(message.channel)
 			
-		elif(cmd =="easterranks" and self.perm_valid(cmd,permlevel)):
+		elif(cmd =="easterranks"):
 			error = await self.easterranks(message.channel)
 		
-		elif(cmd == "showissues" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "showissues"):
 			error = await self.showissues(message.channel)
 
-		elif(cmd == "reloadissues" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "reloadissues"):
 			error = await self.reloadissues(message.channel)
 
-		elif(cmd =="setcache" and self.perm_valid(cmd,permlevel)):
+		elif(cmd =="setcache"):
 			error = await self.setcache(message.channel,args[1])
 		
-		elif(cmd =="endtrack" and self.perm_valid(cmd,permlevel)):
+		elif(cmd =="endtrack"):
 			error = await self.endtrack(message.channel)
 
-		elif(cmd == "settrack" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "settrack"):
 			error = await self.settrack(message.channel,message.mentions[0])
 
-		elif(cmd == "gettrack" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "gettrack"):
 			error = await self.gettrack(message.channel)
 
-		elif(cmd == "changelog" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "changelog"):
 			embObj = discord.Embed(title="Latest Changes",description= self.dbhandler.get_from_misc("changelog"), color=self.SYSTEMCOLOR)
 			error = await self.sendMsg(message.channel,embObj)
 
-		elif(cmd == "setchangelog" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "setchangelog"):
 			error = await self.setchangelog(message.channel, args[1])
 
-		elif(cmd == "say" and self.perm_valid(cmd,permlevel)): #No embed as should rly just say stuff 
+		elif(cmd == "say"): #No embed as should rly just say stuff 
 			error = await self.say(message.channel,args)
 
-		elif (cmd == "setstatus" and self.perm_valid(cmd,permlevel)):
+		elif (cmd == "setstatus"):
 			error = await self.setstatus(message.content,args)
 		
-		elif (cmd =="execsql" and self.perm_valid(cmd,permlevel)):
+		elif (cmd =="execsql"):
 			error = await self.execsql(channel=message.channel, cont=message.content, origlen=origlen)
 		
-		elif(cmd == "reload" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "reload"):
 			error = await self.reload(channel=message.channel)
 
-		elif(cmd =="addcommand" and self.perm_valid(cmd,permlevel)):
+		elif(cmd =="addcommand"):
 			await self.addcommand(args)
 			error = 0 #probably... not caring about any errors here lol
 
-		elif(cmd == "setperm" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "setperm"):
 			error = await self.setperm(user=message.mentions[0],perm_lev=args[2],own_perm_lev=permlevel)
 		
-		elif(cmd == "triggerannoy" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "triggerannoy"):
 			self.dbhandler.set_to_misc("annoyreaction", (not self.dbhandler.shouldAnnoy()))
 			embObj = discord.Embed(title="Tracker", description=f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}",color = self.TRACKERCOLOR)
 			await self.sendMsg(message.channel,embObj)
@@ -156,8 +159,7 @@ class commandhandler:
 		elif(cmd == "mostmessages"):
 			error = await self.mostmessages(channel=message.channel)
 
-
-		elif(cmd == "togglecmd" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "togglecmd"):
 			totogglecmd = ""
 			try:
 				totogglecmd = self.dbhandler.find_alias(args[1].strip())
@@ -167,20 +169,20 @@ class commandhandler:
 			except:
 				error = 2
 		
-		elif(cmd == "fixissue" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "fixissue"):
 			try:
 				arg = int(args[1])
 				self.dbhandler.fixissue(arg)
 			except IndexError:
 				error = 3
 		
-		elif(cmd == "testembed" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "testembed"):
 			embObj = discord.Embed(title="title",description="descr",color=0x00ff00)
 			embObj.add_field(name="test1",value="val1",inline=False)
 			embObj.add_field(name="test2", value="val2", inline = True)
 			await self.sendMsg(message.channel,embObj)
 		
-		elif(cmd == "info" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "info"):
 			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=self.SYSTEMCOLOR,url="http://brrr.nighmared.tech")
 			embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
 			embObj.set_author(name="joniii")
@@ -188,11 +190,11 @@ class commandhandler:
 			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
 			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime())
 			error = await self.sendMsg(message.channel,embObj)
-		elif(cmd == "source" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "source"):
 			embObj = discord.Embed(title="Source",description="http://brrr.nighmared.tech",color= self.SYSTEMCOLOR)
 			error = await self.sendMsg(channel = message.channel,toSend=embObj)
 		
-		elif(cmd == "deletelast" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "deletelast"):
 			if(len(self.last_MSG) == 0):
 				error = 3
 			else:
@@ -204,20 +206,17 @@ class commandhandler:
 				else:
 					await self.last_MSG.pop().delete()
 				error = 0
-
-		elif(cmd == "deleteall" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "deleteall"):
 			while(len(self.last_MSG)>0):
 				await self.last_MSG.pop().delete()
-
-		elif(cmd == "deepsleep" and self.perm_valid(cmd,permlevel)):
+		elif(cmd == "deepsleep"):
 			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
 			embObj = discord.Embed(
 				title="DeepSleep Mode",
 				description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ deepsleep mode",
 				color=self.SYSTEMCOLOR)
-			await self.sendMsg(message.channel,embObj)
-		
-		elif(cmd == "neko" and self.perm_valid(cmd,permlevel)):
+			await self.sendMsg(message.channel,embObj)		
+		elif(cmd == "neko"):
 			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
 			await self.sendMsg(message.channel,embObj)
 		elif(cmd == "nhentai"):
@@ -538,15 +537,5 @@ class commandhandler:
 			error =3
 		return error
 
-class fake_msg:
-	def __init__(self,message):
-		msg_cont = message.content
-		cmdlen = len(message.content.split(" ")[0])
-		self.content = message.content[cmdlen:]
-		self.author = message.author
-		self.channel = message.channel
-		self.mentions = message.mentions
-		self.id = message.id
-	def setcont(self,newcont:str):
-		self.content = newcont
+
 	
