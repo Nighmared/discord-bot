@@ -131,3 +131,16 @@ class dbhandler:
 		sub.run(["cp","discordbot.db",f"backups/{timestring}.db"])
 		print(f"[dbhandler.py](create_backup) Created Backup > {timestring}")
 		return 0
+	
+	def add_nhentai_file(self,id,path_to_blurred):
+		self.cursor.execute(f'''INSERT INTO nhentai(id, path) VALUES({id},'{path_to_blurred}') ''')
+		self.conn.commit()
+
+	def get_nhentai_ids(self):
+		self.cursor.execute('''select id from nhentai''')
+		res = self.cursor.fetchall()
+		return res
+	def get_nhentai_path_by_id(self,id):
+		self.cursor.execute(f'''select path from nhentai where id={id}''')
+		res = self.cursor.fetchall()
+		return res[0]

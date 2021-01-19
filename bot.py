@@ -114,6 +114,9 @@ async def on_message(message:discord.message):
 				try:
 					for subimport in module.IMPORTS:
 						submodules.add(subimport)
+						for subsub in subimport.IMPORTS:
+							if(subsub not in IMPORTS):
+								submodules.add(subsub)
 				except:
 					continue
 			for submodule in submodules:

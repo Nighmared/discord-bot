@@ -39,6 +39,7 @@ class commandhandler:
 		self.PREFIX = PREFIX
 		self.client = client
 		self.uptime_tracker = time_tracker
+		self.nh_handler = nhentai.handler(self.dbhandler)
 
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
@@ -448,8 +449,8 @@ class commandhandler:
 		return error
 	async def nhentai(self,channel)->int:
 		sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
-		link = nhentai.get_img(sigma)
-		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
+		link = self.nh_handler.get_img(sigma)
+	#	DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
 		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
 		file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 		embObj.set_image(url="attachment://SPOILER_FILE.jpg")
