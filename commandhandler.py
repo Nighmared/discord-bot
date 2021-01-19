@@ -332,7 +332,7 @@ class commandhandler:
 				"{args[5]}"
 				)''')
 	async def setperm(self,user,perm_lev,own_perm_lev:int):
-		if(perm_lev>=own_perm_lev):
+		if(int(perm_lev)>=own_perm_lev):
 			error = 3 #make sure you cant promote yourself or anyone else over your own rank
 		else:
 			error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
