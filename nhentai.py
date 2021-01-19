@@ -14,9 +14,7 @@ def get_img()->str:
 	
 def __blur(path)->None:
 	SIGMA = 25
-	image = skimage.io.imread(path)
-	blurred = skimage.filters.gaussian(image,sigma=(SIGMA,SIGMA/2), multichannel=True )
-	skimage.io.imsave(path,blurred)
+	skimage.io.imsave(path,skimage.filters.gaussian(skimage.io.imread(path),sigma=(SIGMA,SIGMA), multichannel=True ))
 
 
 
