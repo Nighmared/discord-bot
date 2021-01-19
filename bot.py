@@ -84,8 +84,6 @@ async def on_message(message:discord.message):
 	isJoniii = message.author.id == SUDOID #hardcode that sucker
 	if(isJoniii): permlevel = 5
 	cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
-	if(isJoniii):
-		print("[bot.py]",  message)
 
 	if(isCommand):
 		log = open("log.txt","a")

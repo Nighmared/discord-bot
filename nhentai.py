@@ -1,10 +1,26 @@
 import requests,random,re
-
+import skimage
+import skimage.io,skimage.filters
+from skimage.viewer import ImageViewer
 IMPORTS=()
 
 RANDLIMIT = 10000
 
 def get_img()->str:
+	path = __download_random_image()
+
+	__blur(path)
+	return path
+	
+def __blur(path)->None:
+	SIGMA = 10
+	image = skimage.io.imread(path)
+	blurred = skimage.filters.gaussian(image,sigma=(SIGMA,SIGMA/2), multichannel=True )
+	skimage.io.imsave(path,blurred)
+	
+
+
+def __download_random_image()->str:
 	indx = int(random.random()*RANDLIMIT)
 	response = requests.get(f"https://nhentai.net/g/{indx}/1")
 	while(response.status_code == 404):
@@ -16,15 +32,11 @@ def get_img()->str:
 	link = match.group(0).rstrip('"')
 	print("[nhentai.py] ",link)
 	img_response = requests.get(link,stream=True)
-	file = open(f"nhentai/SPOILER_{indx}.jpg",'wb')
+	file = open(f"nhentai/{indx}.jpg",'wb')
 	#file.write(response.raw)
 	for chunk in img_response.iter_content(1024):
 		file.write(chunk)
 	file.close()
 	
-	path = f"nhentai/SPOILER_{indx}.jpg"
-	
+	path = f"nhentai/{indx}.jpg"
 	return path
-
-
-#>>> while rep.status_code==404: rep =requests.get(f"https://nhentai.net/g/{int(random.random()*1000)}/1")
