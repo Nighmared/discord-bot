@@ -35,7 +35,7 @@ class handler:
 		response = requests.get(f"https://nhentai.net/g/{indx}/1")
 		while(response.status_code == 404):
 			indx = int(random.random()*self.RANDLIMIT)
-			if str(indx) in cached_ids: #if already been downloaded
+			if (indx,) in cached_ids: #if already been downloaded
 				return None,indx
 			response = requests.get(f"https://nhentai.net/g/{indx}/1")
 		
