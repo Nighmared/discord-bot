@@ -451,7 +451,10 @@ class commandhandler:
 		return error
 	async def nhentai(self,channel)->int:
 		sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
+		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0
 		link = self.nh_handler.get_img(sigma)
+		if nsfw:
+			link = f"{link.rstrip('.blurred.jpg')}.jpg"
 		img_id = link.rstrip(".blurred.jpg")
 		embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR)
 		file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
