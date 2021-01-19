@@ -32,6 +32,8 @@ class handler:
 		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
 		print(cached_ids)
 		indx = int(random.random()*self.RANDLIMIT)
+		if indx in cached_ids: #if already been downloaded
+			return None,indx
 		response = requests.get(f"https://nhentai.net/g/{indx}/1")
 		while(response.status_code == 404):
 			indx = int(random.random()*self.RANDLIMIT)
