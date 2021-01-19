@@ -177,7 +177,7 @@ class commandhandler:
 			if(len(self.last_MSG) == 0):
 				error = 3
 			else:
-				if args[1].isnumeric:
+				if len(args)>1 and args[1].isnumeric:
 					for i in range(0,int(args[1])):
 						if len(self.last_MSG) == 0: # if arg is higher than number of stored messages that can be deleted
 							break
