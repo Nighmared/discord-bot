@@ -78,7 +78,7 @@ class commandhandler:
 			error = await self.msgarchive(message.channel)
 
 		elif(cmd == "help" and self.perm_valid(cmd,permlevel)):
-			error = await self.help(message.channel,permlevel)
+			error = await self.help(message.channel,permlevel,args)
 			
 		elif(cmd =="setversion" and self.perm_valid(cmd,permlevel)):
 			error = await self.setversion(version=args[1])
@@ -255,7 +255,9 @@ class commandhandler:
 			embObj = discord.Embed(title="Issues",description="Issues reloaded",color=self.ISSUECOLOR)
 			error = await self.sendMsg(channel,embObj)
 		return error
-	async def help(self,channel,permlevel)-> int:
+	async def help(self,channel,permlevel,args)-> int:
+		if len(args)>1 and args[1].isnumeric:
+			permlevel = args[1]
 		cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
 		emotes = self.dbhandler._execComm('''SELECT value,desc FROM emotes ORDER BY id ASC''',raw=True)
 		final_cmd = []
