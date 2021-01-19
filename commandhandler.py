@@ -20,6 +20,19 @@ class commandhandler:
 	NEKOCOLOR = 0xcc6699
 	EMBEDSIZELIMIT = 1024
 	MAXNUMBEROFEMBEDS = 25
+	ALLOWEDSOURCEFILES = {
+		"dbhandler":"dbhandler.py",
+		"db":"dbhandler.py",
+		"issues":"issues.py",
+		"msglist":"msglist.py",
+		"neko":"neko.py",
+		"nhentai":"nhentai.py",
+		"uptime":"uptime.py",
+		"push":"push.sh",
+		"runner":"runner.sh",
+		"main":"bot.py",
+		"bot":"bot.py"
+	}
 
 
 
@@ -219,7 +232,8 @@ class commandhandler:
 			res = ("Created Backup of DB","Something went wrong")[error >0]
 			embObj = discord.Embed(title="Backup", description=res,color = self.QUERYCOLOR)
 			await self.sendMsg(channel=message.channel, toSend=embObj)
-
+		elif(cmd == "showsourcecode"):
+			error = await self.showsourcecode(message.channel,args)
 		else:
 			error = 1
 			if(not self.perm_valid(cmd,permlevel)):
@@ -301,6 +315,36 @@ class commandhandler:
 		for counter in range(0,repnum):
 			await self.sendMsg(channel,f"{text}")
 		return error
+	async def showsourcecode(self,channel,args)->int:
+		if len(args)<1:
+			error = 3
+		else:
+			module_name = args[1]
+			if module_name in self.ALLOWEDSOURCEFILES.keys():
+				cont = open(self.ALLOWEDSOURCEFILES[module_name]).read()
+				curr_page_cont ="```python\n"
+				curr_page_num = 1
+				embObj = discord.Embed(
+					title=f"Source of {self.ALLOWEDSOURCEFILES[module_name]}",
+					color = self.SYSTEMCOLOR
+					)
+				for line in cont.split("\n"):
+					if len(curr_page_cont+line+2)>self.EMBEDSIZELIMIT-20:
+						curr_page_cont+="```"
+						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont)
+						curr_page_num+=1
+						if(curr_page_num>24):
+							curr_page_cont="[.....]"
+							break
+						curr_page_cont = "```" + line+"\n"
+					else:
+						curr_page_cont+= line+"\n"
+				embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont)
+				error = await self.sendMsg(channel=channel, toSend=embObj)
+
+			else:
+				error = 3
+			
 	async def setstatus(self,cont,args)->int:
 		type = 1
 		splitbyquot = cont.split("\"")
