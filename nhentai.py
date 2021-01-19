@@ -58,6 +58,6 @@ class handler:
 	def nhentai_block(self,id)->int:
 		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
 		print(cached_ids)
-		if not id in cached_ids:
+		if not int(id) in cached_ids:
 			return 3
 		self.db.nhentai_block(id)
