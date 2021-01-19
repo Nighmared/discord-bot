@@ -483,7 +483,6 @@ class commandhandler:
 		return error
 	async def nhentaiblock(self,args)->int:
 		if len(args)>1 and args[1].isnumeric:
-			print("command syntax seems ok")
 			error = self.nh_handler.nhentai_block(args[1])
 		else:
 			error =3
