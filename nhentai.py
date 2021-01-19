@@ -10,12 +10,13 @@ SIGMADEFAULT = 20
 def get_img(sigma=SIGMADEFAULT)->str:
 	path = __download_random_image()
 
-	__blur(path,sigma)
-	return path
+	blurpath = __blur(path,sigma)
+	return blurpath
 	
-def __blur(path,sigma)->None:
-	skimage.io.imsave(path,skimage.filters.gaussian(skimage.io.imread(path),sigma=sigma, multichannel=True ))
-
+def __blur(path,sigma)->str:
+	newname = f"{path.rstrip('jpg')}blurred.jpg"
+	skimage.io.imsave(newname,skimage.filters.gaussian(skimage.io.imread(path),sigma=sigma, multichannel=True ))
+	return newname
 
 
 def __download_random_image()->str:
