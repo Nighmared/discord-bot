@@ -177,7 +177,11 @@ class commandhandler:
 			if(len(self.last_MSG) == 0):
 				error = 3
 			else:
-				await self.last_MSG.pop().delete()
+				if args[1].isnumeric:
+					for i in range(0,int(args[1])):
+						await self.last_MSG.pop().delete()
+				else:
+					await self.last_MSG.pop().delete()
 				error = 0
 
 		elif(cmd == "deleteall" and self.perm_valid(cmd,permlevel)):
