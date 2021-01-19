@@ -128,6 +128,6 @@ class dbhandler:
 	
 	def create_backup(self):
 		print("[dbhandler.py] got into create backup command")
-		sub.run(["cp","discordbot.db",f"{str(dt.now().isoformat())[:-7]}.db"])
+		sub.run(["cp","discordbot.db",f"backups/{str(dt.now().isoformat())[:-7]}.db"])
 		print("[got to end of command lol]")
 		return 0
