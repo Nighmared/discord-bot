@@ -146,8 +146,11 @@ class dbhandler:
 		return res[0]
 	def get_nhentai_blocked(self)->list:
 		self.cursor.execute('''select id from nhentai where blocked=1''')
-		res = self.cursor.fetchall()[0]
-		return res
+		res = self.cursor.fetchall()
+		if len(res)>0:
+			return res[0]
+		else:
+			return []
 	def toggle_nsfw(self)->bool:
 		res = self.get_from_misc("nsfw")
 		new_val = (1,0)[int(res)]
