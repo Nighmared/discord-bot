@@ -30,7 +30,7 @@ class handler:
 
 	def __download_random_image(self)->str:
 		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
-		blocked_ids = [x[0] for x in self.db.get_nhentai_blocked()]
+		blocked_ids = [x for x in self.db.get_nhentai_blocked()]
 		indx = int(random.random()*self.RANDLIMIT)
 		if indx in cached_ids and not indx in blocked_ids: #if already been downloaded
 			return None,indx
