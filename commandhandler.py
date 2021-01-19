@@ -464,7 +464,7 @@ class commandhandler:
 		error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
 	async def togglensfw(self,channel):
 		new_state = self.dbhandler.toggle_nsfw()
-		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('of','on')[new_state]}")
+		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
 		error = await self.sendMsg(toSend=embObj,channel=channel)
 		return error
 
