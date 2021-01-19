@@ -16,7 +16,7 @@ def get_img()->str:
 	link = match.group(0).rstrip('"')
 	print("[nhentai.py] ",link)
 	img_response = requests.get(link,stream=True)
-	file = open("nhentai/SPOILER_{indx}.jpg",'wb')
+	file = open(f"nhentai/SPOILER_{indx}.jpg",'wb')
 	#file.write(response.raw)
 	for chunk in img_response.iter_content(1024):
 		file.write(chunk)
