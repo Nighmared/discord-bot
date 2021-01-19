@@ -1,7 +1,6 @@
 from discord import colour
 from discord.embeds import Embed
 from sqlite3 import OperationalError
-import importlib
 import dbhandler
 import discord
 import issues

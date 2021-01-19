@@ -1,4 +1,6 @@
 import sqlite3 as sql
+import subprocess as sub
+from datetime import datetime as dt
 IMPORTS = () 
 
 class dbhandler:
@@ -125,8 +127,7 @@ class dbhandler:
 		return res
 	
 	def create_backup(self):
-		backup = sql.connect("backup.db")
-		self.conn.backup(backup)
-		backup.commit()
-		backup.close()
+		print("[dbhandler.py] got into create backup command")
+		sub.run(["cp"],["discordbot.db"],[f"{str(dt.now().isoformat())[:-7]}.db"])
+		print("[got to end of command lol]")
 		return 0
