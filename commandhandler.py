@@ -206,7 +206,7 @@ class commandhandler:
 			await self.sendMsg(message.channel,embObj)
 		elif(cmd == "nhentai"):
 			if message.channel.is_nsfw():
-				error = await self.nhentai(message.channel)
+				error = await self.nhentai(message.channel,args)
 			else:
 				error = 2
 		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
@@ -446,8 +446,11 @@ class commandhandler:
 		embObj.add_field(name=f"Page {field_count}",value=field_value,inline=False)
 		error = await self.sendMsg(channel,embObj)
 		return error
-	async def nhentai(self,channel)->int:
-		link = nhentai.get_img()
+	async def nhentai(self,channel,args)->int:
+		if len(args)>1 and args[1].isnumeric:
+			link = nhentai.get_img(int(args[1]))
+		else:
+			link = nhentai.get_img()
 		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
 		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
 		file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")

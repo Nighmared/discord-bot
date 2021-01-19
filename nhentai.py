@@ -1,20 +1,20 @@
 import requests,random,re
 import skimage
 import skimage.io,skimage.filters
+
 from skimage.viewer import ImageViewer
 IMPORTS=()
 
 RANDLIMIT = 10000
-
-def get_img()->str:
+SIGMADEFAULT = 20
+def get_img(sigma=SIGMADEFAULT)->str:
 	path = __download_random_image()
 
-	__blur(path)
+	__blur(path,sigma)
 	return path
 	
-def __blur(path)->None:
-	SIGMA = 25
-	skimage.io.imsave(path,skimage.filters.gaussian(skimage.io.imread(path),sigma=(SIGMA,SIGMA), multichannel=True ))
+def __blur(path,sigma)->None:
+	skimage.io.imsave(path,skimage.filters.gaussian(skimage.io.imread(path),sigma=sigma, multichannel=True ))
 
 
 
