@@ -277,7 +277,7 @@ class commandhandler:
 				currFieldCont = txt
 			else:
 				currFieldCont+= txt
-		if currFieldCont == "": currFieldCont = "." #lol
+		if currFieldCont == "": currFieldCont = "\t" #lol
 		embObj.add_field(name=f"Page {currFieldIndex}",value=currFieldCont)
 		emote_val = ""
 		for(emote,desc) in emotes:
