@@ -447,7 +447,8 @@ class commandhandler:
 		link = nhentai.get_img()
 		DEBUGLINK = "https://crypto.ethz.ch/~maurer/me.jpg"
 		embObj = discord.Embed(title="nHentai Random Cover",color = self.NEKOCOLOR)
-		embObj.set_image(url=DEBUGLINK )
+		embObj.set_image(url=link )
+		embObj
 		error = await self.sendMsg(toSend=embObj,channel = channel)
 
 class fake_msg:
