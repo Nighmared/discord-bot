@@ -336,7 +336,7 @@ class commandhandler:
 						curr_page_cont+="```"
 						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont,inline=False)
 						curr_page_num+=1
-						if(curr_page_num>24):
+						if(curr_page_num>5):
 							curr_page_cont="[.....]"
 							break
 						curr_page_cont = f"```{syntax_keyword}\n" + line+"\n"
