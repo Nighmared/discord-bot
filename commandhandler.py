@@ -353,6 +353,7 @@ class commandhandler:
 				curr_page_num = 1
 				curr_page_cont = ""
 				for line in res2:
+					print(line)
 					if(line.strip() == ""):
 						continue
 					if(len(curr_page_cont+line)+2>self.EMBEDSIZELIMIT):
