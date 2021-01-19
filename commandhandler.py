@@ -322,7 +322,8 @@ class commandhandler:
 			module_name = args[1]
 			if module_name in self.ALLOWEDSOURCEFILES.keys():
 				cont = open(self.ALLOWEDSOURCEFILES[module_name]).read()
-				curr_page_cont ="```python\n"
+				syntax_keyword = "py" if self.ALLOWEDSOURCEFILES[module_name].endswith("py") else "sh"
+				curr_page_cont =f"```{syntax_keyword}\n"
 				curr_page_num = 1
 				embObj = discord.Embed(
 					title=f"Source of {self.ALLOWEDSOURCEFILES[module_name]}",
@@ -336,7 +337,7 @@ class commandhandler:
 						if(curr_page_num>24):
 							curr_page_cont="[.....]"
 							break
-						curr_page_cont = "```python\n" + line+"\n"
+						curr_page_cont = f"```{syntax_keyword}\n" + line+"\n"
 					else:
 						curr_page_cont+= line+"\n"
 				curr_page_cont+= "```"
