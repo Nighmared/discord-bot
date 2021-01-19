@@ -267,7 +267,7 @@ class commandhandler:
 		embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
 
 		txt = []
-		currFieldCont = " "
+		currFieldCont = ""
 		currFieldIndex = 1
 		for (cmdn,text,alias) in final_cmd:
 			txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
@@ -277,7 +277,7 @@ class commandhandler:
 				currFieldCont = txt
 			else:
 				currFieldCont+= txt
-		
+		if currFieldCont == "": currFieldCont = "\t" #lol
 		embObj.add_field(name=f"Page {currFieldIndex}",value=currFieldCont)
 		emote_val = ""
 		for(emote,desc) in emotes:
