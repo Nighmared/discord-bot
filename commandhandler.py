@@ -461,7 +461,7 @@ class commandhandler:
 		error = 0
 		if len(args)>1 and args[1].isnumeric and user_pl>self.dbhandler.get_cmd_perm("nhentai"):
 			try:
-				link = self.dbhandler.get_nhentai_path_by_id(args[1])
+				link = self.dbhandler.get_nhentai_path_by_id(args[1])[0]
 			except:
 				error = 3
 		else:
