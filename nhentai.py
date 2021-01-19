@@ -29,7 +29,7 @@ class handler:
 
 
 	def __download_random_image(self)->str:
-		cached_ids = self.db.get_nhentai_ids()
+		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
 		print(cached_ids)
 		indx = int(random.random()*self.RANDLIMIT)
 		response = requests.get(f"https://nhentai.net/g/{indx}/1")
