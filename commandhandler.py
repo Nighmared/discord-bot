@@ -31,7 +31,9 @@ class commandhandler:
 		"push":"push.sh",
 		"runner":"runner.sh",
 		"main":"bot.py",
-		"bot":"bot.py"
+		"bot":"bot.py",
+		"commandhandler":"commandhandler.py",
+		"cmd":"commandhandler.py",
 	}
 
 
@@ -346,7 +348,7 @@ class commandhandler:
 				error = await self.sendMsg(channel=channel, toSend=embObj)
 
 			else:
-				error = 3
+				error = 4
 		return error
 			
 	async def setstatus(self,cont,args)->int:
