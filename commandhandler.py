@@ -207,11 +207,13 @@ class commandhandler:
 			await self.sendMsg(message.channel,embObj)
 		elif(cmd == "nhentai"):
 			if message.channel.is_nsfw():
-				error = await self.nhentai(message.channel)
+				error = await self.nhentai(message.channel,args)
 			else:
 				error = 2
 		elif(cmd == "togglensfw"):
 			error = await self.togglensfw(message.channel)
+		elif(cmd == "nhentaiblock"):
+			error = await self.nhentaiblock(args)
 		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
 			error = self.dbhandler.create_backup()
 			res = ("Created Backup of DB","Something went wrong")[error >0]
@@ -453,17 +455,27 @@ class commandhandler:
 		embObj.add_field(name=f"Page {field_count}",value=field_value,inline=False)
 		error = await self.sendMsg(channel,embObj)
 		return error
-	async def nhentai(self,channel)->int:
-		sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
+	async def nhentai(self,channel,args,user_pl)->int:
 		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0
-		link = self.nh_handler.get_img(sigma)
-		if nsfw:
-			link = f"{link.rstrip('.blurred.jpg')}.jpg"
-		img_id = link.rstrip(".blurred.jpg")
-		embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR)
-		file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
-		embObj.set_image(url="attachment://SPOILER_FILE.jpg")
-		error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
+		link = ""
+		error = 0
+		if len(args)>1 and args[1].isnumeric and user_pl>self.dbhandler.get_cmd_perm("nhentai"):
+			try:
+				link = self.dbhandler.get_nhentai_path_by_id(args[1])
+			except:
+				error = 3
+		else:
+			sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
+			link = self.nh_handler.get_img(sigma)
+		if(error==0):
+			if nsfw:
+				link = f"{link.rstrip('.blurred.jpg')}.jpg"
+			img_id = link.rstrip(".blurred.jpg")
+			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR)
+			file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
+			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
+			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
+		return error
 	async def togglensfw(self,channel):
 		new_state = self.dbhandler.toggle_nsfw()
 		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
