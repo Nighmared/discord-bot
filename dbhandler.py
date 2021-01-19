@@ -144,8 +144,13 @@ class dbhandler:
 		self.cursor.execute(f'''select path from nhentai where id={id}''')
 		res = self.cursor.fetchall()
 		return res[0]
+	def get_nhentai_blocked(self)->list:
+		self.cursor.execute('''select id from nhentai where blocked=1''')
+		res = self.cursor.fetchall()[0]
+		return res
 	def toggle_nsfw(self)->bool:
 		res = self.get_from_misc("nsfw")
 		new_val = (1,0)[int(res)]
 		self.set_to_misc("nsfw",new_val)
+		self.conn.commit()
 		return new_val>0
