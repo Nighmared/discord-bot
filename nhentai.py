@@ -17,7 +17,7 @@ def get_img()->str:
 	print("[nhentai.py] ",link)
 	img_response = requests.get(link)
 	file = open("nhentai/SPOILER_{indx}.jpg",'w')
-	file.write(response.raw)
+	file.write(str(response.raw))
 	file.close()
 	
 	path = f"nhentai/SPOILER_{indx}.jpg"
