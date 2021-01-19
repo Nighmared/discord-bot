@@ -10,6 +10,8 @@ def get_img()->str:
 	while(response.status_code == 404):
 		indx = int(random.random()*RANDLIMIT)
 		response = requests.get(f"https://nhentai.net/g/{indx}/1")
+	
+	cont = response.text
 	match = re.search('(https://i\.nhentai\.net).*?\"',cont)
 	link = match.group(0).rstrip('"')
 	print("[nhentai.py] ",link)
@@ -17,7 +19,7 @@ def get_img()->str:
 	file = open("nhentai/SPOILER_{indx}.jpg",'w')
 	file.write(response.raw)
 	file.close()
-	cont = response.text
+	
 	path = f"nhentai/SPOILER_{indx}.jpg"
 	
 	return link
