@@ -342,7 +342,7 @@ class commandhandler:
 						curr_page_cont+= line+"\n"
 				curr_page_cont+= "```"
 				embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont,inline=False)
-				print("[commandhandler.py](ssc) ",embObj)
+				print("[commandhandler.py](ssc) ",len(embObj))
 				error = await self.sendMsg(channel=channel, toSend=embObj)
 
 			else:
