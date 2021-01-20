@@ -69,6 +69,7 @@ class commandhandler:
 				self.last_MSG.append(await channel.send(embed=toSend))
 		else: #only the case for say command
 			toSend +=f"\n> Answering to {self.curr_msg.author.name}"
+			print("[commandhandler.py] final len of message:",len(toSend))
 			self.last_MSG.append(await channel.send(str(toSend)))
 		return 0
 	
