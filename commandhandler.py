@@ -328,7 +328,7 @@ class commandhandler:
 				msg =f"```{syntax_keyword}\n"
 				msg += cont[:1950]+"\n"
 				msg += "```"
-				error = await self.sendMsg(channel=channel, toSend=embObj)
+				error = await self.sendMsg(channel=channel, toSend=msg)
 
 			else:
 				error = 4
