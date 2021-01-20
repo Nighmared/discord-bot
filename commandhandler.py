@@ -68,6 +68,7 @@ class commandhandler:
 			else:
 				self.last_MSG.append(await channel.send(embed=toSend))
 		else: #only the case for say command
+			toSend +=f"\n> Answering to {self.curr_msg.author.name}"
 			self.last_MSG.append(await channel.send(str(toSend)))
 		return 0
 	
@@ -324,26 +325,9 @@ class commandhandler:
 			if module_name in self.ALLOWEDSOURCEFILES.keys():
 				cont = open(self.ALLOWEDSOURCEFILES[module_name]).read()
 				syntax_keyword = "py" if self.ALLOWEDSOURCEFILES[module_name].endswith("py") else "sh"
-				curr_page_cont =f"```{syntax_keyword}\n"
-				curr_page_num = 1
-				embObj = discord.Embed(
-					title=f"Source of {self.ALLOWEDSOURCEFILES[module_name]}",
-					color = self.SYSTEMCOLOR
-					)
-				for line in cont.split("\n"):
-					if len(curr_page_cont+line)+2>self.EMBEDSIZELIMIT-20:
-						curr_page_cont+="```"
-						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont,inline=False)
-						curr_page_num+=1
-						if(curr_page_num>5):
-							curr_page_cont="[.....]"
-							break
-						curr_page_cont = f"```{syntax_keyword}\n" + line+"\n"
-					else:
-						curr_page_cont+= line+"\n"
-				curr_page_cont+= "```"
-				print(embObj.fields)
-				embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont,inline=False)
+				msg =f"```{syntax_keyword}\n"
+				msg += cont[:1950]+"\n"
+				msg += "```"
 				error = await self.sendMsg(channel=channel, toSend=embObj)
 
 			else:
