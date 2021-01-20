@@ -503,9 +503,11 @@ class commandhandler:
 		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0
 		link = ""
 		error = 0
+		img_id = -1
 		if len(args)>1 and args[1].isnumeric and user_pl>self.dbhandler.get_cmd_perm("nhentai"):
 			try:
 				link = self.dbhandler.get_nhentai_path_by_id(args[1])[0]
+				img_id = args[1]
 			except:
 				error = 3
 		else:
@@ -519,6 +521,9 @@ class commandhandler:
 			file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
 			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
+		nh_log = open("nhentai/log.txt","a")
+		nh_log.write(f"> Sending nhentai/{img_id}\n")
+		nh_log.close()
 		return error
 	async def togglensfw(self,channel):
 		new_state = self.dbhandler.toggle_nsfw()
