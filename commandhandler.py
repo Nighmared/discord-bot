@@ -69,7 +69,6 @@ class commandhandler:
 				self.last_MSG.append(await channel.send(embed=toSend))
 		else: #only the case for say command
 			toSend +=f"\n> Answering to {self.curr_msg.author.name}"
-			print("[commandhandler.py] final len of message:",len(toSend))
 			self.last_MSG.append(await channel.send(str(toSend)))
 		return 0
 	
@@ -326,8 +325,7 @@ class commandhandler:
 			if module_name in self.ALLOWEDSOURCEFILES.keys():
 				line_indx = 0
 				file = open(self.ALLOWEDSOURCEFILES[module_name],mode='r')
-				file.flush()
-				lines = file.read().replace("`{3}","\` \` ` ").split("\n")
+				lines = file.read().split("\n")
 				file.close()
 				num_lines = len(lines)
 				syntax_keyword = "py" if self.ALLOWEDSOURCEFILES[module_name].endswith("py") else "sh"
@@ -336,11 +334,11 @@ class commandhandler:
 				if(line_indx>=num_lines):
 					error = 3
 				else:
-					msg =f"```{syntax_keyword}\n"
+					msg =f"{'`'*3}{syntax_keyword}\n"
 					while line_indx<num_lines and len(msg+lines[line_indx])<1945:
 						msg+= f"{str(line_indx).rjust(3)}| {lines[line_indx]}\n"
 						line_indx+=1
-					msg += "\n```"
+					msg += "\n"+"`"*3
 					error = await self.sendMsg(channel=channel, toSend=msg)
 
 			else:
