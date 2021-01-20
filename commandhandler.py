@@ -325,7 +325,10 @@ class commandhandler:
 			module_name = args[1]
 			if module_name in self.ALLOWEDSOURCEFILES.keys():
 				line_indx = 0
-				lines = open(self.ALLOWEDSOURCEFILES[module_name],buffering=-1).read().replace("`{3}","\` \` ` ").split("\n")
+				file = open(self.ALLOWEDSOURCEFILES[module_name],mode='r')
+				file.flush()
+				lines = file.read().replace("`{3}","\` \` ` ").split("\n")
+				file.close()
 				num_lines = len(lines)
 				syntax_keyword = "py" if self.ALLOWEDSOURCEFILES[module_name].endswith("py") else "sh"
 				if len(args)>2 and args[2].isnumeric:
