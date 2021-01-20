@@ -1,3 +1,4 @@
+import subprocess
 from discord import colour
 from discord.embeds import Embed
 from sqlite3 import OperationalError
@@ -229,6 +230,8 @@ class commandhandler:
 			error = await self.togglensfw(message.channel)
 		elif(cmd == "nhentaiblock"):
 			error = await self.nhentaiblock(args)
+		elif(cmd == "nhentailog"):
+			error = await self.nhentailog(message.channel)
 		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
 			error = self.dbhandler.create_backup()
 			res = ("Created Backup of DB","Something went wrong")[error >0]
@@ -536,6 +539,20 @@ class commandhandler:
 		else:
 			error =3
 		return error
-
-
-	
+	async def nhentailog(self,channel)->int:
+		log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")),50)
+		log_lines = open("nhentai/log.txt").readlines()
+		embObj = discord.Embed(title="nhentai log",color=self.NEKOCOLOR)
+		field_cont = ""
+		for line in log_lines[-log_len:]:
+			field_cont+= line+"\n"
+		embObj.add_field(name="Entries",value=field_cont)
+		error = await self.sendMsg(channel=channel,toSend=embObj)
+		#log management
+		if len(log_lines)>1000:
+			open("nhentai/log.txt.old","w").writelines(log_lines) #lol idk how this is gonna end
+			curr_log = open("nhentai/log.txt","w")
+			curr_log.write("")
+			curr_log.close()
+		
+		return error
