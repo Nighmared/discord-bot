@@ -333,7 +333,7 @@ class commandhandler:
 					error = 3
 				else:
 					msg =f"```{syntax_keyword}\n"
-					while line_indx<num_lines and len(msg+lines[line_indx])<1985:
+					while line_indx<num_lines and len(msg+lines[line_indx])<1980:
 						msg+= f"{str(line_indx).rjust(3)}| {lines[line_indx]}\n"
 						line_indx+=1
 					msg += "```"
