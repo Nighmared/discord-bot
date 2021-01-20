@@ -209,9 +209,6 @@ class commandhandler:
 					await self.last_MSG.pop().delete()
 				error = 0
 		elif(cmd == "deleteall"):
-			if len(self.last_MSG)<=100:
-				await discord.TextChannel.delete_messages(messages=self.last_MSG)
-				self.last_MSG.clear()
 			while(len(self.last_MSG)>0):
 				await self.last_MSG.pop().delete()
 		elif(cmd == "deepsleep"):
