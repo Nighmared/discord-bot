@@ -323,12 +323,21 @@ class commandhandler:
 		else:
 			module_name = args[1]
 			if module_name in self.ALLOWEDSOURCEFILES.keys():
-				cont = open(self.ALLOWEDSOURCEFILES[module_name]).read()
+				line_indx = 0
+				lines = open(self.ALLOWEDSOURCEFILES[module_name]).read().split("\n")
+				num_lines = len(lines)
 				syntax_keyword = "py" if self.ALLOWEDSOURCEFILES[module_name].endswith("py") else "sh"
-				msg =f"```{syntax_keyword}\n"
-				msg += cont[:1950]+"\n"
-				msg += "```"
-				error = await self.sendMsg(channel=channel, toSend=msg)
+				if len(args)>2 and args[2].isnumeric:
+					line_indx = int(args[2]) #start at later line
+				if(line_indx>=num_lines):
+					error = 3
+				else:
+					msg =f"```{syntax_keyword}\n"
+					while line_indx<num_lines and len(msg+lines[line_indx])<1985:
+						msg+= f"{str(line_indx).rjust(3)}| {lines[line_indx]}"
+						line_indx+=1
+					msg += "```"
+					error = await self.sendMsg(channel=channel, toSend=msg)
 
 			else:
 				error = 4
