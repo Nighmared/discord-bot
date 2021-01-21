@@ -24,7 +24,7 @@ class handler:
 		
 	def __blur(self,path,sigma)->str:
 		newname = f"{path.rstrip('jpg')}blurred.jpg"
-		skimage.io.imsave(newname,skimage.filters.gaussian(skimage.io.imread(path),sigma=sigma, multichannel=True ))
+		skimage.io.imsave(newname,skimage.filters.gaussian(skimage.io.imread(path),sigma=(sigma,sigma), multichannel=True ))
 		return newname
 
 
