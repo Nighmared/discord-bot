@@ -508,13 +508,10 @@ class commandhandler:
 		error = 0
 		img_id = -1
 		if len(args)>1 and args[1].isnumeric and user_pl>self.dbhandler.get_cmd_perm("nhentai"):
-			try:
-				img_id = args[1]
-				link = self.dbhandler.get_nhentai_path_by_id(img_id)[0]
-				if link == -1:
-					link = self.nh_handler.get_img
-			except:
-				error = 3
+			img_id = args[1]
+			link = self.dbhandler.get_nhentai_path_by_id(img_id)[0]
+			if link == -1:
+				link = self.nh_handler.get_img
 		else:
 			sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
 			link = self.nh_handler.get_img(sigma)
