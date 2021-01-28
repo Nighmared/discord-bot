@@ -61,9 +61,10 @@ class commandhandler:
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
-	async def sendMsg(self,channel,toSend,file=None):
+	async def sendMsg(self,channel,toSend,file=None,no_footer = False):
 		if(type(toSend) == discord.embeds.Embed):
-			toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}")
+			if not no_footer:
+				toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}")
 			if file is not None:
 				self.last_MSG.append(await channel.send(file=file,embed=toSend))
 			else:
@@ -524,7 +525,7 @@ class commandhandler:
 			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR)
 			file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
-			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
+			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send,no_footer = True)
 		nh_log = open("nhentai/log.txt","a")
 		nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
 		nh_log.close()
