@@ -44,7 +44,7 @@ class handler:
 		cont = response.text
 		match = re.search('(https://i\.nhentai\.net).*?\"',cont)
 		link = match.group(0).rstrip('"')
-		print("[nhentai.py] ",link)
+		print("[nhentai.py] freshly downloaded ",link)
 		img_response = requests.get(link,stream=True)
 		file = open(f"nhentai/{indx}.jpg",'wb')
 		#file.write(response.raw)

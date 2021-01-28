@@ -85,6 +85,9 @@ async def on_message(message:discord.message):
 	if(isJoniii): permlevel = 5
 	cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
 
+	#easteregg lel
+	if(message.content.contains("177013")):
+		await handler.nhentai(message.channel,177013,permlevel)
 	if(isCommand):
 		log = open("log.txt","a")
 		log.write(f"{message.author.name}>{message.content}\n")
