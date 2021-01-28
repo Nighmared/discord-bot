@@ -2,8 +2,6 @@ import requests,random,re
 import skimage
 import skimage.io,skimage.filters
 import dbhandler
-
-from skimage.viewer import ImageViewer
 IMPORTS=(dbhandler)
 
 
