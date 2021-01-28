@@ -224,6 +224,7 @@ class commandhandler:
 			await self.sendMsg(message.channel,embObj)
 		elif(cmd == "nhentai"):
 			if message.channel.type != discord.TextChannel or message.channel.is_nsfw():
+				print(message.channel)
 				print("helo")
 				error = await self.nhentai(message.channel,args,permlevel)
 			else:
