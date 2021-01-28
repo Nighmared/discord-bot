@@ -87,6 +87,7 @@ async def on_message(message:discord.message):
 
 	#easteregg lel
 	if(message.content.contains("177013")):
+		print("asdfasdfsadf")
 		await handler.nhentai(message.channel,177013,permlevel)
 	if(isCommand):
 		log = open("log.txt","a")
