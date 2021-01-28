@@ -223,8 +223,8 @@ class commandhandler:
 			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
 			await self.sendMsg(message.channel,embObj)
 		elif(cmd == "nhentai"):
-			if message.channel.type != discord.TextChannel or message.channel.is_nsfw():
-				print(message.channel.is_nsfw(), type(message.channel),message.channel.type )
+			if message.channel.type != "text" or message.channel.is_nsfw():
+				print(message.channel.is_nsfw(),print(type(message.channel.type)), type(message.channel),message.channel.type )
 				print("helo")
 				error = await self.nhentai(message.channel,args,permlevel)
 			else:
