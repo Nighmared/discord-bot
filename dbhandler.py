@@ -146,7 +146,8 @@ class dbhandler:
 		if len(res) == 0:
 			res.append((-1,))
 		elif res[0][1]==1:
-			res.append(("nhentai/steurer.blurred.jpg",)) #so other stuff still works
+			print("isblocked")
+			res[0] = (("nhentai/steurer.blurred.jpg",)) #so other stuff still works
 		return res[0]
 	def get_nhentai_blocked(self)->list:
 		self.cursor.execute('''select id from nhentai where blocked=1''')
