@@ -141,8 +141,9 @@ class dbhandler:
 		res = self.cursor.fetchall()
 		return res
 	def get_nhentai_path_by_id(self,id):
-		self.cursor.execute(f'''select path from nhentai where id={id} and blocked=0''')
+		self.cursor.execute(f'''select path,blocked from nhentai where id={id}''')
 		res = self.cursor.fetchall()
+		print(res[0][1])
 		if len(res)==0:
 			res.append(("nhentai/steurer.blurred.jpg",),) #so other stuff still works
 		return res[0]
