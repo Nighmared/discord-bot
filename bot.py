@@ -86,6 +86,7 @@ async def on_message(message:discord.message):
 	cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
 
 	#easteregg lel
+	print(message.content)
 	if(message.content.contains("177013")):
 		print("asdfasdfsadf")
 		await handler.nhentai(message.channel,177013,permlevel)
