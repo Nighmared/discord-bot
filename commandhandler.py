@@ -512,6 +512,7 @@ class commandhandler:
 				img_id = args[1]
 				link = self.dbhandler.get_nhentai_path_by_id(img_id)[0]
 				if link == -1:
+					link = self.nh_handler.get_img
 			except:
 				error = 3
 		else:
