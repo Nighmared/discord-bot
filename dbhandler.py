@@ -143,7 +143,6 @@ class dbhandler:
 	def get_nhentai_path_by_id(self,id):
 		self.cursor.execute(f'''select path,blocked from nhentai where id={id}''')
 		res = self.cursor.fetchall()
-		print(res[0][1])
 		if len(res) == 0:
 			res.append((-1,))
 		elif res[0][1]==1:
