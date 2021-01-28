@@ -13,8 +13,8 @@ class handler:
 		self.db = dbhandler
 		self.RANDLIMIT = int(self.db.get_from_misc("nh_random_limit"))
 
-	def get_img(self,sigma=SIGMADEFAULT)->str:
-		path,indx = self.__download_random_image()
+	def get_img(self,sigma=SIGMADEFAULT,indx_arg = None)->str:
+		path,indx = self.__download_random_image(indx_arg)
 		if path is None:
 			blurpath = self.db.get_nhentai_path_by_id(indx)[0]
 		else:
@@ -28,10 +28,10 @@ class handler:
 		return newname
 
 
-	def __download_random_image(self)->str:
+	def __download_random_image(self,indx_arg=None)->str:
 		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
 		blocked_ids = [x for x in self.db.get_nhentai_blocked()]
-		indx = int(random.random()*self.RANDLIMIT)
+		indx = int(random.random()*self.RANDLIMIT) if indx_arg is None else indx_arg
 		if indx in cached_ids and not indx in blocked_ids: #if already been downloaded
 			return None,indx
 		response = requests.get(f"https://nhentai.net/g/{indx}/1")

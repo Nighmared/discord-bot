@@ -509,8 +509,9 @@ class commandhandler:
 		img_id = -1
 		if len(args)>1 and args[1].isnumeric and user_pl>self.dbhandler.get_cmd_perm("nhentai"):
 			try:
-				link = self.dbhandler.get_nhentai_path_by_id(args[1])[0]
 				img_id = args[1]
+				link = self.dbhandler.get_nhentai_path_by_id(img_id)[0]
+				if link == -1:
 			except:
 				error = 3
 		else:
