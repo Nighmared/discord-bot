@@ -415,7 +415,7 @@ class commandhandler:
 						curr_page_num+=1
 					else:
 						curr_page_cont+=line+"\n"
-				if len(curr_page_cont) >0:
+				if len(curr_page_cont) >0 and embed_len<=self.EMBEDSIZELIMIT:
 					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont)
 			else:
 				embObj.add_field(name="Output",value=res)
