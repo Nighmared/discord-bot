@@ -404,7 +404,6 @@ class commandhandler:
 				curr_page_num = 1
 				curr_page_cont = ""
 				for line in res2:
-					print(line)
 					if(line.strip() == ""):
 						continue
 					if(len(curr_page_cont+line)+2>self.FIELDSIZELIMIT):
@@ -420,7 +419,7 @@ class commandhandler:
 					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont)
 			else:
 				embObj.add_field(name="Output",value=res)
-
+			print(embed_len)
 			await self.sendMsg(channel,embObj)
 		return 0
 	async def reload(self,channel):
