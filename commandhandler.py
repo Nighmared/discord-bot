@@ -19,7 +19,8 @@ class commandhandler:
 	SYSTEMCOLOR = 0x009900# green
 	QUERYCOLOR = 0xffcc00 # yellow
 	NEKOCOLOR = 0xcc6699
-	EMBEDSIZELIMIT = 1024
+	FIELDSIZELIMIT = 1024
+	EMBEDSIZELIMIT = 5950
 	MAXNUMBEROFEMBEDS = 25
 	ALLOWEDSOURCEFILES = {
 		"dbhandler":"dbhandler.py",
@@ -295,7 +296,7 @@ class commandhandler:
 		currFieldIndex = 1
 		for (cmdn,text,alias) in final_cmd:
 			txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
-			if(len(currFieldCont+txt)>self.EMBEDSIZELIMIT):
+			if(len(currFieldCont+txt)>self.FIELDSIZELIMIT):
 				embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
 				currFieldIndex+=1
 				currFieldCont = txt
@@ -395,10 +396,10 @@ class commandhandler:
 		except OperationalError:
 			print("[commandhandler.py] Something went wrong with sqlite")
 			return 3 # command is fuckd up probably
-
 		if(res !=-10):
 			embObj = discord.Embed(title="Query Result",color=self.QUERYCOLOR)
-			if(len(res)>self.EMBEDSIZELIMIT):
+			embed_len = 0
+			if(len(res)>self.FIELDSIZELIMIT):
 				res2 = res.split("\n")
 				curr_page_num = 1
 				curr_page_cont = ""
@@ -406,7 +407,10 @@ class commandhandler:
 					print(line)
 					if(line.strip() == ""):
 						continue
-					if(len(curr_page_cont+line)+2>self.EMBEDSIZELIMIT):
+					if(len(curr_page_cont+line)+2>self.FIELDSIZELIMIT):
+						embed_len  += len(curr_page_cont)
+						if embed_len> self.EMBEDSIZELIMIT:
+							break
 						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont,inline=False)
 						curr_page_cont = line+"\n"
 						curr_page_num+=1
@@ -416,6 +420,7 @@ class commandhandler:
 					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont)
 			else:
 				embObj.add_field(name="Output",value=res)
+
 			await self.sendMsg(channel,embObj)
 		return 0
 	async def reload(self,channel):
@@ -491,7 +496,7 @@ class commandhandler:
 		field_count = 1
 		for entry in res:
 			to_add = f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
-			if len(field_value+to_add)>self.EMBEDSIZELIMIT:
+			if len(field_value+to_add)>self.FIELDSIZELIMIT:
 				if(field_count>3):
 					break
 				embObj.add_field(name=f"Page {field_count}",value=field_value,inline=False)
