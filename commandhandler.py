@@ -555,8 +555,8 @@ class commandhandler:
 		embObj.add_field(name="Entries",value=field_cont)
 		error = await self.sendMsg(channel=channel,toSend=embObj)
 		#log management
-		print(len(log_lines))
-		if len(log_lines)>1000:
+		if len(log_lines)>500:
+			print("[commandhandler.py] (nhl) trying to rotate log")
 			open("nhentai/log.txt.old","w").writelines(log_lines) #lol idk how this is gonna end
 			curr_log = open("nhentai/log.txt","w")
 			curr_log.write("")
