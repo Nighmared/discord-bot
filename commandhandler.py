@@ -546,7 +546,7 @@ class commandhandler:
 			error =3
 		return error
 	async def nhentailog(self,channel)->int:
-		log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")),50)
+		log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")),48)
 		log_lines = open("nhentai/log.txt").readlines()
 		embObj = discord.Embed(title="nhentai log",color=self.NEKOCOLOR)
 		field_cont = ""
