@@ -87,7 +87,7 @@ async def on_message(message:discord.message):
 
 	#easteregg lel
 	if "177013" in message.content:
-		await handler.nhentai(message.channel,(-1,"177013",),permlevel)
+		await handler.nhentai(message.channel,(-1,"177013",),10)
 	if(isCommand):
 		log = open("log.txt","a")
 		log.write(f"{message.author.name}>{message.content}\n")
