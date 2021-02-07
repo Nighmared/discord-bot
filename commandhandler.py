@@ -492,15 +492,11 @@ class commandhandler:
 		embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages", color=self.TRACKERCOLOR)
 		field_value = ""
 		rank = 1
-		field_count = 1
 		for entry in res:
 			to_add = f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
 			if len(field_value+to_add)>self.FIELDSIZELIMIT:
-				if(field_count>3):
-					break
-				embObj.add_field(name=f"Page {field_count}",value=field_value,inline=False)
-				field_count += 1
-				field_value = to_add
+				embObj.add_field(name=f"Ranking",value=field_value,inline=False)
+				break
 			else:				
 				field_value += to_add
 			rank += 1
