@@ -531,8 +531,9 @@ class commandhandler:
 			try:
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
-				print("[commandhandler.py] nh command; link in catch block = ",link)
 				link2 = link.rstrip(".blurred.jpg")+"jpg"
+				print("[commandhandler.py] nh command; lin2 in catch block = ",link2)
+
 				self.nh_handler._blur(link2,sigma)
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
