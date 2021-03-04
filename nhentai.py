@@ -22,7 +22,8 @@ class handler:
 		
 	def __blur(self,path,sigma)->str:
 		newname = f"{path.rstrip('jpg')}blurred.jpg"
-		skimage.io.imsave(newname,skimage.filters.gaussian(skimage.io.imread(path),sigma=(sigma,sigma), multichannel=True ))
+		#skimage.io.imsave(newname,skimage.filters.gaussian(skimage.io.imread(path),sigma=(sigma,sigma), multichannel=True ))
+		
 		return newname
 
 
@@ -45,7 +46,6 @@ class handler:
 		print("[nhentai.py] freshly downloaded ",link)
 		img_response = requests.get(link,stream=True)
 		file = open(f"nhentai/{indx}.jpg",'wb')
-		#file.write(response.raw)
 		for chunk in img_response.iter_content(1024):
 			file.write(chunk)
 		file.close()

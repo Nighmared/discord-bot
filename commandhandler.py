@@ -19,6 +19,7 @@ class commandhandler:
 	SYSTEMCOLOR = 0x009900# green
 	QUERYCOLOR = 0xffcc00 # yellow
 	NEKOCOLOR = 0xcc6699
+	NORMALCOLOR = 0x000000 # black
 	FIELDSIZELIMIT = 1024
 	EMBEDSIZELIMIT = 5950
 	MAXNUMBEROFEMBEDS = 25
@@ -241,6 +242,8 @@ class commandhandler:
 			await self.sendMsg(channel=message.channel, toSend=embObj)
 		elif(cmd == "showsourcecode"):
 			error = await self.showsourcecode(message.channel,args)
+		elif(cmd == "banner"):
+			error = await banner(self,message.channel,message.guild)
 		else:
 			error = 1
 			if(not self.perm_valid(cmd,permlevel)):
@@ -562,4 +565,9 @@ class commandhandler:
 			curr_log.write("")
 			curr_log.close()
 		
+		return error
+	async def banner(self,channel,guild)-> int:
+		banner_url = guild.banner_url
+		embObj = discord.Embed(title="Banner",description=guild.name, color=self.NORMALCOLOR)
+		error = self.sendMsg(channel=channel, toSend=embObj)
 		return error
