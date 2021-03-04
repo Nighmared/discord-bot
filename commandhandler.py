@@ -528,7 +528,12 @@ class commandhandler:
 				link = f"{link.rstrip('.blurred.jpg')}.jpg"
 			img_id = link.rstrip(".blurred.jpg")
 			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR)
-			file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
+			try:
+				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
+			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
+				print("[commandhandler.py] nh command; link in catch block = ",link)
+				self.nh_handler._blur(link,sigma)
+				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
 			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send,no_footer = True)
 		nh_log = open("nhentai/log.txt","a")

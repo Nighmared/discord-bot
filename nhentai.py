@@ -16,13 +16,13 @@ class handler:
 		if path is None:
 			blurpath = self.db.get_nhentai_path_by_id(indx)[0]
 		else:
-			blurpath = self.__blur(path,sigma)
+			blurpath = self._blur(path,sigma)
 			self.db.add_nhentai_file(id=indx, path_to_blurred=blurpath)
 		return blurpath
 		
-	def __blur(self,path,sigma)->str:
+	def _blur(self,path,sigma)->str:
 		newname = f"{path.rstrip('jpg')}blurred.jpg"
-		#skimage.io.imsave(newname,skimage.filters.gaussian(skimage.io.imread(path),sigma=(sigma,sigma), multichannel=True ))
+		skimage.io.imsave(newname,skimage.filters.gaussian(skimage.io.imread(path),sigma=(sigma,sigma), multichannel=True ))
 		
 		return newname
 
