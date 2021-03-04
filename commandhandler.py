@@ -243,7 +243,7 @@ class commandhandler:
 		elif(cmd == "showsourcecode"):
 			error = await self.showsourcecode(message.channel,args)
 		elif(cmd == "banner"):
-			error = await self.banner(self,message.channel,message.guild)
+			error = await self.banner(message.channel,message.guild)
 		else:
 			error = 1
 			if(not self.perm_valid(cmd,permlevel)):
