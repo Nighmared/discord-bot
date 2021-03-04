@@ -574,5 +574,5 @@ class commandhandler:
 	async def banner(self,channel,guild)-> int:
 		banner_url = guild.banner_url
 		embObj = discord.Embed(title="Banner",description=guild.name, color=self.NORMALCOLOR)
-		error = self.sendMsg(channel=channel, toSend=embObj)
+		error = await self.sendMsg(channel=channel, toSend=embObj)
 		return error
