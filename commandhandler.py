@@ -162,6 +162,8 @@ class commandhandler:
 		
 		elif(cmd == "mostmessages"):
 			error = await self.mostmessages(channel=message.channel)
+		elif(cmd == "superdelete"):
+			error = await self.superdelete(msg = await message.channel.fetch_message(message.reference.message_id))
 
 		elif(cmd == "togglecmd"):
 			totogglecmd = ""
@@ -507,6 +509,18 @@ class commandhandler:
 			embObj.add_field(name=f"Ranking",value=field_value,inline=False)
 		error = await self.sendMsg(channel,embObj)
 		return error
+	async def superdelete(self,msg : discord.Message):
+		try:
+			await msg.delete()
+			error = 0
+		except discord.Forbidden:
+			error = 4
+		except discord.NotFound:
+			error = 2
+		except discord.HTTPException:
+			error = 1
+		return error
+
 	async def nhentai(self,channel,args,user_pl)->int:
 		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0
 		link = ""
