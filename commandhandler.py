@@ -196,6 +196,8 @@ class commandhandler:
 			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
 			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime())
 			error = await self.sendMsg(message.channel,embObj)
+		elif(cmd == "ping"):
+			error = await self.ping(channel=message.channel)
 		elif(cmd == "source"):
 			embObj = discord.Embed(title="Source",description="http://brrr.nighmared.tech",color= self.SYSTEMCOLOR)
 			error = await self.sendMsg(channel = message.channel,toSend=embObj)
@@ -434,7 +436,9 @@ class commandhandler:
 		await self.sendMsg(channel,embObj)
 		return 99
 
-
+	async def ping(self,channel)-> int:
+		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
+		return await self.sendMsg(channel=channel, toSend=embObj)
 	async def msgarchive(self,channel)-> int:	
 		msgls = self.msgs.sendable()
 		if(len(msgls)== ""):
