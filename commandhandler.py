@@ -536,7 +536,7 @@ class commandhandler:
 				self.nh_handler._blur(link2,sigma)
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
-			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send,no_footer = True)
+			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
 		nh_log = open("nhentai/log.txt","a")
 		nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
 		nh_log.close()
