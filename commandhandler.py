@@ -134,7 +134,7 @@ class commandhandler:
 			error = await self.sendMsg(message.channel,embObj)
 
 		elif(cmd == "setchangelog"):
-			error = await self.setchangelog(message.channel, args[1])
+			error = await self.setchangelog( args[1])
 
 		elif(cmd == "say"): #No embed as should rly just say stuff 
 			error = await self.say(message.channel,args)
@@ -208,7 +208,10 @@ class commandhandler:
 					for i in range(0,int(args[1])):
 						if len(self.last_MSG) == 0: # if arg is higher than number of stored messages that can be deleted
 							break
-						await self.last_MSG.pop().delete()
+						try:
+							await self.last_MSG.pop().delete()
+						except discord.NotFound:
+							i-=1
 				else:
 					await self.last_MSG.pop().delete()
 				error = 0
