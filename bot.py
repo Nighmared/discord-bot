@@ -41,7 +41,7 @@ def get_ready():
 #EMOJIS
 pepelove = "<:pepelove:778369435244429344>"
 pepegun = "<:pepegun:747783377716904008>"
-confusedcat = "<:confusedcat:771041402930987068>"
+this_emote = "<:this:747783377662378004>"
 hm = "<:hm:779012743583498240>"
 cope = "<:wojak_cope:767839352255676417>"
 c_yfu = "<:code_youfuckedup:785435875030728724>"
@@ -98,7 +98,7 @@ async def on_message(message:discord.message):
 
 	if(message.author.id == handler.toTrackID and not isCommand):
 		msgs.add_msg(message)
-		if(db.shouldAnnoy()): await add_reaction( message,confusedcat)
+		if(db.shouldAnnoy()): await add_reaction( message,this_emote)
 
 	if(isCommand):
 		
