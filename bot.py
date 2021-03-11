@@ -118,7 +118,7 @@ async def on_message(message:discord.message):
 					for subimport in module.IMPORTS:
 						if subimport not in submodules:
 							submodules.add(subimport)
-							modulenames+= "⤷"+subimport.__name__+"\n"
+							modulenames+= " ⤷"+subimport.__name__+"\n"
 							for subsub in subimport.IMPORTS:
 								if(subsub not in submodules and subsub not in IMPORTS):
 									submodules.add(subsub)
