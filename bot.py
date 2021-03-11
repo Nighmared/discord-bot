@@ -116,10 +116,13 @@ async def on_message(message:discord.message):
 				modulenames+= module.__name__ +"\n"
 				try:
 					for subimport in module.IMPORTS:
-						submodules.add(subimport)
-						for subsub in subimport.IMPORTS:
-							if(subsub not in IMPORTS):
-								submodules.add(subsub)
+						if subimport not in submodules:
+							submodules.add(subimport)
+							modulenames+= "\t|-"+subimport.__name__+"\n"
+							for subsub in subimport.IMPORTS:
+								if(subsub not in submodules and subsub not in IMPORTS):
+									submodules.add(subsub)
+									modulenames += "\t\t|-"+subsub.__name__+"\n"
 				except:
 					continue
 			for submodule in submodules:
