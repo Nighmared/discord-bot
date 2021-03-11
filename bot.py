@@ -127,7 +127,6 @@ async def on_message(message:discord.message):
 					continue
 			for submodule in submodules:
 				reload(submodule)
-				modulenames+= f"\t|-{submodule.__name__}\n"
 			
 			try:
 				get_ready()
