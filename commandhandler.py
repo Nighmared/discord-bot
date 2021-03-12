@@ -37,6 +37,9 @@ class commandhandler:
 		"bot":"bot.py",
 		"commandhandler":"commandhandler.py",
 		"cmd":"commandhandler.py",
+		"msghandler":"msghandler.py",
+		"msg": "msghandler.py",
+		
 	}
 
 
