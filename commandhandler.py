@@ -648,7 +648,7 @@ class commandhandler:
 			return (1,embObj)
 	async def nhentai(self,message:discord.Message)->tuple:
 		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
-				return (2,None)
+				return (2,None,None)
 
 		args = message.content[1:].split(" ")
 		user_pl = self.dbhandler.get_perm_level(message.author.id)
