@@ -248,9 +248,9 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "nhentai"):
-			error,embObj = await self.nhentai(message)
+			error,embObj,f = await self.nhentai(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,file=f)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "togglensfw"):
 			error = await self.togglensfw(message.channel)
@@ -671,18 +671,18 @@ class commandhandler:
 			img_id = link.rstrip(".blurred.jpg")
 			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR)
 			try:
-				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
+				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
 			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
 				link2 = link.rstrip(".blurred.jpg")+".jpg"
 				print("[commandhandler.py] nh command; lin2 in catch block = ",link2)
 
 				self.nh_handler._blur(link2,sigma)
-				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
+				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
 			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
 		nh_log = open("nhentai/log.txt","a")
 		nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
 		nh_log.close()
-		return (0,embObj)
+		return (0,embObj,file_to_send)
 	async def togglensfw(self,channel):
 		new_state = self.dbhandler.toggle_nsfw()
 		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
