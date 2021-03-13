@@ -40,8 +40,9 @@ async def add_reaction(message, emote):
 		return 0
 	except discord.errors.Forbidden:
 		return 5
-	except discord.errors.HTTPException:
+	except discord.errors.HTTPException as e:
 		print("[msghandler.py] (add_reaction) couldnt add emote: "+emote)
+		print(e)
 		return 1
 
 
