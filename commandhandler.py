@@ -105,12 +105,12 @@ class commandhandler:
 		if(cmd == "msgarchive"):
 			error,embObj = await self.msgarchive(message.channel)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.id)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "help"):
 			error,embObj = await self.help(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.id)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd =="setversion"):
 			error = await self.setversion(version=args[1])
