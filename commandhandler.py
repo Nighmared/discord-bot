@@ -259,8 +259,6 @@ class commandhandler:
 				error = 4
 		return 0 if error is None else error #quick fix until i properly refactored all cmds
 
-	async def source(self,message:discord.Message)->tuple:
-		return (0, discord.Embed(title="Source",description="http://brrr.nighmared.tech",color= self.SYSTEMCOLOR))
 	async def setversion(self,version)-> int:
 		try:
 			self.dbhandler.set_to_misc("version",version)
@@ -714,4 +712,6 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Issues",description=str(e), color=self.ERRORCOLOR)
 			return	(1,embObj)
+	async def source(self,message:discord.Message)->tuple:
+		return (0, discord.Embed(title="Source",description="http://brrr.nighmared.tech",color= self.SYSTEMCOLOR))
 	
