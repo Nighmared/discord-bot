@@ -694,7 +694,7 @@ class commandhandler:
 			embObj = discord.Embed(title="nhentai log",color=self.NEKOCOLOR)
 			field_cont = ""
 			for line in log_lines[-log_len:]:
-				field_cont+= line+"\n"
+				field_cont+= line
 			embObj.add_field(name="Entries",value=field_cont)
 			#log management
 			if len(log_lines)>500:
