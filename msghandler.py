@@ -54,7 +54,7 @@ def get_ready(client:discord.Client, STARTTIME):
 
 
 
-async def doreload(message:discord.Message,client:discord.Client,STARTTIME): #reloads all dependencies
+async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_backup): #reloads all dependencies
 	modulenames = "msghandler\n"
 	submodules = set()
 	for module in IMPORTS:
@@ -78,6 +78,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME): #re
 	embObj = discord.Embed(title="Soft Reloading")
 	embObj.add_field(name="Reloaded modules:",value=modulenames)
 	res = 0
+	handler.last_MSG = msgs_backup
 	handler.curr_msg = message
 
 	print("[bot.py] back from softreload")

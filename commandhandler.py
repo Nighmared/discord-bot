@@ -20,6 +20,7 @@ class commandhandler:
 	QUERYCOLOR = 0xffcc00 # yellow
 	NEKOCOLOR = 0xcc6699
 	NORMALCOLOR = 0x000000 # black
+	ERRORCOLOR = 0xff0000 # red
 	FIELDSIZELIMIT = 1024
 	EMBEDSIZELIMIT = 5950
 	MAXNUMBEROFEMBEDS = 25
@@ -67,18 +68,20 @@ class commandhandler:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
 	async def sendMsg(self,channel,toSend,file=None,no_footer = False):
-		if(type(toSend) == discord.embeds.Embed):
-			if not no_footer:
-				toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}")
-			if file is not None:
-				self.last_MSG.append(await channel.send(file=file,embed=toSend))
-			else:
-				self.last_MSG.append(await channel.send(embed=toSend))
-		else: #only the case for say command
-			self.last_MSG.append(await channel.send(str(toSend)))
-		return 0
+		try:
+			if(type(toSend) == discord.embeds.Embed):
+				if not no_footer:
+					toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}")
+				if file is not None:
+					self.last_MSG.append(await channel.send(file=file,embed=toSend))
+				else:
+					self.last_MSG.append(await channel.send(embed=toSend))
+			else: #only the case for say command
+				self.last_MSG.append(await channel.send(str(toSend)))
+			return 0
+		except discord.Forbidden:
+			return 5
 	
-
 
 
 	async def commandHandler(self,message:discord.message,permlevel:int) -> int:
@@ -98,21 +101,28 @@ class commandhandler:
 		if not self.perm_valid(cmd,permlevel):
 			return 4
 
-
 		if(cmd == "msgarchive"):
-			error = await self.msgarchive(message.channel)
-
+			error,embObj = await self.msgarchive(message.channel)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "help"):
-			error = await self.help(message.channel,permlevel,args)
+			error,embObj = await self.help(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 			
 		elif(cmd =="setversion"):
 			error = await self.setversion(version=args[1])
 	
 		elif(cmd == "easter"):
-			error = await self.easter(message.channel)
+			error,embObj = await self.easter(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 			
 		elif(cmd =="easterranks"):
-			error = await self.easterranks(message.channel)
+			error.embObj = await self.easterranks(message)
 		
 		elif(cmd == "showissues"):
 			error = await self.showissues(message.channel)
@@ -124,17 +134,25 @@ class commandhandler:
 			error = await self.setcache(message.channel,args[1])
 		
 		elif(cmd =="endtrack"):
-			error = await self.endtrack(message.channel)
+			error,embObj = await self.endtrack(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 
 		elif(cmd == "settrack"):
 			error = await self.settrack(message.channel,message.mentions[0])
 
 		elif(cmd == "gettrack"):
-			error = await self.gettrack(message.channel)
+			error,embObj = await self.gettrack(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 
 		elif(cmd == "changelog"):
-			embObj = discord.Embed(title="Latest Changes",description= self.dbhandler.get_from_misc("changelog"), color=self.SYSTEMCOLOR)
-			error = await self.sendMsg(message.channel,embObj)
+			error,embObj = await self.changelog(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 
 		elif(cmd == "setchangelog"):
 			error = await self.setchangelog( args[1])
@@ -146,14 +164,23 @@ class commandhandler:
 			error = await self.setstatus(message.content,args)
 		
 		elif (cmd =="execsql"):
-			error = await self.execsql(channel=message.channel, cont=message.content, origlen=origlen)
+			error,embObj = await self.execsql(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		
 		elif(cmd == "reload"):
-			error = await self.reload(channel=message.channel)
+			error,embObj = await self.reload(message)
+			if await self.sendMsg(channel=message.channel, toSend = embObj) >0:
+				error = 1 #DONT FIX THIS, IS SPECIAL FOR RELOAD
+
 
 		elif(cmd =="addcommand"):
-			await self.addcommand(args)
-			error = 0 #probably... not caring about any errors here lol
+			(error, embObj) = await self.addcommand(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
+				
 
 		elif(cmd == "setperm"):
 			error = await self.setperm(user=message.mentions[0],perm_lev=args[2],own_perm_lev=permlevel)
@@ -164,7 +191,10 @@ class commandhandler:
 			await self.sendMsg(message.channel,embObj)
 		
 		elif(cmd == "mostmessages"):
-			error = await self.mostmessages(channel=message.channel)
+			error, embObj = await self.mostmessages(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "superdelete"):
 			error = await self.superdelete(msg = await message.channel.fetch_message(message.reference.message_id))
 
@@ -179,26 +209,15 @@ class commandhandler:
 				error = 2
 		
 		elif(cmd == "fixissue"):
-			try:
-				arg = int(args[1])
-				self.dbhandler.fixissue(arg)
-			except IndexError:
-				error = 3
-		
-		elif(cmd == "testembed"):
-			embObj = discord.Embed(title="title",description="descr",color=0x00ff00)
-			embObj.add_field(name="test1",value="val1",inline=False)
-			embObj.add_field(name="test2", value="val2", inline = True)
-			await self.sendMsg(message.channel,embObj)
+			error,embObj = await self.fixissue(message)
+			
+
 		
 		elif(cmd == "info"):
-			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=self.SYSTEMCOLOR,url="http://brrr.nighmared.tech")
-			embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
-			embObj.set_author(name="joniii")
-			embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech",inline=False)
-			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
-			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime())
-			error = await self.sendMsg(message.channel,embObj)
+			error,embObj = await self.info(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "ping"):
 			error = await self.ping(channel=message.channel)
 		elif(cmd == "source"):
@@ -206,30 +225,21 @@ class commandhandler:
 			error = await self.sendMsg(channel = message.channel,toSend=embObj)
 		
 		elif(cmd == "deletelast"):
-			if(len(self.last_MSG) == 0):
-				error = 3
-			else:
-				if len(args)>1 and args[1].isnumeric:
-					for i in range(0,int(args[1])):
-						if len(self.last_MSG) == 0: # if arg is higher than number of stored messages that can be deleted
-							break
-						try:
-							await self.last_MSG.pop().delete()
-						except discord.NotFound:
-							i-=1
-				else:
-					await self.last_MSG.pop().delete()
-				error = 0
+			error, embObj = await self.deletelast(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
+			
 		elif(cmd == "deleteall"):
-			while(len(self.last_MSG)>0):
-				await self.last_MSG.pop().delete()
+			error,embObj = await self.deleteall(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "deepsleep"):
-			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
-			embObj = discord.Embed(
-				title="DeepSleep Mode",
-				description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ deepsleep mode",
-				color=self.SYSTEMCOLOR)
-			await self.sendMsg(message.channel,embObj)		
+			error,embObj = await self.deepsleep(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "neko"):
 			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
 			await self.sendMsg(message.channel,embObj)
@@ -244,15 +254,16 @@ class commandhandler:
 			error = await self.nhentaiblock(args)
 		elif(cmd == "nhentailog"):
 			error = await self.nhentailog(message.channel)
-		elif(cmd == "createbackup" and self.perm_valid(cmd,permlevel)):
-			error = self.dbhandler.create_backup()
-			res = ("Created Backup of DB","Something went wrong")[error >0]
-			embObj = discord.Embed(title="Backup", description=res,color = self.QUERYCOLOR)
+		elif(cmd == "createbackup"):
+			error,embObj = await self.createbackup(message)
 			await self.sendMsg(channel=message.channel, toSend=embObj)
 		elif(cmd == "showsourcecode"):
 			error = await self.showsourcecode(message.channel,args)
 		elif(cmd == "banner"):
-			error = await self.banner(message.channel,message.guild)
+			error,embObj = await self.banner(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		else:
 			error = 1
 			if(not self.perm_valid(cmd,permlevel)):
@@ -266,6 +277,55 @@ class commandhandler:
 		except:
 			error = 1			
 		return error
+	async def changelog(self,message:discord.Message)->tuple:
+		try:
+			embObj = discord.Embed(title="Latest Changes",description= self.dbhandler.get_from_misc("changelog"), color=self.SYSTEMCOLOR)
+			return (0,embObj)
+		except OperationalError:
+			embObj = discord.Embed(title="Latest Changes", description="-- Something went wrong with DB --",color =self.SYSTEMCOLOR)
+			return (1,embObj)
+	async def createbackup(self,message:discord.Message)->tuple:
+		error = self.dbhandler.create_backup()
+		res = ("Created Backup of DB","Something went wrong")[error >0]
+		embObj = discord.Embed(title="Backup", description=res,color = self.QUERYCOLOR)
+		return (error,embObj)
+	async def deepsleep(self,message:discord.Message)->tuple:
+		try:
+			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
+			embObj = discord.Embed(
+				title="DeepSleep Mode",
+				description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ DeepSleep mode",
+				color=self.SYSTEMCOLOR)
+			return (0,embObj)
+		except OperationalError:
+			embObj = discord.Embed(title="DeepSleep Mode", description = "-- Something went wrong with DB --", color = self.SYSTEMCOLOR)
+			return (1,embObj)
+	async def deleteall(self,message:discord.Message)->tuple:
+		while(len(self.last_MSG)>0):
+			try:
+				await self.last_MSG.pop().delete()
+			except:
+				continue
+		return (0,None)
+	async def deletelast(self,message:discord.Message)->tuple:
+		args = message.content[1:].split(" ")
+		if(len(self.last_MSG) == 0):
+			error = 3
+		else:
+			if len(args)>1 and args[1].isnumeric:
+				num_delete = int(args[1])
+			else:
+				num_delete = 1
+			while(num_delete>0):
+				if len(self.last_MSG) == 0:
+					break
+				try:
+					await self.last_MSG.pop().delete()
+					num_delete -= 1
+				except discord.NotFound:
+					continue
+			error = 0
+		return (error,None)
 	async def setchangelog(self,new_changelog)->int:
 		try:
 			self.dbhandler.set_to_misc("changelog",new_changelog)
@@ -292,36 +352,64 @@ class commandhandler:
 			embObj = discord.Embed(title="Issues",description="Issues reloaded",color=self.ISSUECOLOR)
 			error = await self.sendMsg(channel,embObj)
 		return error
-	async def help(self,channel,permlevel,args)-> int:
-		if len(args)>1 and args[1].isnumeric:
-			permlevel = int(args[1])
-		cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
-		emotes = self.dbhandler._execComm('''SELECT value,desc FROM emotes ORDER BY id ASC''',raw=True)
-		final_cmd = []
-		for c in cmds:
-			if(c[3]<=permlevel):
-				final_cmd.append((c[0],c[1],c[2]))
-		embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
+	async def fixissue(self,message:discord.Message)->tuple:
+		args = message.content[1:].split(" ")
+		try:
+			arg = int(args[1])
+			self.dbhandler.fixissue(arg)
+			error = 0
+		except IndexError:
+			error = 3
+		return (error,None)
+	async def help(self,message:discord.Message)-> int:
+		try:
+			channel = message.channel
+			args = message.content[1:].split(" ")
+			permlevel = self.dbhandler.get_perm_level(message.author.id)
 
-		txt = []
-		currFieldCont = ""
-		currFieldIndex = 1
-		for (cmdn,text,alias) in final_cmd:
-			txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
-			if(len(currFieldCont+txt)>self.FIELDSIZELIMIT):
-				embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
-				currFieldIndex+=1
-				currFieldCont = txt
-			else:
-				currFieldCont+= txt
-		if currFieldCont == "" and currFieldIndex == 1: currFieldCont = "[Well.. nothing :/]" #lol
-		embObj.add_field(name=f"Page {currFieldIndex}",value=currFieldCont)
-		emote_val = ""
-		for(emote,desc) in emotes:
-			emote_val+= f"{emote}\t{desc}\n"
-		embObj.add_field(name="Emotes",value=emote_val,inline=False)
-		error = await self.sendMsg(channel,embObj)
-		return error
+			if len(args)>1 and args[1].isnumeric:
+				permlevel = int(args[1])
+			cmds = self.dbhandler._execComm('''SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC''',raw=True)
+			emotes = self.dbhandler._execComm('''SELECT value,desc FROM emotes ORDER BY id ASC''',raw=True)
+			final_cmd = []
+			for c in cmds:
+				if(c[3]<=permlevel):
+					final_cmd.append((c[0],c[1],c[2]))
+			embObj = discord.Embed(title="Help", description="Displaying all available commands depending on callees permissionlevel",color=self.SYSTEMCOLOR)
+
+			txt = []
+			currFieldCont = ""
+			currFieldIndex = 1
+			for (cmdn,text,alias) in final_cmd:
+				txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
+				if(len(currFieldCont+txt)>self.FIELDSIZELIMIT):
+					embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
+					currFieldIndex+=1
+					currFieldCont = txt
+				else:
+					currFieldCont+= txt
+			if currFieldCont == "" and currFieldIndex == 1: currFieldCont = "[Well.. nothing :/]" #lol
+			embObj.add_field(name=f"Page {currFieldIndex}",value=currFieldCont)
+			emote_val = ""
+			for(emote,desc) in emotes:
+				emote_val+= f"{emote}\t{desc}\n"
+			embObj.add_field(name="Emotes",value=emote_val,inline=False)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Help",description=str(e),color = self.ERRORCOLOR)
+			return (1,embObj)
+	async def info(self,message:discord.Message)-> int:
+		try:
+			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=self.SYSTEMCOLOR,url="http://brrr.nighmared.tech")
+			embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
+			embObj.set_author(name="joniii")
+			embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech",inline=False)
+			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
+			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime())
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Info",description = str(e), color = self.ERRORCOLOR)
+			return (1,embObj)
 	async def say(self,channel,args)-> int:
 		resttxt = ""
 		for a in args[1:]:
@@ -379,8 +467,10 @@ class commandhandler:
 				print(f"[commandhandler.py] (handling setstatus) | type={type} ")
 		await self.client.change_presence(activity=discord.Activity(name=stringarg,type= type))
 		return 0
-	async def addcommand(self,args):
-		self.dbhandler._execComm(
+	async def addcommand(self,message)->tuple:
+		try:
+			args = message.content[1:].split(" ")
+			self.dbhandler._execComm(
 			f'''
 			INSERT INTO commands(
 				"cmdname",
@@ -396,21 +486,31 @@ class commandhandler:
 				"{args[4]}",
 				"{args[5]}"
 				)''')
+			return (0, None)
+		except (OperationalError, IndexError):
+			embObj = discord.Embed(title="Addcommand", description=f"Usage: {self.PREFIX}addcommand <cmdname:str> <permlevel:int> <help_text:str> <alias:str> <enabled:[0,1]>", color = self.QUERYCOLOR)
+			return (3, embObj)
+
 	async def setperm(self,user,perm_lev,own_perm_lev:int):
 		if(int(perm_lev)>=own_perm_lev):
 			error = 3 #make sure you cant promote yourself or anyone else over your own rank
 		else:
 			error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
 		return error
-	async def execsql(self,channel,cont:str,origlen:int)->int:
+	async def execsql(self,message:discord.Message)->tuple:
+		channel = message.channel
+		cont = message.content
+		origlen = len(cont[1:].split(" ")[0].lower())
+		query = cont[(origlen+1):].strip()
 		try:
-			res = self.dbhandler._execComm(cont[(origlen+1):].strip())
+			res = self.dbhandler._execComm(query)
 		except OperationalError:
 			print("[commandhandler.py] Something went wrong with sqlite")
-			return 3 # command is fuckd up probably
+			embObj = discord.Embed(title="ExecSQL",description = "-- Something went wrong with DB --",color=self.ERRORCOLOR)
+			return (3,embObj) # command is fuckd up probably
 		if(res !=-10):
-			embObj = discord.Embed(title="Query Result",color=self.QUERYCOLOR)
-			embed_len = 0
+			embObj = discord.Embed(title="Query Result",description = ">"+query,color=self.QUERYCOLOR)
+			embed_len = 100
 			if(len(res)>self.FIELDSIZELIMIT):
 				res2 = res.split("\n")
 				curr_page_num = 1
@@ -432,29 +532,29 @@ class commandhandler:
 			else:
 				embObj.add_field(name="Output",value=res)
 			#print(embed_len)
-			await self.sendMsg(channel,embObj)
-		return 0
-	async def reload(self,channel):
+			return (0,embObj)
+	async def reload(self,message):
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
-		await self.sendMsg(channel,embObj)
-		return 99
+		return (99,embObj)
 
 	async def ping(self,channel)-> int:
 		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
 		return await self.sendMsg(channel=channel, toSend=embObj)
-	async def msgarchive(self,channel)-> int:	
-		msgls = self.msgs.sendable()
-		if(len(msgls)== ""):
-			error = 2
-		else:
-			embObj = discord.Embed(title="Tracker",description=f"Recent messages by {msgls[0].author.nick}",color = self.TRACKERCOLOR)
-			fieldStr = ""
-			for msg in msgls:
-				fieldStr+=f"{str(msg.created_at)[:-4]} {msg.author.nick}-> {msg.channel.name}: {msg.content[:100]}\n"
-			embObj.add_field(name="Messagehistory",value=fieldStr,inline=True)
-
-			error = await self.sendMsg(channel, embObj)
-		return error
+	async def msgarchive(self,message)-> tuple:
+		try:	
+			msgls = self.msgs.sendable()
+			if(len(msgls)== ""):
+				error = 2
+			else:
+				embObj = discord.Embed(title="Tracker",description=f"Recent messages by {msgls[0].author.nick}",color = self.TRACKERCOLOR)
+				fieldStr = ""
+				for msg in msgls:
+					fieldStr+=f"{str(msg.created_at)[:-4]} {msg.author.nick}-> {msg.channel.name}: {msg.content[:100]}\n"
+				embObj.add_field(name="Messagehistory",value=fieldStr,inline=True)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Tracker",description = f"Something went wrong, prolly not tracking anyone rn \n➥{str(e)}",color = self.ERRORCOLOR)
+			return (1,embObj)
 	async def setcache(self,channel,cachelen)->int:
 		try:
 			newLen = int(cachelen)
@@ -476,49 +576,54 @@ class commandhandler:
 		except Exception:
 			error = 1
 		return error
-	async def endtrack(self,channel)->int:
+	async def endtrack(self,message:discord.Message)->tuple:
 		toTrackID = 0
 		toTrackName = "nobody"
 		self.msgs.set_user(toTrackName)
 		embObj = discord.Embed(title="Tracker",description="stopped tracking",color=self.TRACKERCOLOR)
-		error = await self.sendMsg(channel,embObj)
-	async def gettrack(self,channel)->int:
+		return (0,embObj)
+	async def gettrack(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(
 			title="Tracker",
 			description=f"currently tracking {self.toTrackName}",
 			color = self.TRACKERCOLOR
 			)
-		error = await self.sendMsg(channel=channel,toSend=embObj)
-		return error
+		return (0,embObj)
 	
-	async def easter(self,channel) -> int:
+	async def easter(self,message:discord.Message) -> tuple:
 		embObj = discord.Embed(title="What is this?", description="cmljZXB1cml0eXRlc3QubW9iaS9bZGlzY29yZG5hbWVfb2ZfMjIzOTMyNzc1NDc0OTIxNDcyXS5odG1s")
-		error = await self.sendMsg(toSend=embObj,channel=channel)
+		error = await self.sendMsg(toSend=embObj,channel=message.channel)
 		await self.last_MSG.pop(-1).delete(delay=.5)
-		return error
-	async def easterranks(self,channel)-> int:
-		txt = self.dbhandler.get_from_misc("easter")
-		embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description=txt)
-		error = await self.sendMsg(toSend= embObj, channel = channel)
-		return error
-	async def mostmessages(self,channel)->int:
-		res = self.dbhandler.get_most_messages()
-		embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages", color=self.TRACKERCOLOR)
-		field_value = ""
-		rank = 1
-		for entry in res:
-			to_add = f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
-			if len(field_value+to_add)>self.FIELDSIZELIMIT:
+		return (error,None)
+	async def easterranks(self,message: discord.Message)-> tuple:
+		try: 
+			txt = self.dbhandler.get_from_misc("easter")
+			embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description=txt)
+			return (0,embObj)
+		except OperationalError:
+			embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description="-- Something went wrong with DB --", color = self.ERRORCOLOR)
+			return (1,embObj)
+	async def mostmessages(self,message:discord.Message)->tuple:
+		try:
+			res = self.dbhandler.get_most_messages()
+			embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages", color=self.TRACKERCOLOR)
+			field_value = ""
+			rank = 1
+			for entry in res:
+				to_add = f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
+				if len(field_value+to_add)>self.FIELDSIZELIMIT:
+					embObj.add_field(name=f"Ranking",value=field_value,inline=False)
+					field_value = ""
+					break
+				else:				
+					field_value += to_add
+				rank += 1
+			if field_value !="":
 				embObj.add_field(name=f"Ranking",value=field_value,inline=False)
-				field_value = ""
-				break
-			else:				
-				field_value += to_add
-			rank += 1
-		if field_value !="":
-			embObj.add_field(name=f"Ranking",value=field_value,inline=False)
-		error = await self.sendMsg(channel,embObj)
-		return error
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Message Leaderboard", description = str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
 	async def superdelete(self,msg : discord.Message):
 		try:
 			await msg.delete()
@@ -593,9 +698,13 @@ class commandhandler:
 			curr_log.close()
 		
 		return error
-	async def banner(self,channel,guild)-> int:
-		banner_url = guild.banner_url
-		embObj = discord.Embed(title="Banner",description=guild.name, color=self.NORMALCOLOR)
-		embObj.set_image(url=banner_url)
-		error = await self.sendMsg(channel=channel, toSend=embObj)
-		return error
+	async def banner(self,message)-> int:
+		try:
+			channel,guild = message.channel,message.guild
+			banner_url = guild.banner_url
+			embObj = discord.Embed(title="Banner",description=guild.name, color=self.NORMALCOLOR)
+			embObj.set_image(url=banner_url)
+			return (0,embObj)
+		except:
+			return (1,None)
+		

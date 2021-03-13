@@ -32,8 +32,9 @@ async def on_message(message:discord.Message):
 		exit(0)
 	elif handling_code == 88: #soft reload
 		sub.run(["git","pull","--no-edit"]) # git pull --no-edit
+		msgs_backup = msghandler.handler.last_MSG
 		reload(msghandler)
-		await msghandler.doreload(message,client=client,STARTTIME=STARTTIME)
+		await msghandler.doreload(message,client=client,STARTTIME=STARTTIME,msgs_backup=msgs_backup)
 
 
 
