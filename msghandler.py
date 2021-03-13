@@ -122,8 +122,6 @@ async def handle(message:discord.Message) -> int:
 		log = open("log.txt","a")
 		log.write(f"{message.author.name}>{message.content}\n")
 
-
-	
 	if(message.author.id == handler.toTrackID and not isCommand):
 		msgs.add_msg(message)
 		if(db.shouldAnnoy()): await add_reaction( message,this_emote)
@@ -136,7 +134,6 @@ async def handle(message:discord.Message) -> int:
 	#special case with softreload that only reloads the modules
 		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
 			return 88
-			
 
 		else:
 			res = await handler.commandHandler(message,permlevel)
