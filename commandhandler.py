@@ -1,6 +1,6 @@
 import subprocess
 from discord import colour
-from discord.embeds import Embed
+from discord.embeds import Embed, EmbedProxy
 from sqlite3 import OperationalError
 import dbhandler
 import discord
@@ -132,7 +132,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj,callee = message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd =="setcache"):
-			error = await self.setcache(message.channel,args[1])
+			error, embObj = await self.setcache(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd =="endtrack"):
 			error,embObj = await self.endtrack(message)
 			if embObj is not None:
@@ -151,9 +154,15 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "setchangelog"):
-			error = await self.setchangelog( args[1])
+			error,embObj = await self.setchangelog(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "say"): #No embed as should rly just say stuff 
-			error = await self.say(message.channel,args)
+			error,embObj = await self.say(message) #dont change to normal structure, gotta keep the send loop
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "setstatus"):
 			error = await self.setstatus(message.content,args)
 		elif(cmd =="execsql"):
@@ -168,7 +177,7 @@ class commandhandler:
 		elif(cmd =="addcommand"):
 			(error, embObj) = await self.addcommand(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "setperm"):
 			error = await self.setperm(user=message.mentions[0],perm_lev=args[2],own_perm_lev=permlevel)
@@ -182,7 +191,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "superdelete"):
-			error = await self.superdelete(msg = await message.channel.fetch_message(message.reference.message_id))
+			error,embObj = await self.superdelete(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "togglecmd"):
 			totogglecmd = ""
 			try:
@@ -194,6 +206,9 @@ class commandhandler:
 				error = 2		
 		elif(cmd == "fixissue"):
 			error,embObj = await self.fixissue(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "info"):
 			error,embObj = await self.info(message)
 			if embObj is not None:
@@ -269,31 +284,12 @@ class commandhandler:
 		except:
 			error = 1			
 		return error
-	async def setchangelog(self,new_changelog)->int:
-		try:
-			self.dbhandler.set_to_misc("changelog",new_changelog)
-			error = 0
-		except:
-			print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
-			error = 1
 	async def showissues(self,channel) -> int:
 		res = self.dbhandler._execComm("select * from issues",True)
 		embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
 		for id,title in res:
 			embObj.add_field(name=id,value=title,inline=False)
 		error = await self.sendMsg(channel,embObj)
-		return error
-	async def say(self,channel,args)-> int:
-		resttxt = ""
-		for a in args[1:]:
-			resttxt += " "+a
-		parts = resttxt.split("#")
-		text = parts[0]
-		try: repnum = int(parts[1])
-		except: repnum = 0
-		error = await self.sendMsg(channel,f"{text}")
-		for counter in range(0,repnum):
-			await self.sendMsg(channel,f"{text}")
 		return error
 	async def showsourcecode(self,channel,args)->int:
 		if len(args)<1:
@@ -345,15 +341,7 @@ class commandhandler:
 		else:
 			error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
 		return error
-	async def setcache(self,channel,cachelen)->int:
-		try:
-			newLen = int(cachelen)
-			newLen = self.msgs.set_len(newLen)
-			embObj = discord.Embed(title="Tracker",description=f"updated cache length to {newLen}",color=self.TRACKERCOLOR)
-			error = await self.sendMsg(channel,embObj)
-		except Exception:
-			error = 1
-		return error
+	
 	async def settrack(self,channel,user)->int:
 		try:
 			self.toTrackID = user.id
@@ -364,17 +352,6 @@ class commandhandler:
 		except IndexError:
 			error = 3
 		except Exception:
-			error = 1
-		return error
-	async def superdelete(self,msg : discord.Message):
-		try:
-			await msg.delete()
-			error = 0
-		except discord.Forbidden:
-			error = 4
-		except discord.NotFound:
-			error = 2
-		except discord.HTTPException:
 			error = 1
 		return error
 	async def togglensfw(self,channel):
@@ -406,7 +383,7 @@ class commandhandler:
 		except (OperationalError, IndexError):
 			embObj = discord.Embed(title="Addcommand", description=f"Usage: {self.PREFIX}addcommand <cmdname:str> <permlevel:int> <help_text:str> <alias:str> <enabled:[0,1]>", color = self.QUERYCOLOR)
 			return (3, embObj)
-	async def banner(self,message:discord.Message)-> int:
+	async def banner(self,message:discord.Message)-> tuple:
 		try:
 			channel,guild = message.channel,message.guild
 			banner_url = guild.banner_url
@@ -536,7 +513,7 @@ class commandhandler:
 			color = self.TRACKERCOLOR
 			)
 		return (0,embObj)
-	async def help(self,message:discord.Message)-> int:
+	async def help(self,message:discord.Message)-> tuple:
 		try:
 			channel = message.channel
 			args = message.content[1:].split(" ")
@@ -573,7 +550,7 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Help",description=str(e),color = self.ERRORCOLOR)
 			return (1,embObj)
-	async def info(self,message:discord.Message)-> int:
+	async def info(self,message:discord.Message)-> tuple:
 		try:
 			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=self.SYSTEMCOLOR,url="http://brrr.nighmared.tech")
 			embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
@@ -665,7 +642,7 @@ class commandhandler:
 		nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
 		nh_log.close()
 		return (0,embObj,file_to_send)
-	async def nhentaiblock(self,message:discord.Message)->int:
+	async def nhentaiblock(self,message:discord.Message)->tuple:
 		args = message.content[1:].replace("  "," ").split(" ")
 		if len(args)>1 and args[1].isnumeric:
 			print(args[1])
@@ -673,7 +650,7 @@ class commandhandler:
 		else:
 			error =3
 		return (error,None)
-	async def nhentailog(self,message:discord.Message)->int:
+	async def nhentailog(self,message:discord.Message)->tuple:
 		try:
 			log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")),48)
 			log_lines = open("nhentai/log.txt").readlines()
@@ -694,13 +671,13 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="nhentai log", description=str(e), color=self.ERRORCOLOR)
 			return (1,embObj)
-	async def ping(self,message:discord.Message)-> int:
+	async def ping(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
 		return (0,embObj)
-	async def reload(self,message:discord.Message):
+	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
 		return (99,embObj)
-	async def reloadissues(self,message:discord.Message)->int:
+	async def reloadissues(self,message:discord.Message)->tuple:
 		try:
 			ls = issues.getIssues()
 			if ls[0][0] == -1:
@@ -715,6 +692,60 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Issues",description=str(e), color=self.ERRORCOLOR)
 			return	(1,embObj)
+	async def say(self,message:discord.Message)-> int:
+		channel = message.channel
+		args = message.content[1:].split(" ")
+		resttxt = ""
+		for a in args[1:]:
+			resttxt += " "+a
+		parts = resttxt.split("#")
+		text = parts[0]
+		try: repnum = int(parts[1])
+		except: repnum = 0
+		error = await self.sendMsg(channel,f"{text}")
+		for counter in range(0,repnum):
+			await self.sendMsg(channel,f"{text}")
+		return (error,None)
+	async def setcache(self,message:discord.Message)->tuple:
+		args = message.content[1:].split(" ")
+		cachelen = args[1]
+
+		try:
+			newLen = int(cachelen)
+			newLen = self.msgs.set_len(newLen)
+			embObj = discord.Embed(title="Tracker",description=f"updated cache length to {newLen}",color=self.TRACKERCOLOR)
+			return (0, embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Tracker", description=str(e), color=self.ERRORCOLOR)
+			return (1,embObj)
+	async def setchangelog(self,message:discord.Message)->tuple:
+		try:
+			args = message.content[1:].split(" ")
+			new_changelog = args[1].replace("_"," ")
+			self.dbhandler.set_to_misc("changelog",new_changelog)
+			return (0,None)
+		except Exception as e:
+			embObj = discord.Embed(title="setchangelog",description=str(e), color=self.ERRORCOLOR)
+			print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
+			return (1, embObj)
 	async def source(self,message:discord.Message)->tuple:
-		return (0, discord.Embed(title="Source",description="http://brrr.nighmared.tech",color= self.SYSTEMCOLOR))
+		return (0, discord.Embed(
+						title="Source",
+						description="http://brrr.nighmared.tech",
+						color= self.SYSTEMCOLOR))
+	async def superdelete(self,message : discord.Message)->tuple:
+		target_msg = await message.channel.fetch_message(message.reference.message_id)
+		embObj = None
+		try:
+			await target_msg.delete()
+			error = 0
+		except discord.Forbidden:
+			error = 4
+		except discord.NotFound:
+			error = 2
+		except discord.HTTPException:
+			error = 1
+		except Exception as e:
+			embObj = discord.Embed(title="Superdelete", description=str(e), color=self.ERRORCOLOR)
+		return (error,None)
 	
