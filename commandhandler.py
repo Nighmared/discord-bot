@@ -39,7 +39,7 @@ class commandhandler:
 		"cmd":"commandhandler.py",
 		"msghandler":"msghandler.py",
 		"msg": "msghandler.py",
-		
+
 	}
 
 
@@ -353,7 +353,7 @@ class commandhandler:
 				else:
 					msg =f"{'`'*3}{syntax_keyword}\n"
 					while line_indx<num_lines and len(msg+lines[line_indx])<1945:
-						msg+= f"{str(line_indx).rjust(3)}| {lines[line_indx]}\n"
+						msg+= f"{str(line_indx+1).rjust(3)}| {lines[line_indx]}\n"
 						line_indx+=1
 					msg += "\n"+"`"*3
 					error = await self.sendMsg(channel=channel, toSend=msg)
