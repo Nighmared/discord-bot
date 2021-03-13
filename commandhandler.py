@@ -833,6 +833,7 @@ class commandhandler:
 			args =message.content[1:].split(" ")
 			totogglecmd = ""
 			totogglecmd = self.dbhandler.find_alias(args[1].strip())
+			print(totogglecmd,"!!!!!!!!!!!!!!!!!!!!!!!")
 			if totogglecmd.strip() == "":
 				return (3,None)
 			self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
