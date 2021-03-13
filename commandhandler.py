@@ -120,7 +120,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd =="easterranks"):
-			error.embObj = await self.easterranks(message)
+			error,embObj = await self.easterranks(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "showissues"):
 			error = await self.showissues(message.channel)
 		elif(cmd == "reloadissues"):
