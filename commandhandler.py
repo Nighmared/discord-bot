@@ -145,7 +145,7 @@ class commandhandler:
 		elif(cmd == "changelog"):
 			error,embObj = await self.changelog(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "setchangelog"):
 			error = await self.setchangelog( args[1])
