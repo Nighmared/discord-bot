@@ -83,6 +83,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME): #re
 	print("[bot.py] back from softreload")
 	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj),res)
 	await add_reaction(message,db.get_emote(res))
+	await message.delete()
 
 async def handle(message:discord.Message) -> int:
 	#block bots
@@ -105,6 +106,7 @@ async def handle(message:discord.Message) -> int:
 
 	#easteregg lel
 	if "177013" in message.content.strip().replace(" ","") and not isCommand:
+		handler.curr_msg = message
 		await handler.nhentai(message.channel,(-1,"177013",),10)
 	if(isCommand):
 		log = open("log.txt","a")
