@@ -86,7 +86,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	handler.curr_msg = message
 
 	print("[bot.py] back from softreload")
-	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj),res)
+	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj,callee=message.author.id),res)
 	await add_reaction(message,db.get_emote(res))
 	await message.delete()
 
