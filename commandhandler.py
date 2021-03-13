@@ -502,7 +502,6 @@ class commandhandler:
 			error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
 		return error
 	async def execsql(self,message:discord.Message)->tuple:
-		channel = message.channel
 		cont = message.content
 		origlen = len(cont[1:].split(" ")[0].lower())
 		query = cont[(origlen+1):].strip()
