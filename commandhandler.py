@@ -636,7 +636,8 @@ class commandhandler:
 	async def nhentailog(self,message:discord.Message)->tuple:
 		try:
 			log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")),48)
-			log_lines = open("nhentai/log.txt").readlines()
+			with open("nhentai/log.txt")as log_file:
+				log_lines = log_file.readlines()
 			embObj = discord.Embed(title="nhentai log",color=self.NEKOCOLOR)
 			field_cont = ""
 			for line in log_lines[-log_len:]:
