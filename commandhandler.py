@@ -830,6 +830,7 @@ class commandhandler:
 		return (error,None)
 	async def togglecmd(self,message:discord.Message)->tuple:
 		try:
+			args =message.content[1:].split(" ")
 			totogglecmd = ""
 			totogglecmd = self.dbhandler.find_alias(args[1].strip())
 			self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
