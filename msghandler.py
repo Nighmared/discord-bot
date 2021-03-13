@@ -40,6 +40,9 @@ async def add_reaction(message, emote):
 		return 0
 	except discord.errors.Forbidden:
 		return 5
+	except discord.errors.HTTPException:
+		print("[msghandler.py] (add_reaction) couldnt add emote: "+emote)
+		return 1
 
 
 #FIXME this is dumb, make less dumb ffs -> give all classes "backup" and "restore" methods so it can be just iterating over stuff
