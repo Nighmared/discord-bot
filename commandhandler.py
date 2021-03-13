@@ -836,6 +836,7 @@ class commandhandler:
 			if totogglecmd.strip() == "":
 				return (3,None)
 			self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
+			return (0,None)
 		except IndexError:
 			embObj = discord.Embed(title="togglecmd", description=f"Usage: {self.PREFIX}togglecmd <cmdname>", color=self.ERRORCOLOR)
 			return (3,embObj)
