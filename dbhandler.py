@@ -166,3 +166,6 @@ class dbhandler:
 		curr_state = self.cursor.fetchall()[0][0]
 		self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
 		self.conn.commit()
+
+	def close_down(self)->None:
+		self.conn.close()

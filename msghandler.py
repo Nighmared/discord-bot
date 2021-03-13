@@ -133,6 +133,7 @@ async def handle(message:discord.Message) -> int:
 
 	#special case with softreload that only reloads the modules
 		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
+			db.close_down()
 			return 88
 
 		else:
