@@ -3,6 +3,8 @@ from discord import colour
 from discord import embeds
 from discord.embeds import Embed, EmbedProxy
 from sqlite3 import OperationalError
+
+from discord.utils import _bytes_to_base64_data
 import dbhandler
 import discord
 import issues
@@ -46,6 +48,7 @@ class commandhandler:
 
 
 
+
 	def __init__(self,
 	dbhandler:dbhandler.dbhandler,
 	msgs:msglist,
@@ -63,6 +66,48 @@ class commandhandler:
 		self.client = client
 		self.uptime_tracker = time_tracker
 		self.nh_handler = nhentai.handler(self.dbhandler)
+
+
+		self.cmd_handling_funcs = {
+			"addcommand":self.addcommand,
+			"banner":self.banner,
+			"changelog":self.changelog,
+			"createbackup":self.createbackup,
+			"deepsleep":self.deepsleep,
+			"deleteall":self.deleteall,
+			"deletelast":self.deletelast,
+			"easter":self.easter,
+			"easterranks":self.easterranks,
+			"endtrack":self.endtrack,
+			"execsql":self.execsql,
+			"fixissue":self.fixissue,
+			"gettrack":self.gettrack,
+			"help":self.help,
+			"info":self.info,
+			"mostmessages":self.mostmessages,
+			"msgarchive":self.msgarchive,
+			"neko":self.neko,
+			"nhentai":self.nhentai,
+			"nhentaiblock":self.nhentaiblock,
+			"nhentailog":self.nhentailog,
+			"ping":self.ping,
+			"reload":self.reload,
+			"reloadissues":self.reloadissues,
+			"say":self.say,
+			"setcache":self.setcache,
+			"setchangelog":self.setchangelog,
+			"setperm":self.setperm,
+			"setstatus":self.setstatus,
+			"settrack":self.settrack,
+			"setversion":self.setversion,
+			"showissues":self.showissues,
+			"showsourcecode":self.showsourcecode,
+			"source":self.source,
+			"superdelete":self.superdelete,
+			"togglecmd":self.togglecmd,
+			"togglensfw":self.togglensfw,
+			"triggerannoy":self.triggerannoy,
+		}
 
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
@@ -114,7 +159,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd =="setversion"):
-			error = await self.setversion(version=args[1])
+			error,embObj = await self.setversion(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "easter"):
 			error,embObj = await self.easter(message)
 			if embObj is not None:
@@ -126,7 +174,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "showissues"):
-			error = await self.showissues(message.channel)
+			error,embObj = await self.showissues(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee = message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "reloadissues"):
 			error,embObj = await self.reloadissues(message)
 			if embObj is not None:
@@ -143,11 +194,14 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "settrack"):
-			error = await self.settrack(message.channel,message.mentions[0])
+			error,embObj = await self.settrack(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "gettrack"):
 			error,embObj = await self.gettrack(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "changelog"):
 			error,embObj = await self.changelog(message)
@@ -162,7 +216,7 @@ class commandhandler:
 		elif(cmd == "say"): #No embed as should rly just say stuff 
 			error,embObj = await self.say(message) #dont change to normal structure, gotta keep the send loop
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "setstatus"):
 			error,embObj = await self.setstatus(message)
@@ -189,9 +243,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj, callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "triggerannoy"):
-			self.dbhandler.set_to_misc("annoyreaction", (not self.dbhandler.shouldAnnoy()))
-			embObj = discord.Embed(title="Tracker", description=f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}",color = self.TRACKERCOLOR)
-			await self.sendMsg(message.channel,embObj)
+			error,embObj = await self.triggerannoy(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "mostmessages"):
 			error, embObj = await self.mostmessages(message)
 			if embObj is not None:
@@ -203,14 +258,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "togglecmd"):
-			totogglecmd = ""
-			try:
-				totogglecmd = self.dbhandler.find_alias(args[1].strip())
-				self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
-			except IndexError:
-				error = 3
-			except:
-				error = 2		
+			error, embObj = await self.togglecmd(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]	
 		elif(cmd == "fixissue"):
 			error,embObj = await self.fixissue(message)
 			if embObj is not None:
@@ -256,8 +307,11 @@ class commandhandler:
 			if embObj is not None:
 				err2 = await self.sendMsg(message.channel,embObj,file=f,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
-		elif(cmd == "togglensfw"):
-			error = await self.togglensfw(message.channel)
+		elif(cmd == "togglensfw"):	
+			error,embObj = await self.togglensfw(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "nhentaiblock"):
 			error,embObj = await self.nhentaiblock(message)
 			if embObj is not None:
@@ -272,7 +326,10 @@ class commandhandler:
 			error,embObj = await self.createbackup(message)
 			await self.sendMsg(channel=message.channel, toSend=embObj)
 		elif(cmd == "showsourcecode"):
-			error = await self.showsourcecode(message.channel,args)
+			error,embObj = await self.showsourcecode(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "banner"):
 			error,embObj = await self.banner(message)
 			if embObj is not None:
@@ -284,67 +341,8 @@ class commandhandler:
 				error = 4
 		return 0 if error is None else error #quick fix until i properly refactored all cmds
 
-	async def setversion(self,version)-> int:
-		try:
-			self.dbhandler.set_to_misc("version",version)
-			error = 0
-		except:
-			error = 1			
-		return error
-	async def showissues(self,channel) -> int:
-		res = self.dbhandler._execComm("select * from issues",True)
-		embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
-		for id,title in res:
-			embObj.add_field(name=id,value=title,inline=False)
-		error = await self.sendMsg(channel,embObj)
-		return error
-	async def showsourcecode(self,channel,args)->int:
-		if len(args)<1:
-			error = 3
-		else:
-			module_name = args[1]
-			if module_name in self.ALLOWEDSOURCEFILES.keys():
-				line_indx = 0
-				file = open(self.ALLOWEDSOURCEFILES[module_name],mode='r')
-				lines = file.read().split("\n")
-				file.close()
-				num_lines = len(lines)
-				syntax_keyword = "py" if self.ALLOWEDSOURCEFILES[module_name].endswith("py") else "sh"
-				if len(args)>2 and args[2].isnumeric:
-					line_indx = int(args[2]) #start at later line
-				if(line_indx>=num_lines):
-					error = 3
-				else:
-					msg =f"{'`'*3}{syntax_keyword}\n"
-					while line_indx<num_lines and len(msg+lines[line_indx])<1945:
-						msg+= f"{str(line_indx+1).rjust(3)}| {lines[line_indx]}\n"
-						line_indx+=1
-					msg += "\n"+"`"*3
-					error = await self.sendMsg(channel=channel, toSend=msg)
 
-			else:
-				error = 4
-		return error			
-	async def togglecmd(self,message)->tuple:
-		None
-	async def settrack(self,channel,user)->int:
-		try:
-			self.toTrackID = user.id
-			self.toTrackName = user.mention
-			self.msgs.set_user(self.toTrackName)
-			embObj = discord.Embed(title="Tracker",description=f"updated tracked user to {self.toTrackName}",color = self.TRACKERCOLOR)
-			error = await self.sendMsg(channel,embObj)
-		except IndexError:
-			error = 3
-		except Exception:
-			error = 1
-		return error
-	async def togglensfw(self,channel):
-		new_state = self.dbhandler.toggle_nsfw()
-		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
-		error = await self.sendMsg(toSend=embObj,channel=channel)
-		return error
-	
+
 	async def addcommand(self,message:discord.Message)->tuple:
 		try:
 			args = message.content[1:].split(" ")
@@ -752,6 +750,64 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="setstatus", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	async def settrack(self,message:discord.Message)->int:
+		try:
+			user = message.mentions[0]
+			self.toTrackID = user.id
+			self.toTrackName = user.mention
+			self.msgs.set_user(self.toTrackName)
+			embObj = discord.Embed(title="Tracker",description=f"updated tracked user to {self.toTrackName}",color = self.TRACKERCOLOR)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Settrack", description=str(e), color=self.ERRORCOLOR)
+			return (1,embObj)
+	async def setversion(self,message)-> tuple:
+		try:
+			args = message.content[1:].strip(" ")
+			version = args[1]
+			self.dbhandler.set_to_misc("version",version)
+			embObj = discord.Embed(title="setversion", description= f"Version is now set to {version}", color=self.SYSTEMCOLOR)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="setversion", description=str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
+	async def showissues(self,message:discord.Message) -> tuple:
+		try:
+			res = self.dbhandler._execComm("select * from issues",True)
+			embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
+			for id,title in res:
+				embObj.add_field(name=id,value=title,inline=False)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Issues", description=str(e), color=self.ERRORCOLOR)
+			return (1,embObj)
+	async def showsourcecode(self,message:discord.Message)->tuple:
+		args = message.content[1:].split(" ")
+		if len(args)<1:
+			return (3, None)
+		else:
+			module_name = args[1]
+			if module_name in self.ALLOWEDSOURCEFILES.keys():
+				line_indx = 0
+				file = open(self.ALLOWEDSOURCEFILES[module_name],mode='r')
+				lines = file.read().split("\n")
+				file.close()
+				num_lines = len(lines)
+				syntax_keyword = "py" if self.ALLOWEDSOURCEFILES[module_name].endswith("py") else "sh"
+				if len(args)>2 and args[2].isnumeric:
+					line_indx = int(args[2]) #start at later line
+				if(line_indx>=num_lines):
+					error = 3
+				else:
+					msg =f"{'`'*3}{syntax_keyword}\n"
+					while line_indx<num_lines and len(msg+lines[line_indx])<1930:
+						msg+= f"{str(line_indx+1).rjust(3)}| {lines[line_indx]}\n"
+						line_indx+=1
+					msg += "\n"+"`"*3
+					msg+=f"> Answering to {message.author.nick}"
+					return (0, msg)
+			else:
+				return (4, None)		
 	async def source(self,message:discord.Message)->tuple:
 		return (0, discord.Embed(
 						title="Source",
@@ -772,4 +828,33 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Superdelete", description=str(e), color=self.ERRORCOLOR)
 		return (error,None)
-	
+	async def togglecmd(self,message:discord.Message)->tuple:
+		try:
+			totogglecmd = ""
+			totogglecmd = self.dbhandler.find_alias(args[1].strip())
+			self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
+		except IndexError:
+			embObj = discord.Embed(title="togglecmd", description=f"Usage: {self.PREFIX}togglecmd <cmdname>", color=self.ERRORCOLOR)
+			return (3,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="togglecmd", description=str(e), color = self.ERRORCOLOR)
+			return (1,embObj)
+	async def togglensfw(self,message:discord.Message)->tuple:
+		try:
+			new_state = self.dbhandler.toggle_nsfw()
+			embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
+			return (0, embObj)
+		except OperationalError:
+			embObj = discord.Embed(title="togglensfw", description = "-- Something wrong with DB --", color=self.ERRORCOLOR)
+			return (1,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="togglensfw", description=str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
+	async def triggerannoy(self,message:discord.Message)->tuple:
+		try:
+			self.dbhandler.set_to_misc("annoyreaction", (not self.dbhandler.shouldAnnoy()))
+			embObj = discord.Embed(title="Tracker", description=f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}",color = self.TRACKERCOLOR)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="triggerannoy", description=str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
