@@ -249,7 +249,9 @@ class commandhandler:
 				error = (err2,error)[error == 0]
 		elif(cmd == "nhentai"):
 			error,embObj = await self.nhentai(message)
-			
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "togglensfw"):
 			error = await self.togglensfw(message.channel)
 		elif(cmd == "nhentaiblock"):
