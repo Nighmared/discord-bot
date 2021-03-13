@@ -67,11 +67,13 @@ class commandhandler:
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
-	async def sendMsg(self,channel,toSend,file=None,no_footer = False):
+	async def sendMsg(self,channel,toSend,file=None,callee = "INVALID"):
 		try:
 			if(type(toSend) == discord.embeds.Embed):
-				if not no_footer:
-					toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}")
+				if callee == "INVALID":
+					toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}\n <fix footer for dis cmd>")
+				else:
+					toSend.set_footer(text = f"Answering to {callee}")
 				if file is not None:
 					self.last_MSG.append(await channel.send(file=file,embed=toSend))
 				else:
@@ -241,13 +243,13 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "neko"):
-			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
-			await self.sendMsg(message.channel,embObj)
+			error,embObj = await self.neko(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "nhentai"):
-			if type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw():
-				error = await self.nhentai(message.channel,args,permlevel)
-			else:
-				error = 2
+			error,embObj = await self.nhentai(message)
+			
 		elif(cmd == "togglensfw"):
 			error = await self.togglensfw(message.channel)
 		elif(cmd == "nhentaiblock"):
@@ -635,8 +637,19 @@ class commandhandler:
 		except discord.HTTPException:
 			error = 1
 		return error
+	async def neko(self,message:discord.Message)->tuple:
+		try:
+			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Neko",description = str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
+	async def nhentai(self,message:discord.Message)->tuple:
+		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
+				return (2,None)
 
-	async def nhentai(self,channel,args,user_pl)->int:
+		args = message.content[1:].split(" ")
+		user_pl = self.dbhandler.get_perm_level(message.author.id)
 		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0
 		link = ""
 		error = 0
@@ -664,11 +677,10 @@ class commandhandler:
 				self.nh_handler._blur(link2,sigma)
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg")
 			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
-			error = await self.sendMsg(toSend=embObj,channel = channel,file=file_to_send)
 		nh_log = open("nhentai/log.txt","a")
 		nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
 		nh_log.close()
-		return error
+		return (0,embObj)
 	async def togglensfw(self,channel):
 		new_state = self.dbhandler.toggle_nsfw()
 		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
