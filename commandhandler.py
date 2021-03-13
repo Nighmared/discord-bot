@@ -124,7 +124,10 @@ class commandhandler:
 		elif(cmd == "showissues"):
 			error = await self.showissues(message.channel)
 		elif(cmd == "reloadissues"):
-			error = await self.reloadissues(message.channel)
+			error,embObj = await self.reloadissues(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj)	
+				error = (err2,error)[error == 0]
 		elif(cmd =="setcache"):
 			error = await self.setcache(message.channel,args[1])
 		elif(cmd =="endtrack"):
@@ -279,18 +282,6 @@ class commandhandler:
 			embObj.add_field(name=id,value=title,inline=False)
 		error = await self.sendMsg(channel,embObj)
 		return error
-	async def reloadissues(self,channel)->int:
-		ls = issues.getIssues()
-		if ls[0][0] == -1:
-			error = 1
-		else:
-			self.dbhandler._execComm("DELETE FROM issues")
-			for issue in ls:
-				self.dbhandler.addIssue(issue)
-			
-			embObj = discord.Embed(title="Issues",description="Issues reloaded",color=self.ISSUECOLOR)
-			error = await self.sendMsg(channel,embObj)
-		return error
 	async def say(self,channel,args)-> int:
 		resttxt = ""
 		for a in args[1:]:
@@ -353,12 +344,6 @@ class commandhandler:
 		else:
 			error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
 		return error
-	async def reload(self,message):
-		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
-		return (99,embObj)
-	async def ping(self,message:discord.Message)-> int:
-		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
-		return (0,embObj)
 	async def setcache(self,channel,cachelen)->int:
 		try:
 			newLen = int(cachelen)
@@ -391,13 +376,6 @@ class commandhandler:
 		except discord.HTTPException:
 			error = 1
 		return error
-	async def neko(self,message:discord.Message)->tuple:
-		try:
-			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
-			return (0,embObj)
-		except Exception as e:
-			embObj = discord.Embed(title="Neko",description = str(e), color =self.ERRORCOLOR)
-			return (1,embObj)
 	async def togglensfw(self,channel):
 		new_state = self.dbhandler.toggle_nsfw()
 		embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
@@ -642,6 +620,13 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Tracker",description = f"Something went wrong, prolly not tracking anyone rn \n➥{str(e)}",color = self.ERRORCOLOR)
 			return (1,embObj)
+	async def neko(self,message:discord.Message)->tuple:
+		try:
+			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Neko",description = str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
 	async def nhentai(self,message:discord.Message)->tuple:
 		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
 				return (2,None,None)
@@ -708,4 +693,25 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="nhentai log", description=str(e), color=self.ERRORCOLOR)
 			return (1,embObj)
+	async def ping(self,message:discord.Message)-> int:
+		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
+		return (0,embObj)
+	async def reload(self,message:discord.Message):
+		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
+		return (99,embObj)
+	async def reloadissues(self,message:discord.Message)->int:
+		try:
+			ls = issues.getIssues()
+			if ls[0][0] == -1:
+				error = 1
+			else:
+				self.dbhandler._execComm("DELETE FROM issues")
+				for issue in ls:
+					self.dbhandler.addIssue(issue)
+				
+			embObj = discord.Embed(title="Issues",description="Issues reloaded",color=self.ISSUECOLOR)
+			return (0,embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Issues",description=str(e), color=self.ERRORCOLOR)
+			return	(1,embObj)
 	
