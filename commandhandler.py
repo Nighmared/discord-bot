@@ -86,7 +86,7 @@ class commandhandler:
 	
 
 
-	async def commandHandler(self,message:discord.message,permlevel:int) -> int:
+	async def commandHandler(self,message:discord.Message,permlevel:int) -> int:
 		self.curr_msg = message
 		args = message.content[1:].split(" ")
 		cmd = args[0].lower()
@@ -105,19 +105,19 @@ class commandhandler:
 		if(cmd == "msgarchive"):
 			error,embObj = await self.msgarchive(message.channel)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.id)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "help"):
 			error,embObj = await self.help(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.id)	
 				error = (err2,error)[error == 0]
 		elif(cmd =="setversion"):
 			error = await self.setversion(version=args[1])
 		elif(cmd == "easter"):
 			error,embObj = await self.easter(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd =="easterranks"):
 			error.embObj = await self.easterranks(message)
@@ -126,7 +126,7 @@ class commandhandler:
 		elif(cmd == "reloadissues"):
 			error,embObj = await self.reloadissues(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee = message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd =="setcache"):
 			error = await self.setcache(message.channel,args[1])
