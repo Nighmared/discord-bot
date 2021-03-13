@@ -536,6 +536,8 @@ class commandhandler:
 				embObj.add_field(name="Output",value=res)
 			#print(embed_len)
 			return (0,embObj)
+		else:
+			return (0,None)
 	async def reload(self,message):
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
 		return (99,embObj)
