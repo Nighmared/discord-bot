@@ -139,6 +139,7 @@ async def handle(message:discord.Message) -> int:
 		else:
 			res = await handler.commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
+			db.close_down()
 			return 99
 		await add_reaction( message,db.get_emote(res))
 		await message.delete(delay=3)
