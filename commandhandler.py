@@ -237,7 +237,7 @@ class commandhandler:
 		elif(cmd == "deepsleep"):
 			error,embObj = await self.deepsleep(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "neko"):
 			error,embObj = await self.neko(message)
