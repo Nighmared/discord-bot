@@ -764,7 +764,7 @@ class commandhandler:
 			return (1,embObj)
 	async def setversion(self,message)-> tuple:
 		try:
-			args = message.content[1:].strip(" ")
+			args = message.content[1:].split(" ")
 			version = args[1]
 			self.dbhandler.set_to_misc("version",version)
 			embObj = discord.Embed(title="setversion", description= f"Version is now set to {version}", color=self.SYSTEMCOLOR)
