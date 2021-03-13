@@ -1,5 +1,6 @@
 import subprocess
 from discord import colour
+from discord import embeds
 from discord.embeds import Embed, EmbedProxy
 from sqlite3 import OperationalError
 import dbhandler
@@ -164,11 +165,14 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "setstatus"):
-			error = await self.setstatus(message.content,args)
+			error,embObj = await self.setstatus(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd =="execsql"):
 			error,embObj = await self.execsql(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee = message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "reload"):
 			error,embObj = await self.reload(message)
@@ -180,7 +184,10 @@ class commandhandler:
 				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		elif(cmd == "setperm"):
-			error = await self.setperm(user=message.mentions[0],perm_lev=args[2],own_perm_lev=permlevel)
+			error,embObj = await self.setperm(message)
+			if embObj is not None:
+				err2 = await self.sendMsg(message.channel,embObj, callee=message.author.nick)	
+				error = (err2,error)[error == 0]
 		elif(cmd == "triggerannoy"):
 			self.dbhandler.set_to_misc("annoyreaction", (not self.dbhandler.shouldAnnoy()))
 			embObj = discord.Embed(title="Tracker", description=f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}",color = self.TRACKERCOLOR)
@@ -318,30 +325,8 @@ class commandhandler:
 			else:
 				error = 4
 		return error			
-	async def setstatus(self,cont,args)->int:
-		type = 1
-		splitbyquot = cont.split("\"")
-		if(len(splitbyquot) not in (2,3)):
-			if len(args)<2:
-				return 3 #u fucked up
-			else:
-				stringarg = args[1]
-			if(len(args)>2 and args[2].isnumeric()):
-				type = args[2]
-		else:
-			stringarg = splitbyquot[1]
-			if(len(splitbyquot)==3 and splitbyquot[2].isnumeric()):
-				type = int(splitbyquot[2])
-				print(f"[commandhandler.py] (handling setstatus) | type={type} ")
-		await self.client.change_presence(activity=discord.Activity(name=stringarg,type= type))
-		return 0
-	async def setperm(self,user,perm_lev,own_perm_lev:int):
-		if(int(perm_lev)>=own_perm_lev):
-			error = 3 #make sure you cant promote yourself or anyone else over your own rank
-		else:
-			error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
-		return error
-	
+	async def togglecmd(self,message)->tuple:
+		None
 	async def settrack(self,channel,user)->int:
 		try:
 			self.toTrackID = user.id
@@ -692,7 +677,7 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Issues",description=str(e), color=self.ERRORCOLOR)
 			return	(1,embObj)
-	async def say(self,message:discord.Message)-> int:
+	async def say(self,message:discord.Message)-> tuple:
 		channel = message.channel
 		args = message.content[1:].split(" ")
 		resttxt = ""
@@ -728,6 +713,45 @@ class commandhandler:
 			embObj = discord.Embed(title="setchangelog",description=str(e), color=self.ERRORCOLOR)
 			print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
 			return (1, embObj)
+	async def setperm(self,message:discord.Message)->tuple:
+		own_perm_lev = self.dbhandler.get_perm_level(message.author.id)
+		user = message.mentions[0]
+		args = message.content[1:].replace("  "," ").split(" ")
+		perm_lev = args[2]
+		if(int(perm_lev)>=own_perm_lev):
+			embObj = discord.Embed(title="setperm", description="Can't set others permission >= your own", color=self.ERRORCOLOR)
+			error = 3 #make sure you cant promote yourself or anyone else over your own rank	
+		else:
+			try:
+				error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
+				embObj = discord.Embed(title="setperm", description=f"{user.nick} now has permission level {perm_lev}", color=self.SYSTEMCOLOR)
+			except Exception as e:
+				error = 1
+				embObj = discord.Embed(title="setperm", description=str(e), color=self.ERRORCOLOR)
+		return (error, embObj)
+	async def setstatus(self, message:discord.Message)->tuple:
+		try:
+			cont = message.content
+			args = cont[1:].split(" ")
+			type = 1
+			error = 0
+			splitbyquot = cont.split("\"")
+			if(len(splitbyquot) not in (2,3)):
+				if len(args)<2:
+					return (3,None) #u fucked up
+				else:
+					stringarg = args[1]
+				if(len(args)>2 and args[2].isnumeric()):
+					type = args[2]
+			else:
+				stringarg = splitbyquot[1]
+				if(len(splitbyquot)==3 and splitbyquot[2].strip().isnumeric()):
+					type = int(splitbyquot[2])
+			await self.client.change_presence(activity=discord.Activity(name=stringarg,type= type))
+			return (0,None)
+		except Exception as e:
+			embObj = discord.Embed(title="setstatus", description=str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
 	async def source(self,message:discord.Message)->tuple:
 		return (0, discord.Embed(
 						title="Source",

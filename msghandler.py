@@ -108,7 +108,7 @@ async def handle(message:discord.Message) -> int:
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = db.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID #hardcode that sucker
-	if(isJoniii): permlevel = 5
+	if(isJoniii): permlevel = 10
 	cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
 
 
