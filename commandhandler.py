@@ -324,7 +324,7 @@ class commandhandler:
 				error = (err2,error)[error == 0]
 		elif(cmd == "createbackup"):
 			error,embObj = await self.createbackup(message)
-			await self.sendMsg(channel=message.channel, toSend=embObj)
+			await self.sendMsg(channel=message.channel, toSend=embObj,callee=message.author.nick)
 		elif(cmd == "showsourcecode"):
 			error,embObj = await self.showsourcecode(message)
 			if embObj is not None:
@@ -831,9 +831,11 @@ class commandhandler:
 	async def togglecmd(self,message:discord.Message)->tuple:
 		try:
 			args =message.content[1:].split(" ")
-			totogglecmd = ""
-			totogglecmd = self.dbhandler.find_alias(args[1].strip())
-			print(totogglecmd,"!!!!!!!!!!!!!!!!!!!!!!!")
+			if args[1].strip() == "?":
+				totogglecmd = "help"
+			else: 
+				totogglecmd = ""
+				totogglecmd = self.dbhandler.find_alias(args[1].strip())
 			if totogglecmd.strip() == "":
 				return (3,None)
 			self.dbhandler._execComm(f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"''')
