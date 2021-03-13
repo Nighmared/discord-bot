@@ -251,7 +251,7 @@ class commandhandler:
 		elif(cmd == "banner"):
 			error,embObj = await self.banner(message)
 			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
+				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
 				error = (err2,error)[error == 0]
 		else:
 			error = 1
