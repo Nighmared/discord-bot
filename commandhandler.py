@@ -103,6 +103,7 @@ class commandhandler:
 			"showissues":self.showissues,
 			"showsourcecode":self.showsourcecode,
 			"source":self.source,
+			"stalk":self.stalk,
 			"superdelete":self.superdelete,
 			"togglecmd":self.togglecmd,
 			"togglensfw":self.togglensfw,
@@ -147,201 +148,18 @@ class commandhandler:
 
 		if not self.perm_valid(cmd,permlevel):
 			return 4
-
-		if(cmd == "msgarchive"):
-			error,embObj = await self.msgarchive(message.channel)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "help"):
-			error,embObj = await self.help(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd =="setversion"):
-			error,embObj = await self.setversion(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "easter"):
-			error,embObj = await self.easter(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd =="easterranks"):
-			error,embObj = await self.easterranks(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "showissues"):
-			error,embObj = await self.showissues(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee = message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "reloadissues"):
-			error,embObj = await self.reloadissues(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee = message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd =="setcache"):
-			error, embObj = await self.setcache(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd =="endtrack"):
-			error,embObj = await self.endtrack(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "settrack"):
-			error,embObj = await self.settrack(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "gettrack"):
-			error,embObj = await self.gettrack(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "changelog"):
-			error,embObj = await self.changelog(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "setchangelog"):
-			error,embObj = await self.setchangelog(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "say"): #No embed as should rly just say stuff 
-			error,embObj = await self.say(message) #dont change to normal structure, gotta keep the send loop
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "setstatus"):
-			error,embObj = await self.setstatus(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd =="execsql"):
-			error,embObj = await self.execsql(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee = message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "reload"):
+		
+		if cmd == "reload":
 			error,embObj = await self.reload(message)
 			if await self.sendMsg(channel=message.channel, toSend = embObj) >0:
 				error = 1 #DONT FIX THIS, IS SPECIAL FOR RELOAD
-		elif(cmd =="addcommand"):
-			(error, embObj) = await self.addcommand(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "setperm"):
-			error,embObj = await self.setperm(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj, callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "triggerannoy"):
-			error,embObj = await self.triggerannoy(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "mostmessages"):
-			error, embObj = await self.mostmessages(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "superdelete"):
-			error,embObj = await self.superdelete(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "togglecmd"):
-			error, embObj = await self.togglecmd(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]	
-		elif(cmd == "fixissue"):
-			error,embObj = await self.fixissue(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "info"):
-			error,embObj = await self.info(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "ping"):
-			error,embObj = await self.ping(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "source"):
-			error,embObj = await self.source(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "deletelast"):
-			error, embObj = await self.deletelast(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "deleteall"):
-			error,embObj = await self.deleteall(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "deepsleep"):
-			error,embObj = await self.deepsleep(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "neko"):
-			error,embObj = await self.neko(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "nhentai"):
-			error,embObj,f = await self.nhentai(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,file=f,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "togglensfw"):	
-			error,embObj = await self.togglensfw(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "nhentaiblock"):
-			error,embObj = await self.nhentaiblock(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "nhentailog"):
-			error,embObj = await self.nhentailog(message.channel)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "createbackup"):
-			error,embObj = await self.createbackup(message)
-			await self.sendMsg(channel=message.channel, toSend=embObj,callee=message.author.nick)
-		elif(cmd == "showsourcecode"):
-			error,embObj = await self.showsourcecode(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		elif(cmd == "banner"):
-			error,embObj = await self.banner(message)
-			if embObj is not None:
-				err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
-				error = (err2,error)[error == 0]
-		else:
-			error = 1
-			if(not self.perm_valid(cmd,permlevel)):
-				error = 4
-		return 0 if error is None else error #quick fix until i properly refactored all cmds
-
-
+			return error
+		#general case
+		error,embObj = await self.cmd_handling_funcs[cmd](message)
+		if embObj is not None:
+			err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+			error = (err2,error)[error == 0]
+		return error
 
 	async def addcommand(self,message:discord.Message)->tuple:
 		try:
@@ -814,6 +632,20 @@ class commandhandler:
 						title="Source",
 						description="http://brrr.nighmared.tech",
 						color= self.SYSTEMCOLOR))
+	async def stalk(self, message:discord.Message)->tuple:
+		try:
+			args = message.content[1:].split(" ")
+			target_id = args[1]
+			target_user = await self.client.fetch_user(target_id)
+			embObj = discord.Embed(title="Stalking", description =f"Info about {target_user.mention}", color = self.TRACKERCOLOR)
+			embObj.add_field(name="Username",value=f"{target_user.name}#{target_user.discriminator}")
+			embObj.add_field(name="UID", value=target_user.id)
+			embObj.add_field(name="Joined", value=target_user.created_at)
+			embObj.set_image(url=target_user.avatar_url)
+			return (0, embObj)
+		except Exception as e:
+			embObj = discord.Embed(title="Stalking", description = str(e), color =self.ERRORCOLOR)
+			return (1,embObj)
 	async def superdelete(self,message : discord.Message)->tuple:
 		target_msg = await message.channel.fetch_message(message.reference.message_id)
 		embObj = None
