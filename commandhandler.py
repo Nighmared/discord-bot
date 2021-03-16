@@ -155,9 +155,14 @@ class commandhandler:
 				error = 1 #DONT FIX THIS, IS SPECIAL FOR RELOAD
 			return error
 		#general case
-		error,embObj = await self.cmd_handling_funcs[cmd](message)
+		res = await self.cmd_handling_funcs[cmd](message)
+		if len(res) == 2:
+			error, embObj = res
+			file = None
+		else:
+			error,embObj, file = res
 		if embObj is not None:
-			err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick)	
+			err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick, file=file)	
 			error = (err2,error)[error == 0]
 		return error
 
