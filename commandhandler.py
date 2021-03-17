@@ -165,7 +165,11 @@ class commandhandler:
 		else:
 			error,embObj, file = res
 		if embObj is not None:
-			err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick if message.author.nick is not None else message.author.name, file=file)	
+			try:
+				callee = message.author.nick if message.author.nick is not None else message.author.name
+			except AttributeError:
+				callee = message.author.name
+			err2 = await self.sendMsg(message.channel,embObj,callee=callee, file=file)	
 			error = (error, err2)[error == 0]
 		return error
 
