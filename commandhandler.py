@@ -166,7 +166,7 @@ class commandhandler:
 			error,embObj, file = res
 		if embObj is not None:
 			err2 = await self.sendMsg(message.channel,embObj,callee=message.author.nick, file=file)	
-			error = (err2,error)[error == 0]
+			error = (error, err2)[error == 0]
 		return error
 
 	async def addcommand(self,message:discord.Message)->tuple:
