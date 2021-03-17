@@ -619,8 +619,12 @@ class commandhandler:
 			return (1,embObj)
 	async def showsourcecode(self,message:discord.Message)->tuple:
 		args = message.content[1:].split(" ")
-		if len(args)<1:
-			return (3, None)
+		if len(args)<2:
+			embObj = discord.Embed(title="showsourcecode",description="Missing argument, use one of the following")
+			val_string = ""
+			for fname in self.ALLOWEDSOURCEFILES.keys(): val_string+= fname+", "
+			embObj.add_field(name="Files available for display", value = val_string)			
+			return (3, embObj)
 		else:
 			module_name = args[1]
 			if module_name in self.ALLOWEDSOURCEFILES.keys():
