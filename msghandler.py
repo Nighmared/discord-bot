@@ -67,11 +67,12 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 		if len(module.IMPORTS)>3:
 			print(module.IMPORTS[3])
 		for subimport in module.IMPORTS:
-			print(subimport.__name__)
 			if subimport not in submodules:
 				submodules.add(subimport)
 				modulenames+= "⤷"+subimport.__name__+"\n"
+				print(subimport.__name__)
 				for subsub in subimport.IMPORTS:
+					print(subsub.__name__)
 					if(subsub not in submodules and subsub not in IMPORTS):
 						submodules.add(subsub)
 						modulenames += "➥  "+subsub.__name__+"\n"

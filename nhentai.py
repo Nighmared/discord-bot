@@ -3,7 +3,7 @@ import skimage
 import skimage.io,skimage.filters
 import dbhandler
 
-IMPORTS=(dbhandler)
+IMPORTS=(dbhandler,)
 
 
 class handler:
