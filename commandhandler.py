@@ -13,7 +13,7 @@ import neko
 import nhentai
 import inspirobot
 
-IMPORTS = (neko,issues,nhentai, inspirobot)
+IMPORTS = (neko,issues,nhentai,inspirobot)
 
 
 

@@ -66,6 +66,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 		modulenames+= module.__name__ +"\n"
 		try:
 			for subimport in module.IMPORTS:
+				print(subimport.__name__)
 				if subimport not in submodules:
 					submodules.add(subimport)
 					modulenames+= "⤷"+subimport.__name__+"\n"
