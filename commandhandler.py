@@ -275,9 +275,9 @@ class commandhandler:
 		query = cont[(origlen+1):].strip()
 		try:
 			res = self.dbhandler._execComm(query)
-		except OperationalError:
+		except OperationalError as e:
 			print("[commandhandler.py] Something went wrong with sqlite")
-			embObj = discord.Embed(title="ExecSQL",description = "-- Something went wrong with DB --",color=self.ERRORCOLOR)
+			embObj = discord.Embed(title="ExecSQL",description = str(e),color=self.ERRORCOLOR)
 			return (3,embObj) # command is fuckd up probably
 		if(res !=-10):
 			embObj = discord.Embed(title="Query Result",description = ">"+query,color=self.QUERYCOLOR)
