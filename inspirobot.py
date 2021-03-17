@@ -1,5 +1,7 @@
 import requests
 
+IMPORTS = ()
+
 API_URL = "https://inspirobot.me/api?generate=true"
 
 def get_img_url()->tuple:
