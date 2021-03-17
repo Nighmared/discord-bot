@@ -1,4 +1,4 @@
-from logging import error #for discord errors
+import logging
 from re import split #for cmd handling
 import discord # api library
 from importlib import reload
@@ -6,6 +6,17 @@ from datetime import datetime
 from sys import exit
 import subprocess as sub # needed for softreload to pull from git kekw
 import msghandler #handle all incoming msgs
+
+
+
+logging.basicConfig(
+	filename='bot.log',
+
+	level=logging.INFO,
+	filemode="a",
+	format='%(levelname)s > %(asctime)s [%(filename)s] %(message)s',
+	datefmt='%Y/%m/%d %H:%M:%S'
+	)
 
 
 
@@ -24,6 +35,7 @@ msghandler.init(client,STARTTIME)
 @client.event
 async def on_ready():
 	print(f'[bot.py] {client.user} has connected')
+	logging.info("Bot Online")
 
 @client.event
 async def on_message(message:discord.Message):

@@ -1,5 +1,6 @@
 import sqlite3 as sql
 import subprocess as sub
+import logging
 from datetime import datetime as dt
 IMPORTS = () 
 
@@ -58,8 +59,9 @@ class dbhandler:
 			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')	
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
-			print("[dbhandler.py] (get_cmd_perm) frick cmd not added",cmd)
-			res = 4
+			#print("[dbhandler.py] (get_cmd_perm) frick cmd not added",cmd)
+			logging.warning(f"Unable to look up permission level of {cmd} ")
+			res = 8 #return dumb high number as default
 		return res
 
 	def get_from_misc(self,key):
@@ -129,7 +131,8 @@ class dbhandler:
 	def create_backup(self):
 		timestring = str(dt.now().isoformat())[:-7]
 		sub.run(["cp","discordbot.db",f"backups/{timestring}.db"])
-		print(f"[dbhandler.py](create_backup) Created Backup > {timestring}")
+		#print(f"[dbhandler.py](create_backup) Created Backup > {timestring}")
+		logging.info(f"Created Backup time: {timestring} ")
 		return 0
 	
 	def add_nhentai_file(self,id,path_to_blurred):

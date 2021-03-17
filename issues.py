@@ -1,4 +1,5 @@
 import requests
+import logging
 repo_name = "discord-bot"
 author = "nighmared"
 
@@ -8,7 +9,8 @@ def getIssues()->list:
 	url = f"https://api.github.com/repos/{author}/{repo_name}/issues"
 	r = requests.get(url)
 	if(r.status_code != 200):
-		print(f"[issues.py] (getIssues) {r.status_code} <- fucky response  from gh")
+	#	print(f"[issues.py] (getIssues) {r.status_code} <- fucky response  from gh")
+		logging.error(f"GitHub gave fucky response code ({r.status_code})")
 		return [(-1,-1)]
 	else:
 		res = r.json()

@@ -3,6 +3,7 @@ from discord import colour
 from discord import embeds
 from discord.embeds import Embed, EmbedProxy
 from sqlite3 import OperationalError
+import logging
 
 from discord.utils import _bytes_to_base64_data
 import dbhandler
@@ -145,7 +146,8 @@ class commandhandler:
 			return 3
 		if not self.dbhandler.cmd_is_enabled(cmd):
 			error = 4
-			print(f"[commandhandler.py] disabled/invalid cmd: {cmd}")
+			logging.warning(f"Someone tried to use an invalid command ({cmd})")
+			#print(f"[commandhandler.py] disabled/invalid cmd: {cmd}")
 			return error
 		error = 0
 
@@ -280,7 +282,8 @@ class commandhandler:
 		try:
 			res = self.dbhandler._execComm(query)
 		except OperationalError as e:
-			print("[commandhandler.py] Something went wrong with sqlite")
+			logging.error(f"Something went wrong with the DB (Query: {query} ")
+			#print("[commandhandler.py] Something went wrong with sqlite")
 			embObj = discord.Embed(title="ExecSQL",description = str(e),color=self.ERRORCOLOR)
 			return (3,embObj) # command is fuckd up probably
 		if(res !=-10):
@@ -306,7 +309,6 @@ class commandhandler:
 					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont)
 			else:
 				embObj.add_field(name="Output",value=res)
-			#print(embed_len)
 			return (0,embObj)
 		else:
 			return (0,None)
@@ -455,7 +457,7 @@ class commandhandler:
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
 			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
 				link2 = link.rstrip(".blurred.jpg")+".jpg"
-				print("[commandhandler.py] nh command; lin2 in catch block = ",link2)
+				#print("[commandhandler.py] nh command; lin2 in catch block = ",link2)
 
 				self.nh_handler._blur(link2,sigma)
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
@@ -467,7 +469,6 @@ class commandhandler:
 	async def nhentaiblock(self,message:discord.Message)->tuple:
 		args = message.content[1:].replace("  "," ").split(" ")
 		if len(args)>1 and args[1].isnumeric:
-			print(args[1])
 			error = self.nh_handler.nhentai_block(args[1])
 		else:
 			error =3
@@ -484,7 +485,8 @@ class commandhandler:
 			embObj.add_field(name="Entries",value=field_cont)
 			#log management
 			if len(log_lines)>500:
-				print("[commandhandler.py] (nhl) trying to rotate log")
+				logging.info("trying to rotate nh log")
+			#	print("[commandhandler.py] (nhl) trying to rotate log")
 				open("nhentai/log.txt.old","w").writelines(log_lines) #lol idk how this is gonna end
 				curr_log = open("nhentai/log.txt","w")
 				curr_log.write("")
@@ -549,7 +551,8 @@ class commandhandler:
 			return (0,None)
 		except Exception as e:
 			embObj = discord.Embed(title="setchangelog",description=str(e), color=self.ERRORCOLOR)
-			print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
+			logging.error("Something got fucked up when handling setchangelog")
+			#print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
 			return (1, embObj)
 	async def setperm(self,message:discord.Message)->tuple:
 		own_perm_lev = self.dbhandler.get_perm_level(message.author.id)

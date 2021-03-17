@@ -1,4 +1,4 @@
-from logging import error #for discord errors
+import logging
 from re import split #for cmd handling
 import discord # api library
 import msglist # module for message tracking
@@ -41,7 +41,8 @@ async def add_reaction(message, emote):
 	except discord.errors.Forbidden:
 		return 5
 	except discord.errors.HTTPException as e:
-		print("[msghandler.py] (add_reaction) couldnt add emote: "+emote)
+		logging.warning("Couldn't add emote as reaction:"+emote)
+		#print("[msghandler.py] (add_reaction) couldnt add emote: "+emote)
 		print(e)
 		return 1
 
@@ -82,7 +83,8 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	handler.last_MSG = msgs_backup
 	handler.curr_msg = message
 
-	print("[bot.py] back from softreload")
+	#print("[bot.py] back from softreload")
+	logging.info("Return from softreload")
 	if type(message.channel) is discord.channel.DMChannel or message.author.nick is None:
 		callee = message.author.name
 	else:

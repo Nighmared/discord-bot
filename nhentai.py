@@ -2,6 +2,7 @@ import requests,random,re
 import skimage
 import skimage.io,skimage.filters
 import dbhandler
+import logging
 
 IMPORTS=(dbhandler,)
 
@@ -44,7 +45,8 @@ class handler:
 		cont = response.text
 		match = re.search('(https://i\.nhentai\.net).*?\"',cont)
 		link = match.group(0).rstrip('"')
-		print("[nhentai.py] freshly downloaded ",link)
+		#print("[nhentai.py] freshly downloaded ",link)
+		logging.info(f"Freshly downloaded {link}")
 		img_response = requests.get(link,stream=True)
 		file = open(f"nhentai/{indx}.jpg",'wb')
 		for chunk in img_response.iter_content(1024):
