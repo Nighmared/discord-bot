@@ -433,7 +433,7 @@ class commandhandler:
 
 		args = message.content[1:].split(" ")
 		user_pl = self.dbhandler.get_perm_level(message.author.id)
-		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0
+		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0 or type(message.channel)==discord.channel.DMChannel
 		link = ""
 		error = 0
 		img_id = -1
