@@ -143,10 +143,12 @@ class commandhandler:
 		cmd = args[0].lower()
 		cmd = self.dbhandler.find_alias(cmd)
 		if(cmd == ""):
+			logging.warning(f"{message.author.name}#{message.author.discriminator} tried to use an invalid command")
+
 			return 3
 		if not self.dbhandler.cmd_is_enabled(cmd):
 			error = 4
-			logging.warning(f"Someone tried to use an invalid command ({cmd})")
+			logging.warning(f"{message.author.name}#{message.author.discriminator} tried to use a disabled command ({cmd})")
 			#print(f"[commandhandler.py] disabled/invalid cmd: {cmd}")
 			return error
 		error = 0
