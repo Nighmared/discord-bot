@@ -11,8 +11,9 @@ import issues
 import msglist
 import neko
 import nhentai
+import inspirobot
 
-IMPORTS = (neko,issues,nhentai)
+IMPORTS = (neko,issues,nhentai, inspirobot)
 
 
 
@@ -84,6 +85,7 @@ class commandhandler:
 			"gettrack":self.gettrack,
 			"help":self.help,
 			"info":self.info,
+			"inspire":self.inspire,
 			"mostmessages":self.mostmessages,
 			"msgarchive":self.msgarchive,
 			"neko":self.neko,
@@ -368,6 +370,15 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Info",description = str(e), color = self.ERRORCOLOR)
 			return (1,embObj)
+	async def inspire(self,message:discord.Message)->tuple:
+		error, cont = inspirobot.get_img_url()
+		if error>0:
+			embObj = discord.Embed(title="Inspire",description=cont,color=self.ERRORCOLOR)
+		else:
+			embObj = discord.Embed(title="Inspire", description="Newly generated inspirobot.me quote",url="https://inspirobot.me",color=self.NEKOCOLOR)
+			embObj.set_image(url=cont)
+		return (error,embObj)
+		
 	async def mostmessages(self,message:discord.Message)->tuple:
 		try:
 			res = self.dbhandler.get_most_messages()
