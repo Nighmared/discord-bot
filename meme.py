@@ -41,6 +41,8 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 					"text": caption,
 					"x": 10,
 					"y": 10,
+					 "width": 548,
+        			"height": 100,
 					"color":"#ffffff",
 					"outline_color":"#000000"
 
