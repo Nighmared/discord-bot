@@ -35,19 +35,7 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 			"password":IMGFLIP_PW,
 			"font":"arial",
 			"max_font_size":"100px",
-			"boxes":[
-				{
-					"type": "text",
-					"text": caption,
-					"x": 10,
-					"y": 10,
-					 "width": 548,
-        			"height": 100,
-					"color":"#ffffff",
-					"outline_color":"#000000"
-
-				},
-			]
+			"text0": caption,
 		}
 	)
 	if p_req.status_code !=200:
