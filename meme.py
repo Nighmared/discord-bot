@@ -43,7 +43,7 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 					"color":"#ffffff",
 					"outline_color":"#000000"
 
-				}
+				},
 			]
 		}
 	)
