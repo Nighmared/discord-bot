@@ -12,6 +12,7 @@ TEMPLATE_IDS = {
 	"waiting_skeleton":4087833,
 	"leo_cheers":5496396,
 	"shocked_pika":155067746,
+	"shocked_pika2":159392707,
 	"doge":8072285,
 	"inhaling_bird":114585149,
 	"htp_harold":27813981,
