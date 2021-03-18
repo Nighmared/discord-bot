@@ -34,7 +34,8 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 			"username":IMGFLIP_ACC,
 			"password":IMGFLIP_PW,
 			"text0":caption,
-			"font":"arial"
+			"font":"arial",
+			"max_font_size":"100px",
 		}
 	)
 	if p_req.status_code !=200:
