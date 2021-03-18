@@ -396,7 +396,7 @@ class commandhandler:
 			top_caption = False
 			if space_split_args[2].strip().isnumeric():
 				top_caption = int(space_split_args[2].strip())==1
-			error, img_url, error_descr = meme.get_meme(template_name,caption,top_caption[{)
+			error, img_url, error_descr = meme.get_meme(template_name,caption,top_caption)
 		except IndexError:
 			error = 3
 			error_descr = "Invalid Usage"	
