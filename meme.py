@@ -22,6 +22,7 @@ TEMPLATE_IDS = {
 	"sad_pablo":80707627,
 	"in_danger":137253445,
 	"black_kid_depresso":131635553,
+	"falling_building":141322807,
 }
 
 def get_meme(template_name:str, caption:str, upper=False)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
