@@ -396,7 +396,7 @@ class commandhandler:
 			top_caption = False
 			if space_split_args[2].strip().isnumeric():
 				top_caption = int(space_split_args[2].strip())==1
-			error, img_url, error_descr = meme.get_meme(template_name,caption,top_caption)
+			error, img_url, error_descr, post_url = meme.get_meme(template_name,caption,top_caption)
 		except IndexError:
 			error = 3
 			error_descr = "Invalid Usage"	
@@ -412,7 +412,7 @@ class commandhandler:
 			embObj = discord.Embed(title="makememe", description=error_descr, color=self.ERRORCOLOR)
 			return (1,embObj)
 		else:
-			embObj = discord.Embed(title="makememe",description="Here's your meme", color = self.NEKOCOLOR)
+			embObj = discord.Embed(title="makememe",description="Here's your meme", color = self.NEKOCOLOR, url=post_url)
 			embObj.set_image(url=img_url)
 			return (0,embObj)
 

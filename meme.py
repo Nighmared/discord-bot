@@ -27,7 +27,7 @@ TEMPLATE_IDS = {
 
 def get_meme(template_name:str, caption:str, upper=False)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
 	if template_name not in TEMPLATE_IDS.keys():
-		return (3,None,"Invalid template name")
+		return (3,None,"Invalid template name",None)
 	
 	text_key = ("text0","text1")[upper]
 	template_id = TEMPLATE_IDS[template_name]
@@ -43,10 +43,10 @@ def get_meme(template_name:str, caption:str, upper=False)->tuple: #returns (erro
 		}
 	)
 	if p_req.status_code !=200:
-		return (1,None, f"Request didn't work, response code is {p_req.status_code}")
+		return (1,None, f"Request didn't work, response code is {p_req.status_code}", None)
 	
 	try:
-		return (0,p_req.json()["data"]["url"], None)
+		return (0,p_req.json()["data"]["url"], None, p_req.json()["data"]["page_url"])
 	except KeyError:
-		return (1, "", p_req.content.decode())
+		return (1, "", p_req.content.decode(),None)
 
