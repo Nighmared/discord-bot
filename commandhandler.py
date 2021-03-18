@@ -390,9 +390,13 @@ class commandhandler:
 		return (error,embObj)
 	async def makememe(self,message:discord.Message)->tuple:
 		try:
+			space_split_args = message.content.split(" ")
 			caption = message.content.split("\"")[1]
-			template_name = message.content[1:].split(" ")[1]
-			error, img_url, error_descr = meme.get_meme(template_name,caption)
+			template_name = space_split_args[1]
+			top_caption = False
+			if space_split_args[2].strip().isnumeric():
+				top_caption = int(space_split_args[2].strip())==1
+			error, img_url, error_descr = meme.get_meme(template_name,caption,top_caption)
 		except IndexError:
 			error = 3
 			error_descr = "Invalid Usage"	

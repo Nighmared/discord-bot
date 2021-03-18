@@ -22,10 +22,11 @@ TEMPLATE_IDS = {
 	"in_danger":137253445,
 }
 
-def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
+def get_meme(template_name:str, caption:str, upper=False)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
 	if template_name not in TEMPLATE_IDS.keys():
 		return (3,None,"Invalid template name")
 	
+	text_key = ("text1","text2")[upper]
 	template_id = TEMPLATE_IDS[template_name]
 	p_req = requests.post(
 		url= "https://api.imgflip.com/caption_image",
@@ -35,7 +36,7 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 			"password":IMGFLIP_PW,
 			"font":"arial",
 			"max_font_size":"100px",
-			"text0": caption,
+			text_key: caption,
 		}
 	)
 	if p_req.status_code !=200:
