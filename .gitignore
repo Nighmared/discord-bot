@@ -1,4 +1,5 @@
 .token.txt
+.imgflip_creds.txt
 __pycache__/*
 *.db
 PREFIX.txt
