@@ -37,6 +37,7 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 			"max_font_size":"100px",
 			"boxes":[
 				{
+					"type": "text",
 					"text": caption,
 					"x": 10,
 					"y": 10,
