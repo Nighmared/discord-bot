@@ -527,6 +527,7 @@ class commandhandler:
 			return (1,embObj)
 	async def ping(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
+		embObj.add_field(name="Latency",value=self.client.latency)
 		return (0,embObj)
 	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
