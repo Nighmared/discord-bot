@@ -13,8 +13,9 @@ import msglist
 import neko
 import nhentai
 import inspirobot
+import meme
 
-IMPORTS = (neko,issues,nhentai,inspirobot)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme)
 
 
 
@@ -112,6 +113,7 @@ class commandhandler:
 			"togglecmd":self.togglecmd,
 			"togglensfw":self.togglensfw,
 			"triggerannoy":self.triggerannoy,
+			"makememe":self.makememe
 		}
 
 
@@ -386,7 +388,30 @@ class commandhandler:
 			embObj = discord.Embed(title="Inspire", description="Newly generated inspirobot.me quote",url="https://inspirobot.me",color=self.NEKOCOLOR)
 			embObj.set_image(url=cont)
 		return (error,embObj)
-		
+	async def makememe(self,message:discord.Message)->tuple:
+		try:
+			caption = message.content.split("\"")[1]
+			template_name = message.content[1:].split(" ")[1]
+			error, img_url, error_descr = meme.get_meme(template_name,caption)
+		except IndexError:
+			error = 3
+			error_descr = "Invalid Usage"	
+		if error == 3:  #-> invalid template
+			embObj = discord.Embed(title="makememe",description=error_descr,color=self.ERRORCOLOR)
+			templates = ""
+			for t in meme.TEMPLATE_IDS.keys():
+				templates += t+", "
+			embObj.add_field(name="Possible template names:",value=templates)
+			embObj.add_field(name="Usage",value=f"{self.PREFIX}makememe <template_name> \"some caption\"\n Example: {self.PREFIX}makememe spongebob_mocking \"spam is not nsfw\"", inline=False)
+			return (3,embObj)
+		elif error == 1:
+			embObj = discord.Embed(title="makememe", description=error_descr, color=self.ERRORCOLOR)
+			return (1,embObj)
+		else:
+			embObj = discord.Embed(title="makememe",description="Here's your meme", color = self.NEKOCOLOR)
+			embObj.set_image(url=img_url)
+			return (0,embObj)
+
 	async def mostmessages(self,message:discord.Message)->tuple:
 		try:
 			res = self.dbhandler.get_most_messages()
@@ -433,7 +458,6 @@ class commandhandler:
 	async def nhentai(self,message:discord.Message)->tuple:
 		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
 				return (2,None,None)
-
 		args = message.content[1:].split(" ")
 		user_pl = self.dbhandler.get_perm_level(message.author.id)
 		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0 or type(message.channel)==discord.channel.DMChannel

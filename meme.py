@@ -8,6 +8,18 @@ with open(".imgflip_creds.txt","r") as cred_file:
 TEMPLATE_IDS = {
 	"spongebob_mocking":102156234,
 	"evil_kermit":84341851,
+	"change_my_mind":129242436,
+	"waiting_skeleton":4087833,
+	"leo_cheers":5496396,
+	"shocked_pika":155067746,
+	"doge":8072285,
+	"inhaling_bird":114585149,
+	"htp_harold":27813981,
+	"bernie_once_again":222403160,
+	"grannie_online":61556,
+	"facepalm":1509839,
+	"sad_pablo":80707627,
+	"in_danger":137253445,
 }
 
 def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
@@ -21,7 +33,8 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 			"template_id":f"{template_id}",
 			"username":IMGFLIP_ACC,
 			"password":IMGFLIP_PW,
-			"text0":caption
+			"text1":caption,
+			"font":"arial"
 		}
 	)
 	if p_req.status_code !=200:
