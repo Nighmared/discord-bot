@@ -33,7 +33,7 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 			"template_id":f"{template_id}",
 			"username":IMGFLIP_ACC,
 			"password":IMGFLIP_PW,
-			"text1":caption,
+			"text0":caption,
 			"font":"arial"
 		}
 	)
