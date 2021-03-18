@@ -36,6 +36,16 @@ def get_meme(template_name:str, caption:str)->tuple: #returns (errorcode:int, im
 			"text0":caption,
 			"font":"arial",
 			"max_font_size":"100px",
+			"boxes":[
+				{
+					"text": caption,
+					"x": 10,
+					"y": 10,
+					"color":"#ffffff",
+					"outline_color":"#000000"
+
+				}
+			]
 		}
 	)
 	if p_req.status_code !=200:
