@@ -349,10 +349,9 @@ class commandhandler:
 				pagecount += 1
 				embObj.add_field(name=f"Page {pagecount}",value=curr_page_cont)
 				curr_page_cont = f"{name} -> {id}\n"
-				if pagecount >4:
+				if pagecount >5:
 					break
-		pagecount += 1
-		embObj.add_field(name=f"Page {pagecount}",value=curr_page_cont)
+
 		return (0,embObj)
 		
 			
