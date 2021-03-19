@@ -7,7 +7,7 @@ with open(".imgflip_creds.txt","r") as cred_file:
 	IMGFLIP_ACC, IMGFLIP_PW = cred_file.read().strip().split(";")
 
 
-def get_meme(template_name:str, caption:str,dbhandler:dbhandler.dbhandler, upper=False, )->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
+def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandler)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
 	TEMPLATE_IDS = dbhandler.get_meme_templates()
 	if template_name not in TEMPLATE_IDS.keys():
 		return (3,None,"Invalid template name",None)
@@ -22,7 +22,8 @@ def get_meme(template_name:str, caption:str,dbhandler:dbhandler.dbhandler, upper
 			"password":IMGFLIP_PW,
 			"font":"arial",
 			"max_font_size":"100px",
-			text_key: caption,
+			"text0":text0,
+			"text1":text1,
 		}
 	)
 	if p_req.status_code !=200:

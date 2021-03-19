@@ -418,9 +418,12 @@ class commandhandler:
 				return (3,embObj)
 			template_name = space_split_args[1]
 			top_caption = False
-			if space_split_args[2].strip().isnumeric():
-				top_caption = int(space_split_args[2].strip())==1
-			error, img_url, error_descr, post_url = meme.get_meme(template_name,caption,self.dbhandler,top_caption )
+			text0 = text1 = ""
+			crosssplit = caption.split("#")
+			text0 = crosssplit[0]
+			if len(crosssplit)>1:
+				text1 = crosssplit[1]
+			error, img_url, error_descr, post_url = meme.get_meme(template_name,text0,text1,self.dbhandler )
 		except IndexError:
 			error = 3
 			error_descr = "Invalid Usage"	
