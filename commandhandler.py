@@ -343,7 +343,7 @@ class commandhandler:
 		pagecount = 0
 		curr_page_cont = ""
 		for name,id in memes:
-			if len(curr_page_cont + name + str(id) + 5)<=self.FIELDSIZELIMIT:
+			if len(curr_page_cont + name + str(id))+ 5<=self.FIELDSIZELIMIT:
 				curr_page_cont += f"{name} -> {id}\n"
 			else:
 				pagecount += 1
