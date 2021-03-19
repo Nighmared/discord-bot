@@ -185,7 +185,6 @@ class dbhandler:
 			self.cursor.execute(f'''
 			INSERT INTO generated_memes(template_name, user, caption, img_url)
 			VALUES ("{template_name}", {uid}, "{caption}", '{img_url.strip()}')''')
-			print(img_url)
 			self.conn.commit()
 			return 0
 		except OperationalError as e:
