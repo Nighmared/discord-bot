@@ -47,6 +47,7 @@ class commandhandler:
 		"msghandler":"msghandler.py",
 		"msg": "msghandler.py",
 		"inspire":"inspirobot.py",
+		"meme":"meme.py",
 
 	}
 
