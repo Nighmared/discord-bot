@@ -8,6 +8,7 @@ class dbhandler:
 	def __init__(self,filename):
 		self.conn = sql.connect(filename)
 		self.cursor = self.conn.cursor()
+		self.cursor.execute('''PRAGMA foreign_keys=ON;''')
 	
 	def get_perm_level(self,uid):
 		self.cursor.execute(f'''SELECT permlevel from users where uid=={uid};''')
@@ -25,7 +26,7 @@ class dbhandler:
 		return 0
 
 	def increment_user_message_count(self,author_uid:int,name:str,mention):
-		self.cursor.execute('''SELECT uid,msgcount,name FROM users''')
+		self.cursor.execute('''SELECT uid,msgcount,name FROM users;''')
 		uid_dict = {}
 		for uid,msgcount,uname in self.cursor.fetchall():
 			uid_dict[uid] = (int(msgcount),uname)
