@@ -13,6 +13,7 @@ def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandle
 		return (3,None,"Invalid template name",None)
 
 	template_id = TEMPLATE_IDS[template_name]
+	print(template_id)
 	p_req = requests.post(
 		url= "https://api.imgflip.com/caption_image",
 		data = {
