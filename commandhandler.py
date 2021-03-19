@@ -453,7 +453,7 @@ class commandhandler:
 			page=1
 			for t in self.dbhandler.get_meme_templates().keys():
 				if len(templates+t)+3>self.FIELDSIZELIMIT:
-					embObj.add_field(name:f"Templates Page {page}",value="templates")
+					embObj.add_field(name=f"Templates Page {page}",value="templates")
 					page+=1
 					templates = ""
 				templates += t+",  "
