@@ -205,8 +205,8 @@ class commandhandler:
 	async def add_meme_template(self,message:discord.Message)->tuple:
 		try:
 			args = message.content[1:].split(" ")
-			template_name = args[2]
-			template_id = args[3]
+			template_name = args[1]
+			template_id = args[2]
 			self.dbhandler.add_meme_template(template_name,int(template_id))
 			return (0,None)
 		except Exception as e:
