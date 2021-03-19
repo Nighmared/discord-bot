@@ -411,7 +411,7 @@ class commandhandler:
 					break
 			
 			if probable_sqli:
-				embObj = discord.Embed(title="makememe",description="This seems sus af..",color=self.QUERYCOLOR)
+				embObj = discord.Embed(title="makememe",description=f"This seems sus af..{self.dbhandler.get_emote(id=1)}",color=self.QUERYCOLOR)
 				embObj.add_field(name="WHODIDTHIS",value=message.author.mention)
 				embObj.add_field(name="command",value=message.content[:2000])
 				embObj.add_field(name="Tag for easy search",value="GGB SQLI")
