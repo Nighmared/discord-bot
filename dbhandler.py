@@ -185,6 +185,7 @@ class dbhandler:
 			self.cursor.execute(f'''
 			INSERT INTO generated_memes(template_name, user, caption, img_url)
 			VALUES ("{template_name}", {uid}, "{caption}", "{img_url}")''')
+			self.conn.commit()
 			return 0
 		except OperationalError as e:
 			print("[dbhandler.py] add_meme got fucked -> ", str(e))
@@ -196,5 +197,10 @@ class dbhandler:
 		for name,id in res:
 			templates[name] = id
 		return templates
+	
+	def add_meme_template(self,template_name,template_id):
+		self.cursor.execute('''INSERT INTO meme_templates(template_name,template_id) VALUES(?,?)''', (template_name,template_id))
+		self.conn.commit()
+
 	def close_down(self)->None:
 		self.conn.close()

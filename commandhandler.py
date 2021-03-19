@@ -113,7 +113,8 @@ class commandhandler:
 			"togglecmd":self.togglecmd,
 			"togglensfw":self.togglensfw,
 			"triggerannoy":self.triggerannoy,
-			"makememe":self.makememe
+			"makememe":self.makememe,
+			"add_meme_template":self.add_meme_template,
 		}
 
 
@@ -201,6 +202,16 @@ class commandhandler:
 		except (OperationalError, IndexError):
 			embObj = discord.Embed(title="Addcommand", description=f"Usage: {self.PREFIX}addcommand <cmdname:str> <permlevel:int> <help_text:str> <alias:str> <enabled:[0,1]>", color = self.QUERYCOLOR)
 			return (3, embObj)
+	async def add_meme_template(self,message:discord.Message)->tuple:
+		try:
+			args = message.content[1:].split(" ")
+			template_name = args[2]
+			template_id = args[3]
+			self.dbhandler.add_meme_template(template_name,int(template_id))
+			return (0,None)
+		except Exception as e:
+			print("[dbhandler.py] add_meme_template: ",str(e))
+			return 1
 	async def banner(self,message:discord.Message)-> tuple:
 		try:
 			channel,guild = message.channel,message.guild
