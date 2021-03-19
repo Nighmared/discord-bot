@@ -139,6 +139,8 @@ class dbhandler:
 		logging.info(f"Created Backup time: {timestring} ")
 		self.conn = sql.connect(self.db_fname)
 		self.cursor = self.conn.cursor()
+		self.cursor.execute('''PRAGMA foreign_keys = ON;''')
+		self.cursor.fetchall()
 		self.set_to_misc("standby",0)
 		return 0
 	
