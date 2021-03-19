@@ -1,4 +1,5 @@
 import requests
+import dbhandler
 
 IMPORTS = ()
 
@@ -25,7 +26,8 @@ TEMPLATE_IDS = {
 	"falling_building":141322807,
 }
 
-def get_meme(template_name:str, caption:str, upper=False)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
+def get_meme(template_name:str, caption:str,dbhandler:dbhandler.dbhandler, upper=False, )->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
+	TEMPLATE_IDS = dbhandler.get_meme_templates()
 	if template_name not in TEMPLATE_IDS.keys():
 		return (3,None,"Invalid template name",None)
 	

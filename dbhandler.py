@@ -189,5 +189,12 @@ class dbhandler:
 		except OperationalError as e:
 			print("[dbhandler.py] add_meme got fucked -> ", str(e))
 
+	def get_meme_templates(self)->dict:
+		self.cursor.execute('''SELECT template_name,template_id FROM meme_templates''')
+		res = self.cursor.fetchall()
+		templates = {}
+		for name,id in res:
+			templates[name] = id
+		return templates
 	def close_down(self)->None:
 		self.conn.close()
