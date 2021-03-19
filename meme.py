@@ -20,7 +20,6 @@ def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandle
 			"username":IMGFLIP_ACC,
 			"password":IMGFLIP_PW,
 			"font":"arial",
-			"max_font_size":"100px",
 			"text0":text0,
 			"text1":text1,
 		}
