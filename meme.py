@@ -33,3 +33,12 @@ def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandle
 	except KeyError:
 		return (1, "", p_req.content.decode(),None)
 
+def get_popular_memes()->list:
+	get = requests.get(url="https://api.imgflip.com/get_memes")
+	memes = get.json()["data"]["memes"]
+	res = []
+	for meme in memes:
+		res.append((meme["name"],meme["id"]))
+	return res
+		
+

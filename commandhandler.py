@@ -116,6 +116,7 @@ class commandhandler:
 			"triggerannoy":self.triggerannoy,
 			"makememe":self.makememe,
 			"add_meme_template":self.add_meme_template,
+			"getmemes":self.getmemes,
 		}
 
 
@@ -336,6 +337,26 @@ class commandhandler:
 		except IndexError:
 			error = 3
 		return (error,None)
+	async def getmemes(self,message:discord.Message)->tuple:
+		memes = meme.get_popular_memes()
+		embObj = discord.Embed(title="currently popular memes", color=self.NEKOCOLOR)
+		pagecount = 0
+		curr_page_cont = ""
+		for name,id in memes:
+			if len(curr_page_cont + name + str(id) + 5)<=self.FIELDSIZELIMIT:
+				curr_page_cont += f"{name} -> {id}\n"
+			else:
+				pagecount += 1
+				embObj.add_field(name=f"Page {pagecount}",value=curr_page_cont)
+				curr_page_cont = f"{name} -> {id}\n"
+				if pagecount >4:
+					break
+		pagecount += 1
+		embObj.add_field(name=f"Page {pagecount}",value=curr_page_cont)
+		return (0,embObj)
+		
+			
+
 	async def gettrack(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(
 			title="Tracker",
