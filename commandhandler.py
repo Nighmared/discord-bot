@@ -436,6 +436,7 @@ class commandhandler:
 			embObj = discord.Embed(title="makememe", description=error_descr, color=self.ERRORCOLOR)
 			return (1,embObj)
 		else:
+			print(img_url)
 			self.dbhandler.add_meme(uid=message.author.id, img_url=img_url, caption=caption, template_name=template_name)
 			embObj = discord.Embed(title="makememe",description="Here's your meme", color = self.NEKOCOLOR, url=post_url)
 			embObj.set_image(url=img_url)
