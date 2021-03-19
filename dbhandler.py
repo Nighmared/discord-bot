@@ -6,6 +6,7 @@ IMPORTS = ()
 
 class dbhandler:
 	def __init__(self,filename):
+		self.db_fname = filename
 		self.conn = sql.connect(filename)
 		self.cursor = self.conn.cursor()
 		self.cursor.execute('''PRAGMA foreign_keys=ON;''')
@@ -130,10 +131,15 @@ class dbhandler:
 		return res
 	
 	def create_backup(self):
+		self.set_to_misc("standby",1)
+		self.close_down()
 		timestring = str(dt.now().isoformat())[:-7]
 		sub.run(["cp","discordbot.db",f"backups/{timestring}.db"])
 		#print(f"[dbhandler.py](create_backup) Created Backup > {timestring}")
 		logging.info(f"Created Backup time: {timestring} ")
+		self.conn = sql.connect(self.db_fname)
+		self.cursor = self.conn.cursor()
+		self.set_to_misc("standby",0)
 		return 0
 	
 	def add_nhentai_file(self,id,path_to_blurred):
