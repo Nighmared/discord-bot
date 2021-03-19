@@ -11,8 +11,7 @@ def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandle
 	TEMPLATE_IDS = dbhandler.get_meme_templates()
 	if template_name not in TEMPLATE_IDS.keys():
 		return (3,None,"Invalid template name",None)
-	
-	text_key = ("text0","text1")[upper]
+
 	template_id = TEMPLATE_IDS[template_name]
 	p_req = requests.post(
 		url= "https://api.imgflip.com/caption_image",
