@@ -405,7 +405,7 @@ class commandhandler:
 			probable_sqli = message.content.count("\"")>2
 			space_split_args = message.content.split(" ")
 			caption = message.content.split("\"")[1]
-			for x in ("\'","--",";","*",):
+			for x in ("\'","--",";","*","ʼ"):
 				if x in caption:
 					probable_sqli = True
 					break
