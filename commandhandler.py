@@ -207,8 +207,8 @@ class commandhandler:
 		try:
 			args = message.content[1:].split(" ")
 			template_name = args[1]
-			template_id = args[2]
-			self.dbhandler.add_meme_template(template_name,template_id.strip())
+			template_id = args[2].strip()
+			self.dbhandler.add_meme_template(template_name,int(template_id))
 			return (0,None)
 		except Exception as e:
 			print("[dbhandler.py] add_meme_template: ",str(e))
