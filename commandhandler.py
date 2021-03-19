@@ -427,7 +427,7 @@ class commandhandler:
 		if error == 3:  #-> invalid template
 			embObj = discord.Embed(title="makememe",description=error_descr,color=self.ERRORCOLOR)
 			templates = ""
-			for t in meme.TEMPLATE_IDS.keys():
+			for t in self.dbhandler.get_meme_templates().keys():
 				templates += t+", "
 			embObj.add_field(name="Possible template names:",value=templates)
 			embObj.add_field(name="Usage",value=f"{self.PREFIX}makememe <template_name> [<1 or 0 to determine location of text>] \"some caption\"\n Example: {self.PREFIX}makememe spongebob_mocking \"spam is not nsfw\"", inline=False)
