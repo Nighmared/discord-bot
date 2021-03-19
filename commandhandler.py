@@ -211,7 +211,7 @@ class commandhandler:
 			return (0,None)
 		except Exception as e:
 			print("[dbhandler.py] add_meme_template: ",str(e))
-			return 1
+			return (1,None)
 	async def banner(self,message:discord.Message)-> tuple:
 		try:
 			channel,guild = message.channel,message.guild
