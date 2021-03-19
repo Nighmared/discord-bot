@@ -433,7 +433,7 @@ class commandhandler:
 			for t in self.dbhandler.get_meme_templates().keys():
 				templates += t+", "
 			embObj.add_field(name="Possible template names:",value=templates)
-			embObj.add_field(name="Usage",value=f"{self.PREFIX}makememe <template_name> [<1 or 0 to determine location of text>] \"some caption\"\n Example: {self.PREFIX}makememe spongebob_mocking \"spam is not nsfw\"", inline=False)
+			embObj.add_field(name="Usage",value=f"{self.PREFIX}makememe <template_name>  \"upper caption # lower caption\"\n Example: {self.PREFIX}makememe spongebob_mocking \"spam is not nsfw\" \n {self.PREFIX}makememe drake \"studying # adding dumb features to my bot\"", inline=False)
 			return (3,embObj)
 		elif error == 1:
 			embObj = discord.Embed(title="makememe", description=error_descr, color=self.ERRORCOLOR)
