@@ -6,25 +6,6 @@ IMPORTS = ()
 with open(".imgflip_creds.txt","r") as cred_file:
 	IMGFLIP_ACC, IMGFLIP_PW = cred_file.read().strip().split(";")
 
-TEMPLATE_IDS = {
-	"spongebob_mocking":102156234,
-	"evil_kermit":84341851,
-	"change_my_mind":129242436,
-	"waiting_skeleton":4087833,
-	"leo_cheers":5496396,
-	"shocked_pika":155067746,
-	"shocked_pika2":159392707,
-	"doge":8072285,
-	"inhaling_bird":114585149,
-	"htp_harold":27813981,
-	"bernie_once_again":222403160,
-	"grannie_online":61556,
-	"facepalm":1509839,
-	"sad_pablo":80707627,
-	"in_danger":137253445,
-	"black_kid_depresso":131635553,
-	"falling_building":141322807,
-}
 
 def get_meme(template_name:str, caption:str,dbhandler:dbhandler.dbhandler, upper=False, )->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
 	TEMPLATE_IDS = dbhandler.get_meme_templates()
