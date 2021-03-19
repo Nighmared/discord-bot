@@ -457,6 +457,7 @@ class commandhandler:
 					page+=1
 					templates = ""
 				templates += t+",  "
+			embObj.add_field(name=f"Templates Page {page} ",value=templates)
 			embObj.add_field(name="Usage",value=f"{self.PREFIX}makememe <template_name>  \"upper caption # lower caption\"\n Example:\n {self.PREFIX}makememe spongebob_mocking \"spam is not nsfw\" \n {self.PREFIX}makememe drake \"studying # adding dumb features to my bot\"", inline=False)
 			return (3,embObj)
 		elif error == 1:
