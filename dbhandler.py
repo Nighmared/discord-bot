@@ -1,4 +1,5 @@
 import sqlite3 as sql
+from sqlite3.dbapi2 import OperationalError
 import subprocess as sub
 import logging
 from datetime import datetime as dt
@@ -178,6 +179,15 @@ class dbhandler:
 		curr_state = self.cursor.fetchall()[0][0]
 		self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
 		self.conn.commit()
+
+	def add_meme(self, template_name:str, uid:int, caption:str, img_url:str)->int:
+		try:
+			self.cursor.execute(f'''
+			INSERT INTO generated_memes(template_name, user, caption, img_url)
+			VALUES ("{template_name}", {uid}, "{caption}", "{img_url}")''')
+			return 0
+		except OperationalError as e:
+			print("[dbhandler.py] add_meme got fucked -> ", str(e))
 
 	def close_down(self)->None:
 		self.conn.close()

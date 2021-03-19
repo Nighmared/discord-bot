@@ -390,8 +390,20 @@ class commandhandler:
 		return (error,embObj)
 	async def makememe(self,message:discord.Message)->tuple:
 		try:
+			probable_sqli = message.content.count("\"")>2
 			space_split_args = message.content.split(" ")
 			caption = message.content.split("\"")[1]
+			for x in ("\'","--",";","*",):
+				if x in caption:
+					probable_sqli = True
+					break
+			
+			if probable_sqli:
+				embObj = discord.Embed(title="makememe",description="This seems sus af..",color=self.QUERYCOLOR)
+				embObj.add_field(name="WHODIDTHIS",value=message.author.mention)
+				embObj.add_field(name="Caption",value=caption[:2000])
+				embObj.add_field(name="Tag for easy search",value="GGB SQLI")
+				return (3,embObj)
 			template_name = space_split_args[1]
 			top_caption = False
 			if space_split_args[2].strip().isnumeric():
@@ -412,6 +424,7 @@ class commandhandler:
 			embObj = discord.Embed(title="makememe", description=error_descr, color=self.ERRORCOLOR)
 			return (1,embObj)
 		else:
+			self.dbhandler.add_meme(uid=message.author.id, img_url=img_url, caption=caption, template_name=template_name)
 			embObj = discord.Embed(title="makememe",description="Here's your meme", color = self.NEKOCOLOR, url=post_url)
 			embObj.set_image(url=img_url)
 			return (0,embObj)
