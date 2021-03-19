@@ -450,8 +450,13 @@ class commandhandler:
 		if error == 3:  #-> invalid template
 			embObj = discord.Embed(title="makememe",description=error_descr,color=self.ERRORCOLOR)
 			templates = ""
+			page=1
 			for t in self.dbhandler.get_meme_templates().keys():
-				templates += (f"{t}").center(25)
+				if len(templates+t)+3>self.FIELDSIZELIMIT:
+					embObj.add_field(name:f"Templates Page {page}",value="templates")
+					page+=1
+					templates = ""
+				templates += t+",  "
 			embObj.add_field(name="Possible template names:",value=templates)
 			embObj.add_field(name="Usage",value=f"{self.PREFIX}makememe <template_name>  \"upper caption # lower caption\"\n Example:\n {self.PREFIX}makememe spongebob_mocking \"spam is not nsfw\" \n {self.PREFIX}makememe drake \"studying # adding dumb features to my bot\"", inline=False)
 			return (3,embObj)
