@@ -17,7 +17,7 @@ def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandle
 	p_req = requests.post(
 		url= "https://api.imgflip.com/caption_image",
 		data = {
-			"template_id":f"{template_id}",
+			"template_id":template_id,
 			"username":IMGFLIP_ACC,
 			"password":IMGFLIP_PW,
 			"font":"arial",
