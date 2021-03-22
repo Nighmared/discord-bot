@@ -746,7 +746,8 @@ class commandhandler:
 						description="http://brrr.nighmared.tech",
 						color= self.SYSTEMCOLOR))
 	async def stalk(self, message:discord.Message)->tuple:
-		try:
+		return await stalk.stalk(message)
+		'''try:
 			args = message.content[1:].split(" ")
 			target_id = args[1]
 			target_user = await self.client.fetch_user(target_id)
@@ -758,7 +759,7 @@ class commandhandler:
 			return (0, embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Stalking", description = str(e), color =self.ERRORCOLOR)
-			return (1,embObj)
+			return (1,embObj)'''
 	async def superdelete(self,message : discord.Message)->tuple:
 		target_msg = await message.channel.fetch_message(message.reference.message_id)
 		embObj = None

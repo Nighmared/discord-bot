@@ -3,7 +3,7 @@ import discord
 IMPORTS = ()
 
 
-async def stalk(message:discord.Message)->discord.Embed:
+async def stalk(message:discord.Message)->tuple:
 	try:
 		args = message.content[1:].split(" ")
 		target_id = args[1]
