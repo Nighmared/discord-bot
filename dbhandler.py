@@ -182,9 +182,9 @@ class dbhandler:
 
 	def add_meme(self, template_name:str, uid:int, caption:str, img_url:str)->int:
 		try:
-			self.cursor.execute(f'''
+			self.cursor.execute('''
 			INSERT INTO generated_memes(template_name, user, caption, img_url)
-			VALUES ("{template_name}", {uid}, "{caption}", '{img_url.strip()}')''')
+			VALUES ("?", ?, "?", '?')''',(template_name, uid,caption,img_url.strip()))
 			self.conn.commit()
 			return 0
 		except OperationalError as e:
