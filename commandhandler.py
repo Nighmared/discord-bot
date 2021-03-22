@@ -322,7 +322,7 @@ class commandhandler:
 					else:
 						curr_page_cont+=line+"\n"
 				if len(curr_page_cont) >0 and embed_len<=self.EMBEDSIZELIMIT:
-					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont)
+					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont[:self.FIELDSIZELIMIT])
 			else:
 				embObj.add_field(name="Output",value=res)
 			return (0,embObj)
