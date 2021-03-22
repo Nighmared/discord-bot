@@ -754,9 +754,11 @@ class commandhandler:
 			target_user = await message.guild.fetch_member(target_id)
 			embObj = discord.Embed(title="Stalking", description =f"Info about {target_user.mention}", color = self.TRACKERCOLOR)
 			embObj.add_field(name="Username",value=f"{target_user.name}#{target_user.discriminator}")
-			embObj.add_field(name="UID", value=target_user.id)
+			embObj.add_field(name="UID", value=target_user.id, inline=False)
 			embObj.add_field(name="Account Created", value=make_date_nice(target_user.created_at))
 			embObj.add_field(name="Joined Server",value=make_date_nice(target_user.joined_at))
+			embObj.add_field(name="Is bot", value=target_user.bot)
+			embObj.add_field(name="Highest Role",value=target_user.top_role.mention)
 			embObj.set_image(url=target_user.avatar_url)
 			return (0, embObj)
 		except Exception as e:
