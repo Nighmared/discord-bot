@@ -316,7 +316,7 @@ class commandhandler:
 						embed_len  += len(curr_page_cont)
 						if embed_len> self.EMBEDSIZELIMIT:
 							break
-						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont[self.FIELDSIZELIMIT],inline=False)
+						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont[:self.FIELDSIZELIMIT],inline=False)
 						curr_page_cont = line[:100]+"\n"
 						curr_page_num+=1
 					else:
