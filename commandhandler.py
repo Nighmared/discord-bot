@@ -15,7 +15,7 @@ import nhentai
 import inspirobot
 import meme
 
-IMPORTS = (neko,issues,nhentai,inspirobot,meme)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk)
 
 
 
