@@ -747,7 +747,7 @@ class commandhandler:
 						color= self.SYSTEMCOLOR))
 	async def stalk(self, message:discord.Message)->tuple:
 		def make_date_nice(date)->str:
-			res = date.strftime("%A, %d %B %Y, %H:%M")
+			return date.strftime("%A, %d %B %Y, %H:%M")
 		try:
 			args = message.content[1:].split(" ")
 			target_id = args[1]
