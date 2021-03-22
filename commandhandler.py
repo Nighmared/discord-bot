@@ -746,6 +746,8 @@ class commandhandler:
 						description="http://brrr.nighmared.tech",
 						color= self.SYSTEMCOLOR))
 	async def stalk(self, message:discord.Message)->tuple:
+		def make_date_nice(date)->str:
+			res = date.strftime("%A, %d %B %Y, %H:%M")
 		try:
 			args = message.content[1:].split(" ")
 			target_id = args[1]
@@ -753,8 +755,8 @@ class commandhandler:
 			embObj = discord.Embed(title="Stalking", description =f"Info about {target_user.mention}", color = self.TRACKERCOLOR)
 			embObj.add_field(name="Username",value=f"{target_user.name}#{target_user.discriminator}")
 			embObj.add_field(name="UID", value=target_user.id)
-			embObj.add_field(name="Account Created", value=target_user.created_at)
-			embObj.add_field(name="Joined Server",value=target_user.joined_at)
+			embObj.add_field(name="Account Created", value=make_date_nice(target_user.created_at))
+			embObj.add_field(name="Joined Server",value=make_date_nice(target_user.joined_at))
 			embObj.set_image(url=target_user.avatar_url)
 			return (0, embObj)
 		except Exception as e:
