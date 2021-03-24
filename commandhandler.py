@@ -5,6 +5,8 @@ from discord.embeds import Embed, EmbedProxy
 from sqlite3 import OperationalError
 import logging
 
+from datetime import datetime
+
 from discord.utils import _bytes_to_base64_data
 import dbhandler
 import discord
@@ -124,13 +126,15 @@ class commandhandler:
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
-	async def sendMsg(self,channel,toSend,file=None,callee = "INVALID"):
+	async def sendMsg(self,channel,toSend:discord.Embed,file=None,callee = "INVALID",callee_pic:str=None):
 		try:
 			if(type(toSend) == discord.embeds.Embed):
 				if callee == "INVALID":
-					toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}\n <fix footer for dis cmd>")
+					toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}\n <fix footer for dis cmd>") #tf is this line??? FIXME
 				else:
-					toSend.set_footer(text = f"Answering to {callee}")
+					toSend.set_author(name=callee,icon_url=callee_pic)
+					toSend.timestamp = datetime.now()
+					#toSend.set_footer(text = f"Answering to {callee}") 
 				if file is not None:
 					self.last_MSG.append(await channel.send(file=file,embed=toSend))
 				else:
@@ -178,7 +182,7 @@ class commandhandler:
 				callee = message.author.nick if message.author.nick is not None else message.author.name
 			except AttributeError:
 				callee = message.author.name
-			err2 = await self.sendMsg(message.channel,embObj,callee=callee, file=file)	
+			err2 = await self.sendMsg(message.channel,embObj,callee=callee, file=file,callee_pic=message.author.avatar_url)	
 			error = (error, err2)[error == 0]
 		return error
 
