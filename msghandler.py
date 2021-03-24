@@ -12,13 +12,14 @@ IMPORTS = ( msglist, dbhandler, commandhandler, uptime, )
 
 SUDOID = 291291715598286848
 
+
 handler = time_tracker = msgs = db = None
 def init(client:discord.Client,STARTTIME):
 	global handler,time_tracker,msgs,db
 	time_tracker = uptime.uptime(STARTTIME)
 	msgs = msglist.msglist(5)
 	db = dbhandler.dbhandler("discordbot.db")
-	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
+	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) #type: 
 
 
 
@@ -87,7 +88,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 		callee = message.author.name
 	else:
 		callee = message.author.nick
-	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj,callee=callee),res)
+	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj,callee=callee, callee_pic = message.author.avatar_url ),res)
 	await add_reaction(message,db.get_emote(res))
 	await message.delete()
 

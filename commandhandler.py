@@ -126,7 +126,7 @@ class commandhandler:
 					toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}\n <fix footer for dis cmd>") #tf is this line??? FIXME
 				else:
 					toSend.set_author(name=callee,icon_url=callee_pic)
-					toSend.timestamp = self.uptime_tracker.get_now()
+					toSend.timestamp = self.uptime_tracker.get_now_utc() # important cuz for some reason discord adjusts time assuming utc time...
 					#toSend.set_footer(text = f"Answering to {callee}") 
 				if file is not None:
 					self.last_MSG.append(await channel.send(file=file,embed=toSend))
@@ -157,10 +157,15 @@ class commandhandler:
 
 		if not self.perm_valid(cmd,permlevel):
 			return 4
+
+		try:
+			callee = message.author.nick if message.author.nick is not None else message.author.name
+		except AttributeError:
+			callee = message.author.name
 		
 		if cmd == "reload":
 			error,embObj = await self.reload(message)
-			if await self.sendMsg(channel=message.channel, toSend = embObj) >0:
+			if await self.sendMsg(channel=message.channel, toSend = embObj, callee= callee, callee_pic=message.author.avatar_url) >0:
 				error = 1 #DONT FIX THIS, IS SPECIAL FOR RELOAD
 			return error
 		#general case
@@ -171,10 +176,7 @@ class commandhandler:
 		else:
 			error,embObj, file = res
 		if embObj is not None:
-			try:
-				callee = message.author.nick if message.author.nick is not None else message.author.name
-			except AttributeError:
-				callee = message.author.name
+			
 			err2 = await self.sendMsg(message.channel,embObj,callee=callee, file=file,callee_pic=message.author.avatar_url)	
 			error = (error, err2)[error == 0]
 		return error

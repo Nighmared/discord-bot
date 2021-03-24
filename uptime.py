@@ -1,5 +1,4 @@
 from datetime import datetime as dt
-from datetime import date 
 
 IMPORTS = ()
 
@@ -35,5 +34,5 @@ class uptime:
 		return out
 	
 
-	def get_now()->date: #dumb wrapper function so i dont have to import datetime separately in commandhandler
-		return dt.now()
+	def get_now_utc(self): #dumb wrapper function so i dont have to import datetime separately in commandhandler
+		return dt.utcnow()
