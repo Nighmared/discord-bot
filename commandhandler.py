@@ -1,15 +1,8 @@
-import subprocess
-from discord import colour
-from discord import embeds
-from discord.embeds import Embed, EmbedProxy
+import discord
 from sqlite3 import OperationalError
 import logging
 
-from datetime import datetime
-
-from discord.utils import _bytes_to_base64_data
 import dbhandler
-import discord
 import issues
 import msglist
 import neko
@@ -133,7 +126,7 @@ class commandhandler:
 					toSend.set_footer(text=f"Answering to {self.curr_msg.author.name}\n <fix footer for dis cmd>") #tf is this line??? FIXME
 				else:
 					toSend.set_author(name=callee,icon_url=callee_pic)
-					toSend.timestamp = datetime.now()
+					toSend.timestamp = self.uptime_tracker.get_now()
 					#toSend.set_footer(text = f"Answering to {callee}") 
 				if file is not None:
 					self.last_MSG.append(await channel.send(file=file,embed=toSend))

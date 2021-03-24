@@ -6,8 +6,6 @@ import dbhandler # module for all things sqlite
 import commandhandler # module for commandhandling
 import uptime #module to track uptime of bot
 from importlib import reload
-from datetime import datetime
-from sys import exit, prefix
 import subprocess as sub # needed for softreload to pull from git kekw
 
 IMPORTS = ( msglist, dbhandler, commandhandler, uptime, )

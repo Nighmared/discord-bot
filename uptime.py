@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+from datetime import date 
 
 IMPORTS = ()
 
@@ -32,3 +33,7 @@ class uptime:
 		if days<1 and secs>0 :
 			out+= f"{secs} Seconds"
 		return out
+	
+
+	def get_now()->date: #dumb wrapper function so i dont have to import datetime separately in commandhandler
+		return dt.now()
