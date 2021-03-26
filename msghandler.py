@@ -92,11 +92,11 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	await add_reaction(message,db.get_emote(res))
 	await message.delete()
 
-async def do_the_thing(channel:discord.TextChannel,name:str, id:int):
+async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:str):
 	embObj = discord.Embed(title="How did this happen? :O")
 	f = discord.File(handler.dbhandler.get_nhentai_path_by_id(id)[0],"IMG.jpg", spoiler=True)
 	embObj.set_image(url="attachment://IMG.jpg")
-	await handler.sendMsg(channel,embObj,callee=name,file=f)
+	await handler.sendMsg(channel,embObj,callee=name,file=f, callee_pic = avatar_url )
 
 async def handle(message:discord.Message) -> int:
 	#block bots
@@ -119,7 +119,7 @@ async def handle(message:discord.Message) -> int:
 
 	#easteregg lel
 	if "177013" in message.content.strip().replace(" ","") and not isCommand:
-		await do_the_thing(message.channel, message.author.nick, 177013)
+		await do_the_thing(message.channel, message.author.nick, 177013,message.author.avatar_url)
 	if(isCommand):
 		log = open("log.txt","a")
 		log.write(f"{message.author.name}>{message.content}\n")
