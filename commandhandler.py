@@ -410,7 +410,7 @@ class commandhandler:
 			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
 			embObj.add_field(name="discord.py Version",value=f"{discord.version_info.major}.{discord.version_info.minor}")
 			embObj.add_field(name="Python Version",value=f"{python_version.major}.{python_version.minor}.{python_version.micro}")
-			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime())
+			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime(),inline=False)
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Info",description = str(e), color = self.ERRORCOLOR)
