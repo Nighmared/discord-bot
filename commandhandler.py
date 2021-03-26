@@ -407,10 +407,11 @@ class commandhandler:
 			embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
 			embObj.set_author(name="joniii")
 			embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech",inline=False)
-			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
-			embObj.add_field(name="discord.py Version",value=f"{discord.version_info.major}.{discord.version_info.minor}")
-			embObj.add_field(name="Python Version",value=f"{python_version.major}.{python_version.minor}.{python_version.micro}")
-			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime(),inline=False)
+			embObj.add_field(name="Version <a:cheer:824995182607990824>",value=f"`{self.dbhandler.get_from_misc('version')}`", inline=False)
+			embObj.add_field(name="discord.py Version",value=f"`{discord.version_info.major}.{discord.version_info.minor}`")
+			embObj.add_field(name="Python Version",value=f"`{python_version.major}.{python_version.minor}.{python_version.micro}`")
+			embObj.add_field(name="Uptime",value="`"+self.uptime_tracker.getUptime()+"`",inline=False)
+
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Info",description = str(e), color = self.ERRORCOLOR)
