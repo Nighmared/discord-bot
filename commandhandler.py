@@ -313,8 +313,8 @@ class commandhandler:
 				for line in res2:
 					if(line.strip() == ""):
 						continue
-					if(len(curr_page_cont+line)+2>self.FIELDSIZELIMIT):
-						embed_len  += len(curr_page_cont)
+					if(len(curr_page_cont+line[:100])+2>self.FIELDSIZELIMIT):
+						embed_len  += len(curr_page_cont[:100])
 						if embed_len> self.EMBEDSIZELIMIT:
 							break
 						embObj.add_field(name=f"Page {curr_page_num}",value=curr_page_cont[:self.FIELDSIZELIMIT],inline=False)
@@ -322,7 +322,7 @@ class commandhandler:
 						curr_page_num+=1
 					else:
 						curr_page_cont+=line[:100]+"\n"
-				if len(curr_page_cont) >0 and embed_len<=self.EMBEDSIZELIMIT:
+				if len(curr_page_cont) >0 and embed_len+len(curr_page_cont)<=self.EMBEDSIZELIMIT:
 					embObj.add_field(name=f"Page {curr_page_num}", value=curr_page_cont[:self.FIELDSIZELIMIT])
 			else:
 				embObj.add_field(name="Output",value=res)
