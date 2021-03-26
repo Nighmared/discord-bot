@@ -1,6 +1,7 @@
 import discord
 from sqlite3 import OperationalError
 import logging
+from sys import version_info as python_version
 
 import dbhandler
 import issues
@@ -407,6 +408,8 @@ class commandhandler:
 			embObj.set_author(name="joniii")
 			embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech",inline=False)
 			embObj.add_field(name="Version",value=self.dbhandler.get_from_misc("version"), inline=False)
+			embObj.add_field(name="discord.py Version",value=f"{discord.version_info.major}.{discord.version_info.minor}")
+			embObj.add_field(name="Python Version",value=f"{python_version.major}.{python_version.minor}.{python_version.micro}")
 			embObj.add_field(name="Uptime",value=self.uptime_tracker.getUptime())
 			return (0,embObj)
 		except Exception as e:
