@@ -1,5 +1,4 @@
 import discord
-import requests
 
 BASE_URL = "https://robohash.org/"
 
