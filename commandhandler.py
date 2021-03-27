@@ -11,8 +11,9 @@ import nhentai
 import inspirobot
 import meme
 import stalk
+import robohash
 
-IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash)
 
 
 
@@ -45,6 +46,7 @@ class commandhandler:
 		"msg": "msghandler.py",
 		"inspire":"inspirobot.py",
 		"meme":"meme.py",
+		"robohash":"robohash.py",
 
 	}
 
@@ -114,6 +116,7 @@ class commandhandler:
 			"makememe":self.makememe,
 			"add_meme_template":self.add_meme_template,
 			"getmemes":self.getmemes,
+			"robohash":self.robohash,
 		}
 
 
@@ -606,6 +609,9 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Issues",description=str(e), color=self.ERRORCOLOR)
 			return	(1,embObj)
+	async def robohash(self,message:discord.Message)->tuple:
+		command_len = len(message.content.split(" ")[0])
+		return (0,robohash.get_embed(message.content[command_len:].strip()))
 	async def say(self,message:discord.Message)-> tuple:
 		channel = message.channel
 		args = message.content[1:].split(" ")
