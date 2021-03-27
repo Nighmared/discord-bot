@@ -1,5 +1,8 @@
 import discord
 
+IMPORTS = ()
+
+
 BASE_URL = "https://robohash.org/"
 
 def get_embed(arg:str)->discord.Embed:
