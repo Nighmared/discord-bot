@@ -94,7 +94,6 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 
 async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:str):
 	embObj = discord.Embed(title="How did this happen? :O")
-	print(handler.dbhandler.get_nhentai_path_by_id(id)[0])
 	f = discord.File(handler.dbhandler.get_nhentai_path_by_id(id)[0].rstrip(".blurred.jpg")+".jpg","IMG.jpg", spoiler=True)
 	embObj.set_image(url="attachment://IMG.jpg")
 	await handler.sendMsg(channel,embObj,callee=name,file=f, callee_pic = avatar_url )
