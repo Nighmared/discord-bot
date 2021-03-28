@@ -849,7 +849,7 @@ class commandhandler:
 							except IndexError:
 								target = None
 							if target is None:
-								embObj = discord.Embed(title="Stalking | ...what is this?",description=f"Couldnt find out what {target_id} represents.. sawry",color=self.ERRORCOLOR)
+								embObj = discord.Embed(title="Stalking | ...what is this?",description=f"Couldnt find out what {target_id} represents.. sawry\n Probably a Server the bot has no access to",color=self.ERRORCOLOR)
 							else:#yup role
 								embObj = discord.Embed(title="Stalking | Role",description=f"Info about {target.mention}",color=self.TRACKERCOLOR)
 								embObj.add_field(name="Color",value=str(target.color))
