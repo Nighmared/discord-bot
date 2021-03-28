@@ -36,3 +36,6 @@ class uptime:
 
 	def get_now_utc(self): #dumb wrapper function so i dont have to import datetime separately in commandhandler
 		return dt.utcnow()
+
+def get_now_utc():
+	return dt.utcnow()

@@ -34,6 +34,7 @@ msghandler.init(client,STARTTIME)
 
 @client.event
 async def on_ready():
+	msghandler.ISRELOADING = False
 	print(f'[bot.py] {client.user} has connected')
 	logging.info("Bot Online")
 

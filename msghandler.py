@@ -7,10 +7,14 @@ import commandhandler # module for commandhandling
 import uptime #module to track uptime of bot
 from importlib import reload
 import subprocess as sub # needed for softreload to pull from git kekw
+from time import sleep
+import sys
 
 IMPORTS = ( msglist, dbhandler, commandhandler, uptime, )
 
-SUDOID = 291291715598286848
+SUDOID = 291291715598286848 
+
+ISRELOADING = True
 
 
 handler = time_tracker = msgs = db = None
@@ -19,7 +23,7 @@ def init(client:discord.Client,STARTTIME):
 	time_tracker = uptime.uptime(STARTTIME)
 	msgs = msglist.msglist(5)
 	db = dbhandler.dbhandler("discordbot.db")
-	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) #type: 
+	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 
 
 
@@ -59,25 +63,70 @@ def get_ready(client:discord.Client, STARTTIME):
 
 
 async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_backup): #reloads all dependencies
-	modulenames = "msghandler\n"
-	submodules = set()
-	for module in IMPORTS:
-		reload(module)
-		modulenames+= module.__name__ +"\n"
-		for subimport in module.IMPORTS:
-			if subimport not in submodules:
-				submodules.add(subimport)
-				modulenames+= "⤷"+subimport.__name__+"\n"
-				for subsub in subimport.IMPORTS:
-					if(subsub not in submodules and subsub not in IMPORTS):
-						submodules.add(subsub)
-						modulenames += "➥  "+subsub.__name__+"\n"
-	for submodule in submodules:
-		reload(submodule)
+	global ISRELOADING
+	
+	work_to_do = True
+	backoff = 10
+	is_recovering = False
 
+	while work_to_do:	
+		failedmodules = ""
+		modulenames = "msghandler\n"
+		submodules = set()
+		for module in IMPORTS:
+			try:
+				reload(module)
+			except ModuleNotFoundError as e:
+				failedmodules+=module.__name__+"\n"
+				failedmodules+="⤷"+str(e).split("'")[1]+"\n"
+				continue
+			modulenames+= module.__name__ +"\n"
+			for subimport in module.IMPORTS:
+				if subimport not in submodules:
+					submodules.add(subimport)
+					modulenames+= "⤷"+subimport.__name__+"\n"
+					for subsub in subimport.IMPORTS:
+						if(subsub not in submodules and subsub not in IMPORTS):
+							submodules.add(subsub)
+							modulenames += "➥  "+subsub.__name__+"\n"
+		
+		for submodule in submodules:
+			try:
+				reload(submodule)
+			except ModuleNotFoundError as e:
+				failedmodules+="➥"+str(e).split("'")[1]+"\n"
+				continue
+
+		embObj = discord.Embed(title="Soft Reloading")
+		embObj.add_field(name="✅ Reloaded modules:",value=modulenames)
+		embObj.set_author(name=message.author.name,icon_url=message.author.avatar_url)
+		embObj.timestamp = uptime.get_now_utc()
+
+		if is_recovering: # if already retrying
+			await msgs_backup.pop().delete() #dont clutter
+
+		if len(failedmodules.strip())>0 : #this applies when anything failed during reloading
+			embObj.add_field(name="❌ Couldn't import:",value=failedmodules)
+			embObj.add_field(name="BackOff-Retry",value=f"Will retry loading in {backoff} seconds")
+
+			is_recovering = True
+		
+			sent_msg = await message.channel.send(embed=embObj)
+			msgs_backup.append(sent_msg) # keep the message list up to date until it gets put to cmdhandler again
+			
+			sleep(backoff) #wait until next reload
+			backoff*= 5 #exponential backoff
+			
+			sub.run(["git","pull","--no-edit"]) # git pull --no-edit -> get newest changes from github
+		else:
+			work_to_do = False
+	
+	if(backoff>1000): #give up at some point
+		logging.fatal("gave up on reloading after trying multiple times.. something really doesnt work here")
+		sys.exit(1) # give up with nonzero error code
+			
+	#at this point everything should be fine
 	get_ready(client=client,STARTTIME = STARTTIME)
-	embObj = discord.Embed(title="Soft Reloading")
-	embObj.add_field(name="Reloaded modules:",value=modulenames)
 	res = 0
 	handler.last_MSG = msgs_backup
 	handler.curr_msg = message
@@ -88,9 +137,12 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 		callee = message.author.name
 	else:
 		callee = message.author.nick
+	
+
 	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj,callee=callee, callee_pic = message.author.avatar_url ),res)
 	await add_reaction(message,db.get_emote(res))
 	await message.delete()
+	ISRELOADING = False
 
 async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:str):
 	embObj = discord.Embed(title="How did this happen? :O")
@@ -99,6 +151,8 @@ async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:
 	await handler.sendMsg(channel,embObj,callee=name,file=f, callee_pic = avatar_url )
 
 async def handle(message:discord.Message) -> int:
+	global ISRELOADING
+	if ISRELOADING: return 0# prevent errors during reloading
 	#block bots
 	if(message.author.bot and not message.author.id == handler.toTrackID):
 		return 0
@@ -135,6 +189,7 @@ async def handle(message:discord.Message) -> int:
 
 	#special case with softreload that only reloads the modules
 		elif(cmd == "softreload" and perm_valid(cmd,permlevel)):
+			ISRELOADING = True
 			db.close_down()
 			return 88
 
