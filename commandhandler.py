@@ -844,11 +844,10 @@ class commandhandler:
 							embObj.set_thumbnail(url=message.guild.icon_url)
 							embObj.set_image(url=message.guild.banner_url)
 						except (NotFound, Forbidden): #role?
-							t_id =int(target_id)
 							try:
 								target = list(filter(lambda x: x.id==t_id,message.guild.roles))[0]
 							except IndexError:
-								embObj = discord.Embed(title="Stalking | ...what is this?",description=f"Couldnt find out what {target_id} represents.. sawry",color=self.ERRORCOLOR)
+								target = None
 							if target is None:
 								embObj = discord.Embed(title="Stalking | ...what is this?",description=f"Couldnt find out what {target_id} represents.. sawry",color=self.ERRORCOLOR)
 							else:#yup role
