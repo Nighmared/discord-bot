@@ -16,8 +16,9 @@ import inspirobot
 import meme
 import stalk
 import robohash
+import shorten
 
-IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten)
 
 
 
@@ -26,7 +27,7 @@ class commandhandler:
 	TRACKERCOLOR = 0x660066 #pinkish
 	SYSTEMCOLOR = 0x009900# green
 	QUERYCOLOR = 0xffcc00 # yellow
-	NEKOCOLOR = 0xcc6699
+	MISCCOLOR = 0xcc6699
 	NORMALCOLOR = 0x000000 # black
 	ERRORCOLOR = 0xff0000 # red
 	FIELDSIZELIMIT = 1024
@@ -51,6 +52,9 @@ class commandhandler:
 		"inspire":"inspirobot.py",
 		"meme":"meme.py",
 		"robohash":"robohash.py",
+		"rh":"robohash.py",
+		"shorten":"shorten.py",
+
 
 	}
 
@@ -78,6 +82,7 @@ class commandhandler:
 
 		self.cmd_handling_funcs = {
 			"addcommand":self.addcommand,
+			"add_meme_template":self.add_meme_template,
 			"banner":self.banner,
 			"changelog":self.changelog,
 			"createbackup":self.createbackup,
@@ -89,10 +94,12 @@ class commandhandler:
 			"endtrack":self.endtrack,
 			"execsql":self.execsql,
 			"fixissue":self.fixissue,
+			"getmemes":self.getmemes,
 			"gettrack":self.gettrack,
 			"help":self.help,
 			"info":self.info,
 			"inspire":self.inspire,
+			"makememe":self.makememe,
 			"mostmessages":self.mostmessages,
 			"msgarchive":self.msgarchive,
 			"neko":self.neko,
@@ -102,6 +109,7 @@ class commandhandler:
 			"ping":self.ping,
 			"reload":self.reload,
 			"reloadissues":self.reloadissues,
+			"robohash":self.robohash,
 			"say":self.say,
 			"setcache":self.setcache,
 			"setchangelog":self.setchangelog,
@@ -109,6 +117,7 @@ class commandhandler:
 			"setstatus":self.setstatus,
 			"settrack":self.settrack,
 			"setversion":self.setversion,
+			"shortlink":self.shortlink,
 			"showissues":self.showissues,
 			"showsourcecode":self.showsourcecode,
 			"source":self.source,
@@ -117,10 +126,6 @@ class commandhandler:
 			"togglecmd":self.togglecmd,
 			"togglensfw":self.togglensfw,
 			"triggerannoy":self.triggerannoy,
-			"makememe":self.makememe,
-			"add_meme_template":self.add_meme_template,
-			"getmemes":self.getmemes,
-			"robohash":self.robohash,
 		}
 
 
@@ -347,7 +352,7 @@ class commandhandler:
 		return (error,None)
 	async def getmemes(self,message:discord.Message)->tuple:
 		memes = meme.get_popular_memes()
-		embObj = discord.Embed(title="currently popular memes", color=self.NEKOCOLOR)
+		embObj = discord.Embed(title="currently popular memes", color=self.MISCCOLOR)
 		pagecount = 0
 		curr_page_cont = ""
 		for name,id in memes:
@@ -429,7 +434,7 @@ class commandhandler:
 		if error>0:
 			embObj = discord.Embed(title="Inspire",description=cont,color=self.ERRORCOLOR)
 		else:
-			embObj = discord.Embed(title="Inspire", description="Newly generated inspirobot.me quote",url="https://inspirobot.me",color=self.NEKOCOLOR)
+			embObj = discord.Embed(title="Inspire", description="Newly generated inspirobot.me quote",url="https://inspirobot.me",color=self.MISCCOLOR)
 			embObj.set_image(url=cont)
 		return (error,embObj)
 	async def makememe(self,message:discord.Message)->tuple:
@@ -477,7 +482,7 @@ class commandhandler:
 			return (1,embObj)
 		else:
 			self.dbhandler.add_meme(uid=message.author.id, img_url=img_url, caption=caption, template_name=template_name)
-			embObj = discord.Embed(title="makememe",description="Here's your meme", color = self.NEKOCOLOR, url=post_url)
+			embObj = discord.Embed(title="makememe",description="Here's your meme", color = self.MISCCOLOR, url=post_url)
 			embObj.set_image(url=img_url)
 			return (0,embObj)
 
@@ -519,7 +524,7 @@ class commandhandler:
 			return (1,embObj)
 	async def neko(self,message:discord.Message)->tuple:
 		try:
-			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.NEKOCOLOR)
+			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.MISCCOLOR)
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Neko",description = str(e), color =self.ERRORCOLOR)
@@ -546,7 +551,7 @@ class commandhandler:
 			if nsfw:
 				link = f"{link.rstrip('.blurred.jpg')}.jpg"
 			img_id = link.rstrip(".blurred.jpg")
-			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.NEKOCOLOR, url=f"https://nhentai.net/g/{img_id.lstrip('nhentai/')}")
+			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.MISCCOLOR, url=f"https://nhentai.net/g/{img_id.lstrip('nhentai/')}")
 			try:
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
 			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
@@ -572,7 +577,7 @@ class commandhandler:
 			log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")),48)
 			with open("nhentai/log.txt")as log_file:
 				log_lines = log_file.readlines()
-			embObj = discord.Embed(title="nhentai log",color=self.NEKOCOLOR)
+			embObj = discord.Embed(title="nhentai log",color=self.MISCCOLOR)
 			field_cont = ""
 			for line in log_lines[-log_len:]:
 				field_cont+= line
@@ -713,6 +718,12 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="setversion", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	async def shortlink(self,message)->tuple:
+		url_arg = message.content[1:].split(" ")[1]
+		error,res = shorten.shorten_link(url_arg)
+		embObj = discord.Embed(title="Link Shortener",description=res,color=(self.MISCCOLOR,self.ERRORCOLOR)[error])
+		return (error,embObj)
+
 	async def showissues(self,message:discord.Message) -> tuple:
 		try:
 			res = self.dbhandler._execComm("select * from issues",True)
@@ -900,7 +911,7 @@ class commandhandler:
 	async def togglensfw(self,message:discord.Message)->tuple:
 		try:
 			new_state = self.dbhandler.toggle_nsfw()
-			embObj = discord.Embed(title="Toggled NSFW",color=self.NEKOCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
+			embObj = discord.Embed(title="Toggled NSFW",color=self.MISCCOLOR,description=f"Turned explicit content {('off','on')[new_state]}")
 			return (0, embObj)
 		except OperationalError:
 			embObj = discord.Embed(title="togglensfw", description = "-- Something wrong with DB --", color=self.ERRORCOLOR)
