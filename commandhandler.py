@@ -823,7 +823,7 @@ class commandhandler:
 						embObj.add_field(name="Created at",value=make_date_nice(target.created_at))
 						embObj.set_thumbnail(url=target.guild.icon_url)
 				
-					except NotFound: #guild
+					except IndexError: #guild
 						try:
 							target = await self.client.fetch_guild(target_id)
 							embObj = discord.Embed(title="Stalking | Server",description=f"Info about {target.name}",color=self.TRACKERCOLOR)					
