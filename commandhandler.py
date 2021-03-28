@@ -2,6 +2,10 @@ import discord
 from sqlite3 import OperationalError
 import logging
 from sys import version_info as python_version
+from discord.channel import TextChannel
+import traceback
+
+from discord.errors import Forbidden, NotFound
 
 import dbhandler
 import issues
@@ -757,22 +761,106 @@ class commandhandler:
 						color= self.SYSTEMCOLOR))
 	async def stalk(self, message:discord.Message)->tuple:
 		def make_date_nice(date)->str:
-			return date.strftime("%A, %d %B %Y, %H:%M")
+			return date.strftime("`%A, %d %B %Y, %H:%M`")
+		args = message.content[1:].split(" ")
 		try:
-			args = message.content[1:].split(" ")
 			target_id = args[1]
-			target_user = await message.guild.fetch_member(target_id)
-			embObj = discord.Embed(title="Stalking", description =f"Info about {target_user.mention}", color = self.TRACKERCOLOR)
-			embObj.add_field(name="Username",value=f"{target_user.name}#{target_user.discriminator}")
-			embObj.add_field(name="UID", value=target_user.id, inline=False)
-			embObj.add_field(name="Account Created", value=make_date_nice(target_user.created_at))
-			embObj.add_field(name="Joined Server",value=make_date_nice(target_user.joined_at))
-			embObj.add_field(name="Is bot", value=target_user.bot)
-			embObj.add_field(name="Highest Role",value=target_user.top_role.mention)
-			embObj.set_image(url=target_user.avatar_url)
+		except IndexError:
+			target_id = message.author.id
+		t_id = int(target_id)
+		try:
+			try: #id belongs to a member of the guild
+				target = await message.guild.fetch_member(target_id)
+				embObj = discord.Embed(title="Stalking | User", description =f"Info about {target.mention}", color = self.TRACKERCOLOR)
+				embObj.add_field(name="Username",value=f"{target.name}#{target.discriminator}")
+				embObj.add_field(name="UID", value=target.id, inline=False)
+				embObj.add_field(name="Account Created", value=make_date_nice(target.created_at),inline=False)
+				embObj.add_field(name="Joined Server",value=make_date_nice(target.joined_at),inline=False)
+				embObj.add_field(name="Is bot", value=target.bot)
+				embObj.add_field(name="Highest Role",value=target.top_role.mention)
+				embObj.set_image(url=target.avatar_url)
+				embObj.set_thumbnail(url=message.guild.icon_url)
+			except NotFound: #id belongs to a non-member user
+				try:
+					target = await self.client.fetch_user(target_id)
+					embObj = discord.Embed(title="Stalking | User", description =f"Info about {target.mention}", color = self.TRACKERCOLOR)
+					embObj.add_field(name="Username",value=f"{target.name}#{target.discriminator}")
+					embObj.add_field(name="UID", value=target.id, inline=False)
+					embObj.add_field(name="Account Created", value=make_date_nice(target.created_at))
+					embObj.add_field(name="Is bot", value=target.bot)
+					embObj.set_image(url=target.avatar_url)
+				except NotFound: #id belongs to a channel
+					
+					try:
+						try:
+							target = await self.client.fetch_channel(target_id)
+						except Forbidden:
+							target = list(filter(lambda x: x.id==t_id,await message.guild.fetch_channels()))[0]
+						embObj = discord.Embed(title="Stalking | Channel", description =f"Info about {target.mention}", color = self.TRACKERCOLOR)
+						embObj.add_field(name="Channel Name",value=target.name)
+						if isinstance(target,discord.TextChannel):
+							attrs = " None "
+							if target.is_nsfw(): attrs = "NSFW "
+							if target.is_news(): attrs += " NEWS "
+							embObj.add_field(name="Special Attributes",value=str(attrs))
+							embObj.add_field(name="Topic",value=target.topic)
+							embObj.add_field(name="Category",value=target.category.mention)
+
+						elif isinstance(target, discord.VoiceChannel):#voice channel
+							embObj.add_field(name="Bitrate",value=target.bitrate)
+							embObj.add_field(name="Max User #",value=target.user_limit)
+							embObj.add_field(name="Category",value=target.category.mention)
+
+						else: #category channel
+							embObj.add_field(name="NSFW", value=target.is_nsfw())
+							txt_chans = [x.mention for x in target.text_channels]
+							vic_chans = [x.mention for x in target.voice_channels]
+							if len(txt_chans)>0: embObj.add_field(name="Text Channels",value=txt_chans)
+							if len(vic_chans)>0: embObj.add_field(name="Voice Channels",value=vic_chans)
+
+
+						embObj.add_field(name="Server",value=target.guild.name)
+						embObj.add_field(name="Created at",value=make_date_nice(target.created_at))
+						embObj.set_thumbnail(url=target.guild.icon_url)
+				
+					except NotFound: #guild
+						try:
+							target = await self.client.fetch_guild(target_id)
+							embObj = discord.Embed(title="Stalking | Server",description=f"Info about {target.name}",color=self.TRACKERCOLOR)					
+							embObj.add_field(name="Boosts",value=target.premium_subscription_count)
+							embObj.add_field(name="Boost Level",value=target.premium_tier)
+							embObj.add_field(name="Description",value=target.description,inline=False)
+							embObj.add_field(name="Created at",value=make_date_nice(target.created_at) ,inline=False)
+							embObj.add_field(name="Owner",value=(await self.client.fetch_user(target.owner_id)).mention)
+							embObj.add_field(name="Max Members",value=f"{target.max_members} ")
+							embObj.add_field(name="Region",value=str(target.region).capitalize())
+							role_str = ""
+							for role in target.roles[::-1]:
+								if len(role_str+role.mention)>512:
+									role_str += "..."
+									break
+								role_str+=f"{role.mention} "
+							embObj.add_field(name="Roles",value=role_str[:1024],inline=False)
+							embObj.set_thumbnail(url=message.guild.icon_url)
+							embObj.set_image(url=message.guild.banner_url)
+						except (NotFound, Forbidden): #role?
+							t_id =int(target_id)
+							target = list(filter(lambda x: x.id==t_id,message.guild.roles))[0]
+							if target is None:
+								embObj = discord.Embed(title="Stalking | ...what is this?",description=f"Couldnt find out what {target_id} represents.. sawry",color=self.ERRORCOLOR)
+							else:#yup role
+								embObj = discord.Embed(title="Stalking | Role",description=f"Info about {target.mention}",color=self.TRACKERCOLOR)
+								embObj.add_field(name="Color",value=str(target.color))
+								embObj.add_field(name="Pingable",value=target.mentionable)
+								embObj.add_field(name="Default role",value=target.is_default())
+								embObj.add_field(name="Position",value=target.position)
+								embObj.add_field(name="Created at",value=make_date_nice(target.created_at),inline=False)
+								embObj.set_thumbnail(url=message.guild.icon_url)
+
 			return (0, embObj)
 		except Exception as e:
-			embObj = discord.Embed(title="Stalking", description = str(e), color =self.ERRORCOLOR)
+			traceback.print_exc()
+			embObj = discord.Embed(title="Stalking", description = str(e)+str(type(e)), color =self.ERRORCOLOR)
 			return (1,embObj)
 	async def superdelete(self,message : discord.Message)->tuple:
 		target_msg = await message.channel.fetch_message(message.reference.message_id)
