@@ -823,7 +823,7 @@ class commandhandler:
 						embObj.add_field(name="Created at",value=make_date_nice(target.created_at))
 						embObj.set_thumbnail(url=target.guild.icon_url)
 				
-					except IndexError: #guild
+					except NotFound: #guild
 						try:
 							target = await self.client.fetch_guild(target_id)
 							embObj = discord.Embed(title="Stalking | Server",description=f"Info about {target.name}",color=self.TRACKERCOLOR)					
@@ -840,12 +840,15 @@ class commandhandler:
 									role_str += "..."
 									break
 								role_str+=f"{role.mention} "
-							embObj.add_field(name="Roles",value=role_str[:1024],inline=False)
+							embObj.add_field(name="Roles",value=role_str,inline=False)
 							embObj.set_thumbnail(url=message.guild.icon_url)
 							embObj.set_image(url=message.guild.banner_url)
 						except (NotFound, Forbidden): #role?
 							t_id =int(target_id)
-							target = list(filter(lambda x: x.id==t_id,message.guild.roles))[0]
+							try:
+								target = list(filter(lambda x: x.id==t_id,message.guild.roles))[0]
+							except IndexError:
+								embObj = discord.Embed(title="Stalking | ...what is this?",description=f"Couldnt find out what {target_id} represents.. sawry",color=self.ERRORCOLOR)
 							if target is None:
 								embObj = discord.Embed(title="Stalking | ...what is this?",description=f"Couldnt find out what {target_id} represents.. sawry",color=self.ERRORCOLOR)
 							else:#yup role
