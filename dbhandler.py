@@ -139,7 +139,6 @@ class dbhandler:
 		self.close_down()
 		timestring = str(dt.now().isoformat())[:-7]
 		sub.run(["cp","discordbot.db",f"backups/{timestring}.db"])
-		#print(f"[dbhandler.py](create_backup) Created Backup > {timestring}")
 		logging.info(f"Created Backup time: {timestring} ")
 		self.conn = sql.connect(self.db_fname)
 		self.cursor = self.conn.cursor()

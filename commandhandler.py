@@ -164,7 +164,6 @@ class commandhandler:
 		if not self.dbhandler.cmd_is_enabled(cmd):
 			error = 4
 			logging.warning(f"{message.author.name}#{message.author.discriminator} tried to use a disabled command ({cmd})")
-			#print(f"[commandhandler.py] disabled/invalid cmd: {cmd}")
 			return error
 		error = 0
 
