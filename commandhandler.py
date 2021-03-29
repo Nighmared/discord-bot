@@ -599,7 +599,20 @@ class commandhandler:
 		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
 		embObj.add_field(name="Ping",value="TBA ms")
 		embObj.add_field(name="Latency",value=str(self.client.latency*1000)[:5]+"ms")
-		return (0,embObj)
+		callee = message.author.name if message.author.nick is None else message.author.nick
+		embObj.set_author(name=callee, icon_url=message.author.avatar_url)
+		embObj.timestamp = self.uptime_tracker.get_now_utc()
+		channel = message.channel
+
+		a = self.uptime_tracker.get_now_utc() #measure time it takes to send msg
+		x = await channel.send(embed=embObj)
+		b = self.uptime_tracker.get_now_utc()
+		ping_in_ms = (b-a).total_seconds()*1000 #compute ms of timedelta
+
+		embObj.set_field_at(0,name="Ping",value=f"{ping_in_ms} ms")
+		await x.edit(embed=embObj) #refresh value in sent msg
+		return (0,None) #nothing to return as already sent
+		
 	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
 		return (99,embObj)
