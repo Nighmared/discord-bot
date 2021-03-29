@@ -1,6 +1,7 @@
 import logging
 from re import split #for cmd handling
-import discord # api library
+import discord
+from discord.errors import Forbidden # api library
 import msglist # module for message tracking
 import dbhandler # module for all things sqlite
 import commandhandler # module for commandhandling
@@ -141,7 +142,11 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 
 	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj,callee=callee, callee_pic = message.author.avatar_url ),res)
 	await add_reaction(message,db.get_emote(res))
-	await message.delete()
+	if isinstance(message.channel,discord.TextChannel):
+		try:
+			await message.delete()
+		except Forbidden:
+			None #cant do anyting :shrug:
 	ISRELOADING = False
 
 async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:str):
