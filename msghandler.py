@@ -199,4 +199,5 @@ async def handle(message:discord.Message) -> int:
 			db.close_down()
 			return 99
 		await add_reaction( message,db.get_emote(res))
-		await message.delete(delay=3)
+		if isinstance(message.channel, discord.TextChannel):
+			await message.delete(delay=3)
