@@ -718,7 +718,10 @@ class commandhandler:
 			embObj = discord.Embed(title="setversion", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
 	async def shortlink(self,message)->tuple:
-		url_arg = message.content[1:].split(" ")[1]
+		try:
+			url_arg = message.content[1:].split(" ")[1]
+		except IndexError:
+			embObj = discord.Embed(title="Link Shortener",description="Missing argument `url`",color=self.ERRORCOLOR)
 		error,res = shorten.shorten_link(url_arg)
 		embObj = discord.Embed(title="Link Shortener",description=res,color=(self.MISCCOLOR,self.ERRORCOLOR)[error])
 		return (error,embObj)
