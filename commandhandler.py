@@ -722,6 +722,7 @@ class commandhandler:
 			url_arg = message.content[1:].split(" ")[1]
 		except IndexError:
 			embObj = discord.Embed(title="Link Shortener",description="Missing argument `url`",color=self.ERRORCOLOR)
+			return (3,embObj)
 		error,res = shorten.shorten_link(url_arg)
 		embObj = discord.Embed(title="Link Shortener",description=res,color=(self.MISCCOLOR,self.ERRORCOLOR)[error])
 		return (error,embObj)
