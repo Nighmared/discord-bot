@@ -18,7 +18,6 @@ import stalk
 import robohash
 import shorten
 
-import lolthisisfuckingitup
 
 IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten)
 
