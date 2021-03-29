@@ -1,5 +1,6 @@
 import requests
 
+
 BASE_URL = "https://api.shrtco.de/v2/shorten?url="
 
 IMPORTS = ()
