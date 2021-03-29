@@ -225,7 +225,6 @@ class commandhandler:
 			self.dbhandler.add_meme_template(template_name,int(template_id))
 			return (0,None)
 		except Exception as e:
-			print("[dbhandler.py] add_meme_template: ",str(e))
 			return (1,None)
 	async def banner(self,message:discord.Message)-> tuple:
 		try:

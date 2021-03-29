@@ -23,7 +23,6 @@ class dbhandler:
 		return res
 
 	def add_user(self,uid:int, name:str, permlev:int):
-
 		self.cursor.execute(f'''INSERT INTO users(uid, permlevel, name) VALUES("{uid}","{permlev}","{name}")''')
 		self.conn.commit()
 		return 0
@@ -41,6 +40,7 @@ class dbhandler:
 			self.cursor.execute(f'''UPDATE users SET msgcount={uid_dict[author_uid][0]+1} WHERE uid='{author_uid}' ''')
 		else:
 			self.cursor.execute(f'''INSERT INTO users(uid,permlevel,name,msgcount,readable_name) VALUES(?,?,?,?,?)''',(author_uid,0,mention,1,name))
+		self.conn.commit()
 
 	def get_most_messages(self):
 		self.cursor.execute('''SELECT name,msgcount FROM users ORDER BY msgcount DESC''')
