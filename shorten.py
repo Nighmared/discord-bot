@@ -15,7 +15,7 @@ def shorten_link(url:str)->tuple:
 						errorcode: int indicating whether operation succeeded or failed
 						result: on success, new url of shortened link, else error description
 	'''
-	request_url = BASE_URL.join(url.strip())
+	request_url = BASE_URL+url.strip()
 	response = requests.get(url=request_url).json()
 	if not response["ok"]:
 		return (1,response["error"])
