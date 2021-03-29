@@ -20,4 +20,4 @@ def shorten_link(url:str)->tuple:
 	if not response["ok"]:
 		return (1,response["error"])
 	else:
-		return (0,response["result"]["short_link3"])
+		return (0,"http://"+response["result"]["short_link3"])
