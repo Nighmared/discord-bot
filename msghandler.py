@@ -115,13 +115,13 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 			msgs_backup.append(sent_msg) # keep the message list up to date until it gets put to cmdhandler again
 			
 			sleep(backoff) #wait until next reload
-			backoff*= 5 #exponential backoff
+			backoff*= 2 #exponential backoff
 			
 			sub.run(["git","pull","--no-edit"]) # git pull --no-edit -> get newest changes from github
 		else:
 			work_to_do = False
 	
-	if(backoff>1000): #give up at some point
+	if(backoff>512): #give up at some point
 		logging.fatal("gave up on reloading after trying multiple times.. something really doesnt work here")
 		sys.exit(1) # give up with nonzero error code
 			
