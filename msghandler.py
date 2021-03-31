@@ -181,8 +181,8 @@ async def handle(message:discord.Message) -> int:
 	if "177013" in message.content.strip().replace(" ","") and not isCommand:
 		await do_the_thing(message.channel, message.author.nick, 177013,message.author.avatar_url)
 	if(isCommand):
-		log = open("log.txt","a")
-		log.write(f"{message.author.name}>{message.content}\n")
+		logging.info(f"{message.author.name}>{message.content}\n")
+
 
 	if(message.author.id == handler.toTrackID and not isCommand):
 		msgs.add_msg(message)

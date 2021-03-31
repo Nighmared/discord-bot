@@ -488,7 +488,7 @@ class commandhandler:
 	async def mostmessages(self,message:discord.Message)->tuple:
 		try:
 			res = self.dbhandler.get_most_messages()
-			embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages", color=self.TRACKERCOLOR)
+			embObj = discord.Embed(title="Message Leaderboard",description="Showing which user has sent the most messages [Tracking started on 18.01.2021]", color=self.TRACKERCOLOR)
 			field_value = ""
 			rank = 1
 			for entry in res:
