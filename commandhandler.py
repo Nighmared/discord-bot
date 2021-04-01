@@ -17,9 +17,10 @@ import meme
 import stalk
 import robohash
 import shorten
+import xkcd
 
 
-IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd)
 
 
 
@@ -55,6 +56,7 @@ class commandhandler:
 		"robohash":"robohash.py",
 		"rh":"robohash.py",
 		"shorten":"shorten.py",
+		"xkcd":"xkcd.py",
 
 
 	}
@@ -127,6 +129,7 @@ class commandhandler:
 			"togglecmd":self.togglecmd,
 			"togglensfw":self.togglensfw,
 			"triggerannoy":self.triggerannoy,
+			"xkcd":self.xkcd,
 		}
 
 
@@ -943,3 +946,28 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="triggerannoy", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	async def xkcd(self,message:discord.Message)->tuple:
+		try:
+			url_arg = message.content.split(" ")[1]
+			res = xkcd.get_comic(int(url_arg))
+			if res["success"]:
+				embObj = discord.Embed(title=f"xkcd/{res['num']}: {res['title']}", color = self.MISCCOLOR, url=f"https://xkcd.com/{res['num']}/")
+				embObj.set_image(url=res["img_url"])
+				return (0,embObj)
+			else:
+				embObj = discord.Embed(title="Something went wrong when fetching the image..",description = res["error"], color = self.ERRORCOLOR)
+				return (1,embObj)
+		
+		except IndexError: #no arg provided? aight just fetch latest
+			res = xkcd.get_latest()
+			if res["success"]:
+				embObj = discord.Embed(title=f"xkcd/{res['num']}: {res['title']}", color = self.MISCCOLOR, url=f"https://xkcd.com/{res['num']}/")
+				embObj.set_image(url=res ["img_url"])
+				return(0,embObj)
+			else:
+				embObj = discord.Embed(title="Something went wrong when fetching the image..",description = res["error"], color = self.ERRORCOLOR)
+				return (1,embObj)
+		except ValueError: #invalid arg (not numeric), throw error
+			embObj = discord.Embed(title="xkcd",description="Invalid argument provided", color =self.ERRORCOLOR)
+			return(3,embObj)
+		
