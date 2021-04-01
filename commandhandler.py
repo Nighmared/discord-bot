@@ -21,7 +21,7 @@ import shorten
 import xkcd
 
 
-IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd, pubkey)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd)
 
 
 
