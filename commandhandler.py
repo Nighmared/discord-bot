@@ -618,8 +618,9 @@ class commandhandler:
 		return (0,None) #nothing to return as already sent
 	async def pubkey(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="PUBLIC KEY", color=0x000000)	
-		embObj.add_field(name="1/2",value=pubkey[:1024])
-		embObj.add_field(name = "2/2", value=pubkey[1024:])
+		embObj.add_field(name="1/3",value=pubkey[:1024])
+		embObj.add_field(name = "2/3", value=pubkey[1024:2048])
+		embObj.add_field(name="3/3", value= pubkey[2048:])
 		return (0,embObj)
 	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
