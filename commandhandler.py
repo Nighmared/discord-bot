@@ -953,6 +953,7 @@ class commandhandler:
 			if res["success"]:
 				embObj = discord.Embed(title=f"xkcd/{res['num']}: {res['title']}", color = self.MISCCOLOR, url=f"https://xkcd.com/{res['num']}/")
 				embObj.set_image(url=res["img_url"])
+				embObj.add_field(name="Explanation", value=f"https://www.explainxkcd.com/wiki/index.php/{res['num']}")
 				return (0,embObj)
 			else:
 				embObj = discord.Embed(title="Something went wrong when fetching the image..",description = res["error"], color = self.ERRORCOLOR)
@@ -963,6 +964,7 @@ class commandhandler:
 			if res["success"]:
 				embObj = discord.Embed(title=f"xkcd/{res['num']}: {res['title']}", color = self.MISCCOLOR, url=f"https://xkcd.com/{res['num']}/")
 				embObj.set_image(url=res ["img_url"])
+				embObj.add_field(name="Explanation", value=f"https://www.explainxkcd.com/wiki/index.php/{res['num']}")
 				return(0,embObj)
 			else:
 				embObj = discord.Embed(title="Something went wrong when fetching the image..",description = res["error"], color = self.ERRORCOLOR)
