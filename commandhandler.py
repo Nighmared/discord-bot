@@ -4,6 +4,7 @@ import logging
 from sys import version_info as python_version
 from discord.channel import TextChannel
 import traceback
+from pubkey import pubkey
 
 from discord.errors import Forbidden, NotFound
 
@@ -20,7 +21,7 @@ import shorten
 import xkcd
 
 
-IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd, pubkey)
 
 
 
@@ -130,6 +131,7 @@ class commandhandler:
 			"togglensfw":self.togglensfw,
 			"triggerannoy":self.triggerannoy,
 			"xkcd":self.xkcd,
+			"pubkey":self.pubkey,
 		}
 
 
@@ -614,7 +616,9 @@ class commandhandler:
 		embObj.set_field_at(0,name="Ping",value=f"{ping_in_ms} ms")
 		await x.edit(embed=embObj) #refresh value in sent msg
 		return (0,None) #nothing to return as already sent
-		
+	async def pubkey(self,message:discord.Message)-> tuple:
+		embObj = discord.Embed(title="PUBLIC KEY", color=0x000000)	
+		embObj.add_field(name="-",value=pubkey)
 	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
 		return (99,embObj)
