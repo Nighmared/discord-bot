@@ -619,6 +619,7 @@ class commandhandler:
 	async def pubkey(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="PUBLIC KEY", color=0x000000)	
 		embObj.add_field(name="-",value=pubkey)
+		return (0,embObj)
 	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
 		return (99,embObj)
