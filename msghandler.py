@@ -11,7 +11,7 @@ import subprocess as sub # needed for softreload to pull from git kekw
 from time import sleep
 import sys
 
-IMPORTS = ( msglist, dbhandler, commandhandler, uptime, )
+IMPORTS = ( msglist, dbhandler, commandhandler, uptime, discord)
 
 SUDOID = 291291715598286848 
 
