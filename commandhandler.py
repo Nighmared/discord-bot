@@ -424,7 +424,7 @@ class commandhandler:
 			embObj.add_field(name="Author", value="<@!291291715598286848>")
 			embObj.add_field(name="GH Repo",value ="http://brrr.nighmared.tech")
 			embObj.add_field(name="Version <a:cheer:824995182607990824>",value=f"`{self.dbhandler.get_from_misc('version')}`", inline=False)
-			embObj.add_field(name="discord.py Version",value=f"`{discord.version_info.major}.{discord.version_info.minor}`")
+			embObj.add_field(name="discord.py Version",value=f"`{discord.version_info.major}.{discord.version_info.minor}.{discord.version_info.micro}`")
 			embObj.add_field(name="Python Version",value=f"`{python_version.major}.{python_version.minor}.{python_version.micro}`")
 			embObj.add_field(name="Uptime",value="`"+self.uptime_tracker.getUptime()+"`",inline=False)
 
