@@ -11,7 +11,7 @@ import subprocess as sub # needed for softreload to pull from git kekw
 from time import sleep
 import sys
 
-IMPORTS = ( msglist, dbhandler, commandhandler, uptime, discord)
+IMPORTS = ( msglist, dbhandler, commandhandler, uptime)
 
 SUDOID = 291291715598286848 
 
@@ -69,10 +69,12 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	work_to_do = True
 	backoff = 10
 	is_recovering = False
+	
+	reload(discord)
 
 	while work_to_do:	
 		failedmodules = ""
-		modulenames = "msghandler\n"
+		modulenames = "discord.py\nmsghandler\n"
 		submodules = set()
 		for module in IMPORTS:
 			try:
@@ -82,6 +84,11 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 				failedmodules+="⤷"+str(e).split("'")[1]+"\n"
 				continue
 			modulenames+= module.__name__ +"\n"
+			try:
+				module.IMPORTS
+			except AttributeError:
+				logging.error(f"{module.__name__} missing IMPORTS list")
+				continue;
 			for subimport in module.IMPORTS:
 				if subimport not in submodules:
 					submodules.add(subimport)
