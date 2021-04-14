@@ -427,6 +427,7 @@ class commandhandler:
 			embObj.add_field(name="discord.py Version",value=f"`{discord.version_info.major}.{discord.version_info.minor}.{discord.version_info.micro}`")
 			embObj.add_field(name="Python Version",value=f"`{python_version.major}.{python_version.minor}.{python_version.micro}`")
 			embObj.add_field(name="Uptime",value="`"+self.uptime_tracker.getUptime()+"`",inline=False)
+			embObj.set_footer(icon_url="https://github.com/Nighmared/discord-bot/actions/workflows/tests.yml/badge.svg")
 
 			return (0,embObj)
 		except Exception as e:
