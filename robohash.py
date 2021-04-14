@@ -1,6 +1,6 @@
 import discord
 
-IMPORTS = (discord)
+IMPORTS = ()
 
 
 BASE_URL = "https://robohash.org/"
