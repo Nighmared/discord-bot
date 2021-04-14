@@ -754,9 +754,10 @@ class commandhandler:
 			embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
 			for id,title in res:
 				embObj.add_field(name=id,value=title,inline=False)
-			badge_link = "https://shields.io/github/workflow/status/nighmared/discord-bot/Tests"
+			badge_link = "shields.io/github/workflow/status/nighmared/discord-bot/Tests.png"
 			if self.last_badge_link>0:
-				badge_link += ".png"
+				badge_link = "raster."
+			badge_link = "https://"+badge_link
 			self.last_badge_link*=-1
 			embObj.set_thumbnail(url=badge_link)
 			return (0,embObj)
