@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Dry Run
+name: Unit Tests
 
 # Controls when the action will run. 
 on:
@@ -34,7 +34,9 @@ jobs:
           echo "nope">PREFIX.txt 
           echo "nopenopenope">.token.txt
 
-      # checks if program can run
-      - name: "Check for hard errors"
-        run: python3.8 bot.py debug
-      
+      #runs pytest
+      - name: "Unit Tests"
+        run: pytest -v
+
+
+
