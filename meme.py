@@ -2,10 +2,12 @@ import requests
 import dbhandler
 
 IMPORTS = ()
-
-with open(".imgflip_creds.txt","r") as cred_file:
-	IMGFLIP_ACC, IMGFLIP_PW = cred_file.read().strip().split(";")
-
+try:
+	with open(".imgflip_creds.txt","r") as cred_file:
+		IMGFLIP_ACC, IMGFLIP_PW = cred_file.read().strip().split(";")
+except FileNotFoundError:
+	print("[MEME.PY] - no credentials found")
+	logging.fatal("cant generate memes, no credentials found")
 
 def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandler)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
 	TEMPLATE_IDS = dbhandler.get_meme_templates()
