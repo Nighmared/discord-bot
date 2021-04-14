@@ -11,8 +11,10 @@ class handler:
 	SIGMADEFAULT = 20
 	def __init__(self,dbhandler:dbhandler.dbhandler) -> None:
 		self.db = dbhandler
-		self.RANDLIMIT = int(self.db.get_from_misc("nh_random_limit"))
-
+		try:
+			self.RANDLIMIT = int(self.db.get_from_misc("nh_random_limit"))
+		except Exception as e:
+			self.RANDLIMIT = 1000
 	def get_img(self,sigma=SIGMADEFAULT,indx_arg = None)->str:
 		path,indx = self.__download_random_image(indx_arg)
 		if path is None:
