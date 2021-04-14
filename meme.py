@@ -1,6 +1,6 @@
 import requests
 import dbhandler
-
+import logging
 IMPORTS = ()
 try:
 	with open(".imgflip_creds.txt","r") as cred_file:
