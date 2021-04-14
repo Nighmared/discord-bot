@@ -1,12 +1,12 @@
+
 import logging
 from re import split #for cmd handling
 import discord # api library
 from importlib import reload
 from datetime import datetime
-from sys import exit
+from sys import exit, argv
 import subprocess as sub # needed for softreload to pull from git kekw
 import msghandler #handle all incoming msgs
-
 
 
 logging.basicConfig(
@@ -51,5 +51,5 @@ async def on_message(message:discord.Message):
 
 
 
-
-client.run(TOKEN)
+if __name__ == "__main__" and len(argv)==1:
+	client.run(TOKEN)
