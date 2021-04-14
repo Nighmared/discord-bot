@@ -27,7 +27,7 @@ jobs:
       
       #installs pip modules
       - name: Install modules
-        run: pip3 install discord.py skikit-image scipy requests
+        run: pip3 install discord.py scikit-image scipy requests
       # checks if program can run
       - name: test-run
         run: python3.8 bot.py debug
