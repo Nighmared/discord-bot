@@ -81,6 +81,7 @@ class commandhandler:
 		self.client = client
 		self.uptime_tracker = time_tracker
 		self.nh_handler = nhentai.handler(self.dbhandler)
+		self.last_badge_link = -1
 
 
 		self.cmd_handling_funcs = {
@@ -753,7 +754,11 @@ class commandhandler:
 			embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
 			for id,title in res:
 				embObj.add_field(name=id,value=title,inline=False)
-			embObj.set_thumbnail(url="https://raster.shields.io/github/workflow/status/nighmared/discord-bot/Tests")
+			badge_link = "https://raster.shields.io/github/workflow/status/nighmared/discord-bot/Tests"
+			if self.last_badge_link>0:
+				badge_link += ".png"
+				self.last_badge_link*=-1
+			embObj.set_thumbnail(url=badge_link)
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Issues", description=str(e), color=self.ERRORCOLOR)
