@@ -756,7 +756,7 @@ class commandhandler:
 				embObj.add_field(name=id,value=title,inline=False)
 			badge_link = "shields.io/github/workflow/status/nighmared/discord-bot/Tests.png"
 			if self.last_badge_link>0:
-				badge_link = "raster."
+				badge_link = "raster."+badge_link
 			badge_link = "https://"+badge_link
 			self.last_badge_link*=-1
 			embObj.set_thumbnail(url=badge_link)
