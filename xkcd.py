@@ -1,6 +1,6 @@
 import requests
 
-IMPORTS = ()
+IMPORTS = (asdf)
 
 CURR_URL = "https://xkcd.com/info.0.json"
 
