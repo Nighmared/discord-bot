@@ -427,7 +427,6 @@ class commandhandler:
 			embObj.add_field(name="discord.py Version",value=f"`{discord.version_info.major}.{discord.version_info.minor}.{discord.version_info.micro}`")
 			embObj.add_field(name="Python Version",value=f"`{python_version.major}.{python_version.minor}.{python_version.micro}`")
 			embObj.add_field(name="Uptime",value="`"+self.uptime_tracker.getUptime()+"`",inline=False)
-			embObj.set_footer(icon_url="https://raster.shields.io/github/workflow/status/nighmared/discord-bot/Tests.png")
 
 			return (0,embObj)
 		except Exception as e:
@@ -757,6 +756,7 @@ class commandhandler:
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Issues", description=str(e), color=self.ERRORCOLOR)
+			embObj.set_thumbnail(url="https://raster.shields.io/github/workflow/status/nighmared/discord-bot/Tests.png")
 			return (1,embObj)
 	async def showsourcecode(self,message:discord.Message)->tuple:
 		args = message.content[1:].split(" ")

@@ -39,6 +39,24 @@ def test_imports_tuples():
 	print("\033[0m")
 	print("\n\n")
 
+def test_import_all():
+	import discord
+	import bot
+	import commandhandler
+	import dbhandler
+	import inspirobot
+	import issues
+	import meme
+	import msghandler
+	import msglist
+	import neko
+	import nhentai
+	import robohash
+	import stalk
+	import uptime
+	import xkcd
+
+
 class Test_APIs:
 	def test_xkcd(self): #run example xkcd call to make sure json structure is still okay
 		import xkcd
@@ -111,21 +129,3 @@ class Tests_Slow_Cases:
 		res = shorten.shorten_link("")
 		assert res[0] != 0
 	
-
-#this one is probably redundant.. but still
-def test_import_all():
-	import discord
-	import bot
-	import commandhandler
-	import dbhandler
-	import inspirobot
-	import issues
-	import meme
-	import msghandler
-	import msglist
-	import neko
-	import nhentai
-	import robohash
-	import stalk
-	import uptime
-	import xkcd
