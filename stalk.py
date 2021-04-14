@@ -18,3 +18,4 @@ async def stalk(message:discord.Message)->tuple:
 	except Exception as e:
 		embObj = discord.Embed(title="Stalking", description = str(e))
 		return (1,embObj)
+
