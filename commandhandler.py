@@ -753,7 +753,7 @@ class commandhandler:
 			embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
 			for id,title in res:
 				embObj.add_field(name=id,value=title,inline=False)
-			embObj.set_thumbnail(url="https://raster.shields.io/github/workflow/status/nighmared/discord-bot/Tests.png")
+			embObj.set_thumbnail(url="https://raster.shields.io/github/workflow/status/nighmared/discord-bot/Tests")
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Issues", description=str(e), color=self.ERRORCOLOR)
