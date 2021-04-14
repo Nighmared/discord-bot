@@ -46,6 +46,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: setup
+        run: |
+          pip3 install discord.py scikit-image scipy requests
+          pip3 install pytest
+          echo "nope">PREFIX.txt 
+          echo "nopenopenope">.token.txt
+
        # checks if program can run
       - name: "Check for hard errors"
         run: python3.8 bot.py debug
