@@ -190,7 +190,7 @@ async def handle(message:discord.Message) -> int:
 	if "177013" in message.content.strip().replace(" ","") and not isCommand:
 		await do_the_thing(message.channel, message.author.nick, 177013,message.author.avatar_url)
 	if(isCommand):
-		logger.info(f"{message.author.name}>{message.content}\n")
+		logger.info(f"{message.author.name}>{message.content}")
 
 
 	if(message.author.id == handler.toTrackID and not isCommand):
