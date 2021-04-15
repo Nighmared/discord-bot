@@ -619,7 +619,7 @@ class commandhandler:
 		return (0,None) #nothing to return as already sent
 	async def pubkey(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="PUBLIC KEY", color=0x000000)	
-		file = discord.File("pub.key")
+		file = discord.File("joniii.pub")
 		return (0,embObj, file)
 	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
