@@ -10,8 +10,9 @@ from importlib import reload
 import subprocess as sub # needed for softreload to pull from git kekw
 from time import sleep
 import sys
+import botlogger 
 
-IMPORTS = ( msglist, dbhandler, commandhandler, uptime)
+IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime,)
 
 SUDOID = 291291715598286848 
 
@@ -27,7 +28,7 @@ def init(client:discord.Client,STARTTIME):
 	msgs = msglist.msglist(5)
 	db = dbhandler.dbhandler("discordbot.db")
 	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
-
+	botlogger.get_ready()
 
 
 with open("PREFIX.txt") as prefix_file:
@@ -62,6 +63,8 @@ def get_ready(client:discord.Client, STARTTIME):
 	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
 	last_msgs_backup = handler.last_MSG
 	handler.last_MSG = last_msgs_backup
+	botlogger.get_ready()
+	
 
 
 
@@ -74,9 +77,10 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	
 	reload(discord)
 
+
 	while work_to_do:	
 		failedmodules = ""
-		modulenames = "discord.py\nmsghandler\n"
+		modulenames = "discord.py\nbotlogger\nmsghandler\n"
 		submodules = set()
 		for module in IMPORTS:
 			try:

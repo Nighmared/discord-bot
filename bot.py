@@ -9,13 +9,7 @@ import subprocess as sub # needed for softreload to pull from git kekw
 import msghandler #handle all incoming msgs
 
 
-
 logger = logging.getLogger("botlogger")
-fhandler = logging.FileHandler("bot.log", mode = 'a')
-formatter = logging.Formatter(fmt='%(levelname)s > %(asctime)s [%(filename)s] %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
-fhandler.setFormatter(formatter)
-logger.addHandler(fhandler)
-logger.setLevel(logging.INFO)
 
 
 with open(".token.txt") as t_file:
