@@ -1,4 +1,8 @@
+import logging
 IMPORTS = ()
+
+logger = logging.getLogger("botlogger")
+
 
 class msglist:
 	def __init__(self,maxlen,tracked_user = "nobody"):

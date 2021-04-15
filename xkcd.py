@@ -1,6 +1,9 @@
 import requests
+import logging
 
 IMPORTS = ()
+logger = logging.getLogger("botlogger")
+
 
 CURR_URL = "https://xkcd.com/info.0.json"
 

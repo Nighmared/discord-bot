@@ -1,6 +1,9 @@
 import discord
+import logging
 
 IMPORTS = ()
+logger = logging.getLogger("botlogger")
+
 
 
 BASE_URL = "https://robohash.org/"

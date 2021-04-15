@@ -4,6 +4,7 @@ import requests
 from sys import stdout
 from datetime import datetime
 from time import sleep
+import logging
 
 
 
@@ -12,49 +13,72 @@ XKCD_NUM_LIMIT = 2000
 RH_STRINGLEN_LIMIT = 30
 
 
+class Test_Basics:
 
 
-def test_imports_tuples():
-	import msghandler as msgh # same as above
-	print("sdf\n")
-	print("\033[0;32m")
-	for impo in msgh.IMPORTS:
-		if type(impo.IMPORTS) != tuple: # make sure that all modules have an IMPORTS tuple defined, otherwise softreload can break
-			print("\033[0;31m",end="")
-			print(f"Failed Module: {impo.__name__}")
-			print("\033[0m")
-			assert False #fail
-		else:
-			print(f"Valid Module: {impo.__name__}".ljust(40),end="\n")
-		for subimp in impo.IMPORTS:
-			if type(subimp.IMPORTS) != tuple: #same but for imports of the imported modules
+	def test_imports_tuples(self):
+		'''
+			makes sure all modules that are reloaded on a softreload actually have the correct structure,
+			specifically that they all have an "IMPORTS" **tuple**
+		'''
+		import msghandler as msgh # same as above
+		print("sdf\n")
+		print("\033[0;32m")
+		for impo in msgh.IMPORTS:
+			if type(impo.IMPORTS) != tuple: # make sure that all modules have an IMPORTS tuple defined, otherwise softreload can break
 				print("\033[0;31m",end="")
-				print(f"Failed Module: {subimp.__name__}".ljust(40))
-				print("\033[0m",end="")
-				assert False #fail it here
+				print(f"Failed Module: {impo.__name__}")
+				print("\033[0m")
+				assert False #fail
 			else:
-				print(f"Valid Module: {subimp.__name__}".ljust(40))
+				print(f"Valid Module: {impo.__name__}".ljust(40),end="\n")
+			for subimp in impo.IMPORTS:
+				if type(subimp.IMPORTS) != tuple: #same but for imports of the imported modules
+					print("\033[0;31m",end="")
+					print(f"Failed Module: {subimp.__name__}".ljust(40))
+					print("\033[0m",end="")
+					assert False #fail it here
+				else:
+					print(f"Valid Module: {subimp.__name__}".ljust(40))
 
 
-	print("\033[0m")
-	print("\n\n")
+		print("\033[0m")
+		print("\n\n")
+	
+	def test_logger_everywhere(self):
+		'''
+			Checks that all modules have a logger defined, basically just making it ready for further improvements
+		'''
+		import msghandler as msgh
+		for impo in msgh.IMPORTS:
+			print("checking "+impo.__name__)
+			assert type(impo.logger) == logging.Logger
 
-def test_import_all():
-	import discord
-	import bot
-	import commandhandler
-	import dbhandler
-	import inspirobot
-	import issues
-	import meme
-	import msghandler
-	import msglist
-	import neko
-	import nhentai
-	import robohash
-	import stalk
-	import uptime
-	import xkcd
+			for subi in impo.IMPORTS:
+					print("checking "+subi.__name__)
+					assert type(subi.logger) == logging.Logger
+
+
+
+	def test_import_all(self):
+		'''
+			Hopefully this would fail if there was some obvious and hard syntax error somewhere
+		'''
+		import discord
+		import bot
+		import commandhandler
+		import dbhandler
+		import inspirobot
+		import issues
+		import meme
+		import msghandler
+		import msglist
+		import neko
+		import nhentai
+		import robohash
+		import stalk
+		import uptime
+		import xkcd
 
 
 class Test_APIs:

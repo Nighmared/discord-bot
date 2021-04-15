@@ -1,9 +1,10 @@
 import requests
-
+import logging
 
 BASE_URL = "https://api.shrtco.de/v2/shorten?url="
 
 IMPORTS = ()
+logger = logging.getLogger("botlogger")
 
 
 def shorten_link(url:str)->tuple:

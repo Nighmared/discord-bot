@@ -1,6 +1,9 @@
 import requests
+import logging
 
 IMPORTS = ()
+logger = logging.getLogger("botlogger")
+
 
 API_URL = "https://inspirobot.me/api?generate=true"
 

@@ -1,6 +1,8 @@
 from datetime import datetime as dt
+import logging
 
 IMPORTS = ()
+logger = logging.getLogger("botlogger")
 
 class uptime:
 	def __init__(self,starttime):

@@ -5,7 +5,6 @@ import dbhandler
 import logging
 
 IMPORTS=(dbhandler,)
-
 logger = logging.getLogger("botlogger")
 
 

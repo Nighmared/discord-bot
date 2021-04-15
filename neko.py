@@ -1,5 +1,9 @@
 import random
+import logging
+
 IMPORTS =()
+logger = logging.getLogger("botlogger")
+
 
 answers = (
 	"nope",

@@ -1,6 +1,8 @@
 import discord
+import logging
 
 IMPORTS = ()
+logger = logging.getLogger("botlogger")
 
 
 async def stalk(message:discord.Message)->tuple:
