@@ -57,6 +57,7 @@ class commandhandler:
 		"rh":"robohash.py",
 		"shorten":"shorten.py",
 		"xkcd":"xkcd.py",
+		"test":"test_sanity_check.py",
 
 
 	}
