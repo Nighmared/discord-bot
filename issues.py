@@ -3,6 +3,8 @@ import logging
 repo_name = "discord-bot"
 author = "nighmared"
 
+logger = logging.getLogger("botlogger")
+
 IMPORTS = ()
 
 def getIssues()->list:
@@ -10,7 +12,7 @@ def getIssues()->list:
 	r = requests.get(url)
 	if(r.status_code != 200):
 	#	print(f"[issues.py] (getIssues) {r.status_code} <- fucky response  from gh")
-		logging.error(f"GitHub gave fucky response code ({r.status_code})")
+		logger.error(f"GitHub gave fucky response code ({r.status_code})")
 		return [(-1,-1)]
 	else:
 		res = r.json()

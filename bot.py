@@ -9,15 +9,13 @@ import subprocess as sub # needed for softreload to pull from git kekw
 import msghandler #handle all incoming msgs
 
 
-logging.basicConfig(
-	filename='bot.log',
 
-	level=logging.INFO,
-	filemode="a",
-	format='%(levelname)s > %(asctime)s [%(filename)s] %(message)s',
-	datefmt='%Y/%m/%d %H:%M:%S'
-	)
-
+logger = logging.getLogger("botlogger")
+fhandler = logging.FileHandler("bot.log", mode = 'a')
+formatter = logging.Formatter(fmt='%(levelname)s > %(asctime)s [%(filename)s] %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+fhandler.setFormatter(formatter)
+logger.addHandler(fhandler)
+logger.setLevel(logging.INFO)
 
 
 with open(".token.txt") as t_file:
@@ -36,7 +34,7 @@ msghandler.init(client,STARTTIME)
 async def on_ready():
 	msghandler.ISRELOADING = False
 	print(f'[bot.py] {client.user} has connected')
-	logging.info("Bot Online")
+	logger.info("Bot Online")
 
 @client.event
 async def on_message(message:discord.Message):

@@ -15,6 +15,8 @@ IMPORTS = ( msglist, dbhandler, commandhandler, uptime)
 
 SUDOID = 291291715598286848 
 
+logger = logging.getLogger("botlogger")
+
 ISRELOADING = True
 
 
@@ -45,7 +47,7 @@ async def add_reaction(message, emote):
 	except discord.errors.Forbidden:
 		return 5
 	except discord.errors.HTTPException as e:
-		logging.warning("Couldn't add emote as reaction:"+emote)
+		logger.warning("Couldn't add emote as reaction:"+emote)
 		#print("[msghandler.py] (add_reaction) couldnt add emote: "+emote)
 		print(e)
 		return 1
@@ -87,7 +89,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 			try:
 				module.IMPORTS
 			except AttributeError:
-				logging.error(f"{module.__name__} missing IMPORTS list")
+				logger.error(f"{module.__name__} missing IMPORTS list")
 				continue;
 			for subimport in module.IMPORTS:
 				if subimport not in submodules:
@@ -130,7 +132,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 			work_to_do = False
 	
 	if(backoff>512): #give up at some point
-		logging.fatal("gave up on reloading after trying multiple times.. something really doesnt work here")
+		logger.fatal("gave up on reloading after trying multiple times.. something really doesnt work here")
 		sys.exit(1) # give up with nonzero error code
 			
 	#at this point everything should be fine
@@ -140,7 +142,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	handler.curr_msg = message
 
 	#print("[bot.py] back from softreload")
-	logging.info("Return from softreload")
+	logger.info("Return from softreload")
 	if type(message.channel) is discord.channel.DMChannel or message.author.nick is None:
 		callee = message.author.name
 	else:
@@ -188,7 +190,7 @@ async def handle(message:discord.Message) -> int:
 	if "177013" in message.content.strip().replace(" ","") and not isCommand:
 		await do_the_thing(message.channel, message.author.nick, 177013,message.author.avatar_url)
 	if(isCommand):
-		logging.info(f"{message.author.name}>{message.content}\n")
+		logger.info(f"{message.author.name}>{message.content}\n")
 
 
 	if(message.author.id == handler.toTrackID and not isCommand):

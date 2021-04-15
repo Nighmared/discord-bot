@@ -6,6 +6,8 @@ import logging
 
 IMPORTS=(dbhandler,)
 
+logger = logging.getLogger("botlogger")
+
 
 class handler:
 	SIGMADEFAULT = 20
@@ -48,7 +50,7 @@ class handler:
 		match = re.search('(https://i\.nhentai\.net).*?\"',cont)
 		link = match.group(0).rstrip('"')
 		#print("[nhentai.py] freshly downloaded ",link)
-		logging.info(f"Freshly downloaded {link}")
+		logger.info(f"Freshly downloaded {link}")
 		img_response = requests.get(link,stream=True)
 		file = open(f"nhentai/{indx}.jpg",'wb')
 		for chunk in img_response.iter_content(1024):

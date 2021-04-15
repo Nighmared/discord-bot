@@ -4,6 +4,8 @@ import subprocess as sub
 import logging
 from datetime import datetime as dt
 
+logger = logging.getLogger("botlogger")
+
 IMPORTS = () 
 
 class dbhandler:
@@ -66,7 +68,7 @@ class dbhandler:
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
 			#print("[dbhandler.py] (get_cmd_perm) frick cmd not added",cmd)
-			logging.warning(f"Unable to look up permission level of {cmd} ")
+			logger.warning(f"Unable to look up permission level of {cmd} ")
 			res = 8 #return dumb high number as default
 		return res
 
@@ -139,7 +141,7 @@ class dbhandler:
 		self.close_down()
 		timestring = str(dt.now().isoformat())[:-7]
 		sub.run(["cp","discordbot.db",f"backups/{timestring}.db"])
-		logging.info(f"Created Backup time: {timestring} ")
+		logger.info(f"Created Backup time: {timestring} ")
 		self.conn = sql.connect(self.db_fname)
 		self.cursor = self.conn.cursor()
 		self.cursor.execute('''PRAGMA foreign_keys = ON;''')

@@ -23,6 +23,7 @@ import xkcd
 IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd)
 
 
+logger = logging.getLogger("botlogger")
 
 class commandhandler:
 	ISSUECOLOR = 0x00f0f0 #lightblue
@@ -165,11 +166,11 @@ class commandhandler:
 		cmd = args[0].lower()
 		cmd = self.dbhandler.find_alias(cmd)
 		if(cmd == ""):
-			logging.warning(f"{message.author.name}#{message.author.discriminator} tried to use an invalid command")
+			logger.warning(f"{message.author.name}#{message.author.discriminator} tried to use an invalid command")
 			return 3
 		if not self.dbhandler.cmd_is_enabled(cmd):
 			error = 4
-			logging.warning(f"{message.author.name}#{message.author.discriminator} tried to use a disabled command ({cmd})")
+			logger.warning(f"{message.author.name}#{message.author.discriminator} tried to use a disabled command ({cmd})")
 			return error
 		error = 0
 
@@ -315,7 +316,7 @@ class commandhandler:
 		try:
 			res = self.dbhandler._execComm(query)
 		except OperationalError as e:
-			logging.error(f"Something went wrong with the DB (Query: {query} ")
+			logger.error(f"Something went wrong with the DB (Query: {query} ")
 			#print("[commandhandler.py] Something went wrong with sqlite")
 			embObj = discord.Embed(title="ExecSQL",description = str(e),color=self.ERRORCOLOR)
 			return (3,embObj) # command is fuckd up probably
@@ -588,7 +589,7 @@ class commandhandler:
 			embObj.add_field(name="Entries",value=field_cont)
 			#log management
 			if len(log_lines)>500:
-				logging.info("trying to rotate nh log")
+				logger.info("trying to rotate nh log")
 			#	print("[commandhandler.py] (nhl) trying to rotate log")
 				open("nhentai/log.txt.old","w").writelines(log_lines) #lol idk how this is gonna end
 				curr_log = open("nhentai/log.txt","w")
@@ -675,7 +676,7 @@ class commandhandler:
 			return (0,None)
 		except Exception as e:
 			embObj = discord.Embed(title="setchangelog",description=str(e), color=self.ERRORCOLOR)
-			logging.error("Something got fucked up when handling setchangelog")
+			logger.error("Something got fucked up when handling setchangelog")
 			#print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
 			return (1, embObj)
 	async def setperm(self,message:discord.Message)->tuple:
