@@ -22,7 +22,7 @@ def get_ready():
 		logger.removeHandler(h)
 	
 	fhandler = logging.FileHandler("bot.log", mode = 'a')
-	formatter = BotFormatter(fmt='%(levelname)s > %(asctime)s [%(filename)s] %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+	formatter = BotFormatter(fmt='%(asctime)s [%(levelname)s][%(filename)s] %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
 	fhandler.setFormatter(formatter)
 	logger.addHandler(fhandler)
 	logger.setLevel(logging.INFO)
@@ -39,7 +39,8 @@ class BotFormatter(logging.Formatter):
 		self.warning_formatter = logging.Formatter(fmt = YELLOW+fmt+DEFAULT, datefmt = datefmt)
 		self.error_formatter = logging.Formatter(fmt = MAGENTA+fmt+DEFAULT, datefmt=datefmt)		
 		self.crit_formatter = logging.Formatter(fmt=RED+fmt+DEFAULT, datefmt=datefmt)
-		self.formatters = (None,
+		self.formatters = (
+			None,
 			self.debug_formatter,
 			self.info_formatter,
 			self.warning_formatter,

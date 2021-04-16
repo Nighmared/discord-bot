@@ -112,12 +112,14 @@ class dbhandler:
 		
 		return(res.strip() == "True")
 
-	def addIssue(self,issueTuple):
-		id,title = issueTuple
+	def add_issue(self,issue_t):
+		id,title,tag_s = issue_t
 		self.cursor.execute(f'''SELECT * FROM issues WHERE id=={id}''')
 		res = self.cursor.fetchall()
 		if(len(res) == 0):
-			self.cursor.execute(f'''INSERT INTO issues(id,title) VALUES({id},"{title}")''')
+			self.cursor.execute(
+				f'''INSERT INTO issues(id,title,tags) VALUES(?,?,?)''',
+				(id,title,tag_s))
 		self.conn.commit()
 	
 	def fixissue(self,id:int):

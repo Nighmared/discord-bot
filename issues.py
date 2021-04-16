@@ -18,6 +18,9 @@ def getIssues()->list:
 		res = r.json()
 		out = []
 		for issue in res:
-			out.append((issue["number"],issue["title"]))
+			tag_db_s = ""
+			for tag in issue["labels"]:
+				tag_db_s += f'{tag["name"]};'
+			out.append((issue["number"],issue["title"],tag_db_s))
 		out.sort()
 		return out

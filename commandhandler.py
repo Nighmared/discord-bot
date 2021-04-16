@@ -632,7 +632,7 @@ class commandhandler:
 			else:
 				self.dbhandler._execComm("DELETE FROM issues")
 				for issue in ls:
-					self.dbhandler.addIssue(issue)
+					self.dbhandler.add_issue(issue)
 				
 			embObj = discord.Embed(title="Issues",description="Issues reloaded",color=self.ISSUECOLOR)
 			return (0,embObj)
@@ -751,10 +751,15 @@ class commandhandler:
 
 	async def showissues(self,message:discord.Message) -> tuple:
 		try:
-			res = self.dbhandler._execComm("select * from issues",True)
+			res = self.dbhandler._execComm("select * from issues",True) #FIXME add a func in dbhandler to do this! NO DIRECT EXECS OUTSIDE OF DBHANDLER!!!!
 			embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
-			for id,title in res:
-				embObj.add_field(name=id,value=title,inline=False)
+			for id,title,tags in res:
+				tags_l = tags.split(";")
+				tags_s = ""
+				for tag in tags_l:
+					tags_s += f'`{tag.strip()}` '
+
+				embObj.add_field(name=f'{id}. {tags_s}',value=title,inline=False)
 			badge_link = "https://shields.io/github/workflow/status/nighmared/discord-bot/Tests.png"
 			embObj.set_thumbnail(url=badge_link)
 			return (0,embObj)
