@@ -21,6 +21,6 @@ def getIssues()->list:
 			tag_db_s = ""
 			for tag in issue["labels"]:
 				tag_db_s += f'{tag["name"]};'
-			out.append((issue["number"],issue["title"],tag_db_s))
+			out.append((issue["number"],issue["title"],tag_db_s[:-1])) # dont want last ;
 		out.sort()
 		return out

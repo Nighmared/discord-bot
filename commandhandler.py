@@ -757,6 +757,8 @@ class commandhandler:
 				tags_l = tags.split(";")
 				tags_s = ""
 				for tag in tags_l:
+					if tag.strip() == "":
+						continue
 					tags_s += f'`{tag.strip()}` '
 
 				embObj.add_field(name=f'{id}. {tags_s}',value=title,inline=False)
