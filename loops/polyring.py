@@ -46,11 +46,13 @@ class PolyringFetcher(discord.ext.commands.Cog):
 	def filter_new_posts(self,feeds,postmap):
 		new_posts = []
 		for fid,f_url,author in feeds:
+			print(f_url)
 			try:
-				xml_root = ET.fromstring(requests.get(url=f_url).content)
+				xml_root = ET.fromstring(requests.get(url=f_url.strip()).content.strip())
 			except Exception as e:
+				
 				logger.fatal(str(e))
-				logger.warn(f"Skipping {author}  because of above error")
+				logger.warn(f"Skipping {author}  because of above error, url= {f_url}")
 				continue
 
 			dumbfuckingjekyll = False
