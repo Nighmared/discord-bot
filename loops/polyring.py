@@ -53,7 +53,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			except Exception as e:
 				
 				logger.fatal(str(e))
-				logger.warn(f"Skipping {author}  because of above error, url= {f_url}")
+				logger.warn(f"Skipping {author}  because of above error, url= {f_url}, status = {requests.get(url=f_url, headers =header).status_code}")
 				continue
 
 			dumbfuckingjekyll = False
