@@ -7,11 +7,14 @@ import handler
 IMPORTS = (polyring,)
 logger = logging.getLogger("botlogger")
 
-LOOPCOGS = (
-	polyring.PolyringFetcher,
-)
+
 
 def init(client: discord.ext.commands.Bot,handler_ref:handler):
+	
+	LOOPCOGS = (
+		polyring.PolyringFetcher,
+	)
+	
 	logger.info("adding cogs")
 	for cog in LOOPCOGS:
 		client.add_cog(cog(client,handler_ref))
