@@ -8,6 +8,7 @@ from sys import exit, argv
 import subprocess as sub # needed for softreload to pull from git kekw
 import handler #handle all incoming msgs
 from discord.ext.commands import Bot
+import loophandler as loop
 
 
 logger = logging.getLogger("botlogger")
@@ -21,10 +22,7 @@ with open(".token.txt") as t_file:
 
 STARTTIME = datetime.now()
 
-bot = Bot(PREFIX)
-client = bot.user
-#client = discord.Client()
-
+client = Bot(PREFIX)
 handler.init(client,STARTTIME)
 
 
@@ -33,6 +31,7 @@ handler.init(client,STARTTIME)
 
 @client.event
 async def on_ready():
+	loop.init(client,dbhandler = handler.db)
 	handler.ISRELOADING = False
 	print(f'[bot.py] {client.user} has connected')
 	logger.info("Bot Online")

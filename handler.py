@@ -11,9 +11,9 @@ import subprocess as sub # needed for softreload to pull from git kekw
 from time import sleep
 import sys
 import botlogger 
-import loops
+import loophandler as loop
 
-IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime,loops)
+IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime,loop)
 
 SUDOID = 291291715598286848 
 
@@ -27,10 +27,9 @@ def init(client:discord.Client,STARTTIME):
 	global cmdhandler,time_tracker,msgs,db
 	time_tracker = uptime.uptime(STARTTIME)
 	msgs = msglist.msglist(5)
-	db = dbhandler.dbhandler("discordbot.db")
+	db = dbhandler.Dbhandler("discordbot.db")
 	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 	botlogger.get_ready()
-	loops.init(client)
 
 
 with open("PREFIX.txt") as prefix_file:
@@ -60,13 +59,13 @@ async def add_reaction(message, emote):
 def get_ready(client:discord.Client, STARTTIME):
 	global msgs,db,time_tracker,cmdhandler
 	msgs = msglist.msglist(5)
-	db = dbhandler.dbhandler("discordbot.db")
+	db = dbhandler.Dbhandler("discordbot.db")
 	time_tracker = uptime.uptime(STARTTIME)
 	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
 	last_msgs_backup = cmdhandler.last_MSG
 	cmdhandler.last_MSG = last_msgs_backup
 	botlogger.get_ready()
-	loops.init(client)
+	loop.init(client,db)
 	
 
 
@@ -79,12 +78,12 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	is_recovering = False
 	
 	reload(discord)
-	loops.discard(client)
+	loop.discard(client)
 
 
 	while work_to_do:	
 		failedmodules = ""
-		modulenames = "discord.py\nbotlogger\nmsghandler\n"
+		modulenames = "discord.py\nmsghandler\n"
 		submodules = set()
 		for module in IMPORTS:
 			try:
@@ -149,7 +148,6 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	cmdhandler.last_MSG = msgs_backup
 	cmdhandler.curr_msg = message
 
-	#print("[bot.py] back from softreload")
 	logger.info("Return from softreload")
 	if type(message.channel) is discord.channel.DMChannel or message.author.nick is None:
 		callee = message.author.name

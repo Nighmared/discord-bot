@@ -8,7 +8,7 @@ logger = logging.getLogger("botlogger")
 
 IMPORTS = () 
 
-class dbhandler:
+class Dbhandler:
 	def __init__(self,filename):
 		self.db_fname = filename
 		self.conn = sql.connect(filename)

@@ -12,7 +12,7 @@ except FileNotFoundError:
 	print("[MEME.PY] - no credentials found")
 	logger.fatal("cant generate memes, no credentials found")
 
-def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.dbhandler)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
+def get_meme(template_name:str, text0:str,text1:str,dbhandler:dbhandler.Dbhandler)->tuple: #returns (errorcode:int, img_url:str, error_descr:str)
 	TEMPLATE_IDS = dbhandler.get_meme_templates()
 	if template_name not in TEMPLATE_IDS.keys():
 		return (3,None,"Invalid template name",None)

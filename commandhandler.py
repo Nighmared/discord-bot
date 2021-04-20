@@ -3,6 +3,7 @@ from sqlite3 import OperationalError
 import logging
 from sys import version_info as python_version
 from discord.channel import TextChannel
+import discord.ext.commands
 import traceback
 
 from discord.errors import Forbidden, NotFound
@@ -56,14 +57,16 @@ class commandhandler:
 		"shorten":"shorten.py",
 		"xkcd":"xkcd.py",
 		"test":"test_sanity_check.py",
+		"loop":"loophandler.py",
+		"polyring":"loops/polyring.py"
 	}
 
 	def __init__(self,
-	dbhandler:dbhandler.dbhandler,
+	dbhandler:dbhandler.Dbhandler,
 	msgs:msglist,
 	PREFIX:str,
 	time_tracker,
-	client:discord.Client,
+	client:discord.ext.commands.Bot,
 	):
 		self.msgs = msgs
 		self.dbhandler = dbhandler

@@ -10,7 +10,7 @@ logger = logging.getLogger("botlogger")
 
 class handler:
 	SIGMADEFAULT = 20
-	def __init__(self,dbhandler:dbhandler.dbhandler) -> None:
+	def __init__(self,dbhandler:dbhandler.Dbhandler) -> None:
 		self.db = dbhandler
 		try:
 			self.RANDLIMIT = int(self.db.get_from_misc("nh_random_limit"))
