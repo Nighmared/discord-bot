@@ -208,5 +208,27 @@ class Dbhandler:
 		self.cursor.execute('''INSERT INTO meme_templates(template_name,template_id) VALUES(?,?)''', (template_name,template_id))
 		self.conn.commit()
 
+	def update_polyring_feeds(self,feed_list:list):
+		self.cursor.execute('''DELETE FROM polyring_feeds''')
+		for blog in feed_list:
+			self.cursor.execute('''INSERT INTO polyring_feeds(author,blog_url,feed_url) VALUES(?,?,?)''', (blog["title"],blog["url"],blog["feed"]) )
+		self.conn.commit()
+
+
+	def get_polyring_feeds(self):
+		self.cursor.execute('''SELECT fid,feed_url,author from polyring_feeds''')
+		feeds = self.cursor.fetchall()
+		return feeds
+	def get_polyring_posts(self):
+		self.cursor.execute('''SELECT pp.title, pp.description, pp.pubdate,pp.link,pf.author from polyring_posts pp JOIN polyring_feeds pf on pp.fid=pf.fid ''')
+		posts = self.cursor.fetchall()
+		return posts
+
+	def add_polyring_post(self,post,fid):
+		# title, descr,pubdate,fid,link
+		self.cursor.execute('''INSERT INTO polyring_posts(title,description,pubdate,fid,link) VALUES(?,?,?,?,?)''',
+		(post.title, post.descr, post.pubdate, fid, post.link))
+		self.conn.commit()
+
 	def close_down(self)->None:
 		self.conn.close()

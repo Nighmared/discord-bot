@@ -65,7 +65,6 @@ def get_ready(client:discord.Client, STARTTIME):
 	last_msgs_backup = cmdhandler.last_MSG
 	cmdhandler.last_MSG = last_msgs_backup
 	botlogger.get_ready()
-	loop.init(client,db)
 	
 
 

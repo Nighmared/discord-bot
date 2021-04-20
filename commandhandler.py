@@ -5,6 +5,7 @@ from sys import version_info as python_version
 from discord.channel import TextChannel
 import discord.ext.commands
 import traceback
+import loops.polyring as polyring
 
 from discord.errors import Forbidden, NotFound
 
@@ -20,7 +21,7 @@ import robohash
 import shorten
 import xkcd
 
-IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd)
+IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd, polyring)
 logger = logging.getLogger("botlogger")
 
 class commandhandler:
@@ -127,6 +128,7 @@ class commandhandler:
 			"triggerannoy":self.triggerannoy,
 			"xkcd":self.xkcd,
 			"pubkey":self.pubkey,
+			"polyreload":self.polyreload,
 		}
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
@@ -605,6 +607,13 @@ class commandhandler:
 		embObj.set_field_at(0,name="Ping",value=f"{ping_in_ms} ms")
 		await x.edit(embed=embObj) #refresh value in sent msg
 		return (0,None) #nothing to return as already sent
+	async def polyreload(self,message:discord.Message)->tuple:
+		try:
+			self.dbhandler.update_polyring_feeds(polyring.update_feeds())
+			return (0,None)
+		except Exception as e:
+			logger.error(str(e))
+			return(1,None)
 	async def pubkey(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="PUBLIC KEY", color=0x000000)	
 		file = discord.File("joniii.pub")

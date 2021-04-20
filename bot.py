@@ -31,8 +31,8 @@ handler.init(client,STARTTIME)
 
 @client.event
 async def on_ready():
-	loop.init(client,dbhandler = handler.db)
 	handler.ISRELOADING = False
+	loop.init(client, handler_ref = handler)
 	print(f'[bot.py] {client.user} has connected')
 	logger.info("Bot Online")
 
@@ -46,6 +46,7 @@ async def on_message(message:discord.Message):
 		msgs_backup = handler.cmdhandler.last_MSG
 		reload(handler)
 		await handler.doreload(message,client=client,STARTTIME=STARTTIME,msgs_backup=msgs_backup)
+		loop.init(client,handler)
 
 
 
