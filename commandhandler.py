@@ -19,10 +19,7 @@ import robohash
 import shorten
 import xkcd
 
-
 IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd)
-
-
 logger = logging.getLogger("botlogger")
 
 class commandhandler:
@@ -59,12 +56,7 @@ class commandhandler:
 		"shorten":"shorten.py",
 		"xkcd":"xkcd.py",
 		"test":"test_sanity_check.py",
-
-
 	}
-
-
-
 
 	def __init__(self,
 	dbhandler:dbhandler.dbhandler,
@@ -83,7 +75,6 @@ class commandhandler:
 		self.client = client
 		self.uptime_tracker = time_tracker
 		self.nh_handler = nhentai.handler(self.dbhandler)
-
 
 		self.cmd_handling_funcs = {
 			"addcommand":self.addcommand,
@@ -135,7 +126,6 @@ class commandhandler:
 			"pubkey":self.pubkey,
 		}
 
-
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
 	
@@ -147,7 +137,6 @@ class commandhandler:
 				else:
 					toSend.set_author(name=callee,icon_url=callee_pic)
 					toSend.timestamp = self.uptime_tracker.get_now_utc() # important cuz for some reason discord adjusts time assuming utc time...
-					#toSend.set_footer(text = f"Answering to {callee}") 
 				if file is not None:
 					self.last_MSG.append(await channel.send(file=file,embed=toSend))
 				else:
@@ -158,8 +147,6 @@ class commandhandler:
 		except discord.Forbidden:
 			return 5
 	
-
-
 	async def commandHandler(self,message:discord.Message,permlevel:int) -> int:
 		self.curr_msg = message
 		args = message.content[1:].split(" ")
@@ -372,8 +359,6 @@ class commandhandler:
 
 		return (0,embObj)
 		
-			
-
 	async def gettrack(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(
 			title="Tracker",
@@ -991,4 +976,3 @@ class commandhandler:
 		except ValueError: #invalid arg (not numeric), throw error
 			embObj = discord.Embed(title="xkcd",description="Invalid argument provided", color =self.ERRORCOLOR)
 			return(3,embObj)
-		

@@ -11,8 +11,9 @@ import subprocess as sub # needed for softreload to pull from git kekw
 from time import sleep
 import sys
 import botlogger 
+import loops
 
-IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime,)
+IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime,loops)
 
 SUDOID = 291291715598286848 
 
@@ -21,14 +22,15 @@ logger = logging.getLogger("botlogger")
 ISRELOADING = True
 
 
-handler = time_tracker = msgs = db = None
+cmdhandler = time_tracker = msgs = db = None
 def init(client:discord.Client,STARTTIME):
-	global handler,time_tracker,msgs,db
+	global cmdhandler,time_tracker,msgs,db
 	time_tracker = uptime.uptime(STARTTIME)
 	msgs = msglist.msglist(5)
 	db = dbhandler.dbhandler("discordbot.db")
-	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
+	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 	botlogger.get_ready()
+	loops.init(client)
 
 
 with open("PREFIX.txt") as prefix_file:
@@ -56,14 +58,15 @@ async def add_reaction(message, emote):
 
 #FIXME this is dumb, make less dumb ffs -> give all classes "backup" and "restore" methods so it can be just iterating over stuff
 def get_ready(client:discord.Client, STARTTIME):
-	global msgs,db,time_tracker,handler
+	global msgs,db,time_tracker,cmdhandler
 	msgs = msglist.msglist(5)
 	db = dbhandler.dbhandler("discordbot.db")
 	time_tracker = uptime.uptime(STARTTIME)
-	handler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
-	last_msgs_backup = handler.last_MSG
-	handler.last_MSG = last_msgs_backup
+	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
+	last_msgs_backup = cmdhandler.last_MSG
+	cmdhandler.last_MSG = last_msgs_backup
 	botlogger.get_ready()
+	loops.init(client)
 	
 
 
@@ -76,6 +79,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	is_recovering = False
 	
 	reload(discord)
+	loops.discard(client)
 
 
 	while work_to_do:	
@@ -142,8 +146,8 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 	#at this point everything should be fine
 	get_ready(client=client,STARTTIME = STARTTIME)
 	res = 0
-	handler.last_MSG = msgs_backup
-	handler.curr_msg = message
+	cmdhandler.last_MSG = msgs_backup
+	cmdhandler.curr_msg = message
 
 	#print("[bot.py] back from softreload")
 	logger.info("Return from softreload")
@@ -153,7 +157,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 		callee = message.author.nick
 	
 
-	res = max(await handler.sendMsg( channel=message.channel,toSend = embObj,callee=callee, callee_pic = message.author.avatar_url ),res)
+	res = max(await cmdhandler.sendMsg( channel=message.channel,toSend = embObj,callee=callee, callee_pic = message.author.avatar_url ),res)
 	await add_reaction(message,db.get_emote(res))
 	ISRELOADING = False
 	if isinstance(message.channel,discord.TextChannel):
@@ -165,15 +169,15 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 
 async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:str):
 	embObj = discord.Embed(title="How did this happen? :O")
-	f = discord.File(handler.dbhandler.get_nhentai_path_by_id(id)[0].rstrip(".blurred.jpg")+".jpg","IMG.jpg", spoiler=True)
+	f = discord.File(cmdhandler.dbhandler.get_nhentai_path_by_id(id)[0].rstrip(".blurred.jpg")+".jpg","IMG.jpg", spoiler=True)
 	embObj.set_image(url="attachment://IMG.jpg")
-	await handler.sendMsg(channel,embObj,callee=name,file=f, callee_pic = avatar_url )
+	await cmdhandler.sendMsg(channel,embObj,callee=name,file=f, callee_pic = avatar_url )
 
 async def handle(message:discord.Message) -> int:
 	global ISRELOADING
 	if ISRELOADING: return 0# prevent errors during reloading
 	#block bots
-	if(message.author.bot and not message.author.id == handler.toTrackID):
+	if(message.author.bot and not message.author.id == cmdhandler.toTrackID):
 		return 0
 	
 	#count messages per user
@@ -197,7 +201,7 @@ async def handle(message:discord.Message) -> int:
 		logger.info(f"{message.author.name}>{message.content}")
 
 
-	if(message.author.id == handler.toTrackID and not isCommand):
+	if(message.author.id == cmdhandler.toTrackID and not isCommand):
 		msgs.add_msg(message)
 		if(db.shouldAnnoy()): await add_reaction( message,this_emote)
 
@@ -213,7 +217,7 @@ async def handle(message:discord.Message) -> int:
 			return 88
 
 		else:
-			res = await handler.commandHandler(message,permlevel)
+			res = await cmdhandler.commandHandler(message,permlevel)
 		if(res == 99): #RELOAD
 			db.close_down()
 			return 99

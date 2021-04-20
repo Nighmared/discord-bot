@@ -6,19 +6,26 @@ from importlib import reload
 from datetime import datetime
 from sys import exit, argv
 import subprocess as sub # needed for softreload to pull from git kekw
-import msghandler #handle all incoming msgs
+import handler #handle all incoming msgs
+from discord.ext.commands import Bot
 
 
 logger = logging.getLogger("botlogger")
 
 
+with open("PREFIX.txt") as prefix_file:
+	PREFIX = prefix_file.read().strip()
+
 with open(".token.txt") as t_file:
 	TOKEN = t_file.read()
 
 STARTTIME = datetime.now()
-client = discord.Client()
 
-msghandler.init(client,STARTTIME)
+bot = Bot(PREFIX)
+client = bot.user
+#client = discord.Client()
+
+handler.init(client,STARTTIME)
 
 
 
@@ -26,20 +33,20 @@ msghandler.init(client,STARTTIME)
 
 @client.event
 async def on_ready():
-	msghandler.ISRELOADING = False
+	handler.ISRELOADING = False
 	print(f'[bot.py] {client.user} has connected')
 	logger.info("Bot Online")
 
 @client.event
 async def on_message(message:discord.Message):
-	handling_code = await msghandler.handle(message)
+	handling_code = await handler.handle(message)
 	if handling_code == 99: #hard reload
 		exit(0)
 	elif handling_code == 88: #soft reload
 		sub.run(["git","pull","--no-edit"]) # git pull --no-edit
-		msgs_backup = msghandler.handler.last_MSG
-		reload(msghandler)
-		await msghandler.doreload(message,client=client,STARTTIME=STARTTIME,msgs_backup=msgs_backup)
+		msgs_backup = handler.cmdhandler.last_MSG
+		reload(handler)
+		await handler.doreload(message,client=client,STARTTIME=STARTTIME,msgs_backup=msgs_backup)
 
 
 

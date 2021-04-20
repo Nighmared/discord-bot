@@ -21,7 +21,7 @@ class Test_Basics:
 			makes sure all modules that are reloaded on a softreload actually have the correct structure,
 			specifically that they all have an "IMPORTS" **tuple**
 		'''
-		import msghandler as msgh # same as above
+		import handler as msgh # same as above
 		print("sdf\n")
 		print("\033[0;32m")
 		for impo in msgh.IMPORTS:
@@ -49,7 +49,7 @@ class Test_Basics:
 		'''
 			Checks that all modules have a logger defined, basically just making it ready for further improvements
 		'''
-		import msghandler as msgh
+		import handler as msgh
 		for impo in msgh.IMPORTS:
 			print("checking "+impo.__name__)
 			assert type(impo.logger) == logging.Logger
@@ -71,7 +71,7 @@ class Test_Basics:
 		import inspirobot
 		import issues
 		import meme
-		import msghandler
+		import handler
 		import msglist
 		import neko
 		import nhentai
