@@ -146,5 +146,3 @@ class Post:
 def update_feeds()->list:
 	data = requests.get(url="https://xyquadrat.ch/polyring/data/members.json").json()
 	return data
-
-
