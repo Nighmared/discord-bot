@@ -25,8 +25,6 @@ class PolyringFetcher(discord.ext.commands.Cog):
 	async def getnews(self):
 		if self.handler_ref.ISRELOADING: #dont fuck around during reload
 			return;
-		#FIXME implement this
-		post = Post("NEW FEATURE COMING SOON",descr="but not yet working",author="joniii",link="https://blog.ethz.wtf",pubdate="blabla")	
 		feeds = self.dbhandler.get_polyring_feeds()
 		posts = self.dbhandler.get_polyring_posts()
 		postmap = self.get_post_map(posts)
@@ -44,11 +42,14 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 
 	def filter_new_posts(self,feeds,postmap):
+		header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0',
+              'Accept': 'text/html',
+              'Accept-Language': 'en-US'}
 		new_posts = []
 		for fid,f_url,author in feeds:
 			print(f_url)
 			try:
-				xml_root = ET.fromstring(requests.get(url=f_url.strip()).content.strip())
+				xml_root = ET.fromstring(requests.get(url=f_url.strip(),headers=header).content.strip())
 			except Exception as e:
 				
 				logger.fatal(str(e))
