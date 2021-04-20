@@ -87,8 +87,12 @@ class PolyringFetcher(discord.ext.commands.Cog):
 					link = link.attrib["href"]
 				else:
 					link = link.text
-				desc = fp.find(desc_key).text[:40]+"..."
-				#print(pub,author,title,link,desc)
+				try: 
+					desc = fp.find(desc_key).text[:40]+"..."
+				except AttributeError: #ignore fucky feeds
+					logger.error(f"Something wrong with feed {author}, skipping")
+					continue;
+
 				post = Post(title,descr=desc,author=author,link=link,pubdate=pub)
 				if self.make_post_hash(post.tuple) not in postmap.keys():
 					logging.info(f"adding new post by {author}")
