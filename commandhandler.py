@@ -602,6 +602,7 @@ class commandhandler:
 		a = self.uptime_tracker.get_now_utc() #measure time it takes to send msg
 		x = await channel.send(embed=embObj)
 		b = self.uptime_tracker.get_now_utc()
+		self.last_MSG.append(x) #cuz not automatically added kek
 		ping_in_ms = (b-a).total_seconds()*1000 #compute ms of timedelta
 
 		embObj.set_field_at(0,name="Ping",value=f"{ping_in_ms} ms")
