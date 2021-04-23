@@ -90,7 +90,8 @@ class PolyringFetcher(discord.ext.commands.Cog):
 				try: 
 					desc = fp.find(desc_key).text[:40]+"..."
 				except AttributeError: #ignore fucky feeds
-					logger.error(f"Something wrong with feed {author}, skipping")
+					desc = "-"
+					logger.warning(f"didn't find description for entry in {author} rss feed")
 					continue;
 
 				post = Post(title,descr=desc,author=author,link=link,pubdate=pub)
