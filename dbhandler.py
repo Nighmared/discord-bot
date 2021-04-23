@@ -219,7 +219,7 @@ class Dbhandler:
 
 
 	def get_polyring_feeds(self):
-		self.cursor.execute('''SELECT fid,feed_url,author from polyring_feeds''')
+		self.cursor.execute('''SELECT fid,feed_url,author from polyring_feeds where enabled=1''')
 		feeds = self.cursor.fetchall()
 		return feeds
 	def get_polyring_posts(self):
