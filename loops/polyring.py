@@ -21,7 +21,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 		self.getnews.start()
 	
-	@tasks.loop(seconds=120)
+	@tasks.loop(seconds=300)
 	async def getnews(self):
 		if self.handler_ref.ISRELOADING: #dont fuck around during reload
 			return;
