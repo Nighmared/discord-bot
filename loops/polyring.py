@@ -92,12 +92,13 @@ class PolyringFetcher(discord.ext.commands.Cog):
 				except AttributeError: #ignore fucky feeds
 					desc = "-"
 					logger.warning(f"didn't find description for entry in {author} rss feed")
-					continue;
 
 				post = Post(title,descr=desc,author=author,link=link,pubdate=pub)
+				print("working on ",title)
 				if self.make_post_hash(post.tuple) not in postmap.keys():
 					logging.info(f"adding new post by {author}")
 					new_posts.append((fid,post))
+		print("returning from post doing stuff thingy with",len(new_posts)," new posts")
 		return new_posts
 
 	def make_post_hash(self,post_tup:tuple) -> int:
