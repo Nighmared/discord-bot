@@ -6,6 +6,7 @@ from requests.api import post
 import dbhandler
 import requests
 import xml.etree.ElementTree as ET
+from html import unescape
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
@@ -47,6 +48,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
               'Accept-Language': 'en-US'}
 		new_posts = []
 		for fid,f_url,author in feeds:
+			has_warned_formatting = False
 			print(f_url)
 			try:
 				xml_root = ET.fromstring(requests.get(url=f_url.strip(),headers=header).content.strip())
@@ -88,10 +90,12 @@ class PolyringFetcher(discord.ext.commands.Cog):
 				else:
 					link = link.text
 				try: 
-					desc = fp.find(desc_key).text[:40]+"..."
+					desc = unescape(fp.find(desc_key).text[:40]+"...")
 				except AttributeError: #ignore fucky feeds
-					desc = "-"
-					logger.warning(f"didn't find description for entry in {author} rss feed")
+					desc = "[No description tag provided]"
+					if not has_warned_formatting:
+						logger.warning(f"{author}'s rss feed seems to be missing a description tag of kinds")
+						has_warned_formatting = True
 
 				post = Post(title,descr=desc,author=author,link=link,pubdate=pub)
 				print("working on ",title)
