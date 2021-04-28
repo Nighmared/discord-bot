@@ -48,7 +48,6 @@ class PolyringFetcher(discord.ext.commands.Cog):
               'Accept-Language': 'en-US'}
 		new_posts = []
 		for fid,f_url,author in feeds:
-			has_warned_formatting = False
 			print(f_url)
 			try:
 				xml_root = ET.fromstring(requests.get(url=f_url.strip(),headers=header).content.strip())
@@ -93,12 +92,8 @@ class PolyringFetcher(discord.ext.commands.Cog):
 					desc = unescape(fp.find(desc_key).text[:40]+"...")
 				except AttributeError: #ignore fucky feeds
 					desc = "[No description tag provided]"
-					if not has_warned_formatting:
-						logger.warning(f"{author}'s rss feed seems to be missing a description tag of kinds")
-						has_warned_formatting = True
 
 				post = Post(title,descr=desc,author=author,link=link,pubdate=pub)
-				print("working on ",title)
 				if self.make_post_hash(post.tuple) not in postmap.keys():
 					logging.info(f"adding new post by {author}")
 					new_posts.append((fid,post))
