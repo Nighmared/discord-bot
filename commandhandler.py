@@ -410,7 +410,10 @@ class commandhandler:
 			return (1,embObj)
 	async def info(self,message:discord.Message)-> tuple:
 		try:
+
 			embObj = discord.Embed(title=self.client.user.name,description="Info about the greatest bot",color=self.SYSTEMCOLOR,url="http://brrr.nighmared.tech")
+			if int(self.dbhandler.get_from_misc("debug"))>0:
+				embObj.add_field(name="TESTING DEPLOYMENT",value=f"Prefix: `{self.PREFIX}`")
 			embObj.set_thumbnail(url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455")
 		#	embObj.set_author(name="joniii")
 			embObj.add_field(name="Author", value="<@!291291715598286848>")
@@ -419,6 +422,7 @@ class commandhandler:
 			embObj.add_field(name="discord.py Version",value=f"`{discord.version_info.major}.{discord.version_info.minor}.{discord.version_info.micro}`")
 			embObj.add_field(name="Python Version",value=f"`{python_version.major}.{python_version.minor}.{python_version.micro}`")
 			embObj.add_field(name="Uptime",value="`"+self.uptime_tracker.getUptime()+"`",inline=False)
+			
 
 			return (0,embObj)
 		except Exception as e:

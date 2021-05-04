@@ -24,8 +24,13 @@ class PolyringFetcher(discord.ext.commands.Cog):
 	
 	@tasks.loop(seconds=300)
 	async def getnews(self):
+
 		if self.handler_ref.ISRELOADING: #dont fuck around during reload
-			return;
+			return
+		
+		if int(self.dbhandler.get_from_misc("debug"))>0: #dont send polyring posts on debug deploy...
+			return
+
 		feeds = self.dbhandler.get_polyring_feeds()
 		posts = self.dbhandler.get_polyring_posts()
 		postmap = self.get_post_map(posts)
