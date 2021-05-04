@@ -60,7 +60,9 @@ jobs:
 
       #runs pytest
       - name: "Unit Tests"
-        run: pytest -vx
+        run: |
+          cd src
+          pytest -vx
 
       
 
