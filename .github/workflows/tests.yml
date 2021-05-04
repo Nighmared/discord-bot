@@ -28,6 +28,7 @@ jobs:
       #prepares everything
       - name: setup
         run: |
+          cd src
           pip3 install discord.py scikit-image scipy requests
           pip3 install pytest
           echo "nope">PREFIX.txt 
