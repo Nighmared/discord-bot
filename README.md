@@ -10,6 +10,40 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 
 
 #### Structure
+```
+├── src
+│   ├── loops
+│   │   ├── __init__.py
+│   │   └── polyring.py
+│   ├── bot.log
+│   ├── botlogger.py
+│   ├── bot.py
+│   ├── client.py
+│   ├── commandhandler.py
+│   ├── dbhandler.py
+│   ├── discordbot.db
+│   ├── dotree.sh
+│   ├── handler.py
+│   ├── inspirobot.py
+│   ├── issues.py
+│   ├── joniii.pub
+│   ├── loophandler.py
+│   ├── meme.py
+│   ├── msglist.py
+│   ├── neko.py
+│   ├── nhentai.py
+│   ├── PREFIX.txt
+│   ├── push.sh
+│   ├── robohash.py
+│   ├── runner.sh
+│   ├── shorten.py
+│   ├── stalk.py
+│   ├── test_sanity_check.py
+│   ├── tree.txt
+│   ├── uptime.py
+│   └── xkcd.py
+├── LICENSE
+└── README.md
 
-<iframe src="src/tree.txt">
-
+2 directories, 31 files
+```

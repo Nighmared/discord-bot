@@ -1,1 +1,1 @@
-tree --dirsfirst --sort=name -I "__pycache__" ../ >tree.txt
+tree --dirsfirst --sort=name -I "__pycache__" ../ 
