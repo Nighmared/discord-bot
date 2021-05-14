@@ -28,6 +28,7 @@ jobs:
       #prepares everything
       - name: setup
         run: |
+          cd src
           pip3 install discord.py scikit-image scipy requests
           pip3 install pytest
           echo "nope">PREFIX.txt 
@@ -35,7 +36,9 @@ jobs:
 
        # checks if program can run
       - name: "Check for hard errors"
-        run: python3.8 bot.py debug
+        run: |
+          cd src
+          python3.8 bot.py debug
 
 
   Unit_Tests:
@@ -49,6 +52,7 @@ jobs:
 
       - name: setup
         run: |
+          cd src
           pip3 install discord.py scikit-image scipy requests
           pip3 install pytest
           echo "nope">PREFIX.txt 
@@ -56,7 +60,9 @@ jobs:
 
       #runs pytest
       - name: "Unit Tests"
-        run: pytest -vx
+        run: |
+          cd src
+          pytest -vx
 
       
 
