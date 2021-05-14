@@ -197,7 +197,7 @@ class Dbhandler:
 			print("[dbhandler.py] add_meme got fucked -> ", str(e))
 
 	def get_meme_templates(self)->dict:
-		self.cursor.execute('''SELECT template_name,template_id FROM meme_templates''')
+		self.cursor.execute('''SELECT template_name,template_id FROM meme_templates order by template_name asc''')
 		res = self.cursor.fetchall()
 		templates = {}
 		for name,id in res:
