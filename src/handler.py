@@ -82,7 +82,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 
 	while work_to_do:	
 		failedmodules = ""
-		modulenames = "discord.py\nmsghandler\n"
+		modulenames = "discord.py\nhandler.py\n"
 		submodules = set()
 		for module in IMPORTS:
 			try:

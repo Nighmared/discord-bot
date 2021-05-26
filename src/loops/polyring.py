@@ -34,7 +34,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 		feeds = self.dbhandler.get_polyring_feeds()
 		posts = self.dbhandler.get_polyring_posts()
 		postmap = self.get_post_map(posts)
-		stuff_to_send = self.filter_new_posts(feeds,postmap)
+		stuff_to_send = await self.filter_new_posts(feeds,postmap)
 		for fid,post in stuff_to_send:
 			await self.send_new_post(post)
 			self.dbhandler.add_polyring_post(post=post,fid=fid)
@@ -47,7 +47,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 		return pmap
 
 
-	def filter_new_posts(self,feeds,postmap):
+	async def filter_new_posts(self,feeds,postmap):
 		header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0',
               'Accept': 'text/html',
               'Accept-Language': 'en-US'}
