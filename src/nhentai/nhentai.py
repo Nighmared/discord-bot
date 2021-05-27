@@ -42,7 +42,7 @@ class handler:
 		
 		if indx_arg:
 			resp = requests.get(f"https://nhentai.net/g/{indx_arg}/")
-			if self.illegal_tags(resp):
+			if self.illegal_tags(resp,indx):
 				self.db.nhentai_block(indx_arg)
 				return None,indx_arg
 				
