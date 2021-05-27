@@ -4,3 +4,4 @@ lxml
 scipy
 scikit-image
 requests
+pytest
