@@ -185,7 +185,7 @@ class Dbhandler:
 		try:
 			curr_state = self.cursor.fetchall()[0][0]
 		except IndexError:
-			self.cursor.execute('''insert into nhentai values(?,?,?)''',(id,"",1))
+			self.cursor.execute('''insert into nhentai values(?,?,?)''',(id,f"fake_{id}",1))
 			return
 		self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
 		self.conn.commit()
