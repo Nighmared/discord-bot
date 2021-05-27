@@ -7,6 +7,7 @@ import dbhandler
 import requests
 import xml.etree.ElementTree as ET
 from html import unescape
+from time import sleep
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
@@ -27,9 +28,14 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 		if self.handler_ref.ISRELOADING: #dont fuck around during reload
 			return
-		
-		if int(self.dbhandler.get_from_misc("debug"))>0: #dont send polyring posts on debug deploy...
-			return
+		try:
+			if int(self.dbhandler.get_from_misc("debug"))>0: #dont send polyring posts on debug deploy...
+				return
+		except Exception as e:
+			logger.error("db error")
+			sleep(2)
+			if int(self.dbhandler.get_from_misc("debug"))>0:
+				return
 
 		feeds = self.dbhandler.get_polyring_feeds()
 		posts = self.dbhandler.get_polyring_posts()

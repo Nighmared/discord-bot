@@ -13,7 +13,7 @@ import dbhandler
 import issues
 import msglist
 import neko
-import nhentai
+from nhentai import nhentai
 import inspirobot
 import meme
 import stalk

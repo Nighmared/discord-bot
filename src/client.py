@@ -1,4 +1,4 @@
-from prompt_toolkit import prompt
+
 import discord
 import asyncio
 import threading
@@ -19,10 +19,10 @@ async def on_ready():
 
 @client.event
 async def on_message(message:discord.message):
-	if message.channel != curr_channel or message.author.bot:
+	if message.channel != curr_channel: # or message.author.bot:
 		return
-	start = f"[{message.channel.name}] {message.author.nick}"
-	print(f"\n{start.ljust(30)}>{message.content}\n>>",end="")
+	start = f"[{message.channel.name}] {message.author.name}"
+	print(f"\n{start.ljust(40)}>{message.content}")
 
 
 def inhandler():

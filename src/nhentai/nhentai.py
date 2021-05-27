@@ -3,10 +3,14 @@ import skimage
 import skimage.io,skimage.filters
 import dbhandler
 import logging
+from bs4 import BeautifulSoup
 
 IMPORTS=(dbhandler,)
 logger = logging.getLogger("botlogger")
 
+
+with open('nhentai/tags.blacklist','r') as f:
+	NONO_TAGS = [x.strip() for x in f.readlines()]
 
 class handler:
 	SIGMADEFAULT = 20
@@ -35,15 +39,26 @@ class handler:
 	def __download_random_image(self,indx_arg=None)->str:
 		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
 		blocked_ids = [x for x in self.db.get_nhentai_blocked()]
+		
+		if indx_arg:
+			resp = requests.get(f"https://nhentai.net/g/{indx_arg}/")
+			if self.illegal_tags(resp):
+				self.db.nhentai_block(indx_arg)
+				return None,indx_arg
+				
 		indx = int(random.random()*self.RANDLIMIT) if indx_arg is None else indx_arg
 		if indx in cached_ids and not indx in blocked_ids: #if already been downloaded
 			return None,indx
-		response = requests.get(f"https://nhentai.net/g/{indx}/1")
-		while(response.status_code == 404 or indx in blocked_ids):
+
+		response = requests.get(f"https://nhentai.net/g/{indx}")
+
+		while(response.status_code == 404 or indx in blocked_ids or self.illegal_tags(response,indx)):
 			indx = int(random.random()*self.RANDLIMIT)
 			if indx in cached_ids: #if already been downloaded
 				return None,indx
-			response = requests.get(f"https://nhentai.net/g/{indx}/1")
+			response = requests.get(f"https://nhentai.net/g/{indx}")
+		
+		response = requests.get(f"https://nhentai.net/g/{indx}/1")
 		
 		cont = response.text
 		match = re.search('(https://i\.nhentai\.net).*?\"',cont)
@@ -68,3 +83,15 @@ class handler:
 			return 0
 		except:
 			return 1
+	
+	def illegal_tags(self,response: requests.Response, id:int)->bool:
+		soup = BeautifulSoup(response.content, features="lxml")
+		tag_links = soup.find_all("a",{"class":"tag"})
+		for t in tag_links:
+			tag = t.find("span",{"class":"name"}).text
+
+			if tag.lower() in NONO_TAGS:
+				logger.info(f"Found tag violating policy, blocking id.  [tag={tag}]")
+				self.db.nhentai_block(id)
+				return True
+		return False

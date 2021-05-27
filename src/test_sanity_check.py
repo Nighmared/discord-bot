@@ -74,7 +74,7 @@ class Test_Basics:
 		import handler
 		import msglist
 		import neko
-		import nhentai
+		from nhentai import nhentai
 		import robohash
 		import stalk
 		import uptime

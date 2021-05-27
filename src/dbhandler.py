@@ -214,6 +214,10 @@ class Dbhandler:
 			try:
 				self.cursor.execute('''INSERT INTO polyring_feeds(author,blog_url,feed_url) VALUES(?,?,?)''', (blog["title"],blog["url"],blog["feed"]) )
 			except Exception as e:
+				try:
+					self.cursor.execute('''UPDATE polyring_feeds SET blog_url=?, feed_url=? where author=?''',(blog["url"],blog["feed"],blog["title"]))
+				except OperationalError as e:
+					logger.error(str(e))
 				continue
 		self.conn.commit()
 
