@@ -45,7 +45,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			await self.send_new_post(post)
 			self.dbhandler.add_polyring_post(post=post,fid=fid)
 		
-		self.dbhandler.ping_loop("Polyring",time.time())
+		self.dbhandler.ping_loop("Polyring",time())
 
 	
 	def get_post_map(self,posts)->dict:
