@@ -193,7 +193,7 @@ class Dbhandler:
 			self.cursor.execute('''insert into nhentai values(?,?,?)''',(id,f"fake_{id}",1))
 		
 		self.conn.commit()
-		
+
 		if noswitch or not int(curr_state):
 			logger.info(f"Blocked nhentai id {id}")
 		else:
@@ -248,6 +248,10 @@ class Dbhandler:
 		# title, descr,pubdate,fid,link
 		self.cursor.execute('''INSERT INTO polyring_posts(title,description,pubdate,fid,link) VALUES(?,?,?,?,?)''',
 		(post.title, post.descr, post.pubdate, fid, post.link))
+		self.conn.commit()
+	
+	def ping_loop(self,loopname:str, pingtime:float)->None:
+		self.cursor.execute('''UPDATE loops SET lastseen=MAX(lastseen,?) WHERE name=?''',(pingtime,int(loopname)))
 		self.conn.commit()
 
 	def close_down(self)->None:

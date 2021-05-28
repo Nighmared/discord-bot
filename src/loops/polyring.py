@@ -3,11 +3,11 @@ import discord
 import discord.ext.commands
 from discord.ext import tasks
 from requests.api import post
-import dbhandler
-import requests
 import xml.etree.ElementTree as ET
 from html import unescape
-from time import sleep
+from time import sleep, time
+import dbhandler
+import requests
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
@@ -18,7 +18,7 @@ POLYRING_COLOR = 0x1F407A
 class PolyringFetcher(discord.ext.commands.Cog):
 	def __init__(self, client:discord.ext.commands.Bot, handler_ref):
 		self.client = client
-		self.dbhandler = handler_ref.db
+		self.dbhandler = handler_ref.db #type: dbhandler.Dbhandler
 		self.handler_ref = handler_ref
 
 		self.getnews.start()
@@ -44,6 +44,8 @@ class PolyringFetcher(discord.ext.commands.Cog):
 		for fid,post in stuff_to_send:
 			await self.send_new_post(post)
 			self.dbhandler.add_polyring_post(post=post,fid=fid)
+		
+		self.dbhandler.ping_loop("Polyring",time.time())
 
 	
 	def get_post_map(self,posts)->dict:

@@ -38,8 +38,10 @@ class handler:
 
 	def __download_random_image(self,indx_arg=None)->str:
 		cached_ids = [x[0] for x in self.db.get_nhentai_ids()]
-		blocked_ids = [x for x in self.db.get_nhentai_blocked()]
-		
+		blocked_ids = [int(x) for x in self.db.get_nhentai_blocked()]
+		if indx_arg and indx_arg in blocked_ids:
+			return None,indx_arg #don't waste time on tag lookup if its already blocked anyway
+
 		if indx_arg:
 			resp = requests.get(f"https://nhentai.net/g/{indx_arg}/")
 			if self.illegal_tags(resp,indx):
