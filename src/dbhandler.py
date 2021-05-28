@@ -250,6 +250,11 @@ class Dbhandler:
 		(post.title, post.descr, post.pubdate, fid, post.link))
 		self.conn.commit()
 	
+	def get_loops(self):
+		self.cursor.execute('''SELECT name,lastseen FROM loops''')
+		res = self.cursor.fetchall()
+		return res
+
 	def ping_loop(self,loopname:str, pingtime:float)->None:
 		self.cursor.execute('''UPDATE loops SET lastseen=MAX(lastseen,?) WHERE name=?''',(int(pingtime),loopname))
 		self.conn.commit()

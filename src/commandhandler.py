@@ -7,6 +7,7 @@ import discord.ext.commands
 import traceback
 import loops.polyring as polyring
 
+from time import time as current_time_sec
 from discord.errors import Forbidden, NotFound
 
 import dbhandler
@@ -129,6 +130,7 @@ class commandhandler:
 			"xkcd":self.xkcd,
 			"pubkey":self.pubkey,
 			"polyreload":self.polyreload,
+			"loopstatus":self.loopstatus,
 		}
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
@@ -436,6 +438,21 @@ class commandhandler:
 			embObj = discord.Embed(title="Inspire", description="Newly generated inspirobot.me quote",url="https://inspirobot.me",color=self.MISCCOLOR)
 			embObj.set_image(url=cont)
 		return (error,embObj)
+	
+	async def loopstatus(self, message:discord.Message)->tuple:
+		try:
+			loops = self.dbhandler.get_loops()
+		except OperationalError:
+			logger.error("getting loop info from db went wrong")
+			return 1,None
+		curr_time = current_time_sec()
+		emb_obj = discord.Embed(title="Loops",description="How long since each loop was last seen alive",color=self.SYSTEMCOLOR)
+		for loopname,lastseen in loops:
+			emb_obj.add_field(title=loopname,value=f"{curr_time-lastseen}s",inline=False)
+		
+		return 0,emb_obj
+		
+
 	async def makememe(self,message:discord.Message)->tuple:
 		try:
 			probable_sqli = message.content.count("\"")>2
