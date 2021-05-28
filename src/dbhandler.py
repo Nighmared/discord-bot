@@ -45,7 +45,7 @@ class Dbhandler:
 		self.conn.commit()
 
 	def get_most_messages(self):
-		self.cursor.execute('''SELECT name,msgcount FROM users ORDER BY msgcount DESC''')
+		self.cursor.execute('''SELECT name,msgcount FROM users ORDER BY msgcount DESC LIMIT 20''')
 		res = self.cursor.fetchall()
 		return res
 
