@@ -11,39 +11,50 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 
 #### Structure
 ```
+../
 ├── src
-│   ├── loops
-│   │   ├── __init__.py
-│   │   └── polyring.py
-│   ├── bot.log
-│   ├── botlogger.py
-│   ├── bot.py
-│   ├── client.py
-│   ├── commandhandler.py
-│   ├── dbhandler.py
-│   ├── discordbot.db
-│   ├── dotree.sh
-│   ├── handler.py
-│   ├── inspirobot.py
-│   ├── issues.py
-│   ├── joniii.pub
-│   ├── loophandler.py
-│   ├── meme.py
-│   ├── msglist.py
-│   ├── neko.py
-│   ├── nhentai.py
-│   ├── PREFIX.txt
-│   ├── push.sh
-│   ├── robohash.py
-│   ├── runner.sh
-│   ├── shorten.py
-│   ├── stalk.py
-│   ├── test_sanity_check.py
-│   ├── tree.txt
-│   ├── uptime.py
-│   └── xkcd.py
+│   ├── loops
+│   │   ├── __init__.py
+│   │   └── polyring.py
+│   ├── nhentai
+│   │   ├── __init__.py
+│   │   ├── nhentai.py
+│   │   └── tags.blacklist
+│   ├── bot.log
+│   ├── botlogger.py
+│   ├── bot.py
+│   ├── client2.py
+│   ├── client_debug.log
+│   ├── clientdebug.log
+│   ├── client_log.log
+│   ├── client.py
+│   ├── commandhandler.py
+│   ├── curses_metrics.log
+│   ├── dbhandler.py
+│   ├── discordbot.db
+│   ├── dotree.sh
+│   ├── handler.py
+│   ├── inspirobot.py
+│   ├── issues.py
+│   ├── joniii.pub
+│   ├── keys.log
+│   ├── loophandler.py
+│   ├── meme.py
+│   ├── msglist.py
+│   ├── neko.py
+│   ├── PREFIX.txt
+│   ├── push.sh
+│   ├── robohash.py
+│   ├── runner.sh
+│   ├── shorten.py
+│   ├── spam.log
+│   ├── stalk.py
+│   ├── test_sanity_check.py
+│   ├── uptime.py
+│   └── xkcd.py
 ├── LICENSE
-└── README.md
+├── README.md
+└── requirements.txt
 
-2 directories, 31 files
+3 directories, 40 files
 ```
