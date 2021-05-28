@@ -445,7 +445,7 @@ class commandhandler:
 		except OperationalError:
 			logger.error("getting loop info from db went wrong")
 			return 1,None
-		curr_time = current_time_sec()
+		curr_time = int(current_time_sec())
 		emb_obj = discord.Embed(title="Loops",description="How long since each loop was last seen alive",color=self.SYSTEMCOLOR)
 		for loopname,lastseen in loops:
 			emb_obj.add_field(name=loopname,value=f"{curr_time-lastseen}s",inline=False)
