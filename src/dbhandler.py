@@ -182,16 +182,18 @@ class Dbhandler:
 		return new_val>0
 	def nhentai_block(self,id,noswitch=False)->None:
 		self.cursor.execute(f'''select blocked from nhentai where id={id}''')
-		try:
-			curr_state = self.cursor.fetchall()[0][0]
-		except IndexError:
-			self.cursor.execute('''insert into nhentai values(?,?,?)''',(id,f"fake_{id}",1))
-			return
-		if noswitch:
-			self.cursor.execute(f'''UPDATE nhentai SET blocked=1 WHERE id=?''',(id,))
+		res = self.cursor.fetchall()
+		if len(res)>0:
+			curr_state = res[0][0]
+			if noswitch:
+				self.cursor.execute(f'''UPDATE nhentai SET blocked=1 WHERE id=?''',(id,))
+			else:
+				self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
 		else:
-			self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
+			self.cursor.execute('''insert into nhentai values(?,?,?)''',(id,f"fake_{id}",1))
+		
 		self.conn.commit()
+		
 		if noswitch or not int(curr_state):
 			logger.info(f"Blocked nhentai id {id}")
 		else:
