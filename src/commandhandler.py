@@ -518,7 +518,7 @@ class commandhandler:
 					field_value += to_add
 				rank += 1
 			if field_value !="":
-				embObj.add_field(name=f"Ranking",value=field_value,inline=False)
+				embObj.add_field(name=f"Ranking",value=field_value,inline=True)
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Message Leaderboard", description = str(e), color =self.ERRORCOLOR)
