@@ -91,7 +91,7 @@ class handler:
 			tag = t.find("span",{"class":"name"}).text
 
 			if tag.lower() in NONO_TAGS:
-				logger.info(f"Found tag violating policy, blocking id.  [tag={tag}]")
-				self.db.nhentai_block(id)
+				logger.info(f"Found tag violating policy, blocking id {id}.  [tag={tag}]")
+				self.db.nhentai_block(id,True)
 				return True
 		return False

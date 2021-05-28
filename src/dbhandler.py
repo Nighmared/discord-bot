@@ -180,15 +180,22 @@ class Dbhandler:
 		self.set_to_misc("nsfw",new_val)
 		self.conn.commit()
 		return new_val>0
-	def nhentai_block(self,id)->None:
+	def nhentai_block(self,id,noswitch=False)->None:
 		self.cursor.execute(f'''select blocked from nhentai where id={id}''')
 		try:
 			curr_state = self.cursor.fetchall()[0][0]
 		except IndexError:
 			self.cursor.execute('''insert into nhentai values(?,?,?)''',(id,f"fake_{id}",1))
 			return
-		self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
+		if noswitch:
+			self.cursor.execute(f'''UPDATE nhentai SET blocked=1 WHERE id=?''',(id,))
+		else:
+			self.cursor.execute(f'''UPDATE nhentai SET blocked={1-int(curr_state)} WHERE id={id}''')
 		self.conn.commit()
+		if noswitch or not int(curr_state):
+			logger.info(f"Blocked nhentai id {id}")
+		else:
+			logger.info(f"Unblocked nhentai id {id}")
 
 	def add_meme(self, template_name:str, uid:int, caption:str, img_url:str)->int:
 		try:
