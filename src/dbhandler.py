@@ -251,7 +251,7 @@ class Dbhandler:
 		self.conn.commit()
 	
 	def ping_loop(self,loopname:str, pingtime:float)->None:
-		self.cursor.execute('''UPDATE loops SET lastseen=MAX(lastseen,?) WHERE name=?''',(pingtime,int(loopname)))
+		self.cursor.execute('''UPDATE loops SET lastseen=MAX(lastseen,?) WHERE name=?''',(int(pingtime),loopname))
 		self.conn.commit()
 
 	def close_down(self)->None:
