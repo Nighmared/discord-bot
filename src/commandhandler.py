@@ -448,7 +448,7 @@ class commandhandler:
 		curr_time = int(current_time_sec())
 		emb_obj = discord.Embed(title="Loops",description="How long since each loop was last seen alive",color=self.SYSTEMCOLOR)
 		for loopname,lastseen in loops:
-			emb_obj.add_field(name=loopname,value=f"{curr_time-lastseen}s",inline=False)
+			emb_obj.add_field(name=loopname,value=f"{curr_time-lastseen}s",inline=True)
 		
 		return 0,emb_obj
 		
@@ -518,7 +518,7 @@ class commandhandler:
 					field_value += to_add
 				rank += 1
 			if field_value !="":
-				embObj.add_field(name=f"Ranking",value=field_value,inline=True)
+				embObj.add_field(name=f"Ranking",value=field_value,inline=False)
 			return (0,embObj)
 		except Exception as e:
 			embObj = discord.Embed(title="Message Leaderboard", description = str(e), color =self.ERRORCOLOR)
