@@ -271,8 +271,10 @@ class Dbhandler:
 		self.cursor.execute("""SELECT uid FROM guesses""")
 		uids = [x[0] for x in self.cursor.fetchall()]
 		if uid in uids:
+			logger.info("updating guess")
 			self.cursor.execute("""UPDATE guesses SET guess=? where uid=?""",(uid,guess))
 		else:
+			logger.info("inserting new guess")
 			self.cursor.execute("""INSERT INTO guesses(uid,guess) VALUES(?,?)""",(uid,guess))
 		
 		self.conn.commit()
