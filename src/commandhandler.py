@@ -131,7 +131,7 @@ class commandhandler:
 			"pubkey":self.pubkey,
 			"polyreload":self.polyreload,
 			"loopstatus":self.loopstatus,
-			"guessaverage":self.guessaverage,
+			"guessavg":self.guessaverage,
 		}
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
