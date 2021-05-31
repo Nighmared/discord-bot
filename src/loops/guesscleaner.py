@@ -6,7 +6,7 @@ from time import localtime,time
 
 import dbhandler
 
-IMPORTS = (dbhandler)
+IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
 
 class GuessCleaner(discord.ext.commands.Cog):
@@ -18,7 +18,7 @@ class GuessCleaner(discord.ext.commands.Cog):
 		self.cleaner.start()
 
 	@tasks.loop(seconds=3600)
-	def cleaner(self):
+	async def cleaner(self):
 		logger.info("Cleaner loop got called")
 		ltime = localtime()
 		if ltime.tm_hour == 13 and ltime.tm_wday<5:
