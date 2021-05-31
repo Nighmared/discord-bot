@@ -455,8 +455,10 @@ class commandhandler:
 			time_diff %= 60
 			if hours>0:
 				return f"{hours}h {mins}m"
-			else:
+			elif mins>0:
 				return f"{mins}m {time_diff}s"
+			else:
+				return f"{time_diff}s"
 
 
 
@@ -468,7 +470,7 @@ class commandhandler:
 		curr_time = int(current_time_sec())
 		emb_obj = discord.Embed(title="Loops",description="How long since each loop was last seen alive",color=self.SYSTEMCOLOR)
 		for loopname,lastseen in loops:
-			emb_obj.add_field(name=loopname,value=f"{time_string(curr_time-lastseen)}s",inline=True)
+			emb_obj.add_field(name=loopname,value=time_string(curr_time-lastseen),inline=True)
 		
 		return 0,emb_obj
 		
