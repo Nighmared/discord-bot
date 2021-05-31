@@ -377,7 +377,7 @@ class commandhandler:
 	async def guessaverage(self,message:discord.Message)->tuple:
 		dm_chan = await message.author.create_dm() #type: discord.DMChannel
 		dm_emb_obj = discord.Embed(title="Average of tracked guesses", description=f"Result: {self.dbhandler.get_avg_guess()}")
-		dm_chan.send(embed=dm_emb_obj)
+		await dm_chan.send(embed=dm_emb_obj)
 		emb_obj = discord.Embed(title="Magic feature", description="You should've gotten a dm <3")
 		return 0,emb_obj
 
