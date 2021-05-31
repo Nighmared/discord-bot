@@ -181,6 +181,10 @@ async def handle(message:discord.Message) -> int:
 	db.increment_user_message_count(message.author.id, message.author.name,message.author.mention)
 	
 
+	if message.guild.id == 747752542741725244 and message.content.startswith("$g") and len(args := message.content.split(" "))>1 and args[1].isnumeric():
+		db.add_average(message.author.id, int(args[1]))
+
+
 	isCommand = message.content.startswith(PREFIX)
 	permlevel = db.get_perm_level(message.author.id)
 	isJoniii = message.author.id == SUDOID #hardcode that sucker
