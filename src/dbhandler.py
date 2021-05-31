@@ -286,4 +286,4 @@ class Dbhandler:
 	def get_avg_guess(self)->int:
 		self.cursor.execute("SELECT avg(guess) FROM guesses")
 		res = self.cursor.fetchall()[0][0]
-		return res
+		return int(res)
