@@ -2,9 +2,10 @@ import discord
 import discord.ext.commands
 import logging
 import loops.polyring as polyring
+import loops.guesscleaner as guesscleaner
 import handler
 
-IMPORTS = (polyring,)
+IMPORTS = (polyring,guesscleaner)
 logger = logging.getLogger("botlogger")
 
 
@@ -13,6 +14,7 @@ def init(client: discord.ext.commands.Bot,handler_ref:handler):
 	
 	LOOPCOGS = (
 		polyring.PolyringFetcher,
+		guesscleaner.GuessCleaner,
 	)
 	
 	logger.info("adding cogs")

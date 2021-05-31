@@ -131,6 +131,7 @@ class commandhandler:
 			"pubkey":self.pubkey,
 			"polyreload":self.polyreload,
 			"loopstatus":self.loopstatus,
+			"guessaverage":self.guessaverage,
 		}
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
@@ -373,6 +374,13 @@ class commandhandler:
 			color = self.TRACKERCOLOR
 			)
 		return (0,embObj)
+	async def guessaverage(self,message:discord.Message)->tuple:
+		dm_chan = await message.author.create_dm() #type: discord.DMChannel
+		dm_emb_obj = discord.Embed(title="Average of tracked guesses", description=f"Result: {self.dbhandler.get_avg_guess()}")
+		dm_chan.send(embed=dm_emb_obj)
+		emb_obj = discord.Embed(title="Magic feature", description="You should've gotten a dm <3")
+		return 0,emb_obj
+
 	async def help(self,message:discord.Message)-> tuple:
 		try:
 			channel = message.channel

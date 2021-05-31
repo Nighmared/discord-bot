@@ -276,3 +276,12 @@ class Dbhandler:
 			self.cursor.execute("""INSERT INTO guesses(uid,guess) VALUES(?,?)""",(uid,guess))
 		
 		self.conn.commit()
+	
+	def clean_guesses(self):
+		self.cursor.execute("DELETE FROM guesses")
+		self.conn.commit()
+	
+	def get_avg_guess(self)->int:
+		self.cursor.execute("SELECT avg(guess) FROM guesses")
+		res = self.cursor.fetchall()[0][0]
+		return res
