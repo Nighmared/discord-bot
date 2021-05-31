@@ -269,7 +269,7 @@ class Dbhandler:
 			logger.info(f"Found guess {guess} from uid {uid} to be useless, skipping.")
 			return
 		self.cursor.execute("""SELECT uid FROM guesses""")
-		uids = self.cursor.fetchall()
+		uids = self.cursor.fetchall()[0]
 		if uid in uids:
 			self.cursor.execute("""UPDATE guesses SET guess=? where uid=?""",(uid,guess))
 		else:
