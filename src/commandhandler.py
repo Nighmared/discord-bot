@@ -448,6 +448,18 @@ class commandhandler:
 		return (error,embObj)
 	
 	async def loopstatus(self, message:discord.Message)->tuple:
+		def time_string(time_diff:int)->str:
+			hours =  int(time_diff/3600)
+			time_diff %= 3600
+			mins = int(time_diff/60)
+			time_diff %= 60
+			if hours>0:
+				return f"{hours}h {mins}m"
+			else:
+				return f"{mins}m {time_diff}s"
+
+
+
 		try:
 			loops = self.dbhandler.get_loops()
 		except OperationalError:
@@ -456,7 +468,7 @@ class commandhandler:
 		curr_time = int(current_time_sec())
 		emb_obj = discord.Embed(title="Loops",description="How long since each loop was last seen alive",color=self.SYSTEMCOLOR)
 		for loopname,lastseen in loops:
-			emb_obj.add_field(name=loopname,value=f"{curr_time-lastseen}s",inline=True)
+			emb_obj.add_field(name=loopname,value=f"{time_string(curr_time-lastseen)}s",inline=True)
 		
 		return 0,emb_obj
 		
