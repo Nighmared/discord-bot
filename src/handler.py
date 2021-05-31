@@ -181,7 +181,7 @@ async def handle(message:discord.Message) -> int:
 	db.increment_user_message_count(message.author.id, message.author.name,message.author.mention)
 	
 
-	if if message.guild and message.guild.id == 747752542741725244 and message.content.startswith("$g") and len(args := message.content.split(" "))>1 and args[1].isnumeric():
+	if message.guild and message.guild.id == 747752542741725244 and message.content.startswith("$g") and len(args := message.content.split(" "))>1 and args[1].isnumeric():
 		db.add_average(message.author.id, int(args[1]))
 
 
