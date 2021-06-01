@@ -1,5 +1,6 @@
 import logging
 import discord
+from discord.errors import Forbidden
 import discord.ext.commands
 from discord.ext import tasks
 from requests.api import post
@@ -44,7 +45,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 		for fid,post in stuff_to_send:
 			await self.send_new_post(post)
 			self.dbhandler.add_polyring_post(post=post,fid=fid)
-		
+
 		self.dbhandler.ping_loop("Polyring",time())
 
 	
@@ -124,9 +125,19 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 	async def send_new_post(self,post):
 		for channel_id in POLYRING_CHANNELS:
-			discord_chan = await self.client.fetch_channel(channel_id)
+			discord_chan = await self.client.fetch_channel(channel_id)	
 			logging.debug("fetched polyring channel:"+str(discord_chan))
-			await discord_chan.send(embed = post.embed() )	 #FIXME uncomment after actually implementing lol
+			try:
+				await discord_chan.send(embed = post.embed() )	
+			except Forbidden as e:
+				if channel_id == 833645549742981190:
+					logger.fatal("Got Forbidden when trying to post a new polyring post. time to ping lukas!")
+					spam_chan = await self.client.fetch_channel(768600365602963496)
+					await spam_chan.send(content="<@!223932775474921472> BRUH GIB PERMS FOR POLYRING")
+				else:
+					logger.fatal(f"Got forbidden when trying to send polyring posts. channel id: {channel_id}")
+				continue
+
 
 
 
