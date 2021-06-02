@@ -792,6 +792,7 @@ class commandhandler:
 
 	async def showissues(self,message:discord.Message) -> tuple:
 		try:
+			
 			res = self.dbhandler._execComm("select * from issues",True) #FIXME add a func in dbhandler to do this! NO DIRECT EXECS OUTSIDE OF DBHANDLER!!!!
 			embObj = discord.Embed(title="Issues",color=self.ISSUECOLOR)
 			for id,title,tags in res:
@@ -804,10 +805,11 @@ class commandhandler:
 					if tag.strip() == "":
 						continue
 					tags_s += f'`{tag.strip()}` '
-
+				if tags_s == "":
+					tags_s = "[No Tags]"
 				embObj.add_field(name=f'{id}. {title}',value=tags_s,inline=False)
 			#FIXME this doesnt work with discord caching, instead use github api to check workflow status and send static failed/passed image based on that
-			badge_link = "https://shields.io/github/workflow/status/nighmared/discord-bot/Tests.png"
+			badge_link = issues.get_badge_link()
 			embObj.set_thumbnail(url=badge_link)
 			return (0,embObj)
 		except Exception as e:

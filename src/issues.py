@@ -24,3 +24,16 @@ def getIssues()->list:
 			out.append((issue["number"],issue["title"],tag_db_s[:-1])) # dont want last ;
 		out.sort()
 		return out
+
+
+def get_badge_link()->str:
+	PASSING = "issues_passing.png"
+	FAILING = "issues_failing.png"
+	url = f"https://api.github.com/repos/{author}/{repo_name}/actions/runs"
+	res = requests.get(url)
+	parsed = res.json()
+	runs = parsed["workflow_runs"]
+	indx = 0
+	while indx<len(runs) and (conclusion:=runs[indx]["conclusion"] is None): indx+=1
+	if conclusion == "success": return PASSING
+	return FAILING
