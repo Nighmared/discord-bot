@@ -251,7 +251,7 @@ class Dbhandler:
 		self.conn.commit()
 	
 	def get_loops(self):
-		self.cursor.execute('''SELECT name,lastseen FROM loops''')
+		self.cursor.execute('''SELECT name,lastseen,freq FROM loops''')
 		res = self.cursor.fetchall()
 		return res
 

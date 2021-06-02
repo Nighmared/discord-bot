@@ -469,8 +469,8 @@ class commandhandler:
 			return 1,None
 		curr_time = int(current_time_sec())
 		emb_obj = discord.Embed(title="Loops",description="How long since each loop was last seen alive",color=self.SYSTEMCOLOR)
-		for loopname,lastseen in loops:
-			emb_obj.add_field(name=loopname,value=time_string(curr_time-lastseen),inline=True)
+		for loopname,lastseen,freq in loops:
+			emb_obj.add_field(name=loopname,value=f"{time_string(curr_time-lastseen)}(should be < {time_string(freq)}",inline=True)
 		
 		return 0,emb_obj
 		
