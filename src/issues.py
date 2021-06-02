@@ -34,6 +34,7 @@ def get_badge_link()->str:
 	parsed = res.json()
 	runs = parsed["workflow_runs"]
 	indx = 0
-	while indx<len(runs) and (conclusion:=runs[indx]["conclusion"] is None): indx+=1
+	while indx<len(runs) and (conclusion:=runs[indx]["conclusion"]) is None: indx+=1
+	print(conclusion)
 	if conclusion == "success": return PASSING
 	return FAILING
