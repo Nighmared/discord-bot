@@ -42,6 +42,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   ├── dotree.sh
 │   ├── handler.py
 │   ├── inspirobot.py
+│   ├── issues_failing.png
+│   ├── issues_passing.png
 │   ├── issues.py
 │   ├── joniii.pub
 │   ├── keys.log
@@ -56,15 +58,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   ├── shorten.py
 │   ├── spam.log
 │   ├── stalk.py
-│   ├── test.md
 │   ├── test_sanity_check.py
 │   ├── uptime.py
 │   └── xkcd.py
 ├── LICENSE
 ├── README.md
 ├── README_TEXT.md
-├── requirements.txt
-└── test.md
+└── requirements.txt
 
 3 directories, 44 files
 
