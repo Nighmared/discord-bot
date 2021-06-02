@@ -27,8 +27,8 @@ def getIssues()->list:
 
 
 def get_badge_link()->str:
-	PASSING = "issues_passing.png"
-	FAILING = "issues_failing.png"
+	PASSING = "https://raw.githubusercontent.com/Nighmared/discord-bot/master/src/issues_passing.png"
+	FAILING = "https://raw.githubusercontent.com/Nighmared/discord-bot/master/src/issues_failing.png"
 	url = f"https://api.github.com/repos/{author}/{repo_name}/actions/runs"
 	res = requests.get(url)
 	parsed = res.json()
