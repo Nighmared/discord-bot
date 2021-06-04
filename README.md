@@ -20,13 +20,45 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 ../
 ├── src
 │   ├── loops
+│   │   ├── __pycache__
+│   │   │   ├── guesscleaner.cpython-38.pyc
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   └── polyring.cpython-38.pyc
 │   │   ├── guesscleaner.py
 │   │   ├── __init__.py
 │   │   └── polyring.py
 │   ├── nhentai
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   └── nhentai.cpython-38.pyc
 │   │   ├── __init__.py
 │   │   ├── nhentai.py
 │   │   └── tags.blacklist
+│   ├── __pycache__
+│   │   ├── bot.cpython-38.pyc
+│   │   ├── botlogger.cpython-38.pyc
+│   │   ├── commandhandler.cpython-38.pyc
+│   │   ├── dbhandler.cpython-38.pyc
+│   │   ├── handler.cpython-38.pyc
+│   │   ├── inspirobot.cpython-38.pyc
+│   │   ├── issuefetcher.cpython-38.pyc
+│   │   ├── issues.cpython-38.pyc
+│   │   ├── logger.cpython-38.pyc
+│   │   ├── loophandler.cpython-38.pyc
+│   │   ├── loops.cpython-38.pyc
+│   │   ├── meme.cpython-38.pyc
+│   │   ├── msghandler.cpython-38.pyc
+│   │   ├── msglist.cpython-38.pyc
+│   │   ├── neko.cpython-38.pyc
+│   │   ├── nhentai.cpython-38.pyc
+│   │   ├── pubkey.cpython-38.pyc
+│   │   ├── robohash.cpython-38.pyc
+│   │   ├── shorten.cpython-38.pyc
+│   │   ├── stalk.cpython-38.pyc
+│   │   ├── test_print.cpython-38-pytest-6.1.2.pyc
+│   │   ├── test_sanity_check.cpython-38-pytest-6.1.2.pyc
+│   │   ├── uptime.cpython-38.pyc
+│   │   └── xkcd.cpython-38.pyc
 │   ├── bot.log
 │   ├── botlogger.py
 │   ├── bot.py
@@ -91,6 +123,54 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │   └── python3.8
 │   │       └── site-packages
 │   │           ├── aiohttp
+│   │           │   ├── __pycache__
+│   │           │   │   ├── abc.cpython-38.pyc
+│   │           │   │   ├── base_protocol.cpython-38.pyc
+│   │           │   │   ├── client.cpython-38.pyc
+│   │           │   │   ├── client_exceptions.cpython-38.pyc
+│   │           │   │   ├── client_proto.cpython-38.pyc
+│   │           │   │   ├── client_reqrep.cpython-38.pyc
+│   │           │   │   ├── client_ws.cpython-38.pyc
+│   │           │   │   ├── connector.cpython-38.pyc
+│   │           │   │   ├── cookiejar.cpython-38.pyc
+│   │           │   │   ├── formdata.cpython-38.pyc
+│   │           │   │   ├── frozenlist.cpython-38.pyc
+│   │           │   │   ├── hdrs.cpython-38.pyc
+│   │           │   │   ├── helpers.cpython-38.pyc
+│   │           │   │   ├── http.cpython-38.pyc
+│   │           │   │   ├── http_exceptions.cpython-38.pyc
+│   │           │   │   ├── http_parser.cpython-38.pyc
+│   │           │   │   ├── http_websocket.cpython-38.pyc
+│   │           │   │   ├── http_writer.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── locks.cpython-38.pyc
+│   │           │   │   ├── log.cpython-38.pyc
+│   │           │   │   ├── multipart.cpython-38.pyc
+│   │           │   │   ├── payload.cpython-38.pyc
+│   │           │   │   ├── payload_streamer.cpython-38.pyc
+│   │           │   │   ├── pytest_plugin.cpython-38.pyc
+│   │           │   │   ├── resolver.cpython-38.pyc
+│   │           │   │   ├── signals.cpython-38.pyc
+│   │           │   │   ├── streams.cpython-38.pyc
+│   │           │   │   ├── tcp_helpers.cpython-38.pyc
+│   │           │   │   ├── test_utils.cpython-38.pyc
+│   │           │   │   ├── tracing.cpython-38.pyc
+│   │           │   │   ├── typedefs.cpython-38.pyc
+│   │           │   │   ├── web_app.cpython-38.pyc
+│   │           │   │   ├── web.cpython-38.pyc
+│   │           │   │   ├── web_exceptions.cpython-38.pyc
+│   │           │   │   ├── web_fileresponse.cpython-38.pyc
+│   │           │   │   ├── web_log.cpython-38.pyc
+│   │           │   │   ├── web_middlewares.cpython-38.pyc
+│   │           │   │   ├── web_protocol.cpython-38.pyc
+│   │           │   │   ├── web_request.cpython-38.pyc
+│   │           │   │   ├── web_response.cpython-38.pyc
+│   │           │   │   ├── web_routedef.cpython-38.pyc
+│   │           │   │   ├── web_runner.cpython-38.pyc
+│   │           │   │   ├── web_server.cpython-38.pyc
+│   │           │   │   ├── web_urldispatcher.cpython-38.pyc
+│   │           │   │   ├── web_ws.cpython-38.pyc
+│   │           │   │   └── worker.cpython-38.pyc
 │   │           │   ├── abc.py
 │   │           │   ├── base_protocol.py
 │   │           │   ├── client_exceptions.py
@@ -170,6 +250,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── async_timeout
+│   │           │   ├── __pycache__
+│   │           │   │   └── __init__.cpython-38.pyc
 │   │           │   ├── __init__.py
 │   │           │   └── py.typed
 │   │           ├── async_timeout-3.0.1.dist-info
@@ -180,6 +262,20 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── attr
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _cmp.cpython-38.pyc
+│   │           │   │   ├── _compat.cpython-38.pyc
+│   │           │   │   ├── _config.cpython-38.pyc
+│   │           │   │   ├── converters.cpython-38.pyc
+│   │           │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   ├── filters.cpython-38.pyc
+│   │           │   │   ├── _funcs.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── _make.cpython-38.pyc
+│   │           │   │   ├── _next_gen.cpython-38.pyc
+│   │           │   │   ├── setters.cpython-38.pyc
+│   │           │   │   ├── validators.cpython-38.pyc
+│   │           │   │   └── _version_info.cpython-38.pyc
 │   │           │   ├── _cmp.py
 │   │           │   ├── _cmp.pyi
 │   │           │   ├── _compat.py
@@ -220,10 +316,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── bs4
 │   │           │   ├── builder
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _html5lib.cpython-38.pyc
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── _html5lib.py
 │   │           │   │   ├── _htmlparser.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── _lxml.py
+│   │           │   ├── __pycache__
+│   │           │   │   └── __init__.cpython-38.pyc
 │   │           │   ├── tests
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── test_builder_registry.py
@@ -240,6 +341,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── __init__.py
 │   │           │   └── testing.py
 │   │           ├── certifi
+│   │           │   ├── __pycache__
+│   │           │   │   ├── core.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   └── __main__.cpython-38.pyc
 │   │           │   ├── cacert.pem
 │   │           │   ├── core.py
 │   │           │   ├── __init__.py
@@ -253,11 +358,57 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── chardet
 │   │           │   ├── cli
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── chardetect.cpython-38.pyc
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── chardetect.py
 │   │           │   │   └── __init__.py
 │   │           │   ├── metadata
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── languages.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── languages.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── big5freq.cpython-38.pyc
+│   │           │   │   ├── big5prober.cpython-38.pyc
+│   │           │   │   ├── chardistribution.cpython-38.pyc
+│   │           │   │   ├── charsetgroupprober.cpython-38.pyc
+│   │           │   │   ├── charsetprober.cpython-38.pyc
+│   │           │   │   ├── codingstatemachine.cpython-38.pyc
+│   │           │   │   ├── compat.cpython-38.pyc
+│   │           │   │   ├── cp949prober.cpython-38.pyc
+│   │           │   │   ├── enums.cpython-38.pyc
+│   │           │   │   ├── escprober.cpython-38.pyc
+│   │           │   │   ├── escsm.cpython-38.pyc
+│   │           │   │   ├── eucjpprober.cpython-38.pyc
+│   │           │   │   ├── euckrfreq.cpython-38.pyc
+│   │           │   │   ├── euckrprober.cpython-38.pyc
+│   │           │   │   ├── euctwfreq.cpython-38.pyc
+│   │           │   │   ├── euctwprober.cpython-38.pyc
+│   │           │   │   ├── gb2312freq.cpython-38.pyc
+│   │           │   │   ├── gb2312prober.cpython-38.pyc
+│   │           │   │   ├── hebrewprober.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── jisfreq.cpython-38.pyc
+│   │           │   │   ├── jpcntx.cpython-38.pyc
+│   │           │   │   ├── langbulgarianmodel.cpython-38.pyc
+│   │           │   │   ├── langgreekmodel.cpython-38.pyc
+│   │           │   │   ├── langhebrewmodel.cpython-38.pyc
+│   │           │   │   ├── langhungarianmodel.cpython-38.pyc
+│   │           │   │   ├── langrussianmodel.cpython-38.pyc
+│   │           │   │   ├── langthaimodel.cpython-38.pyc
+│   │           │   │   ├── langturkishmodel.cpython-38.pyc
+│   │           │   │   ├── latin1prober.cpython-38.pyc
+│   │           │   │   ├── mbcharsetprober.cpython-38.pyc
+│   │           │   │   ├── mbcsgroupprober.cpython-38.pyc
+│   │           │   │   ├── mbcssm.cpython-38.pyc
+│   │           │   │   ├── sbcharsetprober.cpython-38.pyc
+│   │           │   │   ├── sbcsgroupprober.cpython-38.pyc
+│   │           │   │   ├── sjisprober.cpython-38.pyc
+│   │           │   │   ├── universaldetector.cpython-38.pyc
+│   │           │   │   ├── utf8prober.cpython-38.pyc
+│   │           │   │   └── version.cpython-38.pyc
 │   │           │   ├── big5freq.py
 │   │           │   ├── big5prober.py
 │   │           │   ├── chardistribution.py
@@ -315,16 +466,38 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── dateutil
 │   │           │   ├── parser
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── isoparser.cpython-38.pyc
+│   │           │   │   │   └── _parser.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── isoparser.py
 │   │           │   │   └── _parser.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _common.cpython-38.pyc
+│   │           │   │   ├── easter.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── relativedelta.cpython-38.pyc
+│   │           │   │   ├── rrule.cpython-38.pyc
+│   │           │   │   ├── tzwin.cpython-38.pyc
+│   │           │   │   ├── utils.cpython-38.pyc
+│   │           │   │   └── _version.cpython-38.pyc
 │   │           │   ├── tz
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _common.cpython-38.pyc
+│   │           │   │   │   ├── _factories.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── tz.cpython-38.pyc
+│   │           │   │   │   └── win.cpython-38.pyc
 │   │           │   │   ├── _common.py
 │   │           │   │   ├── _factories.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── tz.py
 │   │           │   │   └── win.py
 │   │           │   ├── zoneinfo
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── rebuild.cpython-38.pyc
 │   │           │   │   ├── dateutil-zoneinfo.tar.gz
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── rebuild.py
@@ -350,6 +523,18 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── libopus-0.x86.dll
 │   │           │   ├── ext
 │   │           │   │   ├── commands
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── bot.cpython-38.pyc
+│   │           │   │   │   │   ├── cog.cpython-38.pyc
+│   │           │   │   │   │   ├── context.cpython-38.pyc
+│   │           │   │   │   │   ├── converter.cpython-38.pyc
+│   │           │   │   │   │   ├── cooldowns.cpython-38.pyc
+│   │           │   │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   │   ├── errors.cpython-38.pyc
+│   │           │   │   │   │   ├── help.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── _types.cpython-38.pyc
+│   │           │   │   │   │   └── view.cpython-38.pyc
 │   │           │   │   │   ├── bot.py
 │   │           │   │   │   ├── cog.py
 │   │           │   │   │   ├── context.py
@@ -362,7 +547,59 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── _types.py
 │   │           │   │   │   └── view.py
 │   │           │   │   └── tasks
+│   │           │   │       ├── __pycache__
+│   │           │   │       │   └── __init__.cpython-38.pyc
 │   │           │   │       └── __init__.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── abc.cpython-38.pyc
+│   │           │   │   ├── activity.cpython-38.pyc
+│   │           │   │   ├── appinfo.cpython-38.pyc
+│   │           │   │   ├── asset.cpython-38.pyc
+│   │           │   │   ├── audit_logs.cpython-38.pyc
+│   │           │   │   ├── backoff.cpython-38.pyc
+│   │           │   │   ├── calls.cpython-38.pyc
+│   │           │   │   ├── channel.cpython-38.pyc
+│   │           │   │   ├── client.cpython-38.pyc
+│   │           │   │   ├── colour.cpython-38.pyc
+│   │           │   │   ├── context_managers.cpython-38.pyc
+│   │           │   │   ├── embeds.cpython-38.pyc
+│   │           │   │   ├── emoji.cpython-38.pyc
+│   │           │   │   ├── enums.cpython-38.pyc
+│   │           │   │   ├── errors.cpython-38.pyc
+│   │           │   │   ├── file.cpython-38.pyc
+│   │           │   │   ├── flags.cpython-38.pyc
+│   │           │   │   ├── gateway.cpython-38.pyc
+│   │           │   │   ├── guild.cpython-38.pyc
+│   │           │   │   ├── http.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── integrations.cpython-38.pyc
+│   │           │   │   ├── invite.cpython-38.pyc
+│   │           │   │   ├── iterators.cpython-38.pyc
+│   │           │   │   ├── __main__.cpython-38.pyc
+│   │           │   │   ├── member.cpython-38.pyc
+│   │           │   │   ├── mentions.cpython-38.pyc
+│   │           │   │   ├── message.cpython-38.pyc
+│   │           │   │   ├── mixins.cpython-38.pyc
+│   │           │   │   ├── object.cpython-38.pyc
+│   │           │   │   ├── oggparse.cpython-38.pyc
+│   │           │   │   ├── opus.cpython-38.pyc
+│   │           │   │   ├── partial_emoji.cpython-38.pyc
+│   │           │   │   ├── permissions.cpython-38.pyc
+│   │           │   │   ├── player.cpython-38.pyc
+│   │           │   │   ├── raw_models.cpython-38.pyc
+│   │           │   │   ├── reaction.cpython-38.pyc
+│   │           │   │   ├── relationship.cpython-38.pyc
+│   │           │   │   ├── role.cpython-38.pyc
+│   │           │   │   ├── shard.cpython-38.pyc
+│   │           │   │   ├── state.cpython-38.pyc
+│   │           │   │   ├── sticker.cpython-38.pyc
+│   │           │   │   ├── team.cpython-38.pyc
+│   │           │   │   ├── template.cpython-38.pyc
+│   │           │   │   ├── user.cpython-38.pyc
+│   │           │   │   ├── utils.cpython-38.pyc
+│   │           │   │   ├── voice_client.cpython-38.pyc
+│   │           │   │   ├── webhook.cpython-38.pyc
+│   │           │   │   └── widget.cpython-38.pyc
 │   │           │   ├── abc.py
 │   │           │   ├── activity.py
 │   │           │   ├── appinfo.py
@@ -413,6 +650,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── webhook.py
 │   │           │   └── widget.py
 │   │           ├── discord_buttons
+│   │           │   ├── __pycache__
+│   │           │   │   ├── button.cpython-38.pyc
+│   │           │   │   ├── client.cpython-38.pyc
+│   │           │   │   ├── context.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── interaction.cpython-38.pyc
+│   │           │   │   └── message.cpython-38.pyc
 │   │           │   ├── button.py
 │   │           │   ├── client.py
 │   │           │   ├── context.py
@@ -436,9 +680,21 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── _distutils_hack
+│   │           │   ├── __pycache__
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   └── override.cpython-38.pyc
 │   │           │   ├── __init__.py
 │   │           │   └── override.py
 │   │           ├── idna
+│   │           │   ├── __pycache__
+│   │           │   │   ├── codec.cpython-38.pyc
+│   │           │   │   ├── compat.cpython-38.pyc
+│   │           │   │   ├── core.cpython-38.pyc
+│   │           │   │   ├── idnadata.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── intranges.cpython-38.pyc
+│   │           │   │   ├── package_data.cpython-38.pyc
+│   │           │   │   └── uts46data.cpython-38.pyc
 │   │           │   ├── codec.py
 │   │           │   ├── compat.py
 │   │           │   ├── core.py
@@ -456,6 +712,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── imageio
 │   │           │   ├── core
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── fetching.cpython-38.pyc
+│   │           │   │   │   ├── findlib.cpython-38.pyc
+│   │           │   │   │   ├── format.cpython-38.pyc
+│   │           │   │   │   ├── functions.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── request.cpython-38.pyc
+│   │           │   │   │   └── util.cpython-38.pyc
 │   │           │   │   ├── fetching.py
 │   │           │   │   ├── findlib.py
 │   │           │   │   ├── format.py
@@ -464,6 +728,32 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── request.py
 │   │           │   │   └── util.py
 │   │           │   ├── plugins
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _bsdf.cpython-38.pyc
+│   │           │   │   │   ├── bsdf.cpython-38.pyc
+│   │           │   │   │   ├── _dicom.cpython-38.pyc
+│   │           │   │   │   ├── dicom.cpython-38.pyc
+│   │           │   │   │   ├── example.cpython-38.pyc
+│   │           │   │   │   ├── feisem.cpython-38.pyc
+│   │           │   │   │   ├── ffmpeg.cpython-38.pyc
+│   │           │   │   │   ├── fits.cpython-38.pyc
+│   │           │   │   │   ├── _freeimage.cpython-38.pyc
+│   │           │   │   │   ├── freeimage.cpython-38.pyc
+│   │           │   │   │   ├── freeimagemulti.cpython-38.pyc
+│   │           │   │   │   ├── gdal.cpython-38.pyc
+│   │           │   │   │   ├── grab.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── lytro.cpython-38.pyc
+│   │           │   │   │   ├── npz.cpython-38.pyc
+│   │           │   │   │   ├── pillow.cpython-38.pyc
+│   │           │   │   │   ├── pillow_info.cpython-38.pyc
+│   │           │   │   │   ├── pillowmulti.cpython-38.pyc
+│   │           │   │   │   ├── simpleitk.cpython-38.pyc
+│   │           │   │   │   ├── spe.cpython-38.pyc
+│   │           │   │   │   ├── _swf.cpython-38.pyc
+│   │           │   │   │   ├── swf.cpython-38.pyc
+│   │           │   │   │   ├── _tifffile.cpython-38.pyc
+│   │           │   │   │   └── tifffile.cpython-38.pyc
 │   │           │   │   ├── _bsdf.py
 │   │           │   │   ├── bsdf.py
 │   │           │   │   ├── _dicom.py
@@ -489,6 +779,11 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── swf.py
 │   │           │   │   ├── _tifffile.py
 │   │           │   │   └── tifffile.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── freeze.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── __main__.cpython-38.pyc
+│   │           │   │   └── testing.cpython-38.pyc
 │   │           │   ├── resources
 │   │           │   │   ├── images
 │   │           │   │   │   ├── astronaut.png
@@ -512,6 +807,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── iniconfig
+│   │           │   ├── __pycache__
+│   │           │   │   └── __init__.cpython-38.pyc
 │   │           │   ├── __init__.py
 │   │           │   ├── __init__.pyi
 │   │           │   └── py.typed
@@ -531,6 +828,20 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── lxml
 │   │           │   ├── html
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── builder.cpython-38.pyc
+│   │           │   │   │   ├── clean.cpython-38.pyc
+│   │           │   │   │   ├── defs.cpython-38.pyc
+│   │           │   │   │   ├── _diffcommand.cpython-38.pyc
+│   │           │   │   │   ├── diff.cpython-38.pyc
+│   │           │   │   │   ├── ElementSoup.cpython-38.pyc
+│   │           │   │   │   ├── formfill.cpython-38.pyc
+│   │           │   │   │   ├── _html5builder.cpython-38.pyc
+│   │           │   │   │   ├── html5parser.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _setmixin.cpython-38.pyc
+│   │           │   │   │   ├── soupparser.cpython-38.pyc
+│   │           │   │   │   └── usedoctest.cpython-38.pyc
 │   │           │   │   ├── builder.py
 │   │           │   │   ├── clean.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   ├── clean.py
@@ -620,6 +931,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── xsltInternals.h
 │   │           │   │   │   ├── xsltlocale.h
 │   │           │   │   │   └── xsltutils.h
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── c14n.pxd
 │   │           │   │   ├── config.pxd
 │   │           │   │   ├── dtdvalid.pxd
@@ -640,6 +953,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── xpath.pxd
 │   │           │   │   └── xslt.pxd
 │   │           │   ├── isoschematron
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── resources
 │   │           │   │   │   ├── rng
 │   │           │   │   │   │   └── iso-schematron.rng
@@ -654,6 +969,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │       ├── RNG2Schtrn.xsl
 │   │           │   │   │       └── XSD2Schtrn.xsl
 │   │           │   │   └── __init__.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── builder.cpython-38.pyc
+│   │           │   │   ├── cssselect.cpython-38.pyc
+│   │           │   │   ├── doctestcompare.cpython-38.pyc
+│   │           │   │   ├── ElementInclude.cpython-38.pyc
+│   │           │   │   ├── _elementpath.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── pyclasslookup.cpython-38.pyc
+│   │           │   │   ├── sax.cpython-38.pyc
+│   │           │   │   └── usedoctest.cpython-38.pyc
 │   │           │   ├── builder.cpython-38-x86_64-linux-gnu.so
 │   │           │   ├── builder.py
 │   │           │   ├── cssselect.py
@@ -682,16 +1007,62 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── matplotlib
 │   │           │   ├── _api
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── deprecation.cpython-38.pyc
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── deprecation.py
 │   │           │   │   └── __init__.py
 │   │           │   ├── axes
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _axes.cpython-38.pyc
+│   │           │   │   │   ├── _base.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _secondary_axes.cpython-38.pyc
+│   │           │   │   │   └── _subplots.cpython-38.pyc
 │   │           │   │   ├── _axes.py
 │   │           │   │   ├── _base.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── _secondary_axes.py
 │   │           │   │   └── _subplots.py
 │   │           │   ├── backends
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── backend_agg.cpython-38.pyc
+│   │           │   │   │   ├── backend_cairo.cpython-38.pyc
+│   │           │   │   │   ├── backend_gtk3agg.cpython-38.pyc
+│   │           │   │   │   ├── backend_gtk3cairo.cpython-38.pyc
+│   │           │   │   │   ├── backend_gtk3.cpython-38.pyc
+│   │           │   │   │   ├── backend_macosx.cpython-38.pyc
+│   │           │   │   │   ├── backend_mixed.cpython-38.pyc
+│   │           │   │   │   ├── backend_nbagg.cpython-38.pyc
+│   │           │   │   │   ├── backend_pdf.cpython-38.pyc
+│   │           │   │   │   ├── _backend_pdf_ps.cpython-38.pyc
+│   │           │   │   │   ├── backend_pgf.cpython-38.pyc
+│   │           │   │   │   ├── backend_ps.cpython-38.pyc
+│   │           │   │   │   ├── backend_qt4agg.cpython-38.pyc
+│   │           │   │   │   ├── backend_qt4cairo.cpython-38.pyc
+│   │           │   │   │   ├── backend_qt4.cpython-38.pyc
+│   │           │   │   │   ├── backend_qt5agg.cpython-38.pyc
+│   │           │   │   │   ├── backend_qt5cairo.cpython-38.pyc
+│   │           │   │   │   ├── backend_qt5.cpython-38.pyc
+│   │           │   │   │   ├── backend_svg.cpython-38.pyc
+│   │           │   │   │   ├── backend_template.cpython-38.pyc
+│   │           │   │   │   ├── backend_tkagg.cpython-38.pyc
+│   │           │   │   │   ├── backend_tkcairo.cpython-38.pyc
+│   │           │   │   │   ├── _backend_tk.cpython-38.pyc
+│   │           │   │   │   ├── backend_webagg_core.cpython-38.pyc
+│   │           │   │   │   ├── backend_webagg.cpython-38.pyc
+│   │           │   │   │   ├── backend_wxagg.cpython-38.pyc
+│   │           │   │   │   ├── backend_wxcairo.cpython-38.pyc
+│   │           │   │   │   ├── backend_wx.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── qt_compat.cpython-38.pyc
 │   │           │   │   ├── qt_editor
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── figureoptions.cpython-38.pyc
+│   │           │   │   │   │   ├── _formlayout.cpython-38.pyc
+│   │           │   │   │   │   ├── _formsubplottool.cpython-38.pyc
+│   │           │   │   │   │   ├── formsubplottool.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── figureoptions.py
 │   │           │   │   │   ├── _formlayout.py
 │   │           │   │   │   ├── _formsubplottool.py
@@ -745,9 +1116,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── qt_compat.py
 │   │           │   │   └── _tkagg.cpython-38-x86_64-linux-gnu.so
 │   │           │   ├── cbook
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── deprecation.cpython-38.pyc
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── deprecation.py
 │   │           │   │   └── __init__.py
 │   │           │   ├── compat
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   └── __init__.py
 │   │           │   ├── mpl-data
 │   │           │   │   ├── fonts
@@ -956,18 +1332,109 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── tableau-colorblind10.mplstyle
 │   │           │   │   └── matplotlibrc
 │   │           │   ├── projections
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── geo.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── polar.cpython-38.pyc
 │   │           │   │   ├── geo.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── polar.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── afm.cpython-38.pyc
+│   │           │   │   ├── animation.cpython-38.pyc
+│   │           │   │   ├── _animation_data.cpython-38.pyc
+│   │           │   │   ├── artist.cpython-38.pyc
+│   │           │   │   ├── axis.cpython-38.pyc
+│   │           │   │   ├── backend_bases.cpython-38.pyc
+│   │           │   │   ├── backend_managers.cpython-38.pyc
+│   │           │   │   ├── backend_tools.cpython-38.pyc
+│   │           │   │   ├── bezier.cpython-38.pyc
+│   │           │   │   ├── blocking_input.cpython-38.pyc
+│   │           │   │   ├── category.cpython-38.pyc
+│   │           │   │   ├── _cm.cpython-38.pyc
+│   │           │   │   ├── cm.cpython-38.pyc
+│   │           │   │   ├── _cm_listed.cpython-38.pyc
+│   │           │   │   ├── collections.cpython-38.pyc
+│   │           │   │   ├── colorbar.cpython-38.pyc
+│   │           │   │   ├── _color_data.cpython-38.pyc
+│   │           │   │   ├── colors.cpython-38.pyc
+│   │           │   │   ├── _constrained_layout.cpython-38.pyc
+│   │           │   │   ├── container.cpython-38.pyc
+│   │           │   │   ├── contour.cpython-38.pyc
+│   │           │   │   ├── dates.cpython-38.pyc
+│   │           │   │   ├── docstring.cpython-38.pyc
+│   │           │   │   ├── dviread.cpython-38.pyc
+│   │           │   │   ├── _enums.cpython-38.pyc
+│   │           │   │   ├── figure.cpython-38.pyc
+│   │           │   │   ├── fontconfig_pattern.cpython-38.pyc
+│   │           │   │   ├── font_manager.cpython-38.pyc
+│   │           │   │   ├── gridspec.cpython-38.pyc
+│   │           │   │   ├── hatch.cpython-38.pyc
+│   │           │   │   ├── image.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── _internal_utils.cpython-38.pyc
+│   │           │   │   ├── _layoutgrid.cpython-38.pyc
+│   │           │   │   ├── legend.cpython-38.pyc
+│   │           │   │   ├── legend_handler.cpython-38.pyc
+│   │           │   │   ├── lines.cpython-38.pyc
+│   │           │   │   ├── markers.cpython-38.pyc
+│   │           │   │   ├── _mathtext.cpython-38.pyc
+│   │           │   │   ├── mathtext.cpython-38.pyc
+│   │           │   │   ├── _mathtext_data.cpython-38.pyc
+│   │           │   │   ├── mlab.cpython-38.pyc
+│   │           │   │   ├── offsetbox.cpython-38.pyc
+│   │           │   │   ├── patches.cpython-38.pyc
+│   │           │   │   ├── path.cpython-38.pyc
+│   │           │   │   ├── patheffects.cpython-38.pyc
+│   │           │   │   ├── pylab.cpython-38.pyc
+│   │           │   │   ├── _pylab_helpers.cpython-38.pyc
+│   │           │   │   ├── pyplot.cpython-38.pyc
+│   │           │   │   ├── quiver.cpython-38.pyc
+│   │           │   │   ├── rcsetup.cpython-38.pyc
+│   │           │   │   ├── sankey.cpython-38.pyc
+│   │           │   │   ├── scale.cpython-38.pyc
+│   │           │   │   ├── spines.cpython-38.pyc
+│   │           │   │   ├── stackplot.cpython-38.pyc
+│   │           │   │   ├── streamplot.cpython-38.pyc
+│   │           │   │   ├── table.cpython-38.pyc
+│   │           │   │   ├── texmanager.cpython-38.pyc
+│   │           │   │   ├── text.cpython-38.pyc
+│   │           │   │   ├── _text_layout.cpython-38.pyc
+│   │           │   │   ├── textpath.cpython-38.pyc
+│   │           │   │   ├── ticker.cpython-38.pyc
+│   │           │   │   ├── tight_bbox.cpython-38.pyc
+│   │           │   │   ├── tight_layout.cpython-38.pyc
+│   │           │   │   ├── transforms.cpython-38.pyc
+│   │           │   │   ├── ttconv.cpython-38.pyc
+│   │           │   │   ├── type1font.cpython-38.pyc
+│   │           │   │   ├── units.cpython-38.pyc
+│   │           │   │   ├── _version.cpython-38.pyc
+│   │           │   │   └── widgets.cpython-38.pyc
 │   │           │   ├── sphinxext
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── mathmpl.cpython-38.pyc
+│   │           │   │   │   └── plot_directive.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── mathmpl.py
 │   │           │   │   └── plot_directive.py
 │   │           │   ├── style
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── core.py
 │   │           │   │   └── __init__.py
 │   │           │   ├── testing
 │   │           │   │   ├── jpl_units
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── Duration.cpython-38.pyc
+│   │           │   │   │   │   ├── EpochConverter.cpython-38.pyc
+│   │           │   │   │   │   ├── Epoch.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── StrConverter.cpython-38.pyc
+│   │           │   │   │   │   ├── UnitDblConverter.cpython-38.pyc
+│   │           │   │   │   │   ├── UnitDbl.cpython-38.pyc
+│   │           │   │   │   │   └── UnitDblFormatter.cpython-38.pyc
 │   │           │   │   │   ├── Duration.py
 │   │           │   │   │   ├── EpochConverter.py
 │   │           │   │   │   ├── Epoch.py
@@ -976,6 +1443,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── UnitDblConverter.py
 │   │           │   │   │   ├── UnitDblFormatter.py
 │   │           │   │   │   └── UnitDbl.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── compare.cpython-38.pyc
+│   │           │   │   │   ├── conftest.cpython-38.pyc
+│   │           │   │   │   ├── decorators.cpython-38.pyc
+│   │           │   │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── widgets.cpython-38.pyc
 │   │           │   │   ├── compare.py
 │   │           │   │   ├── conftest.py
 │   │           │   │   ├── decorators.py
@@ -983,6 +1457,89 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── widgets.py
 │   │           │   ├── tests
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── conftest.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── test_afm.cpython-38.pyc
+│   │           │   │   │   ├── test_agg.cpython-38.pyc
+│   │           │   │   │   ├── test_agg_filter.cpython-38.pyc
+│   │           │   │   │   ├── test_animation.cpython-38.pyc
+│   │           │   │   │   ├── test_api.cpython-38.pyc
+│   │           │   │   │   ├── test_arrow_patches.cpython-38.pyc
+│   │           │   │   │   ├── test_artist.cpython-38.pyc
+│   │           │   │   │   ├── test_axes.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_bases.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_cairo.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_gtk3.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_nbagg.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_pdf.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_pgf.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_ps.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_qt.cpython-38.pyc
+│   │           │   │   │   ├── test_backends_interactive.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_svg.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_tk.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_tools.cpython-38.pyc
+│   │           │   │   │   ├── test_backend_webagg.cpython-38.pyc
+│   │           │   │   │   ├── test_basic.cpython-38.pyc
+│   │           │   │   │   ├── test_bbox_tight.cpython-38.pyc
+│   │           │   │   │   ├── test_category.cpython-38.pyc
+│   │           │   │   │   ├── test_cbook.cpython-38.pyc
+│   │           │   │   │   ├── test_collections.cpython-38.pyc
+│   │           │   │   │   ├── test_colorbar.cpython-38.pyc
+│   │           │   │   │   ├── test_colors.cpython-38.pyc
+│   │           │   │   │   ├── test_compare_images.cpython-38.pyc
+│   │           │   │   │   ├── test_constrainedlayout.cpython-38.pyc
+│   │           │   │   │   ├── test_container.cpython-38.pyc
+│   │           │   │   │   ├── test_contour.cpython-38.pyc
+│   │           │   │   │   ├── test_cycles.cpython-38.pyc
+│   │           │   │   │   ├── test_dates.cpython-38.pyc
+│   │           │   │   │   ├── test_determinism.cpython-38.pyc
+│   │           │   │   │   ├── test_dviread.cpython-38.pyc
+│   │           │   │   │   ├── test_figure.cpython-38.pyc
+│   │           │   │   │   ├── test_fontconfig_pattern.cpython-38.pyc
+│   │           │   │   │   ├── test_font_manager.cpython-38.pyc
+│   │           │   │   │   ├── test_gridspec.cpython-38.pyc
+│   │           │   │   │   ├── test_image.cpython-38.pyc
+│   │           │   │   │   ├── test_legend.cpython-38.pyc
+│   │           │   │   │   ├── test_lines.cpython-38.pyc
+│   │           │   │   │   ├── test_marker.cpython-38.pyc
+│   │           │   │   │   ├── test_mathtext.cpython-38.pyc
+│   │           │   │   │   ├── test_matplotlib.cpython-38.pyc
+│   │           │   │   │   ├── test_mlab.cpython-38.pyc
+│   │           │   │   │   ├── test_offsetbox.cpython-38.pyc
+│   │           │   │   │   ├── test_patches.cpython-38.pyc
+│   │           │   │   │   ├── test_path.cpython-38.pyc
+│   │           │   │   │   ├── test_patheffects.cpython-38.pyc
+│   │           │   │   │   ├── test_pickle.cpython-38.pyc
+│   │           │   │   │   ├── test_png.cpython-38.pyc
+│   │           │   │   │   ├── test_polar.cpython-38.pyc
+│   │           │   │   │   ├── test_preprocess_data.cpython-38.pyc
+│   │           │   │   │   ├── test_pyplot.cpython-38.pyc
+│   │           │   │   │   ├── test_quiver.cpython-38.pyc
+│   │           │   │   │   ├── test_rcparams.cpython-38.pyc
+│   │           │   │   │   ├── test_sankey.cpython-38.pyc
+│   │           │   │   │   ├── test_scale.cpython-38.pyc
+│   │           │   │   │   ├── test_simplification.cpython-38.pyc
+│   │           │   │   │   ├── test_skew.cpython-38.pyc
+│   │           │   │   │   ├── test_sphinxext.cpython-38.pyc
+│   │           │   │   │   ├── test_spines.cpython-38.pyc
+│   │           │   │   │   ├── test_streamplot.cpython-38.pyc
+│   │           │   │   │   ├── test_style.cpython-38.pyc
+│   │           │   │   │   ├── test_subplots.cpython-38.pyc
+│   │           │   │   │   ├── test_table.cpython-38.pyc
+│   │           │   │   │   ├── test_testing.cpython-38.pyc
+│   │           │   │   │   ├── test_texmanager.cpython-38.pyc
+│   │           │   │   │   ├── test_text.cpython-38.pyc
+│   │           │   │   │   ├── test_ticker.cpython-38.pyc
+│   │           │   │   │   ├── test_tightlayout.cpython-38.pyc
+│   │           │   │   │   ├── test_transforms.cpython-38.pyc
+│   │           │   │   │   ├── test_triangulation.cpython-38.pyc
+│   │           │   │   │   ├── test_ttconv.cpython-38.pyc
+│   │           │   │   │   ├── test_type1font.cpython-38.pyc
+│   │           │   │   │   ├── test_units.cpython-38.pyc
+│   │           │   │   │   ├── test_usetex.cpython-38.pyc
+│   │           │   │   │   └── test_widgets.cpython-38.pyc
 │   │           │   │   ├── conftest.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── test_afm.py
@@ -1066,6 +1623,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── test_usetex.py
 │   │           │   │   └── test_widgets.py
 │   │           │   ├── tri
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── triangulation.cpython-38.pyc
+│   │           │   │   │   ├── tricontour.cpython-38.pyc
+│   │           │   │   │   ├── trifinder.cpython-38.pyc
+│   │           │   │   │   ├── triinterpolate.cpython-38.pyc
+│   │           │   │   │   ├── tripcolor.cpython-38.pyc
+│   │           │   │   │   ├── triplot.cpython-38.pyc
+│   │           │   │   │   ├── trirefine.cpython-38.pyc
+│   │           │   │   │   └── tritools.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── triangulation.py
 │   │           │   │   ├── tricontour.py
@@ -1173,6 +1740,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── mpl_toolkits
 │   │           │   ├── axes_grid
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── anchored_artists.cpython-38.pyc
+│   │           │   │   │   ├── angle_helper.cpython-38.pyc
+│   │           │   │   │   ├── axes_divider.cpython-38.pyc
+│   │           │   │   │   ├── axes_grid.cpython-38.pyc
+│   │           │   │   │   ├── axes_rgb.cpython-38.pyc
+│   │           │   │   │   ├── axes_size.cpython-38.pyc
+│   │           │   │   │   ├── axis_artist.cpython-38.pyc
+│   │           │   │   │   ├── axislines.cpython-38.pyc
+│   │           │   │   │   ├── axisline_style.cpython-38.pyc
+│   │           │   │   │   ├── clip_path.cpython-38.pyc
+│   │           │   │   │   ├── floating_axes.cpython-38.pyc
+│   │           │   │   │   ├── grid_finder.cpython-38.pyc
+│   │           │   │   │   ├── grid_helper_curvelinear.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── inset_locator.cpython-38.pyc
+│   │           │   │   │   └── parasite_axes.cpython-38.pyc
 │   │           │   │   ├── anchored_artists.py
 │   │           │   │   ├── angle_helper.py
 │   │           │   │   ├── axes_divider.py
@@ -1190,6 +1774,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── inset_locator.py
 │   │           │   │   └── parasite_axes.py
 │   │           │   ├── axes_grid1
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── anchored_artists.cpython-38.pyc
+│   │           │   │   │   ├── axes_divider.cpython-38.pyc
+│   │           │   │   │   ├── axes_grid.cpython-38.pyc
+│   │           │   │   │   ├── axes_rgb.cpython-38.pyc
+│   │           │   │   │   ├── axes_size.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── inset_locator.cpython-38.pyc
+│   │           │   │   │   ├── mpl_axes.cpython-38.pyc
+│   │           │   │   │   └── parasite_axes.cpython-38.pyc
 │   │           │   │   ├── anchored_artists.py
 │   │           │   │   ├── axes_divider.py
 │   │           │   │   ├── axes_grid.py
@@ -1200,6 +1794,20 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── mpl_axes.py
 │   │           │   │   └── parasite_axes.py
 │   │           │   ├── axisartist
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── angle_helper.cpython-38.pyc
+│   │           │   │   │   ├── axes_divider.cpython-38.pyc
+│   │           │   │   │   ├── axes_grid.cpython-38.pyc
+│   │           │   │   │   ├── axes_rgb.cpython-38.pyc
+│   │           │   │   │   ├── axis_artist.cpython-38.pyc
+│   │           │   │   │   ├── axislines.cpython-38.pyc
+│   │           │   │   │   ├── axisline_style.cpython-38.pyc
+│   │           │   │   │   ├── clip_path.cpython-38.pyc
+│   │           │   │   │   ├── floating_axes.cpython-38.pyc
+│   │           │   │   │   ├── grid_finder.cpython-38.pyc
+│   │           │   │   │   ├── grid_helper_curvelinear.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── parasite_axes.cpython-38.pyc
 │   │           │   │   ├── angle_helper.py
 │   │           │   │   ├── axes_divider.py
 │   │           │   │   ├── axes_grid.py
@@ -1214,12 +1822,31 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── parasite_axes.py
 │   │           │   ├── mplot3d
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── art3d.cpython-38.pyc
+│   │           │   │   │   ├── axes3d.cpython-38.pyc
+│   │           │   │   │   ├── axis3d.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── proj3d.cpython-38.pyc
 │   │           │   │   ├── art3d.py
 │   │           │   │   ├── axes3d.py
 │   │           │   │   ├── axis3d.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── proj3d.py
 │   │           │   └── tests
+│   │           │       ├── __pycache__
+│   │           │       │   ├── conftest.cpython-38.pyc
+│   │           │       │   ├── __init__.cpython-38.pyc
+│   │           │       │   ├── test_axes_grid1.cpython-38.pyc
+│   │           │       │   ├── test_axes_grid.cpython-38.pyc
+│   │           │       │   ├── test_axisartist_angle_helper.cpython-38.pyc
+│   │           │       │   ├── test_axisartist_axis_artist.cpython-38.pyc
+│   │           │       │   ├── test_axisartist_axislines.cpython-38.pyc
+│   │           │       │   ├── test_axisartist_clip_path.cpython-38.pyc
+│   │           │       │   ├── test_axisartist_floating_axes.cpython-38.pyc
+│   │           │       │   ├── test_axisartist_grid_finder.cpython-38.pyc
+│   │           │       │   ├── test_axisartist_grid_helper_curvelinear.cpython-38.pyc
+│   │           │       │   └── test_mplot3d.cpython-38.pyc
 │   │           │       ├── conftest.py
 │   │           │       ├── __init__.py
 │   │           │       ├── test_axes_grid1.py
@@ -1240,6 +1867,12 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── iter.h
 │   │           │   │   ├── pair_list.h
 │   │           │   │   └── views.h
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _abc.cpython-38.pyc
+│   │           │   │   ├── _compat.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── _multidict_base.cpython-38.pyc
+│   │           │   │   └── _multidict_py.cpython-38.pyc
 │   │           │   ├── _abc.py
 │   │           │   ├── _compat.py
 │   │           │   ├── __init__.py
@@ -1259,7 +1892,33 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           ├── networkx
 │   │           │   ├── algorithms
 │   │           │   │   ├── approximation
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── clique.cpython-38.pyc
+│   │           │   │   │   │   ├── clustering_coefficient.cpython-38.pyc
+│   │           │   │   │   │   ├── connectivity.cpython-38.pyc
+│   │           │   │   │   │   ├── dominating_set.cpython-38.pyc
+│   │           │   │   │   │   ├── independent_set.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── kcomponents.cpython-38.pyc
+│   │           │   │   │   │   ├── matching.cpython-38.pyc
+│   │           │   │   │   │   ├── ramsey.cpython-38.pyc
+│   │           │   │   │   │   ├── steinertree.cpython-38.pyc
+│   │           │   │   │   │   ├── treewidth.cpython-38.pyc
+│   │           │   │   │   │   └── vertex_cover.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_approx_clust_coeff.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_clique.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_connectivity.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_dominating_set.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_independent_set.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_kcomponents.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_matching.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_ramsey.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_steinertree.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_treewidth.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_vertex_cover.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_approx_clust_coeff.py
 │   │           │   │   │   │   ├── test_clique.py
@@ -1285,7 +1944,22 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── treewidth.py
 │   │           │   │   │   └── vertex_cover.py
 │   │           │   │   ├── assortativity
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── connectivity.cpython-38.pyc
+│   │           │   │   │   │   ├── correlation.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── mixing.cpython-38.pyc
+│   │           │   │   │   │   ├── neighbor_degree.cpython-38.pyc
+│   │           │   │   │   │   └── pairs.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── base_test.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_connectivity.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_correlation.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_mixing.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_neighbor_degree.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_pairs.cpython-38.pyc
 │   │           │   │   │   │   ├── base_test.py
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_connectivity.py
@@ -1300,7 +1974,33 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── neighbor_degree.py
 │   │           │   │   │   └── pairs.py
 │   │           │   │   ├── bipartite
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── basic.cpython-38.pyc
+│   │           │   │   │   │   ├── centrality.cpython-38.pyc
+│   │           │   │   │   │   ├── cluster.cpython-38.pyc
+│   │           │   │   │   │   ├── covering.cpython-38.pyc
+│   │           │   │   │   │   ├── edgelist.cpython-38.pyc
+│   │           │   │   │   │   ├── generators.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── matching.cpython-38.pyc
+│   │           │   │   │   │   ├── matrix.cpython-38.pyc
+│   │           │   │   │   │   ├── projection.cpython-38.pyc
+│   │           │   │   │   │   ├── redundancy.cpython-38.pyc
+│   │           │   │   │   │   └── spectral.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_basic.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_cluster.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_covering.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_edgelist.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_generators.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_matching.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_matrix.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_project.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_redundancy.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_spectral_bipartivity.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_basic.py
 │   │           │   │   │   │   ├── test_centrality.py
@@ -1326,7 +2026,50 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── redundancy.py
 │   │           │   │   │   └── spectral.py
 │   │           │   │   ├── centrality
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── betweenness.cpython-38.pyc
+│   │           │   │   │   │   ├── betweenness_subset.cpython-38.pyc
+│   │           │   │   │   │   ├── closeness.cpython-38.pyc
+│   │           │   │   │   │   ├── current_flow_betweenness.cpython-38.pyc
+│   │           │   │   │   │   ├── current_flow_betweenness_subset.cpython-38.pyc
+│   │           │   │   │   │   ├── current_flow_closeness.cpython-38.pyc
+│   │           │   │   │   │   ├── degree_alg.cpython-38.pyc
+│   │           │   │   │   │   ├── dispersion.cpython-38.pyc
+│   │           │   │   │   │   ├── eigenvector.cpython-38.pyc
+│   │           │   │   │   │   ├── flow_matrix.cpython-38.pyc
+│   │           │   │   │   │   ├── group.cpython-38.pyc
+│   │           │   │   │   │   ├── harmonic.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── katz.cpython-38.pyc
+│   │           │   │   │   │   ├── load.cpython-38.pyc
+│   │           │   │   │   │   ├── percolation.cpython-38.pyc
+│   │           │   │   │   │   ├── reaching.cpython-38.pyc
+│   │           │   │   │   │   ├── second_order.cpython-38.pyc
+│   │           │   │   │   │   ├── subgraph_alg.cpython-38.pyc
+│   │           │   │   │   │   ├── trophic.cpython-38.pyc
+│   │           │   │   │   │   └── voterank_alg.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_betweenness_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_betweenness_centrality_subset.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_closeness_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_current_flow_betweenness_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_current_flow_betweenness_centrality_subset.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_current_flow_closeness.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_degree_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_dispersion.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_eigenvector_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_group.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_harmonic_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_katz_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_load_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_percolation_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_reaching.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_second_order_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_subgraph.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_trophic.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_voterank.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_betweenness_centrality.py
 │   │           │   │   │   │   ├── test_betweenness_centrality_subset.py
@@ -1369,7 +2112,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── trophic.py
 │   │           │   │   │   └── voterank_alg.py
 │   │           │   │   ├── coloring
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── equitable_coloring.cpython-38.pyc
+│   │           │   │   │   │   ├── greedy_coloring.cpython-38.pyc
+│   │           │   │   │   │   ├── greedy_coloring_with_interchange.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_coloring.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── test_coloring.py
 │   │           │   │   │   ├── equitable_coloring.py
@@ -1377,7 +2128,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── greedy_coloring_with_interchange.py
 │   │           │   │   │   └── __init__.py
 │   │           │   │   ├── community
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── asyn_fluid.cpython-38.pyc
+│   │           │   │   │   │   ├── centrality.cpython-38.pyc
+│   │           │   │   │   │   ├── community_utils.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── kclique.cpython-38.pyc
+│   │           │   │   │   │   ├── kernighan_lin.cpython-38.pyc
+│   │           │   │   │   │   ├── label_propagation.cpython-38.pyc
+│   │           │   │   │   │   ├── lukes.cpython-38.pyc
+│   │           │   │   │   │   ├── modularity_max.cpython-38.pyc
+│   │           │   │   │   │   └── quality.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_asyn_fluid.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_centrality.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_kclique.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_kernighan_lin.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_label_propagation.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_lukes.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_modularity_max.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_quality.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_utils.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_asyn_fluid.py
 │   │           │   │   │   │   ├── test_centrality.py
@@ -1399,7 +2172,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── modularity_max.py
 │   │           │   │   │   └── quality.py
 │   │           │   │   ├── components
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── attracting.cpython-38.pyc
+│   │           │   │   │   │   ├── biconnected.cpython-38.pyc
+│   │           │   │   │   │   ├── connected.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── semiconnected.cpython-38.pyc
+│   │           │   │   │   │   ├── strongly_connected.cpython-38.pyc
+│   │           │   │   │   │   └── weakly_connected.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_attracting.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_biconnected.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_connected.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_semiconnected.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_strongly_connected.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_weakly_connected.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_attracting.py
 │   │           │   │   │   │   ├── test_biconnected.py
@@ -1415,7 +2204,28 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── strongly_connected.py
 │   │           │   │   │   └── weakly_connected.py
 │   │           │   │   ├── connectivity
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── connectivity.cpython-38.pyc
+│   │           │   │   │   │   ├── cuts.cpython-38.pyc
+│   │           │   │   │   │   ├── disjoint_paths.cpython-38.pyc
+│   │           │   │   │   │   ├── edge_augmentation.cpython-38.pyc
+│   │           │   │   │   │   ├── edge_kcomponents.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── kcomponents.cpython-38.pyc
+│   │           │   │   │   │   ├── kcutsets.cpython-38.pyc
+│   │           │   │   │   │   ├── stoerwagner.cpython-38.pyc
+│   │           │   │   │   │   └── utils.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_connectivity.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_cuts.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_disjoint_paths.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_edge_augmentation.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_edge_kcomponents.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_kcomponents.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_kcutsets.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_stoer_wagner.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_connectivity.py
 │   │           │   │   │   │   ├── test_cuts.py
@@ -1436,7 +2246,26 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── stoerwagner.py
 │   │           │   │   │   └── utils.py
 │   │           │   │   ├── flow
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── boykovkolmogorov.cpython-38.pyc
+│   │           │   │   │   │   ├── capacityscaling.cpython-38.pyc
+│   │           │   │   │   │   ├── dinitz_alg.cpython-38.pyc
+│   │           │   │   │   │   ├── edmondskarp.cpython-38.pyc
+│   │           │   │   │   │   ├── gomory_hu.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── maxflow.cpython-38.pyc
+│   │           │   │   │   │   ├── mincost.cpython-38.pyc
+│   │           │   │   │   │   ├── networksimplex.cpython-38.pyc
+│   │           │   │   │   │   ├── preflowpush.cpython-38.pyc
+│   │           │   │   │   │   ├── shortestaugmentingpath.cpython-38.pyc
+│   │           │   │   │   │   └── utils.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_gomory_hu.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_maxflow.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_maxflow_large_graph.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_mincost.cpython-38.pyc
 │   │           │   │   │   │   ├── gl1.gpickle.bz2
 │   │           │   │   │   │   ├── gw1.gpickle.bz2
 │   │           │   │   │   │   ├── __init__.py
@@ -1459,7 +2288,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── shortestaugmentingpath.py
 │   │           │   │   │   └── utils.py
 │   │           │   │   ├── isomorphism
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── ismags.cpython-38.pyc
+│   │           │   │   │   │   ├── isomorph.cpython-38.pyc
+│   │           │   │   │   │   ├── isomorphvf2.cpython-38.pyc
+│   │           │   │   │   │   ├── matchhelpers.cpython-38.pyc
+│   │           │   │   │   │   ├── temporalisomorphvf2.cpython-38.pyc
+│   │           │   │   │   │   ├── tree_isomorphism.cpython-38.pyc
+│   │           │   │   │   │   └── vf2userfunc.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_ismags.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_isomorphism.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_isomorphvf2.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_match_helpers.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_temporalisomorphvf2.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_tree_isomorphism.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_vf2userfunc.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── iso_r01_s80.A99
 │   │           │   │   │   │   ├── iso_r01_s80.B99
@@ -1481,7 +2328,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── tree_isomorphism.py
 │   │           │   │   │   └── vf2userfunc.py
 │   │           │   │   ├── link_analysis
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── hits_alg.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── pagerank_alg.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_hits.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_pagerank.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_hits.py
 │   │           │   │   │   │   └── test_pagerank.py
@@ -1489,7 +2344,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── pagerank_alg.py
 │   │           │   │   ├── node_classification
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── hmn.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── lgc.cpython-38.pyc
+│   │           │   │   │   │   └── utils.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_harmonic_function.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_local_and_global_consistency.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_harmonic_function.py
 │   │           │   │   │   │   └── test_local_and_global_consistency.py
@@ -1498,7 +2362,19 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── lgc.py
 │   │           │   │   │   └── utils.py
 │   │           │   │   ├── operators
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── all.cpython-38.pyc
+│   │           │   │   │   │   ├── binary.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── product.cpython-38.pyc
+│   │           │   │   │   │   └── unary.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_all.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_binary.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_product.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_unary.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_all.py
 │   │           │   │   │   │   ├── test_binary.py
@@ -1509,8 +2385,75 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── product.py
 │   │           │   │   │   └── unary.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── asteroidal.cpython-38.pyc
+│   │           │   │   │   ├── boundary.cpython-38.pyc
+│   │           │   │   │   ├── bridges.cpython-38.pyc
+│   │           │   │   │   ├── chains.cpython-38.pyc
+│   │           │   │   │   ├── chordal.cpython-38.pyc
+│   │           │   │   │   ├── clique.cpython-38.pyc
+│   │           │   │   │   ├── cluster.cpython-38.pyc
+│   │           │   │   │   ├── communicability_alg.cpython-38.pyc
+│   │           │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   ├── covering.cpython-38.pyc
+│   │           │   │   │   ├── cuts.cpython-38.pyc
+│   │           │   │   │   ├── cycles.cpython-38.pyc
+│   │           │   │   │   ├── dag.cpython-38.pyc
+│   │           │   │   │   ├── distance_measures.cpython-38.pyc
+│   │           │   │   │   ├── distance_regular.cpython-38.pyc
+│   │           │   │   │   ├── dominance.cpython-38.pyc
+│   │           │   │   │   ├── dominating.cpython-38.pyc
+│   │           │   │   │   ├── d_separation.cpython-38.pyc
+│   │           │   │   │   ├── efficiency_measures.cpython-38.pyc
+│   │           │   │   │   ├── euler.cpython-38.pyc
+│   │           │   │   │   ├── graph_hashing.cpython-38.pyc
+│   │           │   │   │   ├── graphical.cpython-38.pyc
+│   │           │   │   │   ├── hierarchy.cpython-38.pyc
+│   │           │   │   │   ├── hybrid.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── isolate.cpython-38.pyc
+│   │           │   │   │   ├── link_prediction.cpython-38.pyc
+│   │           │   │   │   ├── lowest_common_ancestors.cpython-38.pyc
+│   │           │   │   │   ├── matching.cpython-38.pyc
+│   │           │   │   │   ├── minors.cpython-38.pyc
+│   │           │   │   │   ├── mis.cpython-38.pyc
+│   │           │   │   │   ├── moral.cpython-38.pyc
+│   │           │   │   │   ├── non_randomness.cpython-38.pyc
+│   │           │   │   │   ├── planar_drawing.cpython-38.pyc
+│   │           │   │   │   ├── planarity.cpython-38.pyc
+│   │           │   │   │   ├── reciprocity.cpython-38.pyc
+│   │           │   │   │   ├── regular.cpython-38.pyc
+│   │           │   │   │   ├── richclub.cpython-38.pyc
+│   │           │   │   │   ├── similarity.cpython-38.pyc
+│   │           │   │   │   ├── simple_paths.cpython-38.pyc
+│   │           │   │   │   ├── smallworld.cpython-38.pyc
+│   │           │   │   │   ├── smetric.cpython-38.pyc
+│   │           │   │   │   ├── sparsifiers.cpython-38.pyc
+│   │           │   │   │   ├── structuralholes.cpython-38.pyc
+│   │           │   │   │   ├── swap.cpython-38.pyc
+│   │           │   │   │   ├── threshold.cpython-38.pyc
+│   │           │   │   │   ├── tournament.cpython-38.pyc
+│   │           │   │   │   ├── triads.cpython-38.pyc
+│   │           │   │   │   ├── vitality.cpython-38.pyc
+│   │           │   │   │   ├── voronoi.cpython-38.pyc
+│   │           │   │   │   └── wiener.cpython-38.pyc
 │   │           │   │   ├── shortest_paths
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── astar.cpython-38.pyc
+│   │           │   │   │   │   ├── dense.cpython-38.pyc
+│   │           │   │   │   │   ├── generic.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── unweighted.cpython-38.pyc
+│   │           │   │   │   │   └── weighted.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_astar.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_dense.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_dense_numpy.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_generic.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_unweighted.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_weighted.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_astar.py
 │   │           │   │   │   │   ├── test_dense_numpy.py
@@ -1525,6 +2468,59 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── unweighted.py
 │   │           │   │   │   └── weighted.py
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_asteroidal.cpython-38.pyc
+│   │           │   │   │   │   ├── test_boundary.cpython-38.pyc
+│   │           │   │   │   │   ├── test_bridges.cpython-38.pyc
+│   │           │   │   │   │   ├── test_chains.cpython-38.pyc
+│   │           │   │   │   │   ├── test_chordal.cpython-38.pyc
+│   │           │   │   │   │   ├── test_clique.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cluster.cpython-38.pyc
+│   │           │   │   │   │   ├── test_communicability.cpython-38.pyc
+│   │           │   │   │   │   ├── test_core.cpython-38.pyc
+│   │           │   │   │   │   ├── test_covering.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cuts.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cycles.cpython-38.pyc
+│   │           │   │   │   │   ├── test_dag.cpython-38.pyc
+│   │           │   │   │   │   ├── test_distance_measures.cpython-38.pyc
+│   │           │   │   │   │   ├── test_distance_regular.cpython-38.pyc
+│   │           │   │   │   │   ├── test_dominance.cpython-38.pyc
+│   │           │   │   │   │   ├── test_dominating.cpython-38.pyc
+│   │           │   │   │   │   ├── test_d_separation.cpython-38.pyc
+│   │           │   │   │   │   ├── test_efficiency.cpython-38.pyc
+│   │           │   │   │   │   ├── test_euler.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graph_hashing.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graphical.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hierarchy.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hybrid.cpython-38.pyc
+│   │           │   │   │   │   ├── test_isolate.cpython-38.pyc
+│   │           │   │   │   │   ├── test_link_prediction.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lowest_common_ancestors.cpython-38.pyc
+│   │           │   │   │   │   ├── test_matching.cpython-38.pyc
+│   │           │   │   │   │   ├── test_max_weight_clique.cpython-38.pyc
+│   │           │   │   │   │   ├── test_minors.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mis.cpython-38.pyc
+│   │           │   │   │   │   ├── test_moral.cpython-38.pyc
+│   │           │   │   │   │   ├── test_non_randomness.cpython-38.pyc
+│   │           │   │   │   │   ├── test_planar_drawing.cpython-38.pyc
+│   │           │   │   │   │   ├── test_planarity.cpython-38.pyc
+│   │           │   │   │   │   ├── test_reciprocity.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regular.cpython-38.pyc
+│   │           │   │   │   │   ├── test_richclub.cpython-38.pyc
+│   │           │   │   │   │   ├── test_similarity.cpython-38.pyc
+│   │           │   │   │   │   ├── test_simple_paths.cpython-38.pyc
+│   │           │   │   │   │   ├── test_smallworld.cpython-38.pyc
+│   │           │   │   │   │   ├── test_smetric.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sparsifiers.cpython-38.pyc
+│   │           │   │   │   │   ├── test_structuralholes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_swap.cpython-38.pyc
+│   │           │   │   │   │   ├── test_threshold.cpython-38.pyc
+│   │           │   │   │   │   ├── test_tournament.cpython-38.pyc
+│   │           │   │   │   │   ├── test_triads.cpython-38.pyc
+│   │           │   │   │   │   ├── test_vitality.cpython-38.pyc
+│   │           │   │   │   │   ├── test_voronoi.cpython-38.pyc
+│   │           │   │   │   │   └── test_wiener.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_asteroidal.py
 │   │           │   │   │   ├── test_boundary.py
@@ -1578,7 +2574,21 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── test_voronoi.py
 │   │           │   │   │   └── test_wiener.py
 │   │           │   │   ├── traversal
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── beamsearch.cpython-38.pyc
+│   │           │   │   │   │   ├── breadth_first_search.cpython-38.pyc
+│   │           │   │   │   │   ├── depth_first_search.cpython-38.pyc
+│   │           │   │   │   │   ├── edgebfs.cpython-38.pyc
+│   │           │   │   │   │   ├── edgedfs.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_beamsearch.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_bfs.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_dfs.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_edgebfs.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_edgedfs.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_beamsearch.py
 │   │           │   │   │   │   ├── test_bfs.py
@@ -1592,7 +2602,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── edgedfs.py
 │   │           │   │   │   └── __init__.py
 │   │           │   │   ├── tree
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── branchings.cpython-38.pyc
+│   │           │   │   │   │   ├── coding.cpython-38.pyc
+│   │           │   │   │   │   ├── decomposition.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── mst.cpython-38.pyc
+│   │           │   │   │   │   ├── operations.cpython-38.pyc
+│   │           │   │   │   │   └── recognition.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_branchings.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_coding.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_decomposition.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_mst.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_operations.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_recognition.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_branchings.py
 │   │           │   │   │   │   ├── test_coding.py
@@ -1659,7 +2685,36 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── voronoi.py
 │   │           │   │   └── wiener.py
 │   │           │   ├── classes
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── coreviews.cpython-38.pyc
+│   │           │   │   │   ├── digraph.cpython-38.pyc
+│   │           │   │   │   ├── filters.cpython-38.pyc
+│   │           │   │   │   ├── function.cpython-38.pyc
+│   │           │   │   │   ├── graph.cpython-38.pyc
+│   │           │   │   │   ├── graphviews.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── multidigraph.cpython-38.pyc
+│   │           │   │   │   ├── multigraph.cpython-38.pyc
+│   │           │   │   │   ├── ordered.cpython-38.pyc
+│   │           │   │   │   └── reportviews.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── historical_tests.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_coreviews.cpython-38.pyc
+│   │           │   │   │   │   ├── test_digraph.cpython-38.pyc
+│   │           │   │   │   │   ├── test_digraph_historical.cpython-38.pyc
+│   │           │   │   │   │   ├── test_filters.cpython-38.pyc
+│   │           │   │   │   │   ├── test_function.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graph.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graph_historical.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graphviews.cpython-38.pyc
+│   │           │   │   │   │   ├── test_multidigraph.cpython-38.pyc
+│   │           │   │   │   │   ├── test_multigraph.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ordered.cpython-38.pyc
+│   │           │   │   │   │   ├── test_reportviews.cpython-38.pyc
+│   │           │   │   │   │   ├── test_special.cpython-38.pyc
+│   │           │   │   │   │   └── test_subgraphviews.cpython-38.pyc
 │   │           │   │   │   ├── historical_tests.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_coreviews.py
@@ -1688,7 +2743,19 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── ordered.py
 │   │           │   │   └── reportviews.py
 │   │           │   ├── drawing
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── layout.cpython-38.pyc
+│   │           │   │   │   ├── nx_agraph.cpython-38.pyc
+│   │           │   │   │   ├── nx_pydot.cpython-38.pyc
+│   │           │   │   │   └── nx_pylab.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_agraph.cpython-38.pyc
+│   │           │   │   │   │   ├── test_layout.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pydot.cpython-38.pyc
+│   │           │   │   │   │   └── test_pylab.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_agraph.py
 │   │           │   │   │   ├── test_layout.py
@@ -1700,7 +2767,66 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── nx_pydot.py
 │   │           │   │   └── nx_pylab.py
 │   │           │   ├── generators
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── atlas.cpython-38.pyc
+│   │           │   │   │   ├── classic.cpython-38.pyc
+│   │           │   │   │   ├── cographs.cpython-38.pyc
+│   │           │   │   │   ├── community.cpython-38.pyc
+│   │           │   │   │   ├── degree_seq.cpython-38.pyc
+│   │           │   │   │   ├── directed.cpython-38.pyc
+│   │           │   │   │   ├── duplication.cpython-38.pyc
+│   │           │   │   │   ├── ego.cpython-38.pyc
+│   │           │   │   │   ├── expanders.cpython-38.pyc
+│   │           │   │   │   ├── geometric.cpython-38.pyc
+│   │           │   │   │   ├── harary_graph.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── internet_as_graphs.cpython-38.pyc
+│   │           │   │   │   ├── intersection.cpython-38.pyc
+│   │           │   │   │   ├── interval_graph.cpython-38.pyc
+│   │           │   │   │   ├── joint_degree_seq.cpython-38.pyc
+│   │           │   │   │   ├── lattice.cpython-38.pyc
+│   │           │   │   │   ├── line.cpython-38.pyc
+│   │           │   │   │   ├── mycielski.cpython-38.pyc
+│   │           │   │   │   ├── nonisomorphic_trees.cpython-38.pyc
+│   │           │   │   │   ├── random_clustered.cpython-38.pyc
+│   │           │   │   │   ├── random_graphs.cpython-38.pyc
+│   │           │   │   │   ├── small.cpython-38.pyc
+│   │           │   │   │   ├── social.cpython-38.pyc
+│   │           │   │   │   ├── spectral_graph_forge.cpython-38.pyc
+│   │           │   │   │   ├── stochastic.cpython-38.pyc
+│   │           │   │   │   ├── sudoku.cpython-38.pyc
+│   │           │   │   │   ├── trees.cpython-38.pyc
+│   │           │   │   │   └── triads.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_atlas.cpython-38.pyc
+│   │           │   │   │   │   ├── test_classic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cographs.cpython-38.pyc
+│   │           │   │   │   │   ├── test_community.cpython-38.pyc
+│   │           │   │   │   │   ├── test_degree_seq.cpython-38.pyc
+│   │           │   │   │   │   ├── test_directed.cpython-38.pyc
+│   │           │   │   │   │   ├── test_duplication.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ego.cpython-38.pyc
+│   │           │   │   │   │   ├── test_expanders.cpython-38.pyc
+│   │           │   │   │   │   ├── test_geometric.cpython-38.pyc
+│   │           │   │   │   │   ├── test_harary_graph.cpython-38.pyc
+│   │           │   │   │   │   ├── test_internet_as_graphs.cpython-38.pyc
+│   │           │   │   │   │   ├── test_intersection.cpython-38.pyc
+│   │           │   │   │   │   ├── test_interval_graph.cpython-38.pyc
+│   │           │   │   │   │   ├── test_joint_degree_seq.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lattice.cpython-38.pyc
+│   │           │   │   │   │   ├── test_line.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mycielski.cpython-38.pyc
+│   │           │   │   │   │   ├── test_nonisomorphic_trees.cpython-38.pyc
+│   │           │   │   │   │   ├── test_random_clustered.cpython-38.pyc
+│   │           │   │   │   │   ├── test_random_graphs.cpython-38.pyc
+│   │           │   │   │   │   ├── test_small.cpython-38.pyc
+│   │           │   │   │   │   ├── test_spectral_graph_forge.cpython-38.pyc
+│   │           │   │   │   │   ├── test_stochastic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sudoku.cpython-38.pyc
+│   │           │   │   │   │   ├── test_trees.cpython-38.pyc
+│   │           │   │   │   │   └── test_triads.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_atlas.py
 │   │           │   │   │   ├── test_classic.py
@@ -1760,7 +2886,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── trees.py
 │   │           │   │   └── triads.py
 │   │           │   ├── linalg
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── algebraicconnectivity.cpython-38.pyc
+│   │           │   │   │   ├── attrmatrix.cpython-38.pyc
+│   │           │   │   │   ├── bethehessianmatrix.cpython-38.pyc
+│   │           │   │   │   ├── graphmatrix.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── laplacianmatrix.cpython-38.pyc
+│   │           │   │   │   ├── modularitymatrix.cpython-38.pyc
+│   │           │   │   │   └── spectrum.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_algebraic_connectivity.cpython-38.pyc
+│   │           │   │   │   │   ├── test_attrmatrix.cpython-38.pyc
+│   │           │   │   │   │   ├── test_bethehessian.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graphmatrix.cpython-38.pyc
+│   │           │   │   │   │   ├── test_laplacian.cpython-38.pyc
+│   │           │   │   │   │   ├── test_modularity.cpython-38.pyc
+│   │           │   │   │   │   └── test_spectrum.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_algebraic_connectivity.py
 │   │           │   │   │   ├── test_attrmatrix.py
@@ -1777,9 +2921,32 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── laplacianmatrix.py
 │   │           │   │   ├── modularitymatrix.py
 │   │           │   │   └── spectrum.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── conftest.cpython-38.pyc
+│   │           │   │   ├── convert.cpython-38.pyc
+│   │           │   │   ├── convert_matrix.cpython-38.pyc
+│   │           │   │   ├── exception.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── relabel.cpython-38.pyc
+│   │           │   │   ├── release.cpython-38.pyc
+│   │           │   │   └── version.cpython-38.pyc
 │   │           │   ├── readwrite
 │   │           │   │   ├── json_graph
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── adjacency.cpython-38.pyc
+│   │           │   │   │   │   ├── cytoscape.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── jit.cpython-38.pyc
+│   │           │   │   │   │   ├── node_link.cpython-38.pyc
+│   │           │   │   │   │   └── tree.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_adjacency.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_cytoscape.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_jit.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_node_link.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_tree.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_adjacency.py
 │   │           │   │   │   │   ├── test_cytoscape.py
@@ -1792,7 +2959,38 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── jit.py
 │   │           │   │   │   ├── node_link.py
 │   │           │   │   │   └── tree.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── adjlist.cpython-38.pyc
+│   │           │   │   │   ├── edgelist.cpython-38.pyc
+│   │           │   │   │   ├── gexf.cpython-38.pyc
+│   │           │   │   │   ├── gml.cpython-38.pyc
+│   │           │   │   │   ├── gpickle.cpython-38.pyc
+│   │           │   │   │   ├── graph6.cpython-38.pyc
+│   │           │   │   │   ├── graphml.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── leda.cpython-38.pyc
+│   │           │   │   │   ├── multiline_adjlist.cpython-38.pyc
+│   │           │   │   │   ├── nx_shp.cpython-38.pyc
+│   │           │   │   │   ├── nx_yaml.cpython-38.pyc
+│   │           │   │   │   ├── p2g.cpython-38.pyc
+│   │           │   │   │   ├── pajek.cpython-38.pyc
+│   │           │   │   │   └── sparse6.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_adjlist.cpython-38.pyc
+│   │           │   │   │   │   ├── test_edgelist.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gexf.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gml.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gpickle.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graph6.cpython-38.pyc
+│   │           │   │   │   │   ├── test_graphml.cpython-38.pyc
+│   │           │   │   │   │   ├── test_leda.cpython-38.pyc
+│   │           │   │   │   │   ├── test_p2g.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pajek.cpython-38.pyc
+│   │           │   │   │   │   ├── test_shp.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sparse6.cpython-38.pyc
+│   │           │   │   │   │   └── test_yaml.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_adjlist.py
 │   │           │   │   │   ├── test_edgelist.py
@@ -1823,13 +3021,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── pajek.py
 │   │           │   │   └── sparse6.py
 │   │           │   ├── testing
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── test.cpython-38.pyc
+│   │           │   │   │   └── utils.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── test_utils.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── test_utils.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── test.py
 │   │           │   │   └── utils.py
 │   │           │   ├── tests
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── test_all_random_functions.cpython-38.pyc
+│   │           │   │   │   ├── test_convert.cpython-38.pyc
+│   │           │   │   │   ├── test_convert_numpy.cpython-38.pyc
+│   │           │   │   │   ├── test_convert_pandas.cpython-38.pyc
+│   │           │   │   │   ├── test_convert_scipy.cpython-38.pyc
+│   │           │   │   │   ├── test_exceptions.cpython-38.pyc
+│   │           │   │   │   └── test_relabel.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── test_all_random_functions.py
 │   │           │   │   ├── test_convert_numpy.py
@@ -1839,7 +3053,27 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── test_exceptions.py
 │   │           │   │   └── test_relabel.py
 │   │           │   ├── utils
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── contextmanagers.cpython-38.pyc
+│   │           │   │   │   ├── decorators.cpython-38.pyc
+│   │           │   │   │   ├── heaps.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── mapped_queue.cpython-38.pyc
+│   │           │   │   │   ├── misc.cpython-38.pyc
+│   │           │   │   │   ├── random_sequence.cpython-38.pyc
+│   │           │   │   │   ├── rcm.cpython-38.pyc
+│   │           │   │   │   └── union_find.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_contextmanager.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decorators.cpython-38.pyc
+│   │           │   │   │   │   ├── test_heaps.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mapped_queue.cpython-38.pyc
+│   │           │   │   │   │   ├── test_misc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_random_sequence.cpython-38.pyc
+│   │           │   │   │   │   ├── test_rcm.cpython-38.pyc
+│   │           │   │   │   │   └── test_unionfind.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_contextmanager.py
 │   │           │   │   │   ├── test_decorators.py
@@ -1875,7 +3109,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── numpy
 │   │           │   ├── compat
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _inspect.cpython-38.pyc
+│   │           │   │   │   ├── py3k.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── test_compat.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── test_compat.py
 │   │           │   │   ├── __init__.py
@@ -1919,6 +3161,39 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── mlib.ini
 │   │           │   │   │   │   └── npymath.ini
 │   │           │   │   │   └── libnpymath.a
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _add_newdocs.cpython-38.pyc
+│   │           │   │   │   ├── _add_newdocs_scalars.cpython-38.pyc
+│   │           │   │   │   ├── arrayprint.cpython-38.pyc
+│   │           │   │   │   ├── _asarray.cpython-38.pyc
+│   │           │   │   │   ├── cversions.cpython-38.pyc
+│   │           │   │   │   ├── defchararray.cpython-38.pyc
+│   │           │   │   │   ├── _dtype.cpython-38.pyc
+│   │           │   │   │   ├── _dtype_ctypes.cpython-38.pyc
+│   │           │   │   │   ├── einsumfunc.cpython-38.pyc
+│   │           │   │   │   ├── _exceptions.cpython-38.pyc
+│   │           │   │   │   ├── fromnumeric.cpython-38.pyc
+│   │           │   │   │   ├── function_base.cpython-38.pyc
+│   │           │   │   │   ├── generate_numpy_api.cpython-38.pyc
+│   │           │   │   │   ├── getlimits.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _internal.cpython-38.pyc
+│   │           │   │   │   ├── machar.cpython-38.pyc
+│   │           │   │   │   ├── memmap.cpython-38.pyc
+│   │           │   │   │   ├── _methods.cpython-38.pyc
+│   │           │   │   │   ├── multiarray.cpython-38.pyc
+│   │           │   │   │   ├── numeric.cpython-38.pyc
+│   │           │   │   │   ├── numerictypes.cpython-38.pyc
+│   │           │   │   │   ├── overrides.cpython-38.pyc
+│   │           │   │   │   ├── records.cpython-38.pyc
+│   │           │   │   │   ├── setup_common.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── shape_base.cpython-38.pyc
+│   │           │   │   │   ├── _string_helpers.cpython-38.pyc
+│   │           │   │   │   ├── _type_aliases.cpython-38.pyc
+│   │           │   │   │   ├── _ufunc_config.cpython-38.pyc
+│   │           │   │   │   ├── umath.cpython-38.pyc
+│   │           │   │   │   └── umath_tests.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── astype_copy.pkl
@@ -1929,8 +3204,63 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── umath-validation-set-README
 │   │           │   │   │   │   └── umath-validation-set-sin
 │   │           │   │   │   ├── examples
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   │   ├── checks.pyx
 │   │           │   │   │   │   └── setup.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── _locales.cpython-38.pyc
+│   │           │   │   │   │   ├── test_abc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_api.cpython-38.pyc
+│   │           │   │   │   │   ├── test_array_coercion.cpython-38.pyc
+│   │           │   │   │   │   ├── test_arrayprint.cpython-38.pyc
+│   │           │   │   │   │   ├── test_casting_unittests.cpython-38.pyc
+│   │           │   │   │   │   ├── test_conversion_utils.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cpu_dispatcher.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cpu_features.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cython.cpython-38.pyc
+│   │           │   │   │   │   ├── test_datetime.cpython-38.pyc
+│   │           │   │   │   │   ├── test_defchararray.cpython-38.pyc
+│   │           │   │   │   │   ├── test_deprecations.cpython-38.pyc
+│   │           │   │   │   │   ├── test_dtype.cpython-38.pyc
+│   │           │   │   │   │   ├── test_einsum.cpython-38.pyc
+│   │           │   │   │   │   ├── test_errstate.cpython-38.pyc
+│   │           │   │   │   │   ├── test__exceptions.cpython-38.pyc
+│   │           │   │   │   │   ├── test_extint128.cpython-38.pyc
+│   │           │   │   │   │   ├── test_function_base.cpython-38.pyc
+│   │           │   │   │   │   ├── test_getlimits.cpython-38.pyc
+│   │           │   │   │   │   ├── test_half.cpython-38.pyc
+│   │           │   │   │   │   ├── test_indexerrors.cpython-38.pyc
+│   │           │   │   │   │   ├── test_indexing.cpython-38.pyc
+│   │           │   │   │   │   ├── test_item_selection.cpython-38.pyc
+│   │           │   │   │   │   ├── test_longdouble.cpython-38.pyc
+│   │           │   │   │   │   ├── test_machar.cpython-38.pyc
+│   │           │   │   │   │   ├── test_memmap.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mem_overlap.cpython-38.pyc
+│   │           │   │   │   │   ├── test_multiarray.cpython-38.pyc
+│   │           │   │   │   │   ├── test_nditer.cpython-38.pyc
+│   │           │   │   │   │   ├── test_numeric.cpython-38.pyc
+│   │           │   │   │   │   ├── test_numerictypes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_overrides.cpython-38.pyc
+│   │           │   │   │   │   ├── test_print.cpython-38.pyc
+│   │           │   │   │   │   ├── test_protocols.cpython-38.pyc
+│   │           │   │   │   │   ├── test_records.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regression.cpython-38.pyc
+│   │           │   │   │   │   ├── test_scalarbuffer.cpython-38.pyc
+│   │           │   │   │   │   ├── test_scalar_ctors.cpython-38.pyc
+│   │           │   │   │   │   ├── test_scalarinherit.cpython-38.pyc
+│   │           │   │   │   │   ├── test_scalarmath.cpython-38.pyc
+│   │           │   │   │   │   ├── test_scalar_methods.cpython-38.pyc
+│   │           │   │   │   │   ├── test_scalarprint.cpython-38.pyc
+│   │           │   │   │   │   ├── test_shape_base.cpython-38.pyc
+│   │           │   │   │   │   ├── test_simd.cpython-38.pyc
+│   │           │   │   │   │   ├── test_simd_module.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ufunc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_umath_accuracy.cpython-38.pyc
+│   │           │   │   │   │   ├── test_umath_complex.cpython-38.pyc
+│   │           │   │   │   │   ├── test_umath.cpython-38.pyc
+│   │           │   │   │   │   └── test_unicode.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── _locales.py
 │   │           │   │   │   ├── test_abc.py
@@ -2070,6 +3400,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── extra_avx512f_reduce.c
 │   │           │   │   │   └── test_flags.c
 │   │           │   │   ├── command
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── autodist.cpython-38.pyc
+│   │           │   │   │   │   ├── bdist_rpm.cpython-38.pyc
+│   │           │   │   │   │   ├── build_clib.cpython-38.pyc
+│   │           │   │   │   │   ├── build.cpython-38.pyc
+│   │           │   │   │   │   ├── build_ext.cpython-38.pyc
+│   │           │   │   │   │   ├── build_py.cpython-38.pyc
+│   │           │   │   │   │   ├── build_scripts.cpython-38.pyc
+│   │           │   │   │   │   ├── build_src.cpython-38.pyc
+│   │           │   │   │   │   ├── config_compiler.cpython-38.pyc
+│   │           │   │   │   │   ├── config.cpython-38.pyc
+│   │           │   │   │   │   ├── develop.cpython-38.pyc
+│   │           │   │   │   │   ├── egg_info.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── install_clib.cpython-38.pyc
+│   │           │   │   │   │   ├── install.cpython-38.pyc
+│   │           │   │   │   │   ├── install_data.cpython-38.pyc
+│   │           │   │   │   │   ├── install_headers.cpython-38.pyc
+│   │           │   │   │   │   └── sdist.cpython-38.pyc
 │   │           │   │   │   ├── autodist.py
 │   │           │   │   │   ├── bdist_rpm.py
 │   │           │   │   │   ├── build_clib.py
@@ -2089,6 +3438,26 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── install.py
 │   │           │   │   │   └── sdist.py
 │   │           │   │   ├── fcompiler
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── absoft.cpython-38.pyc
+│   │           │   │   │   │   ├── compaq.cpython-38.pyc
+│   │           │   │   │   │   ├── environment.cpython-38.pyc
+│   │           │   │   │   │   ├── fujitsu.cpython-38.pyc
+│   │           │   │   │   │   ├── g95.cpython-38.pyc
+│   │           │   │   │   │   ├── gnu.cpython-38.pyc
+│   │           │   │   │   │   ├── hpux.cpython-38.pyc
+│   │           │   │   │   │   ├── ibm.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── intel.cpython-38.pyc
+│   │           │   │   │   │   ├── lahey.cpython-38.pyc
+│   │           │   │   │   │   ├── mips.cpython-38.pyc
+│   │           │   │   │   │   ├── nag.cpython-38.pyc
+│   │           │   │   │   │   ├── none.cpython-38.pyc
+│   │           │   │   │   │   ├── nv.cpython-38.pyc
+│   │           │   │   │   │   ├── pathf95.cpython-38.pyc
+│   │           │   │   │   │   ├── pg.cpython-38.pyc
+│   │           │   │   │   │   ├── sun.cpython-38.pyc
+│   │           │   │   │   │   └── vast.cpython-38.pyc
 │   │           │   │   │   ├── absoft.py
 │   │           │   │   │   ├── compaq.py
 │   │           │   │   │   ├── environment.py
@@ -2110,7 +3479,49 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── vast.py
 │   │           │   │   ├── mingw
 │   │           │   │   │   └── gfortran_vs2003_hack.c
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── ccompiler.cpython-38.pyc
+│   │           │   │   │   ├── ccompiler_opt.cpython-38.pyc
+│   │           │   │   │   ├── __config__.cpython-38.pyc
+│   │           │   │   │   ├── conv_template.cpython-38.pyc
+│   │           │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   ├── cpuinfo.cpython-38.pyc
+│   │           │   │   │   ├── exec_command.cpython-38.pyc
+│   │           │   │   │   ├── extension.cpython-38.pyc
+│   │           │   │   │   ├── from_template.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── intelccompiler.cpython-38.pyc
+│   │           │   │   │   ├── lib2def.cpython-38.pyc
+│   │           │   │   │   ├── line_endings.cpython-38.pyc
+│   │           │   │   │   ├── log.cpython-38.pyc
+│   │           │   │   │   ├── mingw32ccompiler.cpython-38.pyc
+│   │           │   │   │   ├── misc_util.cpython-38.pyc
+│   │           │   │   │   ├── msvc9compiler.cpython-38.pyc
+│   │           │   │   │   ├── msvccompiler.cpython-38.pyc
+│   │           │   │   │   ├── npy_pkg_config.cpython-38.pyc
+│   │           │   │   │   ├── numpy_distribution.cpython-38.pyc
+│   │           │   │   │   ├── pathccompiler.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── _shell_utils.cpython-38.pyc
+│   │           │   │   │   ├── system_info.cpython-38.pyc
+│   │           │   │   │   └── unixccompiler.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_build_ext.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ccompiler_opt_conf.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ccompiler_opt.cpython-38.pyc
+│   │           │   │   │   │   ├── test_exec_command.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fcompiler.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fcompiler_gnu.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fcompiler_intel.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fcompiler_nagfor.cpython-38.pyc
+│   │           │   │   │   │   ├── test_from_template.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mingw32ccompiler.cpython-38.pyc
+│   │           │   │   │   │   ├── test_misc_util.cpython-38.pyc
+│   │           │   │   │   │   ├── test_npy_pkg_config.cpython-38.pyc
+│   │           │   │   │   │   ├── test_shell_utils.cpython-38.pyc
+│   │           │   │   │   │   └── test_system_info.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_build_ext.py
 │   │           │   │   │   ├── test_ccompiler_opt_conf.py
@@ -2153,14 +3564,60 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── system_info.py
 │   │           │   │   └── unixccompiler.py
 │   │           │   ├── doc
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── constants.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── ufuncs.cpython-38.pyc
 │   │           │   │   ├── constants.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── ufuncs.py
 │   │           │   ├── f2py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── auxfuncs.cpython-38.pyc
+│   │           │   │   │   ├── capi_maps.cpython-38.pyc
+│   │           │   │   │   ├── cb_rules.cpython-38.pyc
+│   │           │   │   │   ├── cfuncs.cpython-38.pyc
+│   │           │   │   │   ├── common_rules.cpython-38.pyc
+│   │           │   │   │   ├── crackfortran.cpython-38.pyc
+│   │           │   │   │   ├── diagnose.cpython-38.pyc
+│   │           │   │   │   ├── f2py2e.cpython-38.pyc
+│   │           │   │   │   ├── f2py_testing.cpython-38.pyc
+│   │           │   │   │   ├── f90mod_rules.cpython-38.pyc
+│   │           │   │   │   ├── func2subr.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── __main__.cpython-38.pyc
+│   │           │   │   │   ├── rules.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── use_rules.cpython-38.pyc
+│   │           │   │   │   └── __version__.cpython-38.pyc
 │   │           │   │   ├── src
 │   │           │   │   │   ├── fortranobject.c
 │   │           │   │   │   └── fortranobject.h
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_array_from_pyobj.cpython-38.pyc
+│   │           │   │   │   │   ├── test_assumed_shape.cpython-38.pyc
+│   │           │   │   │   │   ├── test_block_docstring.cpython-38.pyc
+│   │           │   │   │   │   ├── test_callback.cpython-38.pyc
+│   │           │   │   │   │   ├── test_common.cpython-38.pyc
+│   │           │   │   │   │   ├── test_compile_function.cpython-38.pyc
+│   │           │   │   │   │   ├── test_crackfortran.cpython-38.pyc
+│   │           │   │   │   │   ├── test_kind.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mixed.cpython-38.pyc
+│   │           │   │   │   │   ├── test_module_doc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_parameter.cpython-38.pyc
+│   │           │   │   │   │   ├── test_quoted_character.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regression.cpython-38.pyc
+│   │           │   │   │   │   ├── test_return_character.cpython-38.pyc
+│   │           │   │   │   │   ├── test_return_complex.cpython-38.pyc
+│   │           │   │   │   │   ├── test_return_integer.cpython-38.pyc
+│   │           │   │   │   │   ├── test_return_logical.cpython-38.pyc
+│   │           │   │   │   │   ├── test_return_real.cpython-38.pyc
+│   │           │   │   │   │   ├── test_semicolon_split.cpython-38.pyc
+│   │           │   │   │   │   ├── test_size.cpython-38.pyc
+│   │           │   │   │   │   ├── test_string.cpython-38.pyc
+│   │           │   │   │   │   └── util.cpython-38.pyc
 │   │           │   │   │   ├── src
 │   │           │   │   │   │   ├── array_from_pyobj
 │   │           │   │   │   │   │   └── wrapmodule.c
@@ -2234,7 +3691,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── use_rules.py
 │   │           │   │   └── __version__.py
 │   │           │   ├── fft
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── helper.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _pocketfft.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_helper.cpython-38.pyc
+│   │           │   │   │   │   └── test_pocketfft.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_helper.py
 │   │           │   │   │   └── test_pocketfft.py
@@ -2245,6 +3711,32 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _pocketfft.py
 │   │           │   │   └── setup.py
 │   │           │   ├── lib
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── arraypad.cpython-38.pyc
+│   │           │   │   │   ├── arraysetops.cpython-38.pyc
+│   │           │   │   │   ├── arrayterator.cpython-38.pyc
+│   │           │   │   │   ├── _datasource.cpython-38.pyc
+│   │           │   │   │   ├── format.cpython-38.pyc
+│   │           │   │   │   ├── function_base.cpython-38.pyc
+│   │           │   │   │   ├── histograms.cpython-38.pyc
+│   │           │   │   │   ├── index_tricks.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _iotools.cpython-38.pyc
+│   │           │   │   │   ├── mixins.cpython-38.pyc
+│   │           │   │   │   ├── nanfunctions.cpython-38.pyc
+│   │           │   │   │   ├── npyio.cpython-38.pyc
+│   │           │   │   │   ├── polynomial.cpython-38.pyc
+│   │           │   │   │   ├── recfunctions.cpython-38.pyc
+│   │           │   │   │   ├── scimath.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── shape_base.cpython-38.pyc
+│   │           │   │   │   ├── stride_tricks.cpython-38.pyc
+│   │           │   │   │   ├── twodim_base.cpython-38.pyc
+│   │           │   │   │   ├── type_check.cpython-38.pyc
+│   │           │   │   │   ├── ufunclike.cpython-38.pyc
+│   │           │   │   │   ├── user_array.cpython-38.pyc
+│   │           │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   └── _version.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── py2-objarr.npy
@@ -2253,6 +3745,32 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── py3-objarr.npz
 │   │           │   │   │   │   ├── python3.npy
 │   │           │   │   │   │   └── win64python2.npy
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_arraypad.cpython-38.pyc
+│   │           │   │   │   │   ├── test_arraysetops.cpython-38.pyc
+│   │           │   │   │   │   ├── test_arrayterator.cpython-38.pyc
+│   │           │   │   │   │   ├── test__datasource.cpython-38.pyc
+│   │           │   │   │   │   ├── test_financial_expired.cpython-38.pyc
+│   │           │   │   │   │   ├── test_format.cpython-38.pyc
+│   │           │   │   │   │   ├── test_function_base.cpython-38.pyc
+│   │           │   │   │   │   ├── test_histograms.cpython-38.pyc
+│   │           │   │   │   │   ├── test_index_tricks.cpython-38.pyc
+│   │           │   │   │   │   ├── test_io.cpython-38.pyc
+│   │           │   │   │   │   ├── test__iotools.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mixins.cpython-38.pyc
+│   │           │   │   │   │   ├── test_nanfunctions.cpython-38.pyc
+│   │           │   │   │   │   ├── test_packbits.cpython-38.pyc
+│   │           │   │   │   │   ├── test_polynomial.cpython-38.pyc
+│   │           │   │   │   │   ├── test_recfunctions.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regression.cpython-38.pyc
+│   │           │   │   │   │   ├── test_shape_base.cpython-38.pyc
+│   │           │   │   │   │   ├── test_stride_tricks.cpython-38.pyc
+│   │           │   │   │   │   ├── test_twodim_base.cpython-38.pyc
+│   │           │   │   │   │   ├── test_type_check.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ufunclike.cpython-38.pyc
+│   │           │   │   │   │   ├── test_utils.cpython-38.pyc
+│   │           │   │   │   │   └── test__version.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_arraypad.py
 │   │           │   │   │   ├── test_arraysetops.py
@@ -2305,7 +3823,17 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── utils.py
 │   │           │   │   └── _version.py
 │   │           │   ├── linalg
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── linalg.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_build.cpython-38.pyc
+│   │           │   │   │   │   ├── test_deprecations.cpython-38.pyc
+│   │           │   │   │   │   ├── test_linalg.cpython-38.pyc
+│   │           │   │   │   │   └── test_regression.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_build.py
 │   │           │   │   │   ├── test_deprecations.py
@@ -2318,7 +3846,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── setup.py
 │   │           │   │   └── _umath_linalg.cpython-38-x86_64-linux-gnu.so
 │   │           │   ├── ma
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── bench.cpython-38.pyc
+│   │           │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   ├── extras.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── mrecords.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── testutils.cpython-38.pyc
+│   │           │   │   │   └── timer_comparison.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_core.cpython-38.pyc
+│   │           │   │   │   │   ├── test_deprecations.cpython-38.pyc
+│   │           │   │   │   │   ├── test_extras.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mrecords.cpython-38.pyc
+│   │           │   │   │   │   ├── test_old_ma.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regression.cpython-38.pyc
+│   │           │   │   │   │   └── test_subclassing.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_core.py
 │   │           │   │   │   ├── test_deprecations.py
@@ -2337,7 +3883,20 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── testutils.py
 │   │           │   │   └── timer_comparison.py
 │   │           │   ├── matrixlib
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── defmatrix.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_defmatrix.cpython-38.pyc
+│   │           │   │   │   │   ├── test_interaction.cpython-38.pyc
+│   │           │   │   │   │   ├── test_masked_matrix.cpython-38.pyc
+│   │           │   │   │   │   ├── test_matrix_linalg.cpython-38.pyc
+│   │           │   │   │   │   ├── test_multiarray.cpython-38.pyc
+│   │           │   │   │   │   ├── test_numeric.cpython-38.pyc
+│   │           │   │   │   │   └── test_regression.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_defmatrix.py
 │   │           │   │   │   ├── test_interaction.py
@@ -2351,7 +3910,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── __init__.pyi
 │   │           │   │   └── setup.py
 │   │           │   ├── polynomial
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── chebyshev.cpython-38.pyc
+│   │           │   │   │   ├── hermite.cpython-38.pyc
+│   │           │   │   │   ├── hermite_e.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── laguerre.cpython-38.pyc
+│   │           │   │   │   ├── legendre.cpython-38.pyc
+│   │           │   │   │   ├── _polybase.cpython-38.pyc
+│   │           │   │   │   ├── polynomial.cpython-38.pyc
+│   │           │   │   │   ├── polyutils.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_chebyshev.cpython-38.pyc
+│   │           │   │   │   │   ├── test_classes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hermite.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hermite_e.cpython-38.pyc
+│   │           │   │   │   │   ├── test_laguerre.cpython-38.pyc
+│   │           │   │   │   │   ├── test_legendre.cpython-38.pyc
+│   │           │   │   │   │   ├── test_polynomial.cpython-38.pyc
+│   │           │   │   │   │   ├── test_polyutils.cpython-38.pyc
+│   │           │   │   │   │   └── test_printing.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_chebyshev.py
 │   │           │   │   │   ├── test_classes.py
@@ -2373,22 +3954,48 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── polynomial.py
 │   │           │   │   ├── polyutils.py
 │   │           │   │   └── setup.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── __config__.cpython-38.pyc
+│   │           │   │   ├── conftest.cpython-38.pyc
+│   │           │   │   ├── ctypeslib.cpython-38.pyc
+│   │           │   │   ├── _distributor_init.cpython-38.pyc
+│   │           │   │   ├── dual.cpython-38.pyc
+│   │           │   │   ├── _globals.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── matlib.cpython-38.pyc
+│   │           │   │   ├── _pytesttester.cpython-38.pyc
+│   │           │   │   ├── setup.cpython-38.pyc
+│   │           │   │   └── version.cpython-38.pyc
 │   │           │   ├── random
 │   │           │   │   ├── _examples
 │   │           │   │   │   ├── cffi
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── extending.cpython-38.pyc
+│   │           │   │   │   │   │   └── parse.cpython-38.pyc
 │   │           │   │   │   │   ├── extending.py
 │   │           │   │   │   │   └── parse.py
 │   │           │   │   │   ├── cython
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   │   ├── extending_distributions.pyx
 │   │           │   │   │   │   ├── extending.pyx
 │   │           │   │   │   │   └── setup.py
 │   │           │   │   │   └── numba
+│   │           │   │   │       ├── __pycache__
+│   │           │   │   │       │   ├── extending.cpython-38.pyc
+│   │           │   │   │       │   └── extending_distributions.cpython-38.pyc
 │   │           │   │   │       ├── extending_distributions.py
 │   │           │   │   │       └── extending.py
 │   │           │   │   ├── lib
 │   │           │   │   │   └── libnpyrandom.a
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _pickle.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── mt19937-testset-1.csv
 │   │           │   │   │   │   ├── mt19937-testset-2.csv
@@ -2398,6 +4005,18 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── philox-testset-2.csv
 │   │           │   │   │   │   ├── sfc64-testset-1.csv
 │   │           │   │   │   │   └── sfc64-testset-2.csv
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_direct.cpython-38.pyc
+│   │           │   │   │   │   ├── test_extending.cpython-38.pyc
+│   │           │   │   │   │   ├── test_generator_mt19937.cpython-38.pyc
+│   │           │   │   │   │   ├── test_generator_mt19937_regressions.cpython-38.pyc
+│   │           │   │   │   │   ├── test_random.cpython-38.pyc
+│   │           │   │   │   │   ├── test_randomstate.cpython-38.pyc
+│   │           │   │   │   │   ├── test_randomstate_regression.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regression.cpython-38.pyc
+│   │           │   │   │   │   ├── test_seed_sequence.cpython-38.pyc
+│   │           │   │   │   │   └── test_smoke.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_direct.py
 │   │           │   │   │   ├── test_extending.py
@@ -2429,13 +4048,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── _sfc64.cpython-38-x86_64-linux-gnu.so
 │   │           │   ├── testing
 │   │           │   │   ├── _private
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── decorators.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── noseclasses.cpython-38.pyc
+│   │           │   │   │   │   ├── nosetester.cpython-38.pyc
+│   │           │   │   │   │   ├── parameterized.cpython-38.pyc
+│   │           │   │   │   │   └── utils.cpython-38.pyc
 │   │           │   │   │   ├── decorators.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── noseclasses.py
 │   │           │   │   │   ├── nosetester.py
 │   │           │   │   │   ├── parameterized.py
 │   │           │   │   │   └── utils.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── print_coercion_tables.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── utils.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decorators.cpython-38.pyc
+│   │           │   │   │   │   ├── test_doctesting.cpython-38.pyc
+│   │           │   │   │   │   └── test_utils.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_decorators.py
 │   │           │   │   │   ├── test_doctesting.py
@@ -2446,6 +4082,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── setup.py
 │   │           │   │   └── utils.py
 │   │           │   ├── tests
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── test_ctypeslib.cpython-38.pyc
+│   │           │   │   │   ├── test_matlib.cpython-38.pyc
+│   │           │   │   │   ├── test_numpy_version.cpython-38.pyc
+│   │           │   │   │   ├── test_public_api.cpython-38.pyc
+│   │           │   │   │   ├── test_reloading.cpython-38.pyc
+│   │           │   │   │   ├── test_scripts.cpython-38.pyc
+│   │           │   │   │   └── test_warnings.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── test_ctypeslib.py
 │   │           │   │   ├── test_matlib.py
@@ -2455,9 +4100,35 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── test_scripts.py
 │   │           │   │   └── test_warnings.py
 │   │           │   ├── typing
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _add_docstring.cpython-38.pyc
+│   │           │   │   │   ├── _array_like.cpython-38.pyc
+│   │           │   │   │   ├── _callable.cpython-38.pyc
+│   │           │   │   │   ├── _dtype_like.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _scalars.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── _shape.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── fail
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── arithmetic.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── array_constructors.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── array_like.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── bitwise_ops.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── constants.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── dtype.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── flatiter.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── fromnumeric.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── modules.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray_misc.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── numerictypes.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── scalars.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ufunc_config.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ufuncs.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── warnings_and_errors.cpython-38.pyc
 │   │           │   │   │   │   │   ├── arithmetic.py
 │   │           │   │   │   │   │   ├── array_constructors.py
 │   │           │   │   │   │   │   ├── array_like.py
@@ -2475,6 +4146,28 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   │   ├── ufuncs.py
 │   │           │   │   │   │   │   └── warnings_and_errors.py
 │   │           │   │   │   │   ├── pass
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── arithmetic.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── array_constructors.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── array_like.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── bitwise_ops.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── dtype.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── flatiter.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── fromnumeric.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── literal.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── mod.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── modules.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray_conversion.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray_misc.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray_shape_manipulation.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── numeric.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── numerictypes.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── scalars.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── simple.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── simple_py3.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ufunc_config.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ufuncs.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── warnings_and_errors.cpython-38.pyc
 │   │           │   │   │   │   │   ├── arithmetic.py
 │   │           │   │   │   │   │   ├── array_constructors.py
 │   │           │   │   │   │   │   ├── array_like.py
@@ -2497,6 +4190,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   │   ├── ufuncs.py
 │   │           │   │   │   │   │   └── warnings_and_errors.py
 │   │           │   │   │   │   ├── reveal
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── arithmetic.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── array_constructors.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── bitwise_ops.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── constants.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── dtype.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── flatiter.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── fromnumeric.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── mod.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── modules.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── nbit_base_example.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray_conversion.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray_misc.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ndarray_shape_manipulation.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── numeric.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── numerictypes.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── scalars.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── ufunc_config.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── warnings_and_errors.cpython-38.pyc
 │   │           │   │   │   │   │   ├── arithmetic.py
 │   │           │   │   │   │   │   ├── array_constructors.py
 │   │           │   │   │   │   │   ├── bitwise_ops.py
@@ -2516,6 +4228,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   │   ├── ufunc_config.py
 │   │           │   │   │   │   │   └── warnings_and_errors.py
 │   │           │   │   │   │   └── mypy.ini
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_isfile.cpython-38.pyc
+│   │           │   │   │   │   └── test_typing.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_isfile.py
 │   │           │   │   │   └── test_typing.py
@@ -2562,6 +4278,18 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── libquadmath-2d0c479f.so.0.0.0
 │   │           │   └── libz-eb09ad1d.so.1.2.3
 │   │           ├── packaging
+│   │           │   ├── __pycache__
+│   │           │   │   ├── __about__.cpython-38.pyc
+│   │           │   │   ├── _compat.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── markers.cpython-38.pyc
+│   │           │   │   ├── requirements.cpython-38.pyc
+│   │           │   │   ├── specifiers.cpython-38.pyc
+│   │           │   │   ├── _structures.cpython-38.pyc
+│   │           │   │   ├── tags.cpython-38.pyc
+│   │           │   │   ├── _typing.cpython-38.pyc
+│   │           │   │   ├── utils.cpython-38.pyc
+│   │           │   │   └── version.cpython-38.pyc
 │   │           │   ├── __about__.py
 │   │           │   ├── _compat.py
 │   │           │   ├── __init__.py
@@ -2584,6 +4312,99 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── PIL
+│   │           │   ├── __pycache__
+│   │           │   │   ├── BdfFontFile.cpython-38.pyc
+│   │           │   │   ├── _binary.cpython-38.pyc
+│   │           │   │   ├── BlpImagePlugin.cpython-38.pyc
+│   │           │   │   ├── BmpImagePlugin.cpython-38.pyc
+│   │           │   │   ├── BufrStubImagePlugin.cpython-38.pyc
+│   │           │   │   ├── ContainerIO.cpython-38.pyc
+│   │           │   │   ├── CurImagePlugin.cpython-38.pyc
+│   │           │   │   ├── DcxImagePlugin.cpython-38.pyc
+│   │           │   │   ├── DdsImagePlugin.cpython-38.pyc
+│   │           │   │   ├── EpsImagePlugin.cpython-38.pyc
+│   │           │   │   ├── ExifTags.cpython-38.pyc
+│   │           │   │   ├── features.cpython-38.pyc
+│   │           │   │   ├── FitsStubImagePlugin.cpython-38.pyc
+│   │           │   │   ├── FliImagePlugin.cpython-38.pyc
+│   │           │   │   ├── FontFile.cpython-38.pyc
+│   │           │   │   ├── FpxImagePlugin.cpython-38.pyc
+│   │           │   │   ├── FtexImagePlugin.cpython-38.pyc
+│   │           │   │   ├── GbrImagePlugin.cpython-38.pyc
+│   │           │   │   ├── GdImageFile.cpython-38.pyc
+│   │           │   │   ├── GifImagePlugin.cpython-38.pyc
+│   │           │   │   ├── GimpGradientFile.cpython-38.pyc
+│   │           │   │   ├── GimpPaletteFile.cpython-38.pyc
+│   │           │   │   ├── GribStubImagePlugin.cpython-38.pyc
+│   │           │   │   ├── Hdf5StubImagePlugin.cpython-38.pyc
+│   │           │   │   ├── IcnsImagePlugin.cpython-38.pyc
+│   │           │   │   ├── IcoImagePlugin.cpython-38.pyc
+│   │           │   │   ├── ImageChops.cpython-38.pyc
+│   │           │   │   ├── ImageCms.cpython-38.pyc
+│   │           │   │   ├── ImageColor.cpython-38.pyc
+│   │           │   │   ├── Image.cpython-38.pyc
+│   │           │   │   ├── ImageDraw2.cpython-38.pyc
+│   │           │   │   ├── ImageDraw.cpython-38.pyc
+│   │           │   │   ├── ImageEnhance.cpython-38.pyc
+│   │           │   │   ├── ImageFile.cpython-38.pyc
+│   │           │   │   ├── ImageFilter.cpython-38.pyc
+│   │           │   │   ├── ImageFont.cpython-38.pyc
+│   │           │   │   ├── ImageGrab.cpython-38.pyc
+│   │           │   │   ├── ImageMath.cpython-38.pyc
+│   │           │   │   ├── ImageMode.cpython-38.pyc
+│   │           │   │   ├── ImageMorph.cpython-38.pyc
+│   │           │   │   ├── ImageOps.cpython-38.pyc
+│   │           │   │   ├── ImagePalette.cpython-38.pyc
+│   │           │   │   ├── ImagePath.cpython-38.pyc
+│   │           │   │   ├── ImageQt.cpython-38.pyc
+│   │           │   │   ├── ImageSequence.cpython-38.pyc
+│   │           │   │   ├── ImageShow.cpython-38.pyc
+│   │           │   │   ├── ImageStat.cpython-38.pyc
+│   │           │   │   ├── ImageTk.cpython-38.pyc
+│   │           │   │   ├── ImageTransform.cpython-38.pyc
+│   │           │   │   ├── ImageWin.cpython-38.pyc
+│   │           │   │   ├── ImImagePlugin.cpython-38.pyc
+│   │           │   │   ├── ImtImagePlugin.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── IptcImagePlugin.cpython-38.pyc
+│   │           │   │   ├── Jpeg2KImagePlugin.cpython-38.pyc
+│   │           │   │   ├── JpegImagePlugin.cpython-38.pyc
+│   │           │   │   ├── JpegPresets.cpython-38.pyc
+│   │           │   │   ├── __main__.cpython-38.pyc
+│   │           │   │   ├── McIdasImagePlugin.cpython-38.pyc
+│   │           │   │   ├── MicImagePlugin.cpython-38.pyc
+│   │           │   │   ├── MpegImagePlugin.cpython-38.pyc
+│   │           │   │   ├── MpoImagePlugin.cpython-38.pyc
+│   │           │   │   ├── MspImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PaletteFile.cpython-38.pyc
+│   │           │   │   ├── PalmImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PcdImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PcfFontFile.cpython-38.pyc
+│   │           │   │   ├── PcxImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PdfImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PdfParser.cpython-38.pyc
+│   │           │   │   ├── PixarImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PngImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PpmImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PsdImagePlugin.cpython-38.pyc
+│   │           │   │   ├── PSDraw.cpython-38.pyc
+│   │           │   │   ├── PyAccess.cpython-38.pyc
+│   │           │   │   ├── SgiImagePlugin.cpython-38.pyc
+│   │           │   │   ├── SpiderImagePlugin.cpython-38.pyc
+│   │           │   │   ├── SunImagePlugin.cpython-38.pyc
+│   │           │   │   ├── TarIO.cpython-38.pyc
+│   │           │   │   ├── TgaImagePlugin.cpython-38.pyc
+│   │           │   │   ├── TiffImagePlugin.cpython-38.pyc
+│   │           │   │   ├── TiffTags.cpython-38.pyc
+│   │           │   │   ├── _tkinter_finder.cpython-38.pyc
+│   │           │   │   ├── _util.cpython-38.pyc
+│   │           │   │   ├── _version.cpython-38.pyc
+│   │           │   │   ├── WalImageFile.cpython-38.pyc
+│   │           │   │   ├── WebPImagePlugin.cpython-38.pyc
+│   │           │   │   ├── WmfImagePlugin.cpython-38.pyc
+│   │           │   │   ├── XbmImagePlugin.cpython-38.pyc
+│   │           │   │   ├── XpmImagePlugin.cpython-38.pyc
+│   │           │   │   └── XVThumbImagePlugin.cpython-38.pyc
 │   │           │   ├── BdfFontFile.py
 │   │           │   ├── _binary.py
 │   │           │   ├── BlpImagePlugin.py
@@ -2710,6 +4531,19 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           ├── pip
 │   │           │   ├── _internal
 │   │           │   │   ├── cli
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── autocompletion.cpython-38.pyc
+│   │           │   │   │   │   ├── base_command.cpython-38.pyc
+│   │           │   │   │   │   ├── cmdoptions.cpython-38.pyc
+│   │           │   │   │   │   ├── command_context.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── main.cpython-38.pyc
+│   │           │   │   │   │   ├── main_parser.cpython-38.pyc
+│   │           │   │   │   │   ├── parser.cpython-38.pyc
+│   │           │   │   │   │   ├── progress_bars.cpython-38.pyc
+│   │           │   │   │   │   ├── req_command.cpython-38.pyc
+│   │           │   │   │   │   ├── spinners.cpython-38.pyc
+│   │           │   │   │   │   └── status_codes.cpython-38.pyc
 │   │           │   │   │   ├── autocompletion.py
 │   │           │   │   │   ├── base_command.py
 │   │           │   │   │   ├── cmdoptions.py
@@ -2723,6 +4557,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── spinners.py
 │   │           │   │   │   └── status_codes.py
 │   │           │   │   ├── commands
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── cache.cpython-38.pyc
+│   │           │   │   │   │   ├── check.cpython-38.pyc
+│   │           │   │   │   │   ├── completion.cpython-38.pyc
+│   │           │   │   │   │   ├── configuration.cpython-38.pyc
+│   │           │   │   │   │   ├── debug.cpython-38.pyc
+│   │           │   │   │   │   ├── download.cpython-38.pyc
+│   │           │   │   │   │   ├── freeze.cpython-38.pyc
+│   │           │   │   │   │   ├── hash.cpython-38.pyc
+│   │           │   │   │   │   ├── help.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── install.cpython-38.pyc
+│   │           │   │   │   │   ├── list.cpython-38.pyc
+│   │           │   │   │   │   ├── search.cpython-38.pyc
+│   │           │   │   │   │   ├── show.cpython-38.pyc
+│   │           │   │   │   │   ├── uninstall.cpython-38.pyc
+│   │           │   │   │   │   └── wheel.cpython-38.pyc
 │   │           │   │   │   ├── cache.py
 │   │           │   │   │   ├── check.py
 │   │           │   │   │   ├── completion.py
@@ -2740,26 +4591,58 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── uninstall.py
 │   │           │   │   │   └── wheel.py
 │   │           │   │   ├── distributions
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── installed.cpython-38.pyc
+│   │           │   │   │   │   ├── sdist.cpython-38.pyc
+│   │           │   │   │   │   └── wheel.cpython-38.pyc
 │   │           │   │   │   ├── base.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── installed.py
 │   │           │   │   │   ├── sdist.py
 │   │           │   │   │   └── wheel.py
 │   │           │   │   ├── index
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── collector.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── package_finder.cpython-38.pyc
+│   │           │   │   │   │   └── sources.cpython-38.pyc
 │   │           │   │   │   ├── collector.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── package_finder.py
 │   │           │   │   │   └── sources.py
 │   │           │   │   ├── locations
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   ├── _distutils.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── _sysconfig.cpython-38.pyc
 │   │           │   │   │   ├── base.py
 │   │           │   │   │   ├── _distutils.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── _sysconfig.py
 │   │           │   │   ├── metadata
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── pkg_resources.cpython-38.pyc
 │   │           │   │   │   ├── base.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── pkg_resources.py
 │   │           │   │   ├── models
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── candidate.cpython-38.pyc
+│   │           │   │   │   │   ├── direct_url.cpython-38.pyc
+│   │           │   │   │   │   ├── format_control.cpython-38.pyc
+│   │           │   │   │   │   ├── index.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── link.cpython-38.pyc
+│   │           │   │   │   │   ├── scheme.cpython-38.pyc
+│   │           │   │   │   │   ├── search_scope.cpython-38.pyc
+│   │           │   │   │   │   ├── selection_prefs.cpython-38.pyc
+│   │           │   │   │   │   ├── target_python.cpython-38.pyc
+│   │           │   │   │   │   └── wheel.cpython-38.pyc
 │   │           │   │   │   ├── candidate.py
 │   │           │   │   │   ├── direct_url.py
 │   │           │   │   │   ├── format_control.py
@@ -2772,6 +4655,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── target_python.py
 │   │           │   │   │   └── wheel.py
 │   │           │   │   ├── network
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── auth.cpython-38.pyc
+│   │           │   │   │   │   ├── cache.cpython-38.pyc
+│   │           │   │   │   │   ├── download.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── lazy_wheel.cpython-38.pyc
+│   │           │   │   │   │   ├── session.cpython-38.pyc
+│   │           │   │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   │   └── xmlrpc.cpython-38.pyc
 │   │           │   │   │   ├── auth.py
 │   │           │   │   │   ├── cache.py
 │   │           │   │   │   ├── download.py
@@ -2782,21 +4674,55 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── xmlrpc.py
 │   │           │   │   ├── operations
 │   │           │   │   │   ├── build
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── metadata.cpython-38.pyc
+│   │           │   │   │   │   │   ├── metadata_legacy.cpython-38.pyc
+│   │           │   │   │   │   │   ├── wheel.cpython-38.pyc
+│   │           │   │   │   │   │   └── wheel_legacy.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── metadata_legacy.py
 │   │           │   │   │   │   ├── metadata.py
 │   │           │   │   │   │   ├── wheel_legacy.py
 │   │           │   │   │   │   └── wheel.py
 │   │           │   │   │   ├── install
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── editable_legacy.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── legacy.cpython-38.pyc
+│   │           │   │   │   │   │   └── wheel.cpython-38.pyc
 │   │           │   │   │   │   ├── editable_legacy.py
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── legacy.py
 │   │           │   │   │   │   └── wheel.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── check.cpython-38.pyc
+│   │           │   │   │   │   ├── freeze.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── prepare.cpython-38.pyc
 │   │           │   │   │   ├── check.py
 │   │           │   │   │   ├── freeze.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── prepare.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── build_env.cpython-38.pyc
+│   │           │   │   │   ├── cache.cpython-38.pyc
+│   │           │   │   │   ├── configuration.cpython-38.pyc
+│   │           │   │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── main.cpython-38.pyc
+│   │           │   │   │   ├── pyproject.cpython-38.pyc
+│   │           │   │   │   ├── self_outdated_check.cpython-38.pyc
+│   │           │   │   │   └── wheel_builder.cpython-38.pyc
 │   │           │   │   ├── req
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── constructors.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── req_file.cpython-38.pyc
+│   │           │   │   │   │   ├── req_install.cpython-38.pyc
+│   │           │   │   │   │   ├── req_set.cpython-38.pyc
+│   │           │   │   │   │   ├── req_tracker.cpython-38.pyc
+│   │           │   │   │   │   └── req_uninstall.cpython-38.pyc
 │   │           │   │   │   ├── constructors.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── req_file.py
@@ -2806,9 +4732,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── req_uninstall.py
 │   │           │   │   ├── resolution
 │   │           │   │   │   ├── legacy
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── resolver.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── resolver.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── resolvelib
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   │   ├── candidates.cpython-38.pyc
+│   │           │   │   │   │   │   ├── factory.cpython-38.pyc
+│   │           │   │   │   │   │   ├── found_candidates.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── provider.cpython-38.pyc
+│   │           │   │   │   │   │   ├── reporter.cpython-38.pyc
+│   │           │   │   │   │   │   ├── requirements.cpython-38.pyc
+│   │           │   │   │   │   │   └── resolver.cpython-38.pyc
 │   │           │   │   │   │   ├── base.py
 │   │           │   │   │   │   ├── candidates.py
 │   │           │   │   │   │   ├── factory.py
@@ -2821,6 +4763,35 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── base.py
 │   │           │   │   │   └── __init__.py
 │   │           │   │   ├── utils
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── appdirs.cpython-38.pyc
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── compatibility_tags.cpython-38.pyc
+│   │           │   │   │   │   ├── datetime.cpython-38.pyc
+│   │           │   │   │   │   ├── deprecation.cpython-38.pyc
+│   │           │   │   │   │   ├── direct_url_helpers.cpython-38.pyc
+│   │           │   │   │   │   ├── distutils_args.cpython-38.pyc
+│   │           │   │   │   │   ├── encoding.cpython-38.pyc
+│   │           │   │   │   │   ├── entrypoints.cpython-38.pyc
+│   │           │   │   │   │   ├── filesystem.cpython-38.pyc
+│   │           │   │   │   │   ├── filetypes.cpython-38.pyc
+│   │           │   │   │   │   ├── glibc.cpython-38.pyc
+│   │           │   │   │   │   ├── hashes.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── inject_securetransport.cpython-38.pyc
+│   │           │   │   │   │   ├── logging.cpython-38.pyc
+│   │           │   │   │   │   ├── misc.cpython-38.pyc
+│   │           │   │   │   │   ├── models.cpython-38.pyc
+│   │           │   │   │   │   ├── packaging.cpython-38.pyc
+│   │           │   │   │   │   ├── parallel.cpython-38.pyc
+│   │           │   │   │   │   ├── pkg_resources.cpython-38.pyc
+│   │           │   │   │   │   ├── setuptools_build.cpython-38.pyc
+│   │           │   │   │   │   ├── subprocess.cpython-38.pyc
+│   │           │   │   │   │   ├── temp_dir.cpython-38.pyc
+│   │           │   │   │   │   ├── unpacking.cpython-38.pyc
+│   │           │   │   │   │   ├── urls.cpython-38.pyc
+│   │           │   │   │   │   ├── virtualenv.cpython-38.pyc
+│   │           │   │   │   │   └── wheel.cpython-38.pyc
 │   │           │   │   │   ├── appdirs.py
 │   │           │   │   │   ├── compatibility_tags.py
 │   │           │   │   │   ├── compat.py
@@ -2850,6 +4821,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── virtualenv.py
 │   │           │   │   │   └── wheel.py
 │   │           │   │   ├── vcs
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── bazaar.cpython-38.pyc
+│   │           │   │   │   │   ├── git.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── mercurial.cpython-38.pyc
+│   │           │   │   │   │   ├── subversion.cpython-38.pyc
+│   │           │   │   │   │   └── versioncontrol.cpython-38.pyc
 │   │           │   │   │   ├── bazaar.py
 │   │           │   │   │   ├── git.py
 │   │           │   │   │   ├── __init__.py
@@ -2865,12 +4843,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── pyproject.py
 │   │           │   │   ├── self_outdated_check.py
 │   │           │   │   └── wheel_builder.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   └── __main__.cpython-38.pyc
 │   │           │   ├── _vendor
 │   │           │   │   ├── cachecontrol
 │   │           │   │   │   ├── caches
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── file_cache.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── redis_cache.cpython-38.pyc
 │   │           │   │   │   │   ├── file_cache.py
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── redis_cache.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── adapter.cpython-38.pyc
+│   │           │   │   │   │   ├── cache.cpython-38.pyc
+│   │           │   │   │   │   ├── _cmd.cpython-38.pyc
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── controller.cpython-38.pyc
+│   │           │   │   │   │   ├── filewrapper.cpython-38.pyc
+│   │           │   │   │   │   ├── heuristics.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── serialize.cpython-38.pyc
+│   │           │   │   │   │   └── wrapper.cpython-38.pyc
 │   │           │   │   │   ├── adapter.py
 │   │           │   │   │   ├── cache.py
 │   │           │   │   │   ├── _cmd.py
@@ -2882,17 +4878,67 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── serialize.py
 │   │           │   │   │   └── wrapper.py
 │   │           │   │   ├── certifi
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── __main__.cpython-38.pyc
 │   │           │   │   │   ├── cacert.pem
 │   │           │   │   │   ├── core.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── __main__.py
 │   │           │   │   ├── chardet
 │   │           │   │   │   ├── cli
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── chardetect.cpython-38.pyc
+│   │           │   │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   │   ├── chardetect.py
 │   │           │   │   │   │   └── __init__.py
 │   │           │   │   │   ├── metadata
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── languages.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── languages.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── big5freq.cpython-38.pyc
+│   │           │   │   │   │   ├── big5prober.cpython-38.pyc
+│   │           │   │   │   │   ├── chardistribution.cpython-38.pyc
+│   │           │   │   │   │   ├── charsetgroupprober.cpython-38.pyc
+│   │           │   │   │   │   ├── charsetprober.cpython-38.pyc
+│   │           │   │   │   │   ├── codingstatemachine.cpython-38.pyc
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── cp949prober.cpython-38.pyc
+│   │           │   │   │   │   ├── enums.cpython-38.pyc
+│   │           │   │   │   │   ├── escprober.cpython-38.pyc
+│   │           │   │   │   │   ├── escsm.cpython-38.pyc
+│   │           │   │   │   │   ├── eucjpprober.cpython-38.pyc
+│   │           │   │   │   │   ├── euckrfreq.cpython-38.pyc
+│   │           │   │   │   │   ├── euckrprober.cpython-38.pyc
+│   │           │   │   │   │   ├── euctwfreq.cpython-38.pyc
+│   │           │   │   │   │   ├── euctwprober.cpython-38.pyc
+│   │           │   │   │   │   ├── gb2312freq.cpython-38.pyc
+│   │           │   │   │   │   ├── gb2312prober.cpython-38.pyc
+│   │           │   │   │   │   ├── hebrewprober.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── jisfreq.cpython-38.pyc
+│   │           │   │   │   │   ├── jpcntx.cpython-38.pyc
+│   │           │   │   │   │   ├── langbulgarianmodel.cpython-38.pyc
+│   │           │   │   │   │   ├── langgreekmodel.cpython-38.pyc
+│   │           │   │   │   │   ├── langhebrewmodel.cpython-38.pyc
+│   │           │   │   │   │   ├── langhungarianmodel.cpython-38.pyc
+│   │           │   │   │   │   ├── langrussianmodel.cpython-38.pyc
+│   │           │   │   │   │   ├── langthaimodel.cpython-38.pyc
+│   │           │   │   │   │   ├── langturkishmodel.cpython-38.pyc
+│   │           │   │   │   │   ├── latin1prober.cpython-38.pyc
+│   │           │   │   │   │   ├── mbcharsetprober.cpython-38.pyc
+│   │           │   │   │   │   ├── mbcsgroupprober.cpython-38.pyc
+│   │           │   │   │   │   ├── mbcssm.cpython-38.pyc
+│   │           │   │   │   │   ├── sbcharsetprober.cpython-38.pyc
+│   │           │   │   │   │   ├── sbcsgroupprober.cpython-38.pyc
+│   │           │   │   │   │   ├── sjisprober.cpython-38.pyc
+│   │           │   │   │   │   ├── universaldetector.cpython-38.pyc
+│   │           │   │   │   │   ├── utf8prober.cpython-38.pyc
+│   │           │   │   │   │   └── version.cpython-38.pyc
 │   │           │   │   │   ├── big5freq.py
 │   │           │   │   │   ├── big5prober.py
 │   │           │   │   │   ├── chardistribution.py
@@ -2933,6 +4979,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── utf8prober.py
 │   │           │   │   │   └── version.py
 │   │           │   │   ├── colorama
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── ansi.cpython-38.pyc
+│   │           │   │   │   │   ├── ansitowin32.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── initialise.cpython-38.pyc
+│   │           │   │   │   │   ├── win32.cpython-38.pyc
+│   │           │   │   │   │   └── winterm.cpython-38.pyc
 │   │           │   │   │   ├── ansi.py
 │   │           │   │   │   ├── ansitowin32.py
 │   │           │   │   │   ├── initialise.py
@@ -2941,12 +4994,32 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── winterm.py
 │   │           │   │   ├── distlib
 │   │           │   │   │   ├── _backport
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── misc.cpython-38.pyc
+│   │           │   │   │   │   │   ├── shutil.cpython-38.pyc
+│   │           │   │   │   │   │   ├── sysconfig.cpython-38.pyc
+│   │           │   │   │   │   │   └── tarfile.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── misc.py
 │   │           │   │   │   │   ├── shutil.py
 │   │           │   │   │   │   ├── sysconfig.cfg
 │   │           │   │   │   │   ├── sysconfig.py
 │   │           │   │   │   │   └── tarfile.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── database.cpython-38.pyc
+│   │           │   │   │   │   ├── index.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── locators.cpython-38.pyc
+│   │           │   │   │   │   ├── manifest.cpython-38.pyc
+│   │           │   │   │   │   ├── markers.cpython-38.pyc
+│   │           │   │   │   │   ├── metadata.cpython-38.pyc
+│   │           │   │   │   │   ├── resources.cpython-38.pyc
+│   │           │   │   │   │   ├── scripts.cpython-38.pyc
+│   │           │   │   │   │   ├── util.cpython-38.pyc
+│   │           │   │   │   │   ├── version.cpython-38.pyc
+│   │           │   │   │   │   └── wheel.cpython-38.pyc
 │   │           │   │   │   ├── compat.py
 │   │           │   │   │   ├── database.py
 │   │           │   │   │   ├── index.py
@@ -2966,6 +5039,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── wheel.py
 │   │           │   │   ├── html5lib
 │   │           │   │   │   ├── filters
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── alphabeticalattributes.cpython-38.pyc
+│   │           │   │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── inject_meta_charset.cpython-38.pyc
+│   │           │   │   │   │   │   ├── lint.cpython-38.pyc
+│   │           │   │   │   │   │   ├── optionaltags.cpython-38.pyc
+│   │           │   │   │   │   │   ├── sanitizer.cpython-38.pyc
+│   │           │   │   │   │   │   └── whitespace.cpython-38.pyc
 │   │           │   │   │   │   ├── alphabeticalattributes.py
 │   │           │   │   │   │   ├── base.py
 │   │           │   │   │   │   ├── __init__.py
@@ -2974,17 +5056,43 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── optionaltags.py
 │   │           │   │   │   │   ├── sanitizer.py
 │   │           │   │   │   │   └── whitespace.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── constants.cpython-38.pyc
+│   │           │   │   │   │   ├── html5parser.cpython-38.pyc
+│   │           │   │   │   │   ├── _ihatexml.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── _inputstream.cpython-38.pyc
+│   │           │   │   │   │   ├── serializer.cpython-38.pyc
+│   │           │   │   │   │   ├── _tokenizer.cpython-38.pyc
+│   │           │   │   │   │   └── _utils.cpython-38.pyc
 │   │           │   │   │   ├── treeadapters
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── genshi.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── sax.cpython-38.pyc
 │   │           │   │   │   │   ├── genshi.py
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── sax.py
 │   │           │   │   │   ├── treebuilders
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   │   ├── dom.cpython-38.pyc
+│   │           │   │   │   │   │   ├── etree.cpython-38.pyc
+│   │           │   │   │   │   │   ├── etree_lxml.cpython-38.pyc
+│   │           │   │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   │   ├── base.py
 │   │           │   │   │   │   ├── dom.py
 │   │           │   │   │   │   ├── etree_lxml.py
 │   │           │   │   │   │   ├── etree.py
 │   │           │   │   │   │   └── __init__.py
 │   │           │   │   │   ├── treewalkers
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   │   ├── dom.cpython-38.pyc
+│   │           │   │   │   │   │   ├── etree.cpython-38.pyc
+│   │           │   │   │   │   │   ├── etree_lxml.cpython-38.pyc
+│   │           │   │   │   │   │   ├── genshi.cpython-38.pyc
+│   │           │   │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   │   ├── base.py
 │   │           │   │   │   │   ├── dom.py
 │   │           │   │   │   │   ├── etree_lxml.py
@@ -2992,6 +5100,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── genshi.py
 │   │           │   │   │   │   └── __init__.py
 │   │           │   │   │   ├── _trie
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── _base.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── py.cpython-38.pyc
 │   │           │   │   │   │   ├── _base.py
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── py.py
@@ -3004,6 +5116,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── _tokenizer.py
 │   │           │   │   │   └── _utils.py
 │   │           │   │   ├── idna
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── codec.cpython-38.pyc
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   │   ├── idnadata.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── intranges.cpython-38.pyc
+│   │           │   │   │   │   ├── package_data.cpython-38.pyc
+│   │           │   │   │   │   └── uts46data.cpython-38.pyc
 │   │           │   │   │   ├── codec.py
 │   │           │   │   │   ├── compat.py
 │   │           │   │   │   ├── core.py
@@ -3013,12 +5134,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── package_data.py
 │   │           │   │   │   └── uts46data.py
 │   │           │   │   ├── msgpack
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   │   │   ├── ext.cpython-38.pyc
+│   │           │   │   │   │   ├── fallback.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── _version.cpython-38.pyc
 │   │           │   │   │   ├── exceptions.py
 │   │           │   │   │   ├── ext.py
 │   │           │   │   │   ├── fallback.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── _version.py
 │   │           │   │   ├── packaging
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __about__.cpython-38.pyc
+│   │           │   │   │   │   ├── _compat.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── markers.cpython-38.pyc
+│   │           │   │   │   │   ├── requirements.cpython-38.pyc
+│   │           │   │   │   │   ├── specifiers.cpython-38.pyc
+│   │           │   │   │   │   ├── _structures.cpython-38.pyc
+│   │           │   │   │   │   ├── tags.cpython-38.pyc
+│   │           │   │   │   │   ├── _typing.cpython-38.pyc
+│   │           │   │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   │   └── version.cpython-38.pyc
 │   │           │   │   │   ├── __about__.py
 │   │           │   │   │   ├── _compat.py
 │   │           │   │   │   ├── __init__.py
@@ -3032,8 +5171,21 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── version.py
 │   │           │   │   ├── pep517
 │   │           │   │   │   ├── in_process
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── _in_process.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── _in_process.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── build.cpython-38.pyc
+│   │           │   │   │   │   ├── check.cpython-38.pyc
+│   │           │   │   │   │   ├── colorlog.cpython-38.pyc
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── dirtools.cpython-38.pyc
+│   │           │   │   │   │   ├── envbuild.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── meta.cpython-38.pyc
+│   │           │   │   │   │   └── wrappers.cpython-38.pyc
 │   │           │   │   │   ├── build.py
 │   │           │   │   │   ├── check.py
 │   │           │   │   │   ├── colorlog.py
@@ -3044,14 +5196,47 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── meta.py
 │   │           │   │   │   └── wrappers.py
 │   │           │   │   ├── pkg_resources
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── py31compat.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── py31compat.py
 │   │           │   │   ├── progress
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── bar.cpython-38.pyc
+│   │           │   │   │   │   ├── counter.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── spinner.cpython-38.pyc
 │   │           │   │   │   ├── bar.py
 │   │           │   │   │   ├── counter.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── spinner.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── appdirs.cpython-38.pyc
+│   │           │   │   │   ├── distro.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── pyparsing.cpython-38.pyc
+│   │           │   │   │   └── six.cpython-38.pyc
 │   │           │   │   ├── requests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── adapters.cpython-38.pyc
+│   │           │   │   │   │   ├── api.cpython-38.pyc
+│   │           │   │   │   │   ├── auth.cpython-38.pyc
+│   │           │   │   │   │   ├── certs.cpython-38.pyc
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── cookies.cpython-38.pyc
+│   │           │   │   │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   │   │   ├── help.cpython-38.pyc
+│   │           │   │   │   │   ├── hooks.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── _internal_utils.cpython-38.pyc
+│   │           │   │   │   │   ├── models.cpython-38.pyc
+│   │           │   │   │   │   ├── packages.cpython-38.pyc
+│   │           │   │   │   │   ├── sessions.cpython-38.pyc
+│   │           │   │   │   │   ├── status_codes.cpython-38.pyc
+│   │           │   │   │   │   ├── structures.cpython-38.pyc
+│   │           │   │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   │   └── __version__.cpython-38.pyc
 │   │           │   │   │   ├── adapters.py
 │   │           │   │   │   ├── api.py
 │   │           │   │   │   ├── auth.py
@@ -3072,14 +5257,36 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── __version__.py
 │   │           │   │   ├── resolvelib
 │   │           │   │   │   ├── compat
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── collections_abc.cpython-38.pyc
+│   │           │   │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   │   ├── collections_abc.py
 │   │           │   │   │   │   └── __init__.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── providers.cpython-38.pyc
+│   │           │   │   │   │   ├── reporters.cpython-38.pyc
+│   │           │   │   │   │   ├── resolvers.cpython-38.pyc
+│   │           │   │   │   │   └── structs.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── providers.py
 │   │           │   │   │   ├── reporters.py
 │   │           │   │   │   ├── resolvers.py
 │   │           │   │   │   └── structs.py
 │   │           │   │   ├── tenacity
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── after.cpython-38.pyc
+│   │           │   │   │   │   ├── _asyncio.cpython-38.pyc
+│   │           │   │   │   │   ├── before.cpython-38.pyc
+│   │           │   │   │   │   ├── before_sleep.cpython-38.pyc
+│   │           │   │   │   │   ├── compat.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── nap.cpython-38.pyc
+│   │           │   │   │   │   ├── retry.cpython-38.pyc
+│   │           │   │   │   │   ├── stop.cpython-38.pyc
+│   │           │   │   │   │   ├── tornadoweb.cpython-38.pyc
+│   │           │   │   │   │   ├── _utils.cpython-38.pyc
+│   │           │   │   │   │   └── wait.cpython-38.pyc
 │   │           │   │   │   ├── after.py
 │   │           │   │   │   ├── _asyncio.py
 │   │           │   │   │   ├── before.py
@@ -3093,6 +5300,12 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── _utils.py
 │   │           │   │   │   └── wait.py
 │   │           │   │   ├── toml
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── decoder.cpython-38.pyc
+│   │           │   │   │   │   ├── encoder.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── ordered.cpython-38.pyc
+│   │           │   │   │   │   └── tz.cpython-38.pyc
 │   │           │   │   │   ├── decoder.py
 │   │           │   │   │   ├── encoder.py
 │   │           │   │   │   ├── __init__.py
@@ -3100,7 +5313,19 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── tz.py
 │   │           │   │   ├── urllib3
 │   │           │   │   │   ├── contrib
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── appengine.cpython-38.pyc
+│   │           │   │   │   │   │   ├── _appengine_environ.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── ntlmpool.cpython-38.pyc
+│   │           │   │   │   │   │   ├── pyopenssl.cpython-38.pyc
+│   │           │   │   │   │   │   ├── securetransport.cpython-38.pyc
+│   │           │   │   │   │   │   └── socks.cpython-38.pyc
 │   │           │   │   │   │   ├── _securetransport
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── bindings.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── low_level.cpython-38.pyc
 │   │           │   │   │   │   │   ├── bindings.py
 │   │           │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   └── low_level.py
@@ -3113,14 +5338,48 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   └── socks.py
 │   │           │   │   │   ├── packages
 │   │           │   │   │   │   ├── backports
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── makefile.cpython-38.pyc
 │   │           │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   └── makefile.py
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── six.cpython-38.pyc
 │   │           │   │   │   │   ├── ssl_match_hostname
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── _implementation.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   │   │   ├── _implementation.py
 │   │           │   │   │   │   │   └── __init__.py
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── six.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── _collections.cpython-38.pyc
+│   │           │   │   │   │   ├── connection.cpython-38.pyc
+│   │           │   │   │   │   ├── connectionpool.cpython-38.pyc
+│   │           │   │   │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   │   │   ├── fields.cpython-38.pyc
+│   │           │   │   │   │   ├── filepost.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── poolmanager.cpython-38.pyc
+│   │           │   │   │   │   ├── request.cpython-38.pyc
+│   │           │   │   │   │   ├── response.cpython-38.pyc
+│   │           │   │   │   │   └── _version.cpython-38.pyc
 │   │           │   │   │   ├── util
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── connection.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── proxy.cpython-38.pyc
+│   │           │   │   │   │   │   ├── queue.cpython-38.pyc
+│   │           │   │   │   │   │   ├── request.cpython-38.pyc
+│   │           │   │   │   │   │   ├── response.cpython-38.pyc
+│   │           │   │   │   │   │   ├── retry.cpython-38.pyc
+│   │           │   │   │   │   │   ├── ssl_.cpython-38.pyc
+│   │           │   │   │   │   │   ├── ssltransport.cpython-38.pyc
+│   │           │   │   │   │   │   ├── timeout.cpython-38.pyc
+│   │           │   │   │   │   │   ├── url.cpython-38.pyc
+│   │           │   │   │   │   │   └── wait.cpython-38.pyc
 │   │           │   │   │   │   ├── connection.py
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── proxy.py
@@ -3145,6 +5404,12 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── response.py
 │   │           │   │   │   └── _version.py
 │   │           │   │   ├── webencodings
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── labels.cpython-38.pyc
+│   │           │   │   │   │   ├── mklabels.cpython-38.pyc
+│   │           │   │   │   │   ├── tests.cpython-38.pyc
+│   │           │   │   │   │   └── x_user_defined.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── labels.py
 │   │           │   │   │   ├── mklabels.py
@@ -3169,13 +5434,31 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── pkg_resources
 │   │           │   ├── extern
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   └── __init__.py
+│   │           │   ├── __pycache__
+│   │           │   │   └── __init__.cpython-38.pyc
 │   │           │   ├── tests
 │   │           │   │   └── data
 │   │           │   │       └── my-test-package-source
+│   │           │   │           ├── __pycache__
+│   │           │   │           │   └── setup.cpython-38.pyc
 │   │           │   │           └── setup.py
 │   │           │   ├── _vendor
 │   │           │   │   ├── packaging
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __about__.cpython-38.pyc
+│   │           │   │   │   │   ├── _compat.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── markers.cpython-38.pyc
+│   │           │   │   │   │   ├── requirements.cpython-38.pyc
+│   │           │   │   │   │   ├── specifiers.cpython-38.pyc
+│   │           │   │   │   │   ├── _structures.cpython-38.pyc
+│   │           │   │   │   │   ├── tags.cpython-38.pyc
+│   │           │   │   │   │   ├── _typing.cpython-38.pyc
+│   │           │   │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   │   └── version.cpython-38.pyc
 │   │           │   │   │   ├── __about__.py
 │   │           │   │   │   ├── _compat.py
 │   │           │   │   │   ├── __init__.py
@@ -3187,11 +5470,22 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── _typing.py
 │   │           │   │   │   ├── utils.py
 │   │           │   │   │   └── version.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── appdirs.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── pyparsing.cpython-38.pyc
 │   │           │   │   ├── appdirs.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── pyparsing.py
 │   │           │   └── __init__.py
 │   │           ├── pluggy
+│   │           │   ├── __pycache__
+│   │           │   │   ├── callers.cpython-38.pyc
+│   │           │   │   ├── hooks.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── manager.cpython-38.pyc
+│   │           │   │   ├── _tracing.cpython-38.pyc
+│   │           │   │   └── _version.cpython-38.pyc
 │   │           │   ├── callers.py
 │   │           │   ├── hooks.py
 │   │           │   ├── __init__.py
@@ -3207,6 +5501,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── py
 │   │           │   ├── _code
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── assertion.cpython-38.pyc
+│   │           │   │   │   ├── _assertionnew.cpython-38.pyc
+│   │           │   │   │   ├── _assertionold.cpython-38.pyc
+│   │           │   │   │   ├── code.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _py2traceback.cpython-38.pyc
+│   │           │   │   │   └── source.cpython-38.pyc
 │   │           │   │   ├── _assertionnew.py
 │   │           │   │   ├── _assertionold.py
 │   │           │   │   ├── assertion.py
@@ -3215,15 +5517,31 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _py2traceback.py
 │   │           │   │   └── source.py
 │   │           │   ├── _io
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── capture.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── saferepr.cpython-38.pyc
+│   │           │   │   │   └── terminalwriter.cpython-38.pyc
 │   │           │   │   ├── capture.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── saferepr.py
 │   │           │   │   └── terminalwriter.py
 │   │           │   ├── _log
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── log.cpython-38.pyc
+│   │           │   │   │   └── warning.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── log.py
 │   │           │   │   └── warning.py
 │   │           │   ├── _path
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── cacheutil.cpython-38.pyc
+│   │           │   │   │   ├── common.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── local.cpython-38.pyc
+│   │           │   │   │   ├── svnurl.cpython-38.pyc
+│   │           │   │   │   └── svnwc.cpython-38.pyc
 │   │           │   │   ├── cacheutil.py
 │   │           │   │   ├── common.py
 │   │           │   │   ├── __init__.py
@@ -3231,12 +5549,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── svnurl.py
 │   │           │   │   └── svnwc.py
 │   │           │   ├── _process
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── cmdexec.cpython-38.pyc
+│   │           │   │   │   ├── forkedfunc.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── killproc.cpython-38.pyc
 │   │           │   │   ├── cmdexec.py
 │   │           │   │   ├── forkedfunc.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── killproc.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _builtin.cpython-38.pyc
+│   │           │   │   ├── _error.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── __metainfo.cpython-38.pyc
+│   │           │   │   ├── _std.cpython-38.pyc
+│   │           │   │   ├── test.cpython-38.pyc
+│   │           │   │   ├── _version.cpython-38.pyc
+│   │           │   │   └── _xmlgen.cpython-38.pyc
 │   │           │   ├── _vendored_packages
 │   │           │   │   ├── apipkg
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── version.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── version.py
 │   │           │   │   ├── apipkg-1.5.dist-info
@@ -3247,6 +5582,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── top_level.txt
 │   │           │   │   │   └── WHEEL
 │   │           │   │   ├── iniconfig
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── __init__.pyi
 │   │           │   │   │   └── py.typed
@@ -3258,6 +5595,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── REQUESTED
 │   │           │   │   │   ├── top_level.txt
 │   │           │   │   │   └── WHEEL
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   └── __init__.py
 │   │           │   ├── _builtin.py
 │   │           │   ├── _error.py
@@ -3281,6 +5620,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
+│   │           ├── __pycache__
+│   │           │   ├── cycler.cpython-38.pyc
+│   │           │   ├── decorator.cpython-38.pyc
+│   │           │   ├── pylab.cpython-38.pyc
+│   │           │   ├── pyparsing.cpython-38.pyc
+│   │           │   ├── six.cpython-38.pyc
+│   │           │   └── typing_extensions.cpython-38.pyc
 │   │           ├── pyparsing-2.4.7.dist-info
 │   │           │   ├── INSTALLER
 │   │           │   ├── LICENSE
@@ -3290,28 +5636,95 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── _pytest
 │   │           │   ├── assertion
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── rewrite.cpython-38.pyc
+│   │           │   │   │   ├── truncate.cpython-38.pyc
+│   │           │   │   │   └── util.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── rewrite.py
 │   │           │   │   ├── truncate.py
 │   │           │   │   └── util.py
 │   │           │   ├── _code
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── code.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── source.cpython-38.pyc
 │   │           │   │   ├── code.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── source.py
 │   │           │   ├── config
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── argparsing.cpython-38.pyc
+│   │           │   │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   │   ├── findpaths.cpython-38.pyc
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── argparsing.py
 │   │           │   │   ├── exceptions.py
 │   │           │   │   ├── findpaths.py
 │   │           │   │   └── __init__.py
 │   │           │   ├── _io
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── saferepr.cpython-38.pyc
+│   │           │   │   │   ├── terminalwriter.cpython-38.pyc
+│   │           │   │   │   └── wcwidth.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── saferepr.py
 │   │           │   │   ├── terminalwriter.py
 │   │           │   │   └── wcwidth.py
 │   │           │   ├── mark
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── expression.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── structures.cpython-38.pyc
 │   │           │   │   ├── expression.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── structures.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _argcomplete.cpython-38.pyc
+│   │           │   │   ├── cacheprovider.cpython-38.pyc
+│   │           │   │   ├── capture.cpython-38.pyc
+│   │           │   │   ├── compat.cpython-38.pyc
+│   │           │   │   ├── debugging.cpython-38.pyc
+│   │           │   │   ├── deprecated.cpython-38.pyc
+│   │           │   │   ├── doctest.cpython-38.pyc
+│   │           │   │   ├── faulthandler.cpython-38.pyc
+│   │           │   │   ├── fixtures.cpython-38.pyc
+│   │           │   │   ├── freeze_support.cpython-38.pyc
+│   │           │   │   ├── helpconfig.cpython-38.pyc
+│   │           │   │   ├── hookspec.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── junitxml.cpython-38.pyc
+│   │           │   │   ├── logging.cpython-38.pyc
+│   │           │   │   ├── main.cpython-38.pyc
+│   │           │   │   ├── monkeypatch.cpython-38.pyc
+│   │           │   │   ├── nodes.cpython-38.pyc
+│   │           │   │   ├── nose.cpython-38.pyc
+│   │           │   │   ├── outcomes.cpython-38.pyc
+│   │           │   │   ├── pastebin.cpython-38.pyc
+│   │           │   │   ├── pathlib.cpython-38.pyc
+│   │           │   │   ├── pytester_assertions.cpython-38.pyc
+│   │           │   │   ├── pytester.cpython-38.pyc
+│   │           │   │   ├── python_api.cpython-38.pyc
+│   │           │   │   ├── python.cpython-38.pyc
+│   │           │   │   ├── recwarn.cpython-38.pyc
+│   │           │   │   ├── reports.cpython-38.pyc
+│   │           │   │   ├── runner.cpython-38.pyc
+│   │           │   │   ├── setuponly.cpython-38.pyc
+│   │           │   │   ├── setupplan.cpython-38.pyc
+│   │           │   │   ├── skipping.cpython-38.pyc
+│   │           │   │   ├── stepwise.cpython-38.pyc
+│   │           │   │   ├── store.cpython-38.pyc
+│   │           │   │   ├── terminal.cpython-38.pyc
+│   │           │   │   ├── threadexception.cpython-38.pyc
+│   │           │   │   ├── timing.cpython-38.pyc
+│   │           │   │   ├── tmpdir.cpython-38.pyc
+│   │           │   │   ├── unittest.cpython-38.pyc
+│   │           │   │   ├── unraisableexception.cpython-38.pyc
+│   │           │   │   ├── _version.cpython-38.pyc
+│   │           │   │   ├── warnings.cpython-38.pyc
+│   │           │   │   └── warning_types.cpython-38.pyc
 │   │           │   ├── _argcomplete.py
 │   │           │   ├── cacheprovider.py
 │   │           │   ├── capture.py
@@ -3357,6 +5770,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── warnings.py
 │   │           │   └── warning_types.py
 │   │           ├── pytest
+│   │           │   ├── __pycache__
+│   │           │   │   ├── collect.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   └── __main__.cpython-38.pyc
 │   │           │   ├── collect.py
 │   │           │   ├── __init__.py
 │   │           │   ├── __main__.py
@@ -3386,6 +5803,11 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── pywt
 │   │           │   ├── data
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── create_dat.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _readers.cpython-38.pyc
+│   │           │   │   │   └── _wavelab_signals.cpython-38.pyc
 │   │           │   │   ├── aero.npz
 │   │           │   │   ├── ascent.npz
 │   │           │   │   ├── camera.npz
@@ -3396,18 +5818,60 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── sst_nino3.npz
 │   │           │   │   └── _wavelab_signals.py
 │   │           │   ├── _extensions
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   ├── _cwt.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   ├── _dwt.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── _pywt.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── _swt.cpython-38-x86_64-linux-gnu.so
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _c99_config.cpython-38.pyc
+│   │           │   │   ├── conftest.cpython-38.pyc
+│   │           │   │   ├── _cwt.cpython-38.pyc
+│   │           │   │   ├── _doc_utils.cpython-38.pyc
+│   │           │   │   ├── _dwt.cpython-38.pyc
+│   │           │   │   ├── _functions.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── _multidim.cpython-38.pyc
+│   │           │   │   ├── _multilevel.cpython-38.pyc
+│   │           │   │   ├── _pytest.cpython-38.pyc
+│   │           │   │   ├── _pytesttester.cpython-38.pyc
+│   │           │   │   ├── _swt.cpython-38.pyc
+│   │           │   │   ├── _thresholding.cpython-38.pyc
+│   │           │   │   ├── _utils.cpython-38.pyc
+│   │           │   │   ├── version.cpython-38.pyc
+│   │           │   │   └── _wavelet_packets.cpython-38.pyc
 │   │           │   ├── tests
 │   │           │   │   ├── data
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── generate_matlab_data.cpython-38.pyc
+│   │           │   │   │   │   └── generate_matlab_data_cwt.cpython-38.pyc
 │   │           │   │   │   ├── cwt_matlabR2015b_result.npz
 │   │           │   │   │   ├── dwt_matlabR2012a_result.npz
 │   │           │   │   │   ├── generate_matlab_data_cwt.py
 │   │           │   │   │   ├── generate_matlab_data.py
 │   │           │   │   │   └── wavelab_test_signals.npz
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── test_concurrent.cpython-38.pyc
+│   │           │   │   │   ├── test_cwt_wavelets.cpython-38.pyc
+│   │           │   │   │   ├── test_data.cpython-38.pyc
+│   │           │   │   │   ├── test_deprecations.cpython-38.pyc
+│   │           │   │   │   ├── test_doc.cpython-38.pyc
+│   │           │   │   │   ├── test_dwt_idwt.cpython-38.pyc
+│   │           │   │   │   ├── test_functions.cpython-38.pyc
+│   │           │   │   │   ├── test_matlab_compatibility.cpython-38.pyc
+│   │           │   │   │   ├── test_matlab_compatibility_cwt.cpython-38.pyc
+│   │           │   │   │   ├── test_modes.cpython-38.pyc
+│   │           │   │   │   ├── test_multidim.cpython-38.pyc
+│   │           │   │   │   ├── test_multilevel.cpython-38.pyc
+│   │           │   │   │   ├── test_perfect_reconstruction.cpython-38.pyc
+│   │           │   │   │   ├── test__pywt.cpython-38.pyc
+│   │           │   │   │   ├── test_swt.cpython-38.pyc
+│   │           │   │   │   ├── test_thresholding.cpython-38.pyc
+│   │           │   │   │   ├── test_wavelet.cpython-38.pyc
+│   │           │   │   │   ├── test_wp2d.cpython-38.pyc
+│   │           │   │   │   └── test_wp.cpython-38.pyc
 │   │           │   │   ├── test_concurrent.py
 │   │           │   │   ├── test_cwt_wavelets.py
 │   │           │   │   ├── test_data.py
@@ -3444,6 +5908,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── version.py
 │   │           │   └── _wavelet_packets.py
 │   │           ├── requests
+│   │           │   ├── __pycache__
+│   │           │   │   ├── adapters.cpython-38.pyc
+│   │           │   │   ├── api.cpython-38.pyc
+│   │           │   │   ├── auth.cpython-38.pyc
+│   │           │   │   ├── certs.cpython-38.pyc
+│   │           │   │   ├── compat.cpython-38.pyc
+│   │           │   │   ├── cookies.cpython-38.pyc
+│   │           │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   ├── help.cpython-38.pyc
+│   │           │   │   ├── hooks.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── _internal_utils.cpython-38.pyc
+│   │           │   │   ├── models.cpython-38.pyc
+│   │           │   │   ├── packages.cpython-38.pyc
+│   │           │   │   ├── sessions.cpython-38.pyc
+│   │           │   │   ├── status_codes.cpython-38.pyc
+│   │           │   │   ├── structures.cpython-38.pyc
+│   │           │   │   ├── utils.cpython-38.pyc
+│   │           │   │   └── __version__.cpython-38.pyc
 │   │           │   ├── adapters.py
 │   │           │   ├── api.py
 │   │           │   ├── auth.py
@@ -3483,7 +5966,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── libgomp-3300acd3.so.1.0.0
 │   │           ├── scipy
 │   │           │   ├── _build_utils
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── compiler_helper.cpython-38.pyc
+│   │           │   │   │   ├── _fortran.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── system_info.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── test_scipy_version.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── test_scipy_version.py
 │   │           │   │   ├── compiler_helper.py
@@ -3492,7 +5984,18 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── setup.py
 │   │           │   │   └── system_info.py
 │   │           │   ├── cluster
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── hierarchy.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── vq.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── hierarchy_test_data.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_disjoint_set.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hierarchy.cpython-38.pyc
+│   │           │   │   │   │   └── test_vq.cpython-38.pyc
 │   │           │   │   │   ├── hierarchy_test_data.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_disjoint_set.py
@@ -3506,7 +6009,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _vq.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── vq.py
 │   │           │   ├── constants
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── codata.cpython-38.pyc
+│   │           │   │   │   ├── constants.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_codata.cpython-38.pyc
+│   │           │   │   │   │   └── test_constants.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_codata.py
 │   │           │   │   │   └── test_constants.py
@@ -3516,7 +6028,17 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── setup.py
 │   │           │   ├── fft
 │   │           │   │   ├── _pocketfft
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── basic.cpython-38.pyc
+│   │           │   │   │   │   ├── helper.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── realtransforms.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_basic.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_real_transforms.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_basic.py
 │   │           │   │   │   │   └── test_real_transforms.py
@@ -3527,7 +6049,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── pypocketfft.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   │   ├── realtransforms.py
 │   │           │   │   │   └── setup.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _backend.cpython-38.pyc
+│   │           │   │   │   ├── _basic.cpython-38.pyc
+│   │           │   │   │   ├── _debug_backends.cpython-38.pyc
+│   │           │   │   │   ├── _helper.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _realtransforms.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── mock_backend.cpython-38.pyc
+│   │           │   │   │   │   ├── test_backend.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fft_function.cpython-38.pyc
+│   │           │   │   │   │   ├── test_helper.cpython-38.pyc
+│   │           │   │   │   │   ├── test_multithreading.cpython-38.pyc
+│   │           │   │   │   │   ├── test_numpy.cpython-38.pyc
+│   │           │   │   │   │   └── test_real_transforms.cpython-38.pyc
 │   │           │   │   │   ├── mock_backend.py
 │   │           │   │   │   ├── test_backend.py
 │   │           │   │   │   ├── test_fft_function.py
@@ -3543,7 +6081,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _realtransforms.py
 │   │           │   │   └── setup.py
 │   │           │   ├── fftpack
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── basic.cpython-38.pyc
+│   │           │   │   │   ├── helper.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── pseudo_diffs.cpython-38.pyc
+│   │           │   │   │   ├── realtransforms.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── gendata.cpython-38.pyc
+│   │           │   │   │   │   ├── gen_fftw_ref.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_basic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_helper.cpython-38.pyc
+│   │           │   │   │   │   ├── test_import.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pseudo_diffs.cpython-38.pyc
+│   │           │   │   │   │   └── test_real_transforms.cpython-38.pyc
 │   │           │   │   │   ├── fftw_dct.c
 │   │           │   │   │   ├── fftw_double_ref.npz
 │   │           │   │   │   ├── fftw_longdouble_ref.npz
@@ -3568,7 +6122,21 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── setup.py
 │   │           │   ├── integrate
 │   │           │   │   ├── _ivp
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   ├── bdf.cpython-38.pyc
+│   │           │   │   │   │   ├── common.cpython-38.pyc
+│   │           │   │   │   │   ├── dop853_coefficients.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── ivp.cpython-38.pyc
+│   │           │   │   │   │   ├── lsoda.cpython-38.pyc
+│   │           │   │   │   │   ├── radau.cpython-38.pyc
+│   │           │   │   │   │   ├── rk.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── test_ivp.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_rk.cpython-38.pyc
 │   │           │   │   │   │   ├── test_ivp.py
 │   │           │   │   │   │   └── test_rk.py
 │   │           │   │   │   ├── base.py
@@ -3581,7 +6149,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── radau.py
 │   │           │   │   │   ├── rk.py
 │   │           │   │   │   └── setup.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _bvp.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _ode.cpython-38.pyc
+│   │           │   │   │   ├── odepack.cpython-38.pyc
+│   │           │   │   │   ├── quadpack.cpython-38.pyc
+│   │           │   │   │   ├── _quadrature.cpython-38.pyc
+│   │           │   │   │   ├── _quad_vec.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_banded_ode_solvers.cpython-38.pyc
+│   │           │   │   │   │   ├── test_bvp.cpython-38.pyc
+│   │           │   │   │   │   ├── test_integrate.cpython-38.pyc
+│   │           │   │   │   │   ├── test_odeint_jac.cpython-38.pyc
+│   │           │   │   │   │   ├── test_quadpack.cpython-38.pyc
+│   │           │   │   │   │   ├── test_quadrature.cpython-38.pyc
+│   │           │   │   │   │   └── test__quad_vec.cpython-38.pyc
 │   │           │   │   │   ├── banded5x5.f
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_banded_ode_solvers.py
@@ -3608,10 +6194,37 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _test_odeint_banded.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── vode.cpython-38-x86_64-linux-gnu.so
 │   │           │   ├── interpolate
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _bsplines.cpython-38.pyc
+│   │           │   │   │   ├── _cubic.cpython-38.pyc
+│   │           │   │   │   ├── fitpack2.cpython-38.pyc
+│   │           │   │   │   ├── fitpack.cpython-38.pyc
+│   │           │   │   │   ├── _fitpack_impl.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── interpnd_info.cpython-38.pyc
+│   │           │   │   │   ├── interpolate.cpython-38.pyc
+│   │           │   │   │   ├── ndgriddata.cpython-38.pyc
+│   │           │   │   │   ├── _pade.cpython-38.pyc
+│   │           │   │   │   ├── polyint.cpython-38.pyc
+│   │           │   │   │   ├── rbf.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── bug-1310.npz
 │   │           │   │   │   │   └── estimate_gradients_hang.npy
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_bsplines.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fitpack2.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fitpack.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gil.cpython-38.pyc
+│   │           │   │   │   │   ├── test_interpnd.cpython-38.pyc
+│   │           │   │   │   │   ├── test_interpolate.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ndgriddata.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pade.cpython-38.pyc
+│   │           │   │   │   │   ├── test_polyint.cpython-38.pyc
+│   │           │   │   │   │   ├── test_rbf.cpython-38.pyc
+│   │           │   │   │   │   └── test_regression.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_bsplines.py
 │   │           │   │   │   ├── test_fitpack2.py
@@ -3644,6 +6257,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── setup.py
 │   │           │   ├── io
 │   │           │   │   ├── arff
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── arffread.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── tests
 │   │           │   │   │   │   ├── data
 │   │           │   │   │   │   │   ├── iris.arff
@@ -3662,13 +6279,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   │   ├── test7.arff
 │   │           │   │   │   │   │   ├── test8.arff
 │   │           │   │   │   │   │   └── test9.arff
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_arffread.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── test_arffread.py
 │   │           │   │   │   ├── arffread.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── setup.py
 │   │           │   │   ├── harwell_boeing
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── _fortran_format_parser.cpython-38.pyc
+│   │           │   │   │   │   ├── hb.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_fortran_format.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_hb.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_fortran_format.py
 │   │           │   │   │   │   └── test_hb.py
@@ -3677,6 +6306,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── setup.py
 │   │           │   │   ├── matlab
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── byteordercodes.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── mio4.cpython-38.pyc
+│   │           │   │   │   │   ├── mio5.cpython-38.pyc
+│   │           │   │   │   │   ├── mio5_params.cpython-38.pyc
+│   │           │   │   │   │   ├── miobase.cpython-38.pyc
+│   │           │   │   │   │   ├── mio.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── tests
 │   │           │   │   │   │   ├── data
 │   │           │   │   │   │   │   ├── bad_miuint32.mat
@@ -3789,6 +6427,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   │   ├── testunicode_7.1_GLNX86.mat
 │   │           │   │   │   │   │   ├── testunicode_7.4_GLNX86.mat
 │   │           │   │   │   │   │   └── testvec_4_GLNX86.mat
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_byteordercodes.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_mio5_utils.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_miobase.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_mio.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_mio_funcs.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_mio_utils.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_pathological.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_streams.cpython-38.pyc
 │   │           │   │   │   │   ├── afunc.m
 │   │           │   │   │   │   ├── gen_mat4files.m
 │   │           │   │   │   │   ├── gen_mat5files.m
@@ -3813,6 +6461,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── mio_utils.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   │   ├── setup.py
 │   │           │   │   │   └── streams.cpython-38-x86_64-linux-gnu.so
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _fortran.cpython-38.pyc
+│   │           │   │   │   ├── idl.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── mmio.cpython-38.pyc
+│   │           │   │   │   ├── netcdf.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── wavfile.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── array_float32_1d.sav
@@ -3899,6 +6555,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── test-8000Hz-le-5ch-9S-5bit.wav
 │   │           │   │   │   │   ├── Transparent Busy.ani
 │   │           │   │   │   │   └── various_compressed.sav
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fortran.cpython-38.pyc
+│   │           │   │   │   │   ├── test_idl.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mmio.cpython-38.pyc
+│   │           │   │   │   │   ├── test_netcdf.cpython-38.pyc
+│   │           │   │   │   │   ├── test_paths.cpython-38.pyc
+│   │           │   │   │   │   └── test_wavfile.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_fortran.py
 │   │           │   │   │   ├── test_idl.py
@@ -3915,7 +6579,37 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _test_fortran.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── wavfile.py
 │   │           │   ├── _lib
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _bunch.cpython-38.pyc
+│   │           │   │   │   ├── _ccallback.cpython-38.pyc
+│   │           │   │   │   ├── decorator.cpython-38.pyc
+│   │           │   │   │   ├── deprecation.cpython-38.pyc
+│   │           │   │   │   ├── _disjoint_set.cpython-38.pyc
+│   │           │   │   │   ├── doccer.cpython-38.pyc
+│   │           │   │   │   ├── _gcutils.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _pep440.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── _testutils.cpython-38.pyc
+│   │           │   │   │   ├── _threadsafety.cpython-38.pyc
+│   │           │   │   │   ├── _tmpdirs.cpython-38.pyc
+│   │           │   │   │   ├── uarray.cpython-38.pyc
+│   │           │   │   │   └── _util.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_bunch.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ccallback.cpython-38.pyc
+│   │           │   │   │   │   ├── test_deprecation.cpython-38.pyc
+│   │           │   │   │   │   ├── test__gcutils.cpython-38.pyc
+│   │           │   │   │   │   ├── test_import_cycles.cpython-38.pyc
+│   │           │   │   │   │   ├── test_linear_assignment.cpython-38.pyc
+│   │           │   │   │   │   ├── test__pep440.cpython-38.pyc
+│   │           │   │   │   │   ├── test__testutils.cpython-38.pyc
+│   │           │   │   │   │   ├── test__threadsafety.cpython-38.pyc
+│   │           │   │   │   │   ├── test_tmpdirs.cpython-38.pyc
+│   │           │   │   │   │   ├── test__util.cpython-38.pyc
+│   │           │   │   │   │   └── test_warnings.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_bunch.py
 │   │           │   │   │   ├── test_ccallback.py
@@ -3930,6 +6624,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── test__util.py
 │   │           │   │   │   └── test_warnings.py
 │   │           │   │   ├── _uarray
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── _backend.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── _backend.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── LICENSE
@@ -3957,6 +6655,37 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── uarray.py
 │   │           │   │   └── _util.py
 │   │           │   ├── linalg
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── basic.cpython-38.pyc
+│   │           │   │   │   ├── blas.cpython-38.pyc
+│   │           │   │   │   ├── _cython_signature_generator.cpython-38.pyc
+│   │           │   │   │   ├── decomp_cholesky.cpython-38.pyc
+│   │           │   │   │   ├── _decomp_cossin.cpython-38.pyc
+│   │           │   │   │   ├── decomp.cpython-38.pyc
+│   │           │   │   │   ├── _decomp_ldl.cpython-38.pyc
+│   │           │   │   │   ├── decomp_lu.cpython-38.pyc
+│   │           │   │   │   ├── _decomp_polar.cpython-38.pyc
+│   │           │   │   │   ├── decomp_qr.cpython-38.pyc
+│   │           │   │   │   ├── _decomp_qz.cpython-38.pyc
+│   │           │   │   │   ├── decomp_schur.cpython-38.pyc
+│   │           │   │   │   ├── decomp_svd.cpython-38.pyc
+│   │           │   │   │   ├── _expm_frechet.cpython-38.pyc
+│   │           │   │   │   ├── flinalg.cpython-38.pyc
+│   │           │   │   │   ├── _generate_pyx.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _interpolative_backend.cpython-38.pyc
+│   │           │   │   │   ├── interpolative.cpython-38.pyc
+│   │           │   │   │   ├── lapack.cpython-38.pyc
+│   │           │   │   │   ├── matfuncs.cpython-38.pyc
+│   │           │   │   │   ├── _matfuncs_inv_ssq.cpython-38.pyc
+│   │           │   │   │   ├── _matfuncs_sqrtm.cpython-38.pyc
+│   │           │   │   │   ├── misc.cpython-38.pyc
+│   │           │   │   │   ├── _procrustes.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── _sketches.cpython-38.pyc
+│   │           │   │   │   ├── _solvers.cpython-38.pyc
+│   │           │   │   │   ├── special_matrices.cpython-38.pyc
+│   │           │   │   │   └── _testutils.cpython-38.pyc
 │   │           │   │   ├── src
 │   │           │   │   │   ├── id_dist
 │   │           │   │   │   │   └── doc
@@ -3971,6 +6700,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── carex_20_data.npz
 │   │           │   │   │   │   ├── carex_6_data.npz
 │   │           │   │   │   │   └── gendare_20170120_data.npz
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_basic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_blas.cpython-38.pyc
+│   │           │   │   │   │   ├── test_build.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cython_blas.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cython_lapack.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decomp_cholesky.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decomp_cossin.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decomp.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decomp_ldl.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decomp_polar.cpython-38.pyc
+│   │           │   │   │   │   ├── test_decomp_update.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fblas.cpython-38.pyc
+│   │           │   │   │   │   ├── test_interpolative.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lapack.cpython-38.pyc
+│   │           │   │   │   │   ├── test_matfuncs.cpython-38.pyc
+│   │           │   │   │   │   ├── test_matmul_toeplitz.cpython-38.pyc
+│   │           │   │   │   │   ├── test_procrustes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sketches.cpython-38.pyc
+│   │           │   │   │   │   ├── test_solvers.cpython-38.pyc
+│   │           │   │   │   │   ├── test_solve_toeplitz.cpython-38.pyc
+│   │           │   │   │   │   └── test_special_matrices.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_basic.py
 │   │           │   │   │   ├── test_blas.py
@@ -4035,7 +6787,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── special_matrices.py
 │   │           │   │   └── _testutils.py
 │   │           │   ├── misc
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── common.cpython-38.pyc
+│   │           │   │   │   ├── doccer.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_common.cpython-38.pyc
+│   │           │   │   │   │   └── test_doccer.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_common.py
 │   │           │   │   │   └── test_doccer.py
@@ -4047,12 +6808,32 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── setup.py
 │   │           │   ├── ndimage
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── filters.cpython-38.pyc
+│   │           │   │   │   ├── fourier.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── interpolation.cpython-38.pyc
+│   │           │   │   │   ├── measurements.cpython-38.pyc
+│   │           │   │   │   ├── morphology.cpython-38.pyc
+│   │           │   │   │   ├── _ni_docstrings.cpython-38.pyc
+│   │           │   │   │   ├── _ni_support.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── label_inputs.txt
 │   │           │   │   │   │   ├── label_results.txt
 │   │           │   │   │   │   ├── label_strels.txt
 │   │           │   │   │   │   └── README.txt
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_c_api.cpython-38.pyc
+│   │           │   │   │   │   ├── test_datatypes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_filters.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fourier.cpython-38.pyc
+│   │           │   │   │   │   ├── test_interpolation.cpython-38.pyc
+│   │           │   │   │   │   ├── test_measurements.cpython-38.pyc
+│   │           │   │   │   │   ├── test_morphology.cpython-38.pyc
+│   │           │   │   │   │   └── test_splines.cpython-38.pyc
 │   │           │   │   │   ├── dots.png
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_c_api.py
@@ -4077,7 +6858,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _ni_support.py
 │   │           │   │   └── setup.py
 │   │           │   ├── odr
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _add_newdocs.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── models.cpython-38.pyc
+│   │           │   │   │   ├── odrpack.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── test_odr.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── test_odr.py
 │   │           │   │   ├── _add_newdocs.py
@@ -4088,6 +6878,8 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── setup.py
 │   │           │   ├── optimize
 │   │           │   │   ├── cython_optimize
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── c_zeros.pxd
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── _zeros.cpython-38-x86_64-linux-gnu.so
@@ -4108,6 +6900,9 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │       ├── HighsRuntimeOptions.pxd
 │   │           │   │   │   │       ├── HighsStatus.pxd
 │   │           │   │   │   │       └── SimplexConst.pxd
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── _highs_constants.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   │   ├── _highs_wrapper.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   │   ├── __init__.py
@@ -4116,6 +6911,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── lbfgsb_src
 │   │           │   │   │   └── README
 │   │           │   │   ├── _lsq
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── bvls.cpython-38.pyc
+│   │           │   │   │   │   ├── common.cpython-38.pyc
+│   │           │   │   │   │   ├── dogbox.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── least_squares.cpython-38.pyc
+│   │           │   │   │   │   ├── lsq_linear.cpython-38.pyc
+│   │           │   │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   │   ├── trf.cpython-38.pyc
+│   │           │   │   │   │   └── trf_linear.cpython-38.pyc
 │   │           │   │   │   ├── bvls.py
 │   │           │   │   │   ├── common.py
 │   │           │   │   │   ├── dogbox.py
@@ -4126,12 +6931,95 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── setup.py
 │   │           │   │   │   ├── trf_linear.py
 │   │           │   │   │   └── trf.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _basinhopping.cpython-38.pyc
+│   │           │   │   │   ├── cobyla.cpython-38.pyc
+│   │           │   │   │   ├── _constraints.cpython-38.pyc
+│   │           │   │   │   ├── _differentiable_functions.cpython-38.pyc
+│   │           │   │   │   ├── _differentialevolution.cpython-38.pyc
+│   │           │   │   │   ├── _dual_annealing.cpython-38.pyc
+│   │           │   │   │   ├── _hessian_update_strategy.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── lbfgsb.cpython-38.pyc
+│   │           │   │   │   ├── linesearch.cpython-38.pyc
+│   │           │   │   │   ├── _linprog.cpython-38.pyc
+│   │           │   │   │   ├── _linprog_doc.cpython-38.pyc
+│   │           │   │   │   ├── _linprog_highs.cpython-38.pyc
+│   │           │   │   │   ├── _linprog_ip.cpython-38.pyc
+│   │           │   │   │   ├── _linprog_rs.cpython-38.pyc
+│   │           │   │   │   ├── _linprog_simplex.cpython-38.pyc
+│   │           │   │   │   ├── _linprog_util.cpython-38.pyc
+│   │           │   │   │   ├── _lsap.cpython-38.pyc
+│   │           │   │   │   ├── _minimize.cpython-38.pyc
+│   │           │   │   │   ├── minpack.cpython-38.pyc
+│   │           │   │   │   ├── _nnls.cpython-38.pyc
+│   │           │   │   │   ├── nonlin.cpython-38.pyc
+│   │           │   │   │   ├── _numdiff.cpython-38.pyc
+│   │           │   │   │   ├── optimize.cpython-38.pyc
+│   │           │   │   │   ├── _qap.cpython-38.pyc
+│   │           │   │   │   ├── _remove_redundancy.cpython-38.pyc
+│   │           │   │   │   ├── _root.cpython-38.pyc
+│   │           │   │   │   ├── _root_scalar.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── _shgo.cpython-38.pyc
+│   │           │   │   │   ├── slsqp.cpython-38.pyc
+│   │           │   │   │   ├── _spectral.cpython-38.pyc
+│   │           │   │   │   ├── tnc.cpython-38.pyc
+│   │           │   │   │   ├── _trustregion.cpython-38.pyc
+│   │           │   │   │   ├── _trustregion_dogleg.cpython-38.pyc
+│   │           │   │   │   ├── _trustregion_exact.cpython-38.pyc
+│   │           │   │   │   ├── _trustregion_krylov.cpython-38.pyc
+│   │           │   │   │   ├── _trustregion_ncg.cpython-38.pyc
+│   │           │   │   │   ├── _tstutils.cpython-38.pyc
+│   │           │   │   │   └── zeros.cpython-38.pyc
 │   │           │   │   ├── _shgo_lib
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── sobol_seq.cpython-38.pyc
+│   │           │   │   │   │   └── triangulation.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── sobol_seq.py
 │   │           │   │   │   ├── sobol_vec.gz
 │   │           │   │   │   └── triangulation.py
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test__basinhopping.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cobyla.cpython-38.pyc
+│   │           │   │   │   │   ├── test_constraint_conversion.cpython-38.pyc
+│   │           │   │   │   │   ├── test_constraints.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cython_optimize.cpython-38.pyc
+│   │           │   │   │   │   ├── test_differentiable_functions.cpython-38.pyc
+│   │           │   │   │   │   ├── test__differential_evolution.cpython-38.pyc
+│   │           │   │   │   │   ├── test__dual_annealing.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hessian_update_strategy.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lbfgsb_hessinv.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lbfgsb_setulb.cpython-38.pyc
+│   │           │   │   │   │   ├── test_least_squares.cpython-38.pyc
+│   │           │   │   │   │   ├── test_linear_assignment.cpython-38.pyc
+│   │           │   │   │   │   ├── test_linesearch.cpython-38.pyc
+│   │           │   │   │   │   ├── test__linprog_clean_inputs.cpython-38.pyc
+│   │           │   │   │   │   ├── test_linprog.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lsq_common.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lsq_linear.cpython-38.pyc
+│   │           │   │   │   │   ├── test_minimize_constrained.cpython-38.pyc
+│   │           │   │   │   │   ├── test_minpack.cpython-38.pyc
+│   │           │   │   │   │   ├── test_nnls.cpython-38.pyc
+│   │           │   │   │   │   ├── test_nonlin.cpython-38.pyc
+│   │           │   │   │   │   ├── test__numdiff.cpython-38.pyc
+│   │           │   │   │   │   ├── test_optimize.cpython-38.pyc
+│   │           │   │   │   │   ├── test_quadratic_assignment.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regression.cpython-38.pyc
+│   │           │   │   │   │   ├── test__remove_redundancy.cpython-38.pyc
+│   │           │   │   │   │   ├── test__root.cpython-38.pyc
+│   │           │   │   │   │   ├── test__shgo.cpython-38.pyc
+│   │           │   │   │   │   ├── test_slsqp.cpython-38.pyc
+│   │           │   │   │   │   ├── test__spectral.cpython-38.pyc
+│   │           │   │   │   │   ├── test_tnc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_trustregion.cpython-38.pyc
+│   │           │   │   │   │   ├── test_trustregion_exact.cpython-38.pyc
+│   │           │   │   │   │   ├── test_trustregion_krylov.cpython-38.pyc
+│   │           │   │   │   │   └── test_zeros.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test__basinhopping.py
 │   │           │   │   │   ├── test_cobyla.py
@@ -4170,11 +7058,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── test_trustregion.py
 │   │           │   │   │   └── test_zeros.py
 │   │           │   │   ├── _trlib
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── setup.py
 │   │           │   │   │   └── _trlib.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   ├── _trustregion_constr
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── canonical_constraint.cpython-38.pyc
+│   │           │   │   │   │   ├── equality_constrained_sqp.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── minimize_trustregion_constr.cpython-38.pyc
+│   │           │   │   │   │   ├── projections.cpython-38.pyc
+│   │           │   │   │   │   ├── qp_subproblem.cpython-38.pyc
+│   │           │   │   │   │   ├── report.cpython-38.pyc
+│   │           │   │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   │   └── tr_interior_point.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_canonical_constraint.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_projections.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_qp_subproblem.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_report.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_canonical_constraint.py
 │   │           │   │   │   │   ├── test_projections.py
@@ -4241,8 +7148,52 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _tstutils.py
 │   │           │   │   ├── _zeros.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── zeros.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── __config__.cpython-38.pyc
+│   │           │   │   ├── conftest.cpython-38.pyc
+│   │           │   │   ├── _distributor_init.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── setup.cpython-38.pyc
+│   │           │   │   └── version.cpython-38.pyc
 │   │           │   ├── signal
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _arraytools.cpython-38.pyc
+│   │           │   │   │   ├── bsplines.cpython-38.pyc
+│   │           │   │   │   ├── filter_design.cpython-38.pyc
+│   │           │   │   │   ├── fir_filter_design.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── lti_conversion.cpython-38.pyc
+│   │           │   │   │   ├── ltisys.cpython-38.pyc
+│   │           │   │   │   ├── _max_len_seq.cpython-38.pyc
+│   │           │   │   │   ├── _peak_finding.cpython-38.pyc
+│   │           │   │   │   ├── _savitzky_golay.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── signaltools.cpython-38.pyc
+│   │           │   │   │   ├── spectral.cpython-38.pyc
+│   │           │   │   │   ├── _upfirdn.cpython-38.pyc
+│   │           │   │   │   ├── waveforms.cpython-38.pyc
+│   │           │   │   │   └── wavelets.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── mpsig.cpython-38.pyc
+│   │           │   │   │   │   ├── test_array_tools.cpython-38.pyc
+│   │           │   │   │   │   ├── test_bsplines.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cont2discrete.cpython-38.pyc
+│   │           │   │   │   │   ├── test_dltisys.cpython-38.pyc
+│   │           │   │   │   │   ├── test_filter_design.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fir_filter_design.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ltisys.cpython-38.pyc
+│   │           │   │   │   │   ├── test_max_len_seq.cpython-38.pyc
+│   │           │   │   │   │   ├── test_peak_finding.cpython-38.pyc
+│   │           │   │   │   │   ├── test_result_type.cpython-38.pyc
+│   │           │   │   │   │   ├── test_savitzky_golay.cpython-38.pyc
+│   │           │   │   │   │   ├── test_signaltools.cpython-38.pyc
+│   │           │   │   │   │   ├── test_spectral.cpython-38.pyc
+│   │           │   │   │   │   ├── test_upfirdn.cpython-38.pyc
+│   │           │   │   │   │   ├── test_waveforms.cpython-38.pyc
+│   │           │   │   │   │   ├── test_wavelets.cpython-38.pyc
+│   │           │   │   │   │   └── test_windows.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── mpsig.py
 │   │           │   │   │   ├── test_array_tools.py
@@ -4263,6 +7214,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── test_wavelets.py
 │   │           │   │   │   └── test_windows.py
 │   │           │   │   ├── windows
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   │   └── windows.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── setup.py
 │   │           │   │   │   └── windows.py
@@ -4291,7 +7246,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── wavelets.py
 │   │           │   ├── sparse
 │   │           │   │   ├── csgraph
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── _laplacian.cpython-38.pyc
+│   │           │   │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   │   └── _validation.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_connected_components.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_conversions.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_flow.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_graph_laplacian.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_matching.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_reordering.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_shortest_path.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_spanning_tree.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_traversal.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_connected_components.py
 │   │           │   │   │   │   ├── test_conversions.py
@@ -4315,9 +7286,17 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   └── _validation.py
 │   │           │   │   ├── linalg
 │   │           │   │   │   ├── dsolve
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── _add_newdocs.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── linsolve.cpython-38.pyc
+│   │           │   │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   │   ├── SuperLU
 │   │           │   │   │   │   │   └── License.txt
 │   │           │   │   │   │   ├── tests
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── test_linsolve.cpython-38.pyc
 │   │           │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   └── test_linsolve.py
 │   │           │   │   │   │   ├── _add_newdocs.py
@@ -4329,7 +7308,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── arpack
 │   │           │   │   │   │   │   ├── ARPACK
 │   │           │   │   │   │   │   │   └── COPYING
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── arpack.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   │   │   ├── tests
+│   │           │   │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   │   └── test_arpack.cpython-38.pyc
 │   │           │   │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   │   └── test_arpack.py
 │   │           │   │   │   │   │   ├── _arpack.cpython-38-x86_64-linux-gnu.so
@@ -4337,16 +7323,46 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   └── setup.py
 │   │           │   │   │   │   ├── lobpcg
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── lobpcg.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   │   │   ├── tests
+│   │           │   │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   │   └── test_lobpcg.cpython-38.pyc
 │   │           │   │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   │   └── test_lobpcg.py
 │   │           │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   ├── lobpcg.py
 │   │           │   │   │   │   │   └── setup.py
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── setup.py
 │   │           │   │   │   ├── isolve
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── _gcrotmk.cpython-38.pyc
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── iterative.cpython-38.pyc
+│   │           │   │   │   │   │   ├── lgmres.cpython-38.pyc
+│   │           │   │   │   │   │   ├── lsmr.cpython-38.pyc
+│   │           │   │   │   │   │   ├── lsqr.cpython-38.pyc
+│   │           │   │   │   │   │   ├── minres.cpython-38.pyc
+│   │           │   │   │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   │   │   └── utils.cpython-38.pyc
 │   │           │   │   │   │   ├── tests
+│   │           │   │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   │   ├── demo_lgmres.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── test_gcrotmk.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── test_iterative.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── test_lgmres.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── test_lsmr.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── test_lsqr.cpython-38.pyc
+│   │           │   │   │   │   │   │   ├── test_minres.cpython-38.pyc
+│   │           │   │   │   │   │   │   └── test_utils.cpython-38.pyc
 │   │           │   │   │   │   │   ├── demo_lgmres.py
 │   │           │   │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   │   ├── test_gcrotmk.py
@@ -4366,7 +7382,23 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── minres.py
 │   │           │   │   │   │   ├── setup.py
 │   │           │   │   │   │   └── utils.py
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── _expm_multiply.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── interface.cpython-38.pyc
+│   │           │   │   │   │   ├── matfuncs.cpython-38.pyc
+│   │           │   │   │   │   ├── _norm.cpython-38.pyc
+│   │           │   │   │   │   ├── _onenormest.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_expm_multiply.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_interface.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_matfuncs.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_norm.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_onenormest.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_pydata_sparse.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_expm_multiply.py
 │   │           │   │   │   │   ├── test_interface.py
@@ -4381,10 +7413,42 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── _norm.py
 │   │           │   │   │   ├── _onenormest.py
 │   │           │   │   │   └── setup.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   ├── bsr.cpython-38.pyc
+│   │           │   │   │   ├── compressed.cpython-38.pyc
+│   │           │   │   │   ├── construct.cpython-38.pyc
+│   │           │   │   │   ├── coo.cpython-38.pyc
+│   │           │   │   │   ├── csc.cpython-38.pyc
+│   │           │   │   │   ├── csr.cpython-38.pyc
+│   │           │   │   │   ├── data.cpython-38.pyc
+│   │           │   │   │   ├── dia.cpython-38.pyc
+│   │           │   │   │   ├── dok.cpython-38.pyc
+│   │           │   │   │   ├── extract.cpython-38.pyc
+│   │           │   │   │   ├── generate_sparsetools.cpython-38.pyc
+│   │           │   │   │   ├── _index.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── lil.cpython-38.pyc
+│   │           │   │   │   ├── _matrix_io.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── sparsetools.cpython-38.pyc
+│   │           │   │   │   ├── spfuncs.cpython-38.pyc
+│   │           │   │   │   └── sputils.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── csc_py2.npz
 │   │           │   │   │   │   └── csc_py3.npz
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_base.cpython-38.pyc
+│   │           │   │   │   │   ├── test_construct.cpython-38.pyc
+│   │           │   │   │   │   ├── test_csc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_csr.cpython-38.pyc
+│   │           │   │   │   │   ├── test_extract.cpython-38.pyc
+│   │           │   │   │   │   ├── test_matrix_io.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sparsetools.cpython-38.pyc
+│   │           │   │   │   │   ├── test_spfuncs.cpython-38.pyc
+│   │           │   │   │   │   └── test_sputils.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_base.py
 │   │           │   │   │   ├── test_construct.py
@@ -4418,6 +7482,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── spfuncs.py
 │   │           │   │   └── sputils.py
 │   │           │   ├── spatial
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── distance.cpython-38.pyc
+│   │           │   │   │   ├── _geometric_slerp.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── kdtree.cpython-38.pyc
+│   │           │   │   │   ├── _plotutils.cpython-38.pyc
+│   │           │   │   │   ├── _procrustes.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── _spherical_voronoi.cpython-38.pyc
 │   │           │   │   ├── qhull_src
 │   │           │   │   │   └── COPYING.txt
 │   │           │   │   ├── tests
@@ -4453,6 +7526,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   ├── random-int-data.txt
 │   │           │   │   │   │   ├── random-uint-data.txt
 │   │           │   │   │   │   └── selfdual-4d-polytope.txt
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_distance.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hausdorff.cpython-38.pyc
+│   │           │   │   │   │   ├── test_kdtree.cpython-38.pyc
+│   │           │   │   │   │   ├── test__plotutils.cpython-38.pyc
+│   │           │   │   │   │   ├── test__procrustes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_qhull.cpython-38.pyc
+│   │           │   │   │   │   ├── test_slerp.cpython-38.pyc
+│   │           │   │   │   │   └── test_spherical_voronoi.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_distance.py
 │   │           │   │   │   ├── test_hausdorff.py
@@ -4463,7 +7546,17 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── test_slerp.py
 │   │           │   │   │   └── test_spherical_voronoi.py
 │   │           │   │   ├── transform
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── _rotation_groups.cpython-38.pyc
+│   │           │   │   │   │   ├── _rotation_spline.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_rotation.cpython-38.pyc
+│   │           │   │   │   │   │   ├── test_rotation_groups.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_rotation_spline.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   ├── test_rotation_groups.py
 │   │           │   │   │   │   ├── test_rotation.py
@@ -4490,6 +7583,18 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── _voronoi.pyi
 │   │           │   ├── special
 │   │           │   │   ├── _precompute
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── expn_asy.cpython-38.pyc
+│   │           │   │   │   │   ├── gammainc_asy.cpython-38.pyc
+│   │           │   │   │   │   ├── gammainc_data.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── lambertw.cpython-38.pyc
+│   │           │   │   │   │   ├── loggamma.cpython-38.pyc
+│   │           │   │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   │   ├── struve_convergence.cpython-38.pyc
+│   │           │   │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   │   ├── wrightomega.cpython-38.pyc
+│   │           │   │   │   │   └── zetac.cpython-38.pyc
 │   │           │   │   │   ├── expn_asy.py
 │   │           │   │   │   ├── gammainc_asy.py
 │   │           │   │   │   ├── gammainc_data.py
@@ -4501,12 +7606,71 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── utils.py
 │   │           │   │   │   ├── wrightomega.py
 │   │           │   │   │   └── zetac.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── add_newdocs.cpython-38.pyc
+│   │           │   │   │   ├── _basic.cpython-38.pyc
+│   │           │   │   │   ├── basic.cpython-38.pyc
+│   │           │   │   │   ├── _ellip_harm.cpython-38.pyc
+│   │           │   │   │   ├── _generate_pyx.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _lambertw.cpython-38.pyc
+│   │           │   │   │   ├── _logsumexp.cpython-38.pyc
+│   │           │   │   │   ├── _mptestutils.cpython-38.pyc
+│   │           │   │   │   ├── orthogonal.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── sf_error.cpython-38.pyc
+│   │           │   │   │   ├── spfun_stats.cpython-38.pyc
+│   │           │   │   │   ├── _spherical_bessel.cpython-38.pyc
+│   │           │   │   │   └── _testutils.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── boost.npz
 │   │           │   │   │   │   ├── gsl.npz
 │   │           │   │   │   │   ├── local.npz
 │   │           │   │   │   │   └── README
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_basic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_bdtr.cpython-38.pyc
+│   │           │   │   │   │   ├── test_boxcox.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cdflib.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cython_special.cpython-38.pyc
+│   │           │   │   │   │   ├── test_data.cpython-38.pyc
+│   │           │   │   │   │   ├── test_digamma.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ellip_harm.cpython-38.pyc
+│   │           │   │   │   │   ├── test_erfinv.cpython-38.pyc
+│   │           │   │   │   │   ├── test_exponential_integrals.cpython-38.pyc
+│   │           │   │   │   │   ├── test_faddeeva.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gamma.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gammainc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hypergeometric.cpython-38.pyc
+│   │           │   │   │   │   ├── test_kolmogorov.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lambertw.cpython-38.pyc
+│   │           │   │   │   │   ├── test_loggamma.cpython-38.pyc
+│   │           │   │   │   │   ├── test_logit.cpython-38.pyc
+│   │           │   │   │   │   ├── test_log_softmax.cpython-38.pyc
+│   │           │   │   │   │   ├── test_logsumexp.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mpmath.cpython-38.pyc
+│   │           │   │   │   │   ├── test_nan_inputs.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ndtr.cpython-38.pyc
+│   │           │   │   │   │   ├── test_orthogonal.cpython-38.pyc
+│   │           │   │   │   │   ├── test_orthogonal_eval.cpython-38.pyc
+│   │           │   │   │   │   ├── test_owens_t.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pcf.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pdtr.cpython-38.pyc
+│   │           │   │   │   │   ├── test_precompute_expn_asy.cpython-38.pyc
+│   │           │   │   │   │   ├── test_precompute_gammainc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_precompute_utils.cpython-38.pyc
+│   │           │   │   │   │   ├── test_round.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sf_error.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sici.cpython-38.pyc
+│   │           │   │   │   │   ├── test_spence.cpython-38.pyc
+│   │           │   │   │   │   ├── test_spfun_stats.cpython-38.pyc
+│   │           │   │   │   │   ├── test_spherical_bessel.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sph_harm.cpython-38.pyc
+│   │           │   │   │   │   ├── test_trig.cpython-38.pyc
+│   │           │   │   │   │   ├── test_wrightomega.cpython-38.pyc
+│   │           │   │   │   │   └── test_zeta.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_basic.py
 │   │           │   │   │   ├── test_bdtr.py
@@ -4577,6 +7741,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _ufuncs_cxx.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── _ufuncs.pyi
 │   │           │   ├── stats
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _binned_statistic.cpython-38.pyc
+│   │           │   │   │   ├── _constants.cpython-38.pyc
+│   │           │   │   │   ├── contingency.cpython-38.pyc
+│   │           │   │   │   ├── _continuous_distns.cpython-38.pyc
+│   │           │   │   │   ├── _discrete_distns.cpython-38.pyc
+│   │           │   │   │   ├── _distn_infrastructure.cpython-38.pyc
+│   │           │   │   │   ├── distributions.cpython-38.pyc
+│   │           │   │   │   ├── _distr_params.cpython-38.pyc
+│   │           │   │   │   ├── _hypotests.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── kde.cpython-38.pyc
+│   │           │   │   │   ├── _ksstats.cpython-38.pyc
+│   │           │   │   │   ├── morestats.cpython-38.pyc
+│   │           │   │   │   ├── mstats_basic.cpython-38.pyc
+│   │           │   │   │   ├── mstats.cpython-38.pyc
+│   │           │   │   │   ├── mstats_extras.cpython-38.pyc
+│   │           │   │   │   ├── _multivariate.cpython-38.pyc
+│   │           │   │   │   ├── _rvs_sampling.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── stats.cpython-38.pyc
+│   │           │   │   │   ├── _stats_mstats_common.cpython-38.pyc
+│   │           │   │   │   ├── _tukeylambda_stats.cpython-38.pyc
+│   │           │   │   │   └── _wilcoxon_data.cpython-38.pyc
 │   │           │   │   ├── tests
 │   │           │   │   │   ├── data
 │   │           │   │   │   │   ├── nist_anova
@@ -4595,6 +7783,25 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   │   │   └── Norris.dat
 │   │           │   │   │   │   ├── stable-cdf-sample-data.npy
 │   │           │   │   │   │   └── stable-pdf-sample-data.npy
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── common_tests.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_binned_statistic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_contingency.cpython-38.pyc
+│   │           │   │   │   │   ├── test_continuous_basic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_discrete_basic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_discrete_distns.cpython-38.pyc
+│   │           │   │   │   │   ├── test_distributions.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fit.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hypotests.cpython-38.pyc
+│   │           │   │   │   │   ├── test_kdeoth.cpython-38.pyc
+│   │           │   │   │   │   ├── test_morestats.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mstats_basic.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mstats_extras.cpython-38.pyc
+│   │           │   │   │   │   ├── test_multivariate.cpython-38.pyc
+│   │           │   │   │   │   ├── test_rank.cpython-38.pyc
+│   │           │   │   │   │   ├── test_stats.cpython-38.pyc
+│   │           │   │   │   │   └── test_tukeylambda_stats.cpython-38.pyc
 │   │           │   │   │   ├── common_tests.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_binned_statistic.py
@@ -4667,6 +7874,31 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── libopenblasp-r0-085ca80a.3.9.so
 │   │           ├── setuptools
 │   │           │   ├── command
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── alias.cpython-38.pyc
+│   │           │   │   │   ├── bdist_egg.cpython-38.pyc
+│   │           │   │   │   ├── bdist_rpm.cpython-38.pyc
+│   │           │   │   │   ├── build_clib.cpython-38.pyc
+│   │           │   │   │   ├── build_ext.cpython-38.pyc
+│   │           │   │   │   ├── build_py.cpython-38.pyc
+│   │           │   │   │   ├── develop.cpython-38.pyc
+│   │           │   │   │   ├── dist_info.cpython-38.pyc
+│   │           │   │   │   ├── easy_install.cpython-38.pyc
+│   │           │   │   │   ├── egg_info.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── install.cpython-38.pyc
+│   │           │   │   │   ├── install_egg_info.cpython-38.pyc
+│   │           │   │   │   ├── install_lib.cpython-38.pyc
+│   │           │   │   │   ├── install_scripts.cpython-38.pyc
+│   │           │   │   │   ├── py36compat.cpython-38.pyc
+│   │           │   │   │   ├── register.cpython-38.pyc
+│   │           │   │   │   ├── rotate.cpython-38.pyc
+│   │           │   │   │   ├── saveopts.cpython-38.pyc
+│   │           │   │   │   ├── sdist.cpython-38.pyc
+│   │           │   │   │   ├── setopt.cpython-38.pyc
+│   │           │   │   │   ├── test.cpython-38.pyc
+│   │           │   │   │   ├── upload.cpython-38.pyc
+│   │           │   │   │   └── upload_docs.cpython-38.pyc
 │   │           │   │   ├── alias.py
 │   │           │   │   ├── bdist_egg.py
 │   │           │   │   ├── bdist_rpm.py
@@ -4694,6 +7926,31 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── upload.py
 │   │           │   ├── _distutils
 │   │           │   │   ├── command
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── bdist.cpython-38.pyc
+│   │           │   │   │   │   ├── bdist_dumb.cpython-38.pyc
+│   │           │   │   │   │   ├── bdist_msi.cpython-38.pyc
+│   │           │   │   │   │   ├── bdist_rpm.cpython-38.pyc
+│   │           │   │   │   │   ├── bdist_wininst.cpython-38.pyc
+│   │           │   │   │   │   ├── build_clib.cpython-38.pyc
+│   │           │   │   │   │   ├── build.cpython-38.pyc
+│   │           │   │   │   │   ├── build_ext.cpython-38.pyc
+│   │           │   │   │   │   ├── build_py.cpython-38.pyc
+│   │           │   │   │   │   ├── build_scripts.cpython-38.pyc
+│   │           │   │   │   │   ├── check.cpython-38.pyc
+│   │           │   │   │   │   ├── clean.cpython-38.pyc
+│   │           │   │   │   │   ├── config.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── install.cpython-38.pyc
+│   │           │   │   │   │   ├── install_data.cpython-38.pyc
+│   │           │   │   │   │   ├── install_egg_info.cpython-38.pyc
+│   │           │   │   │   │   ├── install_headers.cpython-38.pyc
+│   │           │   │   │   │   ├── install_lib.cpython-38.pyc
+│   │           │   │   │   │   ├── install_scripts.cpython-38.pyc
+│   │           │   │   │   │   ├── py37compat.cpython-38.pyc
+│   │           │   │   │   │   ├── register.cpython-38.pyc
+│   │           │   │   │   │   ├── sdist.cpython-38.pyc
+│   │           │   │   │   │   └── upload.cpython-38.pyc
 │   │           │   │   │   ├── bdist_dumb.py
 │   │           │   │   │   ├── bdist_msi.py
 │   │           │   │   │   ├── bdist.py
@@ -4718,6 +7975,37 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── register.py
 │   │           │   │   │   ├── sdist.py
 │   │           │   │   │   └── upload.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── archive_util.cpython-38.pyc
+│   │           │   │   │   ├── bcppcompiler.cpython-38.pyc
+│   │           │   │   │   ├── ccompiler.cpython-38.pyc
+│   │           │   │   │   ├── cmd.cpython-38.pyc
+│   │           │   │   │   ├── config.cpython-38.pyc
+│   │           │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   ├── cygwinccompiler.cpython-38.pyc
+│   │           │   │   │   ├── debug.cpython-38.pyc
+│   │           │   │   │   ├── dep_util.cpython-38.pyc
+│   │           │   │   │   ├── dir_util.cpython-38.pyc
+│   │           │   │   │   ├── dist.cpython-38.pyc
+│   │           │   │   │   ├── errors.cpython-38.pyc
+│   │           │   │   │   ├── extension.cpython-38.pyc
+│   │           │   │   │   ├── fancy_getopt.cpython-38.pyc
+│   │           │   │   │   ├── filelist.cpython-38.pyc
+│   │           │   │   │   ├── file_util.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── log.cpython-38.pyc
+│   │           │   │   │   ├── msvc9compiler.cpython-38.pyc
+│   │           │   │   │   ├── _msvccompiler.cpython-38.pyc
+│   │           │   │   │   ├── msvccompiler.cpython-38.pyc
+│   │           │   │   │   ├── py35compat.cpython-38.pyc
+│   │           │   │   │   ├── py38compat.cpython-38.pyc
+│   │           │   │   │   ├── spawn.cpython-38.pyc
+│   │           │   │   │   ├── sysconfig.cpython-38.pyc
+│   │           │   │   │   ├── text_file.cpython-38.pyc
+│   │           │   │   │   ├── unixccompiler.cpython-38.pyc
+│   │           │   │   │   ├── util.cpython-38.pyc
+│   │           │   │   │   ├── version.cpython-38.pyc
+│   │           │   │   │   └── versionpredicate.cpython-38.pyc
 │   │           │   │   ├── archive_util.py
 │   │           │   │   ├── bcppcompiler.py
 │   │           │   │   ├── ccompiler.py
@@ -4749,13 +8037,58 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── versionpredicate.py
 │   │           │   │   └── version.py
 │   │           │   ├── extern
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   └── __init__.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── archive_util.cpython-38.pyc
+│   │           │   │   ├── build_meta.cpython-38.pyc
+│   │           │   │   ├── config.cpython-38.pyc
+│   │           │   │   ├── depends.cpython-38.pyc
+│   │           │   │   ├── _deprecation_warning.cpython-38.pyc
+│   │           │   │   ├── dep_util.cpython-38.pyc
+│   │           │   │   ├── dist.cpython-38.pyc
+│   │           │   │   ├── errors.cpython-38.pyc
+│   │           │   │   ├── extension.cpython-38.pyc
+│   │           │   │   ├── glob.cpython-38.pyc
+│   │           │   │   ├── _imp.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── installer.cpython-38.pyc
+│   │           │   │   ├── launch.cpython-38.pyc
+│   │           │   │   ├── lib2to3_ex.cpython-38.pyc
+│   │           │   │   ├── monkey.cpython-38.pyc
+│   │           │   │   ├── msvc.cpython-38.pyc
+│   │           │   │   ├── namespaces.cpython-38.pyc
+│   │           │   │   ├── package_index.cpython-38.pyc
+│   │           │   │   ├── py34compat.cpython-38.pyc
+│   │           │   │   ├── sandbox.cpython-38.pyc
+│   │           │   │   ├── ssl_support.cpython-38.pyc
+│   │           │   │   ├── unicode_utils.cpython-38.pyc
+│   │           │   │   ├── version.cpython-38.pyc
+│   │           │   │   ├── wheel.cpython-38.pyc
+│   │           │   │   └── windows_support.cpython-38.pyc
 │   │           │   ├── _vendor
 │   │           │   │   ├── more_itertools
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── more.cpython-38.pyc
+│   │           │   │   │   │   └── recipes.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── more.py
 │   │           │   │   │   └── recipes.py
 │   │           │   │   ├── packaging
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __about__.cpython-38.pyc
+│   │           │   │   │   │   ├── _compat.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── markers.cpython-38.pyc
+│   │           │   │   │   │   ├── requirements.cpython-38.pyc
+│   │           │   │   │   │   ├── specifiers.cpython-38.pyc
+│   │           │   │   │   │   ├── _structures.cpython-38.pyc
+│   │           │   │   │   │   ├── tags.cpython-38.pyc
+│   │           │   │   │   │   ├── _typing.cpython-38.pyc
+│   │           │   │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   │   └── version.cpython-38.pyc
 │   │           │   │   │   ├── __about__.py
 │   │           │   │   │   ├── _compat.py
 │   │           │   │   │   ├── __init__.py
@@ -4767,6 +8100,10 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── _typing.py
 │   │           │   │   │   ├── utils.py
 │   │           │   │   │   └── version.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── ordered_set.cpython-38.pyc
+│   │           │   │   │   └── pyparsing.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── ordered_set.py
 │   │           │   │   └── pyparsing.py
@@ -4822,7 +8159,20 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── skimage
 │   │           │   ├── color
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── adapt_rgb.cpython-38.pyc
+│   │           │   │   │   ├── colorconv.cpython-38.pyc
+│   │           │   │   │   ├── colorlabel.cpython-38.pyc
+│   │           │   │   │   ├── delta_e.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── rgb_colors.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_adapt_rgb.cpython-38.pyc
+│   │           │   │   │   │   ├── test_colorconv.cpython-38.pyc
+│   │           │   │   │   │   ├── test_colorlabel.cpython-38.pyc
+│   │           │   │   │   │   └── test_delta_e.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_adapt_rgb.py
 │   │           │   │   │   ├── test_colorconv.py
@@ -4835,7 +8185,15 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── rgb_colors.py
 │   │           │   ├── data
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _binary_blobs.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _registry.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── test_data.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── test_data.py
 │   │           │   │   ├── astronaut.png
@@ -4873,7 +8231,22 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── setup.py
 │   │           │   │   └── text.png
 │   │           │   ├── draw
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── draw3d.cpython-38.pyc
+│   │           │   │   │   ├── draw.cpython-38.pyc
+│   │           │   │   │   ├── draw_nd.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _polygon2mask.cpython-38.pyc
+│   │           │   │   │   ├── _random_shapes.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_draw3d.cpython-38.pyc
+│   │           │   │   │   │   ├── test_draw.cpython-38.pyc
+│   │           │   │   │   │   ├── test_draw_nd.cpython-38.pyc
+│   │           │   │   │   │   ├── test_polygon2mask.cpython-38.pyc
+│   │           │   │   │   │   └── test_random_shapes.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_draw3d.py
 │   │           │   │   │   ├── test_draw_nd.py
@@ -4889,7 +8262,17 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _random_shapes.py
 │   │           │   │   └── setup.py
 │   │           │   ├── exposure
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _adapthist.cpython-38.pyc
+│   │           │   │   │   ├── exposure.cpython-38.pyc
+│   │           │   │   │   ├── histogram_matching.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_exposure.cpython-38.pyc
+│   │           │   │   │   │   └── test_histogram_matching.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_exposure.py
 │   │           │   │   │   └── test_histogram_matching.py
@@ -4899,7 +8282,44 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── setup.py
 │   │           │   ├── feature
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _basic_features.cpython-38.pyc
+│   │           │   │   │   ├── blob.cpython-38.pyc
+│   │           │   │   │   ├── brief.cpython-38.pyc
+│   │           │   │   │   ├── _canny.cpython-38.pyc
+│   │           │   │   │   ├── censure.cpython-38.pyc
+│   │           │   │   │   ├── corner.cpython-38.pyc
+│   │           │   │   │   ├── _daisy.cpython-38.pyc
+│   │           │   │   │   ├── haar.cpython-38.pyc
+│   │           │   │   │   ├── _hog.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── match.cpython-38.pyc
+│   │           │   │   │   ├── orb.cpython-38.pyc
+│   │           │   │   │   ├── _orb_descriptor_positions.cpython-38.pyc
+│   │           │   │   │   ├── peak.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── template.cpython-38.pyc
+│   │           │   │   │   ├── texture.cpython-38.pyc
+│   │           │   │   │   └── util.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_basic_features.cpython-38.pyc
+│   │           │   │   │   │   ├── test_blob.cpython-38.pyc
+│   │           │   │   │   │   ├── test_brief.cpython-38.pyc
+│   │           │   │   │   │   ├── test_canny.cpython-38.pyc
+│   │           │   │   │   │   ├── test_cascade.cpython-38.pyc
+│   │           │   │   │   │   ├── test_censure.cpython-38.pyc
+│   │           │   │   │   │   ├── test_corner.cpython-38.pyc
+│   │           │   │   │   │   ├── test_daisy.cpython-38.pyc
+│   │           │   │   │   │   ├── test_haar.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hog.cpython-38.pyc
+│   │           │   │   │   │   ├── test_match.cpython-38.pyc
+│   │           │   │   │   │   ├── test_orb.cpython-38.pyc
+│   │           │   │   │   │   ├── test_peak.cpython-38.pyc
+│   │           │   │   │   │   ├── test_template.cpython-38.pyc
+│   │           │   │   │   │   ├── test_texture.cpython-38.pyc
+│   │           │   │   │   │   └── test_util.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_basic_features.py
 │   │           │   │   │   ├── test_blob.py
@@ -4946,8 +8366,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── texture.py
 │   │           │   │   └── util.py
 │   │           │   ├── filters
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── edges.cpython-38.pyc
+│   │           │   │   │   ├── _gabor.cpython-38.pyc
+│   │           │   │   │   ├── _gaussian.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── lpi_filter.cpython-38.pyc
+│   │           │   │   │   ├── _median.cpython-38.pyc
+│   │           │   │   │   ├── _rank_order.cpython-38.pyc
+│   │           │   │   │   ├── ridges.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── _sparse.cpython-38.pyc
+│   │           │   │   │   ├── thresholding.cpython-38.pyc
+│   │           │   │   │   ├── _unsharp_mask.cpython-38.pyc
+│   │           │   │   │   └── _window.cpython-38.pyc
 │   │           │   │   ├── rank
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── bilateral.cpython-38.pyc
+│   │           │   │   │   │   ├── generic.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── _percentile.cpython-38.pyc
 │   │           │   │   │   ├── tests
+│   │           │   │   │   │   ├── __pycache__
+│   │           │   │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   │   └── test_rank.cpython-38.pyc
 │   │           │   │   │   │   ├── __init__.py
 │   │           │   │   │   │   └── test_rank.py
 │   │           │   │   │   ├── bilateral_cy.cpython-38-x86_64-linux-gnu.so
@@ -4960,6 +8402,18 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── percentile_cy.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   │   └── _percentile.py
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_correlate.cpython-38.pyc
+│   │           │   │   │   │   ├── test_edges.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gabor.cpython-38.pyc
+│   │           │   │   │   │   ├── test_gaussian.cpython-38.pyc
+│   │           │   │   │   │   ├── test_lpi_filter.cpython-38.pyc
+│   │           │   │   │   │   ├── test_median.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ridges.cpython-38.pyc
+│   │           │   │   │   │   ├── test_thresholding.cpython-38.pyc
+│   │           │   │   │   │   ├── test_unsharp_mask.cpython-38.pyc
+│   │           │   │   │   │   └── test_window.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_correlate.py
 │   │           │   │   │   ├── test_edges.py
@@ -4988,6 +8442,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── _window.py
 │   │           │   ├── future
 │   │           │   │   ├── graph
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── graph_cut.cpython-38.pyc
+│   │           │   │   │   │   ├── graph_merge.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── _ncut.cpython-38.pyc
+│   │           │   │   │   │   ├── rag.cpython-38.pyc
+│   │           │   │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   │   ├── graph_cut.py
 │   │           │   │   │   ├── graph_merge.py
 │   │           │   │   │   ├── __init__.py
@@ -4995,12 +8456,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── _ncut.py
 │   │           │   │   │   ├── rag.py
 │   │           │   │   │   └── setup.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── manual_segmentation.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── trainable_segmentation.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── manual_segmentation.py
 │   │           │   │   ├── setup.py
 │   │           │   │   └── trainable_segmentation.py
 │   │           │   ├── graph
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── mcp.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── spath.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_anisotropy.cpython-38.pyc
+│   │           │   │   │   │   ├── test_connect.cpython-38.pyc
+│   │           │   │   │   │   ├── test_flexible.cpython-38.pyc
+│   │           │   │   │   │   ├── test_heap.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mcp.cpython-38.pyc
+│   │           │   │   │   │   └── test_spath.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_anisotropy.py
 │   │           │   │   │   ├── test_connect.py
@@ -5017,6 +8496,22 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── spath.py
 │   │           │   ├── io
 │   │           │   │   ├── _plugins
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── fits_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── gdal_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── gtk_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── imageio_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── imread_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── matplotlib_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── pil_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── q_color_mixer.cpython-38.pyc
+│   │           │   │   │   │   ├── q_histogram.cpython-38.pyc
+│   │           │   │   │   │   ├── qt_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── simpleitk_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── skivi.cpython-38.pyc
+│   │           │   │   │   │   ├── tifffile_plugin.cpython-38.pyc
+│   │           │   │   │   │   └── util.cpython-38.pyc
 │   │           │   │   │   ├── _colormixer.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   │   ├── fits_plugin.ini
 │   │           │   │   │   ├── fits_plugin.py
@@ -5044,7 +8539,33 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── tifffile_plugin.ini
 │   │           │   │   │   ├── tifffile_plugin.py
 │   │           │   │   │   └── util.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── collection.cpython-38.pyc
+│   │           │   │   │   ├── _image_stack.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _io.cpython-38.pyc
+│   │           │   │   │   ├── manage_plugins.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── sift.cpython-38.pyc
+│   │           │   │   │   └── util.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_collection.cpython-38.pyc
+│   │           │   │   │   │   ├── test_colormixer.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fits.cpython-38.pyc
+│   │           │   │   │   │   ├── test_histograms.cpython-38.pyc
+│   │           │   │   │   │   ├── test_imageio.cpython-38.pyc
+│   │           │   │   │   │   ├── test_imread.cpython-38.pyc
+│   │           │   │   │   │   ├── test_io.cpython-38.pyc
+│   │           │   │   │   │   ├── test_mpl_imshow.cpython-38.pyc
+│   │           │   │   │   │   ├── test_multi_image.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pil.cpython-38.pyc
+│   │           │   │   │   │   ├── test_plugin.cpython-38.pyc
+│   │           │   │   │   │   ├── test_plugin_util.cpython-38.pyc
+│   │           │   │   │   │   ├── test_sift.cpython-38.pyc
+│   │           │   │   │   │   ├── test_simpleitk.cpython-38.pyc
+│   │           │   │   │   │   └── test_tifffile.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_collection.py
 │   │           │   │   │   ├── test_colormixer.py
@@ -5070,7 +8591,39 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── sift.py
 │   │           │   │   └── util.py
 │   │           │   ├── measure
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── block.cpython-38.pyc
+│   │           │   │   │   ├── entropy.cpython-38.pyc
+│   │           │   │   │   ├── _find_contours.cpython-38.pyc
+│   │           │   │   │   ├── fit.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _label.cpython-38.pyc
+│   │           │   │   │   ├── _marching_cubes_classic.cpython-38.pyc
+│   │           │   │   │   ├── _marching_cubes_lewiner.cpython-38.pyc
+│   │           │   │   │   ├── _marching_cubes_lewiner_luts.cpython-38.pyc
+│   │           │   │   │   ├── _moments.cpython-38.pyc
+│   │           │   │   │   ├── pnpoly.cpython-38.pyc
+│   │           │   │   │   ├── _polygon.cpython-38.pyc
+│   │           │   │   │   ├── profile.cpython-38.pyc
+│   │           │   │   │   ├── _regionprops.cpython-38.pyc
+│   │           │   │   │   ├── _regionprops_utils.cpython-38.pyc
+│   │           │   │   │   └── setup.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_block.cpython-38.pyc
+│   │           │   │   │   │   ├── test_ccomp.cpython-38.pyc
+│   │           │   │   │   │   ├── test_entropy.cpython-38.pyc
+│   │           │   │   │   │   ├── test_find_contours.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fit.cpython-38.pyc
+│   │           │   │   │   │   ├── test_label.cpython-38.pyc
+│   │           │   │   │   │   ├── test_marching_cubes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_moments.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pnpoly.cpython-38.pyc
+│   │           │   │   │   │   ├── test_polygon.cpython-38.pyc
+│   │           │   │   │   │   ├── test_profile.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regionprops.cpython-38.pyc
+│   │           │   │   │   │   └── test_structural_similarity.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_block.py
 │   │           │   │   │   ├── test_ccomp.py
@@ -5108,7 +8661,21 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _regionprops_utils.py
 │   │           │   │   └── setup.py
 │   │           │   ├── metrics
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _adapted_rand_error.cpython-38.pyc
+│   │           │   │   │   ├── _contingency_table.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── set_metrics.cpython-38.pyc
+│   │           │   │   │   ├── simple_metrics.cpython-38.pyc
+│   │           │   │   │   ├── _structural_similarity.cpython-38.pyc
+│   │           │   │   │   └── _variation_of_information.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_segmentation_metrics.cpython-38.pyc
+│   │           │   │   │   │   ├── test_set_metrics.cpython-38.pyc
+│   │           │   │   │   │   ├── test_simple_metrics.cpython-38.pyc
+│   │           │   │   │   │   └── test_structural_similarity.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_segmentation_metrics.py
 │   │           │   │   │   ├── test_set_metrics.py
@@ -5122,7 +8689,36 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _structural_similarity.py
 │   │           │   │   └── _variation_of_information.py
 │   │           │   ├── morphology
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── binary.cpython-38.pyc
+│   │           │   │   │   ├── convex_hull.cpython-38.pyc
+│   │           │   │   │   ├── _deprecated.cpython-38.pyc
+│   │           │   │   │   ├── extrema.cpython-38.pyc
+│   │           │   │   │   ├── _flood_fill.cpython-38.pyc
+│   │           │   │   │   ├── grey.cpython-38.pyc
+│   │           │   │   │   ├── greyreconstruct.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── max_tree.cpython-38.pyc
+│   │           │   │   │   ├── misc.cpython-38.pyc
+│   │           │   │   │   ├── selem.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── _skeletonize.cpython-38.pyc
+│   │           │   │   │   └── _util.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_binary.cpython-38.pyc
+│   │           │   │   │   │   ├── test_convex_hull.cpython-38.pyc
+│   │           │   │   │   │   ├── test_extrema.cpython-38.pyc
+│   │           │   │   │   │   ├── test_flood_fill.cpython-38.pyc
+│   │           │   │   │   │   ├── test_grey.cpython-38.pyc
+│   │           │   │   │   │   ├── test_max_tree.cpython-38.pyc
+│   │           │   │   │   │   ├── test_misc.cpython-38.pyc
+│   │           │   │   │   │   ├── test_reconstruction.cpython-38.pyc
+│   │           │   │   │   │   ├── test_selem.cpython-38.pyc
+│   │           │   │   │   │   ├── test_skeletonize_3d.cpython-38.pyc
+│   │           │   │   │   │   ├── test_skeletonize.cpython-38.pyc
+│   │           │   │   │   │   └── test_util.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_binary.py
 │   │           │   │   │   ├── test_convex_hull.py
@@ -5157,14 +8753,45 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _skeletonize_cy.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   ├── _skeletonize.py
 │   │           │   │   └── _util.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _build.cpython-38.pyc
+│   │           │   │   ├── conftest.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   └── setup.cpython-38.pyc
 │   │           │   ├── registration
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _masked_phase_cross_correlation.cpython-38.pyc
+│   │           │   │   │   ├── _optical_flow.cpython-38.pyc
+│   │           │   │   │   ├── _optical_flow_utils.cpython-38.pyc
+│   │           │   │   │   └── _phase_cross_correlation.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── _masked_phase_cross_correlation.py
 │   │           │   │   ├── _optical_flow.py
 │   │           │   │   ├── _optical_flow_utils.py
 │   │           │   │   └── _phase_cross_correlation.py
 │   │           │   ├── restoration
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── _cycle_spin.cpython-38.pyc
+│   │           │   │   │   ├── deconvolution.cpython-38.pyc
+│   │           │   │   │   ├── _denoise.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── inpaint.cpython-38.pyc
+│   │           │   │   │   ├── j_invariant.cpython-38.pyc
+│   │           │   │   │   ├── non_local_means.cpython-38.pyc
+│   │           │   │   │   ├── rolling_ball.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── uft.cpython-38.pyc
+│   │           │   │   │   └── unwrap.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_denoise.cpython-38.pyc
+│   │           │   │   │   │   ├── test_inpaint.cpython-38.pyc
+│   │           │   │   │   │   ├── test_j_invariant.cpython-38.pyc
+│   │           │   │   │   │   ├── test_restoration.cpython-38.pyc
+│   │           │   │   │   │   ├── test_rolling_ball.cpython-38.pyc
+│   │           │   │   │   │   └── test_unwrap.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_denoise.py
 │   │           │   │   │   ├── test_inpaint.py
@@ -5190,10 +8817,42 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _unwrap_3d.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── unwrap.py
 │   │           │   ├── scripts
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── skivi.cpython-38.pyc
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── skivi.py
 │   │           │   ├── segmentation
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── active_contour_model.cpython-38.pyc
+│   │           │   │   │   ├── boundaries.cpython-38.pyc
+│   │           │   │   │   ├── _chan_vese.cpython-38.pyc
+│   │           │   │   │   ├── _clear_border.cpython-38.pyc
+│   │           │   │   │   ├── _expand_labels.cpython-38.pyc
+│   │           │   │   │   ├── _felzenszwalb.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _join.cpython-38.pyc
+│   │           │   │   │   ├── morphsnakes.cpython-38.pyc
+│   │           │   │   │   ├── _quickshift.cpython-38.pyc
+│   │           │   │   │   ├── random_walker_segmentation.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── slic_superpixels.cpython-38.pyc
+│   │           │   │   │   └── _watershed.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_active_contour_model.cpython-38.pyc
+│   │           │   │   │   │   ├── test_boundaries.cpython-38.pyc
+│   │           │   │   │   │   ├── test_chan_vese.cpython-38.pyc
+│   │           │   │   │   │   ├── test_clear_border.cpython-38.pyc
+│   │           │   │   │   │   ├── test_expand_labels.cpython-38.pyc
+│   │           │   │   │   │   ├── test_felzenszwalb.cpython-38.pyc
+│   │           │   │   │   │   ├── test_join.cpython-38.pyc
+│   │           │   │   │   │   ├── test_morphsnakes.cpython-38.pyc
+│   │           │   │   │   │   ├── test_quickshift.cpython-38.pyc
+│   │           │   │   │   │   ├── test_random_walker.cpython-38.pyc
+│   │           │   │   │   │   ├── test_slic.cpython-38.pyc
+│   │           │   │   │   │   └── test_watershed.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_active_contour_model.py
 │   │           │   │   │   ├── test_boundaries.py
@@ -5226,7 +8885,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _watershed_cy.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── _watershed.py
 │   │           │   ├── _shared
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── coord.cpython-38.pyc
+│   │           │   │   │   ├── fft.cpython-38.pyc
+│   │           │   │   │   ├── _geometry.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── _tempfile.cpython-38.pyc
+│   │           │   │   │   ├── testing.cpython-38.pyc
+│   │           │   │   │   ├── utils.cpython-38.pyc
+│   │           │   │   │   ├── version_requirements.cpython-38.pyc
+│   │           │   │   │   └── _warnings.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_coord.cpython-38.pyc
+│   │           │   │   │   │   ├── test_fast_exp.cpython-38.pyc
+│   │           │   │   │   │   ├── test_geometry.cpython-38.pyc
+│   │           │   │   │   │   ├── test_interpolation.cpython-38.pyc
+│   │           │   │   │   │   ├── test_safe_as_int.cpython-38.pyc
+│   │           │   │   │   │   ├── test_testing.cpython-38.pyc
+│   │           │   │   │   │   ├── test_utils.cpython-38.pyc
+│   │           │   │   │   │   ├── test_version_requirements.cpython-38.pyc
+│   │           │   │   │   │   └── test_warnings.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_coord.py
 │   │           │   │   │   ├── test_fast_exp.py
@@ -5252,7 +8933,26 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── version_requirements.py
 │   │           │   │   └── _warnings.py
 │   │           │   ├── transform
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── finite_radon_transform.cpython-38.pyc
+│   │           │   │   │   ├── _geometric.cpython-38.pyc
+│   │           │   │   │   ├── hough_transform.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── integral.cpython-38.pyc
+│   │           │   │   │   ├── pyramids.cpython-38.pyc
+│   │           │   │   │   ├── radon_transform.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   └── _warps.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_finite_radon_transform.cpython-38.pyc
+│   │           │   │   │   │   ├── test_geometric.cpython-38.pyc
+│   │           │   │   │   │   ├── test_hough_transform.cpython-38.pyc
+│   │           │   │   │   │   ├── test_integral.cpython-38.pyc
+│   │           │   │   │   │   ├── test_pyramids.cpython-38.pyc
+│   │           │   │   │   │   ├── test_radon_transform.cpython-38.pyc
+│   │           │   │   │   │   └── test_warps.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_finite_radon_transform.py
 │   │           │   │   │   ├── test_geometric.py
@@ -5274,7 +8974,36 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── _warps_cy.cpython-38-x86_64-linux-gnu.so
 │   │           │   │   └── _warps.py
 │   │           │   ├── util
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── apply_parallel.cpython-38.pyc
+│   │           │   │   │   ├── arraycrop.cpython-38.pyc
+│   │           │   │   │   ├── compare.cpython-38.pyc
+│   │           │   │   │   ├── dtype.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── _invert.cpython-38.pyc
+│   │           │   │   │   ├── lookfor.cpython-38.pyc
+│   │           │   │   │   ├── _map_array.cpython-38.pyc
+│   │           │   │   │   ├── _montage.cpython-38.pyc
+│   │           │   │   │   ├── noise.cpython-38.pyc
+│   │           │   │   │   ├── _regular_grid.cpython-38.pyc
+│   │           │   │   │   ├── setup.cpython-38.pyc
+│   │           │   │   │   ├── shape.cpython-38.pyc
+│   │           │   │   │   └── unique.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_apply_parallel.cpython-38.pyc
+│   │           │   │   │   │   ├── test_arraycrop.cpython-38.pyc
+│   │           │   │   │   │   ├── test_arraypad.cpython-38.pyc
+│   │           │   │   │   │   ├── test_compare.cpython-38.pyc
+│   │           │   │   │   │   ├── test_dtype.cpython-38.pyc
+│   │           │   │   │   │   ├── test_invert.cpython-38.pyc
+│   │           │   │   │   │   ├── test_map_array.cpython-38.pyc
+│   │           │   │   │   │   ├── test_montage.cpython-38.pyc
+│   │           │   │   │   │   ├── test_random_noise.cpython-38.pyc
+│   │           │   │   │   │   ├── test_regular_grid.cpython-38.pyc
+│   │           │   │   │   │   ├── test_shape.cpython-38.pyc
+│   │           │   │   │   │   └── test_unique_rows.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_apply_parallel.py
 │   │           │   │   │   ├── test_arraycrop.py
@@ -5305,12 +9034,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── unique.py
 │   │           │   ├── viewer
 │   │           │   │   ├── canvastools
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── linetool.cpython-38.pyc
+│   │           │   │   │   │   ├── painttool.cpython-38.pyc
+│   │           │   │   │   │   └── recttool.cpython-38.pyc
 │   │           │   │   │   ├── base.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── linetool.py
 │   │           │   │   │   ├── painttool.py
 │   │           │   │   │   └── recttool.py
 │   │           │   │   ├── plugins
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── base.cpython-38.pyc
+│   │           │   │   │   │   ├── canny.cpython-38.pyc
+│   │           │   │   │   │   ├── color_histogram.cpython-38.pyc
+│   │           │   │   │   │   ├── crop.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── labelplugin.cpython-38.pyc
+│   │           │   │   │   │   ├── lineprofile.cpython-38.pyc
+│   │           │   │   │   │   ├── measure.cpython-38.pyc
+│   │           │   │   │   │   ├── overlayplugin.cpython-38.pyc
+│   │           │   │   │   │   └── plotplugin.cpython-38.pyc
 │   │           │   │   │   ├── base.py
 │   │           │   │   │   ├── canny.py
 │   │           │   │   │   ├── color_histogram.py
@@ -5321,7 +9067,17 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── measure.py
 │   │           │   │   │   ├── overlayplugin.py
 │   │           │   │   │   └── plotplugin.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── qt.cpython-38.pyc
 │   │           │   │   ├── tests
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   ├── test_plugins.cpython-38.pyc
+│   │           │   │   │   │   ├── test_tools.cpython-38.pyc
+│   │           │   │   │   │   ├── test_utils.cpython-38.pyc
+│   │           │   │   │   │   ├── test_viewer.cpython-38.pyc
+│   │           │   │   │   │   └── test_widgets.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── test_plugins.py
 │   │           │   │   │   ├── test_tools.py
@@ -5329,14 +9085,26 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── test_viewer.py
 │   │           │   │   │   └── test_widgets.py
 │   │           │   │   ├── utils
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── canvas.cpython-38.pyc
+│   │           │   │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   │   ├── dialogs.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── canvas.py
 │   │           │   │   │   ├── core.py
 │   │           │   │   │   ├── dialogs.py
 │   │           │   │   │   └── __init__.py
 │   │           │   │   ├── viewers
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── core.py
 │   │           │   │   │   └── __init__.py
 │   │           │   │   ├── widgets
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── core.cpython-38.pyc
+│   │           │   │   │   │   ├── history.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── core.py
 │   │           │   │   │   ├── history.py
 │   │           │   │   │   └── __init__.py
@@ -5347,6 +9115,13 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── __init__.py
 │   │           │   └── setup.py
 │   │           ├── soupsieve
+│   │           │   ├── __pycache__
+│   │           │   │   ├── css_match.cpython-38.pyc
+│   │           │   │   ├── css_parser.cpython-38.pyc
+│   │           │   │   ├── css_types.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── __meta__.cpython-38.pyc
+│   │           │   │   └── util.cpython-38.pyc
 │   │           │   ├── css_match.py
 │   │           │   ├── css_parser.py
 │   │           │   ├── css_types.py
@@ -5361,6 +9136,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── tifffile
+│   │           │   ├── __pycache__
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── lsm2bin.cpython-38.pyc
+│   │           │   │   ├── __main__.cpython-38.pyc
+│   │           │   │   ├── tiff2fsspec.cpython-38.pyc
+│   │           │   │   ├── tiffcomment.cpython-38.pyc
+│   │           │   │   ├── tifffile.cpython-38.pyc
+│   │           │   │   └── tifffile_geodb.cpython-38.pyc
 │   │           │   ├── __init__.py
 │   │           │   ├── lsm2bin.py
 │   │           │   ├── __main__.py
@@ -5377,6 +9160,12 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── toml
+│   │           │   ├── __pycache__
+│   │           │   │   ├── decoder.cpython-38.pyc
+│   │           │   │   ├── encoder.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── ordered.cpython-38.pyc
+│   │           │   │   └── tz.cpython-38.pyc
 │   │           │   ├── decoder.py
 │   │           │   ├── encoder.py
 │   │           │   ├── __init__.py
@@ -5398,7 +9187,19 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   └── WHEEL
 │   │           ├── urllib3
 │   │           │   ├── contrib
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── appengine.cpython-38.pyc
+│   │           │   │   │   ├── _appengine_environ.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── ntlmpool.cpython-38.pyc
+│   │           │   │   │   ├── pyopenssl.cpython-38.pyc
+│   │           │   │   │   ├── securetransport.cpython-38.pyc
+│   │           │   │   │   └── socks.cpython-38.pyc
 │   │           │   │   ├── _securetransport
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── bindings.cpython-38.pyc
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── low_level.cpython-38.pyc
 │   │           │   │   │   ├── bindings.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── low_level.py
@@ -5411,14 +9212,48 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   └── socks.py
 │   │           │   ├── packages
 │   │           │   │   ├── backports
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   │   └── makefile.cpython-38.pyc
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   └── makefile.py
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   └── six.cpython-38.pyc
 │   │           │   │   ├── ssl_match_hostname
+│   │           │   │   │   ├── __pycache__
+│   │           │   │   │   │   ├── _implementation.cpython-38.pyc
+│   │           │   │   │   │   └── __init__.cpython-38.pyc
 │   │           │   │   │   ├── _implementation.py
 │   │           │   │   │   └── __init__.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── six.py
+│   │           │   ├── __pycache__
+│   │           │   │   ├── _collections.cpython-38.pyc
+│   │           │   │   ├── connection.cpython-38.pyc
+│   │           │   │   ├── connectionpool.cpython-38.pyc
+│   │           │   │   ├── exceptions.cpython-38.pyc
+│   │           │   │   ├── fields.cpython-38.pyc
+│   │           │   │   ├── filepost.cpython-38.pyc
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── poolmanager.cpython-38.pyc
+│   │           │   │   ├── request.cpython-38.pyc
+│   │           │   │   ├── response.cpython-38.pyc
+│   │           │   │   └── _version.cpython-38.pyc
 │   │           │   ├── util
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── connection.cpython-38.pyc
+│   │           │   │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   │   ├── proxy.cpython-38.pyc
+│   │           │   │   │   ├── queue.cpython-38.pyc
+│   │           │   │   │   ├── request.cpython-38.pyc
+│   │           │   │   │   ├── response.cpython-38.pyc
+│   │           │   │   │   ├── retry.cpython-38.pyc
+│   │           │   │   │   ├── ssl_.cpython-38.pyc
+│   │           │   │   │   ├── ssltransport.cpython-38.pyc
+│   │           │   │   │   ├── timeout.cpython-38.pyc
+│   │           │   │   │   ├── url.cpython-38.pyc
+│   │           │   │   │   └── wait.cpython-38.pyc
 │   │           │   │   ├── connection.py
 │   │           │   │   ├── __init__.py
 │   │           │   │   ├── proxy.py
@@ -5450,6 +9285,11 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── yarl
+│   │           │   ├── __pycache__
+│   │           │   │   ├── __init__.cpython-38.pyc
+│   │           │   │   ├── _quoting.cpython-38.pyc
+│   │           │   │   ├── _quoting_py.cpython-38.pyc
+│   │           │   │   └── _url.cpython-38.pyc
 │   │           │   ├── __init__.py
 │   │           │   ├── __init__.pyi
 │   │           │   ├── py.typed
@@ -5482,15 +9322,29 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │       └── networkx-2.5.1
 │   │           ├── examples
 │   │           │   ├── 3d_drawing
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── mayavi2_spring.cpython-38.pyc
 │   │           │   │   ├── mayavi2_spring.py
 │   │           │   │   └── README.txt
 │   │           │   ├── advanced
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── plot_eigenvalues.cpython-38.pyc
+│   │           │   │   │   ├── plot_heavy_metal_umlaut.cpython-38.pyc
+│   │           │   │   │   ├── plot_iterated_dynamical_systems.cpython-38.pyc
+│   │           │   │   │   └── plot_parallel_betweenness.cpython-38.pyc
 │   │           │   │   ├── plot_eigenvalues.py
 │   │           │   │   ├── plot_heavy_metal_umlaut.py
 │   │           │   │   ├── plot_iterated_dynamical_systems.py
 │   │           │   │   ├── plot_parallel_betweenness.py
 │   │           │   │   └── README.txt
 │   │           │   ├── algorithms
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── plot_beam_search.cpython-38.pyc
+│   │           │   │   │   ├── plot_blockmodel.cpython-38.pyc
+│   │           │   │   │   ├── plot_davis_club.cpython-38.pyc
+│   │           │   │   │   ├── plot_decomposition.cpython-38.pyc
+│   │           │   │   │   ├── plot_krackhardt_centrality.cpython-38.pyc
+│   │           │   │   │   └── plot_rcm.cpython-38.pyc
 │   │           │   │   ├── hartford_drug.edgelist
 │   │           │   │   ├── plot_beam_search.py
 │   │           │   │   ├── plot_blockmodel.py
@@ -5500,10 +9354,36 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── plot_rcm.py
 │   │           │   │   └── README.txt
 │   │           │   ├── basic
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── plot_properties.cpython-38.pyc
+│   │           │   │   │   └── plot_read_write.cpython-38.pyc
 │   │           │   │   ├── plot_properties.py
 │   │           │   │   ├── plot_read_write.py
 │   │           │   │   └── README.txt
 │   │           │   ├── drawing
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── plot_atlas.cpython-38.pyc
+│   │           │   │   │   ├── plot_chess_masters.cpython-38.pyc
+│   │           │   │   │   ├── plot_circular_tree.cpython-38.pyc
+│   │           │   │   │   ├── plot_degree_histogram.cpython-38.pyc
+│   │           │   │   │   ├── plot_degree_rank.cpython-38.pyc
+│   │           │   │   │   ├── plot_directed.cpython-38.pyc
+│   │           │   │   │   ├── plot_edge_colormap.cpython-38.pyc
+│   │           │   │   │   ├── plot_ego_graph.cpython-38.pyc
+│   │           │   │   │   ├── plot_four_grids.cpython-38.pyc
+│   │           │   │   │   ├── plot_giant_component.cpython-38.pyc
+│   │           │   │   │   ├── plot_house_with_colors.cpython-38.pyc
+│   │           │   │   │   ├── plot_knuth_miles.cpython-38.pyc
+│   │           │   │   │   ├── plot_labels_and_colors.cpython-38.pyc
+│   │           │   │   │   ├── plot_lanl_routes.cpython-38.pyc
+│   │           │   │   │   ├── plot_multipartite_graph.cpython-38.pyc
+│   │           │   │   │   ├── plot_node_colormap.cpython-38.pyc
+│   │           │   │   │   ├── plot_random_geometric_graph.cpython-38.pyc
+│   │           │   │   │   ├── plot_sampson.cpython-38.pyc
+│   │           │   │   │   ├── plot_simple_path.cpython-38.pyc
+│   │           │   │   │   ├── plot_spectral_grid.cpython-38.pyc
+│   │           │   │   │   ├── plot_unix_email.cpython-38.pyc
+│   │           │   │   │   └── plot_weighted_graph.cpython-38.pyc
 │   │           │   │   ├── chess_masters_WCC.pgn.bz2
 │   │           │   │   ├── knuth_miles.txt.gz
 │   │           │   │   ├── lanl_routes.edgelist
@@ -5532,6 +9412,16 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   ├── README.txt
 │   │           │   │   └── unix_email.mbox
 │   │           │   ├── graph
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── dot_atlas.cpython-38.pyc
+│   │           │   │   │   ├── plot_degree_sequence.cpython-38.pyc
+│   │           │   │   │   ├── plot_erdos_renyi.cpython-38.pyc
+│   │           │   │   │   ├── plot_expected_degree_sequence.cpython-38.pyc
+│   │           │   │   │   ├── plot_football.cpython-38.pyc
+│   │           │   │   │   ├── plot_karate_club.cpython-38.pyc
+│   │           │   │   │   ├── plot_napoleon_russian_campaign.cpython-38.pyc
+│   │           │   │   │   ├── plot_roget.cpython-38.pyc
+│   │           │   │   │   └── plot_words.cpython-38.pyc
 │   │           │   │   ├── dot_atlas.py
 │   │           │   │   ├── plot_degree_sequence.py
 │   │           │   │   ├── plot_erdos_renyi.py
@@ -5550,18 +9440,30 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   │           │   │   │   ├── force.html
 │   │           │   │   │   ├── force.js
 │   │           │   │   │   └── README.txt
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── force.cpython-38.pyc
 │   │           │   │   ├── force.py
 │   │           │   │   └── README.txt
 │   │           │   ├── jit
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   └── plot_rgraph.cpython-38.pyc
 │   │           │   │   ├── plot_rgraph.py
 │   │           │   │   └── README.txt
 │   │           │   ├── pygraphviz
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── plot_pygraphviz_attributes.cpython-38.pyc
+│   │           │   │   │   ├── plot_pygraphviz_draw.cpython-38.pyc
+│   │           │   │   │   ├── plot_pygraphviz_simple.cpython-38.pyc
+│   │           │   │   │   └── plot_write_dotfile.cpython-38.pyc
 │   │           │   │   ├── plot_pygraphviz_attributes.py
 │   │           │   │   ├── plot_pygraphviz_draw.py
 │   │           │   │   ├── plot_pygraphviz_simple.py
 │   │           │   │   ├── plot_write_dotfile.py
 │   │           │   │   └── README.txt
 │   │           │   ├── subclass
+│   │           │   │   ├── __pycache__
+│   │           │   │   │   ├── plot_antigraph.cpython-38.pyc
+│   │           │   │   │   └── plot_printgraph.cpython-38.pyc
 │   │           │   │   ├── plot_antigraph.py
 │   │           │   │   ├── plot_printgraph.py
 │   │           │   │   └── README.txt
@@ -5574,6 +9476,6 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 ├── README_TEXT.md
 └── requirements.txt
 
-509 directories, 5046 files
+887 directories, 8570 files
 
  ```
