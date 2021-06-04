@@ -1,1 +1,1 @@
-tree --dirsfirst --sort=name -I "__pycache__" -I "venv" -I ".idea" ../ 
+tree --dirsfirst --sort=name -I "__pycache__|venv" ../ 
