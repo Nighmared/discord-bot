@@ -1,14 +1,14 @@
 import logging
+import requests
 import discord
 from discord.errors import Forbidden
 import discord.ext.commands
 from discord.ext import tasks
-from requests.api import post
 import xml.etree.ElementTree as ET
 from html import unescape
 from time import sleep, time
 import dbhandler
-import requests
+
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
@@ -16,14 +16,15 @@ logger = logging.getLogger("botlogger")
 POLYRING_CHANNELS = (833645549742981190,)
 POLYRING_COLOR = 0x1F407A
 
+
 class PolyringFetcher(discord.ext.commands.Cog):
 	def __init__(self, client:discord.ext.commands.Bot, handler_ref):
 		self.client = client
-		self.dbhandler = handler_ref.db #type: dbhandler.Dbhandler
+		self.dbhandler = handler_ref.db  # type: dbhandler.Dbhandler
 		self.handler_ref = handler_ref
 
 		self.getnews.start()
-	
+
 	@tasks.loop(seconds=300)
 	async def getnews(self):
 
@@ -48,7 +49,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 		self.dbhandler.ping_loop("Polyring",time())
 
-	
+
 	def get_post_map(self,posts)->dict:
 		pmap = {}
 		for post in posts:
@@ -66,7 +67,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			try:
 				xml_root = ET.fromstring(requests.get(url=f_url.strip(),headers=header).content.strip())
 			except Exception as e:
-				
+
 				logger.fatal(str(e))
 				logger.warn(f"Skipping {author}  because of above error, url= {f_url}, status = {requests.get(url=f_url, headers =header).status_code}")
 				continue
@@ -74,22 +75,23 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			dumbfuckingjekyll = False
 			if xml_root.find("channel") is None:
 				dumbfuckingjekyll = True
-		#	print("polyring.py:==> ",author," blog is jekyll?",dumbfuckingjekyll) #TODO remove print
 
 			if dumbfuckingjekyll:
 				xml_root = self.__fix_jekyll(xml_root)
-			
-			#here  we have xml root, and all tags should have their actual name, `dumbfuckingjekyll` also provides info on what structure to expect
+
+			# here we have xml root, and all tags should have their
+			# actual name, `dumbfuckingjekyll` also provides info on
+			# what structure to expect
 
 			if dumbfuckingjekyll:
 				feed_posts = xml_root.findall("entry")
 			else:
 				feed_posts = xml_root.find("channel").findall("item")
-			
+
 			if len(feed_posts)==0:
 				logging.warn("no posts found for "+author+"! skipping this feed")
 				continue
-			
+
 			date_key = ("pubDate","published")[dumbfuckingjekyll]
 			desc_key = ("description","summary")[dumbfuckingjekyll]
 			for fp in feed_posts:
@@ -102,7 +104,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 					link = link.attrib["href"]
 				else:
 					link = link.text
-				try: 
+				try:
 					desc = unescape(fp.find(desc_key).text[:40]+"...")
 				except AttributeError: #ignore fucky feeds
 					desc = "[No description tag provided]"
@@ -125,11 +127,11 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 	async def send_new_post(self,post):
 		for channel_id in POLYRING_CHANNELS:
-			discord_chan = await self.client.fetch_channel(channel_id)	
+			discord_chan = await self.client.fetch_channel(channel_id)	# type: discord.TextChannel
 			logging.debug("fetched polyring channel:"+str(discord_chan))
 			try:
 				msg = await discord_chan.send(embed = post.embed() )
-				await msg.a	
+				await msg.add_reaction("<:yay:778745219733520426>")
 			except Forbidden as e:
 				if channel_id == 833645549742981190:
 					logger.fatal("Got Forbidden when trying to post a new polyring post. time to ping lukas!")
@@ -138,11 +140,6 @@ class PolyringFetcher(discord.ext.commands.Cog):
 				else:
 					logger.fatal(f"Got forbidden when trying to send polyring posts. channel id: {channel_id}")
 				continue
-
-
-
-
-
 
 
 class Post:
@@ -166,9 +163,9 @@ class Post:
 
 	def embed(self):
 		embObj = discord.Embed(title=self.title,description=self.descr,color= POLYRING_COLOR, url=self.link)
-		
+
 		embObj.set_author(name=self.author)
-		
+
 		return embObj
 
 
