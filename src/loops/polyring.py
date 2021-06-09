@@ -140,6 +140,10 @@ class PolyringFetcher(discord.ext.commands.Cog):
 				else:
 					logger.fatal(f"Got forbidden when trying to send polyring posts. channel id: {channel_id}")
 				continue
+			
+	def cog_unload(self):
+		self.dbhandler.close_down()
+		super.cog_unload()
 
 
 class Post:

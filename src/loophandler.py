@@ -27,3 +27,4 @@ def discard(client:discord.ext.commands.Bot):
 	logger.info("removing cogs")
 	for cogname in cognames:
 		client.remove_cog(cogname)
+

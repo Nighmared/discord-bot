@@ -26,4 +26,8 @@ class GuessCleaner(discord.ext.commands.Cog):
 			logger.info("Guesses were purged")
 		
 		self.dbhandler.ping_loop("Magic Loop",time())
+	
+	def cog_unload(self):
+		self.dbhandler.close_down()
+		super.cog_unload()
 		
