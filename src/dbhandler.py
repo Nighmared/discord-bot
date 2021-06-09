@@ -4,6 +4,8 @@ import subprocess as sub
 import logging
 from datetime import datetime as dt
 
+from bot import FALLBACK_PREFIX
+
 logger = logging.getLogger("botlogger")
 
 IMPORTS = () 
@@ -14,6 +16,8 @@ class Dbhandler:
 		self.conn = sql.connect(filename)
 		self.cursor = self.conn.cursor()
 		self.cursor.execute('''PRAGMA foreign_keys=ON;''')
+		if self.get_from_misc("prefix") is None:
+			self.set_to_misc('prefix',FALLBACK_PREFIX) #Failsafe, kinda
 	
 	def get_perm_level(self,uid):
 		self.cursor.execute(f'''SELECT permlevel from users where uid=={uid};''')
@@ -64,7 +68,7 @@ class Dbhandler:
 	
 	def get_cmd_perm(self,cmd):
 		try:
-			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="{cmd}" ''')	
+			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="?" ''',(cmd,))	
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
 			#print("[dbhandler.py] (get_cmd_perm) frick cmd not added",cmd)
@@ -73,11 +77,14 @@ class Dbhandler:
 		return res
 
 	def get_from_misc(self,key):
-		self.cursor.execute(f'''select value from misc where key=="{key}"''')
-		return self.cursor.fetchall()[0][0]
+		self.cursor.execute('''select value from misc where key=="?"''',(key,))
+		try:
+			return self.cursor.fetchall()[0][0]
+		except IndexError:
+			return None
 
 	def set_to_misc(self,key,value):
-		self.cursor.execute(f'''update misc SET value="{str(value).replace("_"," ")}" where key=="{key}"''')
+		self.cursor.execute('''update misc SET value="?" where key=="?"''',(str(value).replace("_"," "),key))
 		self.conn.commit()
 	
 	def find_alias(self, shortcut:str)->str:

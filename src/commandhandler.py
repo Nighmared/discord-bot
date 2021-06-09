@@ -104,6 +104,7 @@ class commandhandler:
 			"mostmessages":self.mostmessages,
 			"msgarchive":self.msgarchive,
 			"neko":self.neko,
+			"newprefix":self.newprefix,
 			"nhentai":self.nhentai,
 			"nhentaiblock":self.nhentaiblock,
 			"nhentailog":self.nhentailog,
@@ -571,6 +572,36 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Neko",description = str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	async def newprefix(self, message:discord.Message)->tuple:
+		args = message.content.split(" ")
+		error = 0
+		if len(args) != 2:
+			error = 3
+			errormsg = "Mismatch in number of args given."
+		newprefix = args[1]
+		if len(newprefix) != 1:
+			error = 3
+			errormsg = "Prefix may only be one character long!"
+		
+		if error == 0:
+			try:
+				self.dbhandler.set_to_misc('prefix',newprefix)
+				self.PREFIX = newprefix
+				error = 77
+				emb_obj = discord.Embed(title="Prefix updated",description=f"new Prefix: {newprefix}", color=self.SYSTEMCOLOR)
+			except OperationalError as e:
+				error = 1
+				errormsg = str(e)
+
+		if error == 3:
+			emb_obj = discord.Embed(title="You did something wrong", description=errormsg, color=self.ERRORCOLOR)
+			emb_obj.add_field(name="Usage", value=f"{self.PREFIX} <new prefix> \n Example: `{self.PREFIX}newprefix °`")
+		if error == 1:
+			emb_obj = discord.Embed(title="DB Error...",description=errormsg, color=self.ERRORCOLOR)
+		
+		return error,emb_obj
+
+
 	async def nhentai(self,message:discord.Message)->tuple:
 		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
 				return (2,None,None)

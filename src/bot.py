@@ -14,15 +14,14 @@ import loophandler as loop
 logger = logging.getLogger("botlogger")
 
 
-with open("PREFIX.txt") as prefix_file:
-	PREFIX = prefix_file.read().strip()
+FALLBACK_PREFIX = "°"
 
 with open(".token.txt") as t_file:
 	TOKEN = t_file.read()
 
 STARTTIME = datetime.now()
 
-client = Bot(PREFIX)
+client = Bot(FALLBACK_PREFIX) #not using these parts of the discord library, so doesn't matter what prefix is given to the bot instance
 handler.init(client,STARTTIME)
 
 

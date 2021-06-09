@@ -20,17 +20,18 @@ SUDOID = 291291715598286848
 logger = logging.getLogger("botlogger")
 
 ISRELOADING = True
+PREFIX = "°"
 
 
 cmdhandler = time_tracker = msgs = db = None
 def init(client:discord.Client,STARTTIME):
-	global cmdhandler,time_tracker,msgs,db
+	global cmdhandler,time_tracker,msgs,db, PREFIX
 	time_tracker = uptime.uptime(STARTTIME)
 	msgs = msglist.msglist(5)
 	db = dbhandler.Dbhandler("discordbot.db")
 	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 	botlogger.get_ready()
-
+	PREFIX = db.get_from_misc('prefix')
 
 with open("PREFIX.txt") as prefix_file:
 	PREFIX = prefix_file.read().strip()
@@ -57,9 +58,10 @@ async def add_reaction(message, emote):
 
 #FIXME this is dumb, make less dumb ffs -> give all classes "backup" and "restore" methods so it can be just iterating over stuff
 def get_ready(client:discord.Client, STARTTIME):
-	global msgs,db,time_tracker,cmdhandler
+	global msgs,db,time_tracker,cmdhandler,PREFIX
 	msgs = msglist.msglist(5)
 	db = dbhandler.Dbhandler("discordbot.db")
+	PREFIX = db.get_from_misc("prefix")
 	time_tracker = uptime.uptime(STARTTIME)
 	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
 	last_msgs_backup = cmdhandler.last_MSG
@@ -206,7 +208,7 @@ async def handle(message:discord.Message) -> int:
 		msgs.add_msg(message)
 		if(db.shouldAnnoy()): await add_reaction( message,this_emote)
 
-	if(isCommand):
+	if(isCommand and cmd): #prevent handling invalid commands; find_alias returns "" on unknown commands and bool("") is False :>
 		
 		if cmd =="" or not perm_valid(cmd,permlevel): #!!! perms already checked heree
 			res = 4
@@ -222,6 +224,9 @@ async def handle(message:discord.Message) -> int:
 		if(res == 99): #RELOAD
 			db.close_down()
 			return 99
+		elif res == 77: #update prefix
+			PREFIX = db.get_from_misc("prefix")
+			res = 0 # set to normal reaction
 		await add_reaction( message,db.get_emote(res))
 		if isinstance(message.channel, discord.TextChannel):
 			await message.delete(delay=3)
