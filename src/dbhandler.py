@@ -4,7 +4,7 @@ import subprocess as sub
 import logging
 from datetime import datetime as dt
 
-from bot import FALLBACK_PREFIX
+FALLBACK_PREFIX = "°" #for transition from static prefix, hotfix in case shit fails
 
 logger = logging.getLogger("botlogger")
 
@@ -68,7 +68,7 @@ class Dbhandler:
 	
 	def get_cmd_perm(self,cmd):
 		try:
-			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname=="?" ''',(cmd,))	
+			self.cursor.execute(f'''SELECT permlevel FROM commands WHERE cmdname==? ''',(cmd,))	
 			res = self.cursor.fetchall()[0][0]
 		except Exception:
 			#print("[dbhandler.py] (get_cmd_perm) frick cmd not added",cmd)
@@ -77,14 +77,14 @@ class Dbhandler:
 		return res
 
 	def get_from_misc(self,key):
-		self.cursor.execute('''select value from misc where key=="?"''',(key,))
+		self.cursor.execute('''select value from misc where key==?''',(key,))
 		try:
 			return self.cursor.fetchall()[0][0]
 		except IndexError:
 			return None
 
 	def set_to_misc(self,key,value):
-		self.cursor.execute('''update misc SET value="?" where key=="?"''',(str(value).replace("_"," "),key))
+		self.cursor.execute('''update misc SET value=? where key==?''',(str(value).replace("_"," "),key))
 		self.conn.commit()
 	
 	def find_alias(self, shortcut:str)->str:

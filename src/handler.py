@@ -20,7 +20,7 @@ SUDOID = 291291715598286848
 logger = logging.getLogger("botlogger")
 
 ISRELOADING = True
-PREFIX = "°"
+PREFIX = "°" #default value for initialization
 
 
 cmdhandler = time_tracker = msgs = db = None
@@ -29,12 +29,16 @@ def init(client:discord.Client,STARTTIME):
 	time_tracker = uptime.uptime(STARTTIME)
 	msgs = msglist.msglist(5)
 	db = dbhandler.Dbhandler("discordbot.db")
+	dbPREFIX = db.get_from_misc('prefix')
+	if dbPREFIX:
+		PREFIX = dbPREFIX
+	else:
+		PREFIX = "°" #fallback :>
+		
 	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 	botlogger.get_ready()
-	PREFIX = db.get_from_misc('prefix')
+	
 
-with open("PREFIX.txt") as prefix_file:
-	PREFIX = prefix_file.read().strip()
 
 this_emote = "<:this:747783377662378004>"
 
@@ -167,6 +171,7 @@ async def doreload(message:discord.Message,client:discord.Client,STARTTIME,msgs_
 
 
 async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:str):
+	global PREFIX
 	embObj = discord.Embed(title="How did this happen? :O")
 	f = discord.File(cmdhandler.dbhandler.get_nhentai_path_by_id(id)[0].rstrip(".blurred.jpg")+".jpg","IMG.jpg", spoiler=True)
 	embObj.set_image(url="attachment://IMG.jpg")
@@ -174,6 +179,7 @@ async def do_the_thing(channel:discord.TextChannel,name:str, id:int, avatar_url:
 
 async def handle(message:discord.Message) -> int:
 	global ISRELOADING
+	global PREFIX
 	if ISRELOADING: return 0# prevent errors during reloading
 	#block bots
 	if(message.author.bot and not message.author.id == cmdhandler.toTrackID):
