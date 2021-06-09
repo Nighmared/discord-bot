@@ -20,7 +20,7 @@ POLYRING_COLOR = 0x1F407A
 class PolyringFetcher(discord.ext.commands.Cog):
 	def __init__(self, client:discord.ext.commands.Bot, handler_ref):
 		self.client = client
-		self.dbhandler = handler_ref.db  # type: dbhandler.Dbhandler
+		self.dbhandler = dbhandler.Dbhandler("discordbot.db")  # type: dbhandler.Dbhandler
 		self.handler_ref = handler_ref
 
 		self.getnews.start()

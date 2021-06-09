@@ -13,7 +13,7 @@ class GuessCleaner(discord.ext.commands.Cog):
 	def __init__(self,client:discord.ext.commands.Bot, handler_ref):
 		self.client = client
 		self.handler_ref = handler_ref
-		self.dbhandler = self.handler_ref.db #type: dbhandler.Dbhandler
+		self.dbhandler = dbhandler.Dbhandler("discordbot.db") #type: dbhandler.Dbhandler
 
 		self.cleaner.start()
 
