@@ -131,7 +131,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			logging.debug("fetched polyring channel:"+str(discord_chan))
 			try:
 				msg = await discord_chan.send(embed = post.embed() )
-				await msg.add_reaction("<:yay:851469734545588234>")
+				await msg.add_reaction("<:yay:853288251325153320>")
 			except Forbidden as e:
 				if channel_id == 833645549742981190:
 					logger.fatal("Got Forbidden when trying to post a new polyring post. time to ping lukas!")
