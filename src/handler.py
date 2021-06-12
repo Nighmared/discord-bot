@@ -28,12 +28,18 @@ def init(client:discord.Client,STARTTIME):
 	global cmdhandler,time_tracker,msgs,db, PREFIX
 	time_tracker = uptime.uptime(STARTTIME)
 	msgs = msglist.msglist(5)
-	db = dbhandler.Dbhandler("discordbot.db")
-	dbPREFIX = db.get_from_misc('prefix')
-	if dbPREFIX:
-		PREFIX = dbPREFIX
-	else:
-		PREFIX = "°" #fallback :>
+	try:
+		db = dbhandler.Dbhandler("discordbot.db")
+		dbPREFIX = db.get_from_misc('prefix')
+		if dbPREFIX:
+			PREFIX = dbPREFIX
+		else:
+			PREFIX = "°" #fallback :>
+	except Exception as e:
+		print(e)
+		PREFIX = "&"
+
+	
 		
 	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 	botlogger.get_ready()

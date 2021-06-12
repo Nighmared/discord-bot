@@ -624,7 +624,10 @@ class commandhandler:
 			if nsfw:
 				link = f"{link.rstrip('.blurred.jpg')}.jpg"
 			img_id = link.rstrip(".blurred.jpg")
-			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.MISCCOLOR, url=f"https://nhentai.net/g/{img_id.lstrip('nhentai/')}")
+			url = "https://http.cat/451"
+			if message.guild.id != 747752542741725244:
+				url = f"https://nhentai.net/g/{img_id.lstrip('nhentai/')}"
+			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.MISCCOLOR, url=url)
 			try:
 				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
 			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
