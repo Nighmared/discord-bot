@@ -2,6 +2,7 @@ import logging
 import requests
 import discord
 from discord.errors import Forbidden
+from requests.exceptions import Timeout
 import discord.ext.commands
 from discord.ext import tasks
 import xml.etree.ElementTree as ET
@@ -27,6 +28,8 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 	@tasks.loop(seconds=300)
 	async def getnews(self):
+		if not self.dbhandler:
+			return
 
 		if self.handler_ref.ISRELOADING: #dont fuck around during reload
 			return
@@ -65,7 +68,11 @@ class PolyringFetcher(discord.ext.commands.Cog):
 		for fid,f_url,author in feeds:
 			#print(f_url)
 			try:
-				xml_root = ET.fromstring(requests.get(url=f_url.strip(),headers=header).content.strip())
+				resp = requests.get(url=f_url.strip(),headers=header, timeout=10)
+				xml_root = ET.fromstring(resp.content.strip())
+			except Timeout:
+				logger.error(f"Timed out trying to fetch feed of {author}. Skipping.")
+				continue
 			except Exception as e:
 
 				logger.fatal(str(e))
@@ -89,7 +96,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 				feed_posts = xml_root.find("channel").findall("item")
 
 			if len(feed_posts)==0:
-				logging.warn("no posts found for "+author+"! skipping this feed")
+				logger.warn("no posts found for "+author+"! skipping this feed")
 				continue
 
 			date_key = ("pubDate","published")[dumbfuckingjekyll]
@@ -111,7 +118,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 				post = Post(title,descr=desc,author=author,link=link,pubdate=pub)
 				if self.make_post_hash(post.tuple) not in postmap.keys():
-					logging.info(f"adding new post by {author}")
+					logger.info(f"adding new post by {author}")
 					new_posts.append((fid,post))
 		logger.info(f"returning from post doing stuff thingy with {len(new_posts)} new posts")
 		return new_posts
@@ -128,7 +135,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 	async def send_new_post(self,post):
 		for channel_id in POLYRING_CHANNELS:
 			discord_chan = await self.client.fetch_channel(channel_id)	# type: discord.TextChannel
-			logging.debug("fetched polyring channel:"+str(discord_chan))
+			logger.debug("fetched polyring channel:"+str(discord_chan))
 			try:
 				msg = await discord_chan.send(embed = post.embed() )
 				await msg.add_reaction("<:yay:853288251325153320>")

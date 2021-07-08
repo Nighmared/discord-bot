@@ -247,7 +247,7 @@ class Dbhandler:
 		feeds = self.cursor.fetchall()
 		return feeds
 	def get_polyring_posts(self):
-		self.cursor.execute('''SELECT pp.title, pp.description, pp.pubdate,pp.link,pf.author from polyring_posts pp JOIN polyring_feeds pf on pp.fid=pf.fid ''')
+		self.cursor.execute('''SELECT pp.title, pp.description, pp.pubdate,pp.link,pf.author from polyring_posts pp JOIN polyring_feeds pf on pp.fid=pf.fid where pf.enabled>0''')
 		posts = self.cursor.fetchall()
 		return posts
 
