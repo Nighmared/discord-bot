@@ -661,7 +661,6 @@ class commandhandler:
 			#log management
 			if len(log_lines)>500:
 				logger.info("trying to rotate nh log")
-			#	print("[commandhandler.py] (nhl) trying to rotate log")
 				open("nhentai/log.txt.old","w").writelines(log_lines) #lol idk how this is gonna end
 				curr_log = open("nhentai/log.txt","w")
 				curr_log.write("")
