@@ -95,6 +95,10 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			else:
 				feed_posts = xml_root.find("channel").findall("item")
 
+			if feed_posts is None:
+				logger.fatal(f"{author} has weird feed. fuck you Aaron. <3")
+				continue
+
 			if len(feed_posts)==0:
 				logger.warn("no posts found for "+author+"! skipping this feed")
 				continue
