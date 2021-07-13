@@ -39,11 +39,13 @@ def init(client:discord.Client,STARTTIME):
 		print(e)
 		PREFIX = "&"
 
+	if db.get_from_misc("debug")>0:
+		print("DEBUGGING MODE. PREFIX IS: ",PREFIX)
+
 	
 		
 	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 	botlogger.get_ready()
-	
 
 
 this_emote = "<:this:747783377662378004>"
@@ -61,7 +63,6 @@ async def add_reaction(message, emote):
 		return 5
 	except discord.errors.HTTPException as e:
 		logger.warning("Couldn't add emote as reaction:"+emote)
-		#print("[msghandler.py] (add_reaction) couldnt add emote: "+emote)
 		print(e)
 		return 1
 

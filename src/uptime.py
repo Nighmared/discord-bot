@@ -38,7 +38,7 @@ class uptime:
 			out+= f"{mins} Minute"+(" ","s ")[mins>1]
 		if days<1 and secs>0 :
 			out+= f"{secs} Second"+("","s")[secs>1]
-		return out
+		return out.strip()
 	
 
 	def get_now_utc(self): #dumb wrapper function so i dont have to import datetime separately in commandhandler
