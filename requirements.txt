@@ -1,3 +1,4 @@
+discord.py
 beautifulsoup4
 lxml
 scipy
