@@ -1,8 +1,7 @@
-discord.py==1.7.1
 beautifulsoup4
 lxml
 scipy
 scikit-image
 requests
 pytest
-discord_buttons==0.3.5
+
