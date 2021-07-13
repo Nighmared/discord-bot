@@ -35,12 +35,14 @@ def init(client:discord.Client,STARTTIME):
 			PREFIX = dbPREFIX
 		else:
 			PREFIX = "°" #fallback :>
+
+		if int(db.get_from_misc("debug"))>0:
+			print("DEBUGGING MODE. PREFIX IS: ",PREFIX)
+
 	except Exception as e:
 		print(e)
 		PREFIX = "&"
 
-	if int(db.get_from_misc("debug"))>0:
-		print("DEBUGGING MODE. PREFIX IS: ",PREFIX)
 
 	
 		
