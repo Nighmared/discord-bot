@@ -293,6 +293,6 @@ class Dbhandler:
 	def get_avg_guess(self,ownuid)->int:
 		self.cursor.execute("SELECT avg(guess) FROM guesses WHERE uid!=?",(ownuid,)) #ignore guess of the user calling the cmd
 		res = self.cursor.fetchall()
-		if res is None:
+		if res is None or res[0] is None:
 			return -1
 		return int(res[0][0])
