@@ -18,7 +18,7 @@ class GuessCleaner(discord.ext.commands.Cog):
 
 		self.cleaner.start()
 
-	@tasks.loop(seconds=3600)
+	@tasks.loop(minutes=60)
 	async def cleaner(self):
 		logger.info("Cleaner loop got called")
 		ltime = localtime()
