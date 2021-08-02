@@ -154,6 +154,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			
 	def cog_unload(self):
 		self.dbhandler.close_down()
+		self.getnews.stop()
 		super.cog_unload()
 
 

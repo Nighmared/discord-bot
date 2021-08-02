@@ -30,5 +30,6 @@ class GuessCleaner(discord.ext.commands.Cog):
 	
 	def cog_unload(self):
 		self.dbhandler.close_down()
+		self.cleaner.stop()
 		super.cog_unload()
 		
