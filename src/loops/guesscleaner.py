@@ -3,7 +3,7 @@ import discord.ext.commands
 from discord.ext import tasks
 from time import localtime,time
 
-__name__ ="magic"
+__name__ ="loops.magicstuff"
 
 import dbhandler
 
