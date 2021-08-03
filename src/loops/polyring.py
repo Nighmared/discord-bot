@@ -26,7 +26,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
 		self.getnews.start()
 
-	@tasks.loop(seconds=300)
+	@tasks.loop(minutes=5)
 	async def getnews(self):
 		if not self.dbhandler:
 			return
@@ -154,6 +154,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
 			
 	def cog_unload(self):
 		self.dbhandler.close_down()
+		self.getnews.stop()
 		super.cog_unload()
 
 
