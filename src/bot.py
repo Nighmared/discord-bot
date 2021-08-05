@@ -34,6 +34,8 @@ async def on_ready():
 	loop.init(client, handler_ref = handler)
 	print(f'[bot.py] {client.user} has connected')
 	logger.info("Bot Online")
+	activity = discord.Activity(type=discord.ActivityType.listening,name=f"{handler.PREFIX}help",url="https://nighmared.tech")
+	await client.change_presence(status=discord.Status.idle,activity=activity)
 
 @client.event
 async def on_message(message:discord.Message):
