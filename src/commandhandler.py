@@ -825,7 +825,7 @@ class CommandHandler:
 	async def setchangelog(self,message:discord.Message)->tuple:
 		try:
 			args = message.content[1:].split(" ")
-			new_changelog = args[1].replace("_"," ")
+			new_changelog = " ".join(args[1:])
 			self.dbhandler.set_to_misc("changelog",new_changelog)
 			return (0,None)
 		except Exception as e:
