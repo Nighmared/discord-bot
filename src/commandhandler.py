@@ -25,7 +25,14 @@ import xkcd
 IMPORTS = (neko,issues,nhentai,inspirobot,meme,stalk,robohash,shorten,xkcd, polyring)
 logger = logging.getLogger("botlogger")
 
-class commandhandler:
+
+cmd_handling_funcs = {}
+def command(func):
+	cmd_handling_funcs[func.__name__] = func
+	return func
+		
+
+class CommandHandler:
 	ISSUECOLOR = 0x00f0f0 #lightblue
 	TRACKERCOLOR = 0x660066 #pinkish
 	SYSTEMCOLOR = 0x009900# green
@@ -63,6 +70,9 @@ class commandhandler:
 		"polyring":"loops/polyring.py"
 	}
 
+
+
+
 	def __init__(self,
 	dbhandler:dbhandler.Dbhandler,
 	msgs:msglist,
@@ -81,7 +91,7 @@ class commandhandler:
 		self.uptime_tracker = time_tracker
 		self.nh_handler = nhentai.handler(self.dbhandler)
 
-		self.cmd_handling_funcs = {
+		"""self.cmd_handling_funcs = {
 			"addcommand":self.addcommand,
 			"add_meme_template":self.add_meme_template,
 			"banner":self.banner,
@@ -131,9 +141,9 @@ class commandhandler:
 			"xkcd":self.xkcd,
 			"pubkey":self.pubkey,
 			"polyreload":self.polyreload,
-			"loopstatus":self.loopstatus,
+			#"loopstatus":self.loopstatus,
 			"ga":self.guessaverage,
-		}
+		}"""
 
 	def perm_valid(self,cmd:str,permlevel:int)->bool:
 		return permlevel >= self.dbhandler.get_cmd_perm(cmd)
@@ -156,7 +166,7 @@ class commandhandler:
 		except discord.Forbidden:
 			return 5
 	
-	async def commandHandler(self,message:discord.Message,permlevel:int) -> int:
+	async def handle(self,message:discord.Message,permlevel:int) -> int:
 		self.curr_msg = message
 		args = message.content[1:].split(" ")
 		cmd = args[0].lower()
@@ -184,7 +194,8 @@ class commandhandler:
 				error = 1 #DONT FIX THIS, IS SPECIAL FOR RELOAD
 			return error
 		#general case
-		res = await self.cmd_handling_funcs[cmd](message)
+		#res = await self.cmd_handling_funcs[cmd](message)
+		res = await cmd_handling_funcs[cmd](self,message)
 		if len(res) == 2:
 			error, embObj = res
 			file = None
@@ -195,7 +206,8 @@ class commandhandler:
 			err2 = await self.sendMsg(message.channel,embObj,callee=callee, file=file,callee_pic=message.author.avatar_url)	
 			error = (error, err2)[error == 0]
 		return error
-
+	
+	@command
 	async def addcommand(self,message:discord.Message)->tuple:
 		try:
 			args = message.content[1:].split(" ")
@@ -219,6 +231,8 @@ class commandhandler:
 		except (OperationalError, IndexError):
 			embObj = discord.Embed(title="Addcommand", description=f"Usage: {self.PREFIX}addcommand <cmdname:str> <permlevel:int> <help_text:str> <alias:str> <enabled:[0,1]>", color = self.QUERYCOLOR)
 			return (3, embObj)
+	
+	@command
 	async def add_meme_template(self,message:discord.Message)->tuple:
 		try:
 			args = message.content[1:].split(" ")
@@ -228,6 +242,8 @@ class commandhandler:
 			return (0,None)
 		except Exception as e:
 			return (1,None)
+	
+	@command
 	async def banner(self,message:discord.Message)-> tuple:
 		try:
 			channel,guild = message.channel,message.guild
@@ -237,6 +253,8 @@ class commandhandler:
 			return (0,embObj)
 		except:
 			return (1,None)
+	
+	@command
 	async def changelog(self,message:discord.Message)->tuple:
 		try:
 			embObj = discord.Embed(title="Latest Changes",description= self.dbhandler.get_from_misc("changelog"), color=self.SYSTEMCOLOR)
@@ -244,11 +262,15 @@ class commandhandler:
 		except OperationalError:
 			embObj = discord.Embed(title="Latest Changes", description="-- Something went wrong with DB --",color =self.SYSTEMCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def createbackup(self,message:discord.Message)->tuple:
 		error = self.dbhandler.create_backup()
 		res = ("Created Backup of DB","Something went wrong")[error >0]
 		embObj = discord.Embed(title="Backup", description=res,color = self.QUERYCOLOR)
 		return (error,embObj)
+	
+	@command
 	async def deepsleep(self,message:discord.Message)->tuple:
 		try:
 			self.dbhandler.set_to_misc("standby",(1,0)[int(self.dbhandler.get_from_misc("standby"))])
@@ -260,6 +282,8 @@ class commandhandler:
 		except OperationalError:
 			embObj = discord.Embed(title="DeepSleep Mode", description = "-- Something went wrong with DB --", color = self.SYSTEMCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def deleteall(self,message:discord.Message)->tuple:
 		while(len(self.last_MSG)>0):
 			try:
@@ -267,6 +291,8 @@ class commandhandler:
 			except:
 				continue
 		return (0,None)
+	
+	@command
 	async def deletelast(self,message:discord.Message)->tuple:
 		args = message.content[1:].split(" ")
 		if(len(self.last_MSG) == 0):
@@ -286,11 +312,15 @@ class commandhandler:
 					continue
 			error = 0
 		return (error,None)
+	
+	@command
 	async def easter(self,message:discord.Message) -> tuple:
 		embObj = discord.Embed(title="What is this?", description="cmljZXB1cml0eXRlc3QubW9iaS9bZGlzY29yZG5hbWVfb2ZfMjIzOTMyNzc1NDc0OTIxNDcyXS5odG1s")
 		error = await self.sendMsg(toSend=embObj,channel=message.channel)
 		await self.last_MSG.pop(-1).delete(delay=.5)
 		return (error,None)
+	
+	@command
 	async def easterranks(self,message: discord.Message)-> tuple:
 		try: 
 			txt = self.dbhandler.get_from_misc("easter")
@@ -299,12 +329,16 @@ class commandhandler:
 		except OperationalError:
 			embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description="-- Something went wrong with DB --", color = self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def endtrack(self,message:discord.Message)->tuple:
 		toTrackID = 0
 		toTrackName = "nobody"
 		self.msgs.set_user(toTrackName)
 		embObj = discord.Embed(title="Tracker",description="stopped tracking",color=self.TRACKERCOLOR)
 		return (0,embObj)
+	
+	@command
 	async def execsql(self,message:discord.Message)->tuple:
 		cont = message.content
 		origlen = len(cont[1:].split(" ")[0].lower())
@@ -342,6 +376,8 @@ class commandhandler:
 			return (0,embObj)
 		else:
 			return (0,None)
+	
+	@command
 	async def fixissue(self,message:discord.Message)->tuple:
 		args = message.content[1:].split(" ")
 		try:
@@ -351,6 +387,8 @@ class commandhandler:
 		except IndexError:
 			error = 3
 		return (error,None)
+	
+	@command
 	async def getmemes(self,message:discord.Message)->tuple:
 		memes = meme.get_popular_memes()
 		embObj = discord.Embed(title="currently popular memes", color=self.MISCCOLOR)
@@ -368,6 +406,7 @@ class commandhandler:
 
 		return (0,embObj)
 		
+	@command
 	async def gettrack(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(
 			title="Tracker",
@@ -375,6 +414,8 @@ class commandhandler:
 			color = self.TRACKERCOLOR
 			)
 		return (0,embObj)
+	
+	@command
 	async def guessaverage(self,message:discord.Message)->tuple:
 		dm_chan = await message.author.create_dm() #type: discord.DMChannel
 		dm_emb_obj = discord.Embed(title="Average of tracked guesses", description=f"Result: {self.dbhandler.get_avg_guess(message.author.id)}")
@@ -382,6 +423,7 @@ class commandhandler:
 		emb_obj = discord.Embed(title="Magic feature", description="You should've gotten a dm <3")
 		return 0,emb_obj
 
+	@command
 	async def help(self,message:discord.Message)-> tuple:
 		try:
 			channel = message.channel
@@ -419,6 +461,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Help",description=str(e),color = self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def info(self,message:discord.Message)-> tuple:
 		try:
 
@@ -439,6 +483,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Info",description = str(e), color = self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def inspire(self,message:discord.Message)->tuple:
 		error, cont = inspirobot.get_img_url()
 		if error>0:
@@ -448,6 +494,7 @@ class commandhandler:
 			embObj.set_image(url=cont)
 		return (error,embObj)
 	
+	@command
 	async def loopstatus(self, message:discord.Message)->tuple:
 		def time_string(time_diff:int)->str:
 			hours =  int(time_diff/3600)
@@ -479,7 +526,7 @@ class commandhandler:
 		
 		return 0,emb_obj
 		
-
+	@command
 	async def makememe(self,message:discord.Message)->tuple:
 		try:
 			probable_sqli = message.content.count("\"")>2
@@ -529,6 +576,7 @@ class commandhandler:
 			embObj.set_image(url=img_url)
 			return (0,embObj)
 
+	@command
 	async def mostmessages(self,message:discord.Message)->tuple:
 		try:
 			res = self.dbhandler.get_most_messages()
@@ -550,6 +598,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Message Leaderboard", description = str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def msgarchive(self,message:discord.Message)-> tuple:
 		try:	
 			msgls = self.msgs.sendable()
@@ -565,6 +615,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Tracker",description = f"Something went wrong, prolly not tracking anyone rn \n➥{str(e)}",color = self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def neko(self,message:discord.Message)->tuple:
 		try:
 			embObj = discord.Embed(title="Neko",description=neko.getNeko(),color=self.MISCCOLOR)
@@ -572,6 +624,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Neko",description = str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def newprefix(self, message:discord.Message)->tuple:
 		args = message.content.split(" ")
 		error = 0
@@ -601,7 +655,7 @@ class commandhandler:
 		
 		return error,emb_obj
 
-
+	@command
 	async def nhentai(self,message:discord.Message)->tuple:
 		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
 				return (2,None,None)
@@ -641,6 +695,8 @@ class commandhandler:
 		nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
 		nh_log.close()
 		return (0,embObj,file_to_send)
+	
+	@command
 	async def nhentaiblock(self,message:discord.Message)->tuple:
 		args = message.content[1:].replace("  "," ").split(" ")
 		if len(args)>1 and args[1].isnumeric:
@@ -648,6 +704,8 @@ class commandhandler:
 		else:
 			error =3
 		return (error,None)
+	
+	@command
 	async def nhentailog(self,message:discord.Message)->tuple:
 		try:
 			log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")),48)
@@ -670,6 +728,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="nhentai log", description=str(e), color=self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def ping(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="Ping",description="Pong!", color= self.SYSTEMCOLOR)
 		embObj.add_field(name="Ping",value="TBA ms")
@@ -688,6 +748,8 @@ class commandhandler:
 		embObj.set_field_at(0,name="Ping",value=f"{int(ping_in_ms)} ms")
 		await x.edit(embed=embObj) #refresh value in sent msg
 		return (0,None) #nothing to return as already sent
+	
+	@command
 	async def polyreload(self,message:discord.Message)->tuple:
 		try:
 			self.dbhandler.update_polyring_feeds(polyring.update_feeds())
@@ -695,13 +757,19 @@ class commandhandler:
 		except Exception as e:
 			logger.error(str(e))
 			return(1,None)
+	
+	@command
 	async def pubkey(self,message:discord.Message)-> tuple:
 		embObj = discord.Embed(title="PUBLIC KEY", color=0x000000)	
 		file = discord.File("joniii.pub")
 		return (0,embObj, file)
+	
+	@command
 	async def reload(self,message:discord.Message)->tuple:
 		embObj = discord.Embed(title="Reloading...",description="let's hope this doesn't fuck anything up...",color=self.SYSTEMCOLOR)
 		return (99,embObj)
+	
+	@command
 	async def reloadissues(self,message:discord.Message)->tuple:
 		try:
 			ls = issues.getIssues()
@@ -717,9 +785,13 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Issues",description=str(e), color=self.ERRORCOLOR)
 			return	(1,embObj)
+	
+	@command
 	async def robohash(self,message:discord.Message)->tuple:
 		command_len = len(message.content.split(" ")[0])
 		return (0,robohash.get_embed(message.content[command_len:].strip()))
+	
+	@command
 	async def say(self,message:discord.Message)-> tuple:
 		channel = message.channel
 		args = message.content[1:].split(" ")
@@ -734,6 +806,8 @@ class commandhandler:
 		for counter in range(0,repnum):
 			await self.sendMsg(channel,f"{text}")
 		return (error,None)
+	
+	@command
 	async def setcache(self,message:discord.Message)->tuple:
 		args = message.content[1:].split(" ")
 		cachelen = args[1]
@@ -746,6 +820,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Tracker", description=str(e), color=self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def setchangelog(self,message:discord.Message)->tuple:
 		try:
 			args = message.content[1:].split(" ")
@@ -757,6 +833,8 @@ class commandhandler:
 			logger.error("Something got fucked up when handling setchangelog")
 			#print("[commandhandler.py] UWU SHIT GONE WRONG IN SCL HANDLING")
 			return (1, embObj)
+	
+	@command
 	async def setperm(self,message:discord.Message)->tuple:
 		own_perm_lev = self.dbhandler.get_perm_level(message.author.id)
 		user = message.mentions[0]
@@ -773,6 +851,8 @@ class commandhandler:
 				error = 1
 				embObj = discord.Embed(title="setperm", description=str(e), color=self.ERRORCOLOR)
 		return (error, embObj)
+	
+	@command
 	async def setstatus(self, message:discord.Message)->tuple:
 		try:
 			cont = message.content
@@ -796,6 +876,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="setstatus", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def settrack(self,message:discord.Message)->int:
 		try:
 			user = message.mentions[0]
@@ -807,6 +889,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Settrack", description=str(e), color=self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def setversion(self,message)-> tuple:
 		try:
 			args = message.content[1:].split(" ")
@@ -817,6 +901,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="setversion", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def shortlink(self,message)->tuple:
 		try:
 			url_arg = message.content[1:].split(" ")[1]
@@ -827,6 +913,7 @@ class commandhandler:
 		embObj = discord.Embed(title="Link Shortener",description=res,color=(self.MISCCOLOR,self.ERRORCOLOR)[error])
 		return (error,embObj)
 
+	@command
 	async def showissues(self,message:discord.Message) -> tuple:
 		try:
 			
@@ -852,6 +939,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Issues", description=str(e), color=self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def showsourcecode(self,message:discord.Message)->tuple:
 		args = message.content[1:].split(" ")
 		if len(args)<2:
@@ -883,11 +972,15 @@ class commandhandler:
 					return (0, msg)
 			else:
 				return (4, None)		
+	
+	@command
 	async def source(self,message:discord.Message)->tuple:
 		return (0, discord.Embed(
 						title="Source",
 						description="http://brrr.nighmared.tech",
 						color= self.SYSTEMCOLOR))
+	
+	@command
 	async def stalk(self, message:discord.Message)->tuple:
 		def make_date_nice(date)->str:
 			return date.strftime("`%A, %d %B %Y, %H:%M`")
@@ -993,6 +1086,8 @@ class commandhandler:
 			traceback.print_exc()
 			embObj = discord.Embed(title="Stalking", description = str(e)+str(type(e)), color =self.ERRORCOLOR)
 			return (1,embObj)
+
+	@command
 	async def superdelete(self,message : discord.Message)->tuple:
 		target_msg = await message.channel.fetch_message(message.reference.message_id)
 		embObj = None
@@ -1008,6 +1103,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="Superdelete", description=str(e), color=self.ERRORCOLOR)
 		return (error,None)
+	
+	@command
 	async def togglecmd(self,message:discord.Message)->tuple:
 		try:
 			args =message.content[1:].split(" ")
@@ -1026,6 +1123,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="togglecmd", description=str(e), color = self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def togglensfw(self,message:discord.Message)->tuple:
 		try:
 			new_state = self.dbhandler.toggle_nsfw()
@@ -1037,6 +1136,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="togglensfw", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def triggerannoy(self,message:discord.Message)->tuple:
 		try:
 			self.dbhandler.set_to_misc("annoyreaction", (not self.dbhandler.shouldAnnoy()))
@@ -1045,6 +1146,8 @@ class commandhandler:
 		except Exception as e:
 			embObj = discord.Embed(title="triggerannoy", description=str(e), color =self.ERRORCOLOR)
 			return (1,embObj)
+	
+	@command
 	async def xkcd(self,message:discord.Message)->tuple:
 		try:
 			url_arg = message.content.split(" ")[1]

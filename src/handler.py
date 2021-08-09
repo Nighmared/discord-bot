@@ -46,7 +46,7 @@ def init(client:discord.Client,STARTTIME):
 
 	
 		
-	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
+	cmdhandler = commandhandler.CommandHandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker) 
 	botlogger.get_ready()
 
 
@@ -76,7 +76,7 @@ def get_ready(client:discord.Client, STARTTIME):
 	db = dbhandler.Dbhandler("discordbot.db")
 	PREFIX = db.get_from_misc("prefix")
 	time_tracker = uptime.uptime(STARTTIME)
-	cmdhandler = commandhandler.commandhandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
+	cmdhandler = commandhandler.CommandHandler(dbhandler=db,msgs=msgs,PREFIX=PREFIX,client=client,time_tracker=time_tracker)
 	last_msgs_backup = cmdhandler.last_MSG
 	cmdhandler.last_MSG = last_msgs_backup
 	botlogger.get_ready()
@@ -235,7 +235,7 @@ async def handle(message:discord.Message) -> int:
 			return 88
 
 		else:
-			res = await cmdhandler.commandHandler(message,permlevel)
+			res = await cmdhandler.handle(message,permlevel)
 		if(res == 99): #RELOAD
 			db.close_down()
 			return 99
