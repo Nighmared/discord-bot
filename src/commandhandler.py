@@ -362,7 +362,7 @@ class CommandHandler:
 		return (0,embObj)
 	
 	@command
-	async def guessaverage(self,message:discord.Message)->tuple:
+	async def ga(self,message:discord.Message)->tuple:
 		dm_chan = await message.author.create_dm() #type: discord.DMChannel
 		dm_emb_obj = discord.Embed(title="Average of tracked guesses", description=f"Result: {self.dbhandler.get_avg_guess(message.author.id)}")
 		await dm_chan.send(embed=dm_emb_obj)
