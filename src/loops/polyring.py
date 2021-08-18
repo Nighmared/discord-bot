@@ -124,7 +124,8 @@ class PolyringFetcher(discord.ext.commands.Cog):
 				if self.make_post_hash(post.tuple) not in postmap.keys():
 					logger.info(f"adding new post by {author}")
 					new_posts.append((fid,post))
-		logger.info(f"returning from post doing stuff thingy with {len(new_posts)} new posts")
+		if len(new_posts)>0:
+			logger.info(f"returning from post doing stuff thingy with {len(new_posts)} new posts")
 		return new_posts
 
 	def make_post_hash(self,post_tup:tuple) -> int:
