@@ -625,7 +625,7 @@ class CommandHandler:
 				link = f"{link.rstrip('.blurred.jpg')}.jpg"
 			img_id = link.rstrip(".blurred.jpg")
 			url = "https://http.cat/451"
-			if message.guild.id != 747752542741725244:
+			if message.guild and message.guild.id != 747752542741725244:
 				url = f"https://nhentai.net/g/{img_id.lstrip('nhentai/')}"
 			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.MISCCOLOR, url=url)
 			try:
