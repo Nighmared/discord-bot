@@ -1,7 +1,7 @@
 import requests,random,re
 import skimage
 import skimage.io,skimage.filters
-import dbhandler
+import src.dbhandler as dbhandler
 import logging
 from bs4 import BeautifulSoup
 
@@ -44,7 +44,7 @@ class handler:
 
 		if indx_arg:
 			resp = requests.get(f"https://nhentai.net/g/{indx_arg}/")
-			if self.illegal_tags(resp,indx):
+			if self.illegal_tags(resp,indx_arg):
 				self.db.nhentai_block(indx_arg)
 				return None,indx_arg
 				
