@@ -1,7 +1,7 @@
 import requests,random,re
 import skimage
 import skimage.io,skimage.filters
-import src.dbhandler as dbhandler
+import dbhandler
 import logging
 from bs4 import BeautifulSoup
 
