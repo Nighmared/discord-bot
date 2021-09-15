@@ -216,9 +216,8 @@ class Dbhandler:
 
     def add_meme(self, template_name: str, uid: int, caption: str, img_url: str) -> int:
         try:
-            self.cursor.execute('''
-			INSERT INTO generated_memes(template_name, user, caption, img_url)
-			VALUES (?, ?, ?, ?)''', (template_name, uid, caption, img_url.strip()))
+            self.cursor.execute('INSERT INTO generated_memes(template_name, user, caption, img_url)	VALUES (?, ?, ?, ?)',
+                                (template_name, uid, caption, img_url.strip()))
             self.conn.commit()
             return 0
         except OperationalError as e:
@@ -259,14 +258,15 @@ class Dbhandler:
 
     def get_polyring_posts(self):
         self.cursor.execute(
-            '''SELECT pp.title, pp.description, pp.pubdate,pp.link,pf.author from polyring_posts pp JOIN polyring_feeds pf on pp.fid=pf.fid where pf.enabled>0''')
+            '''SELECT pp.title, pp.description, pp.pubdate,pp.link,pf.author,pp.guid from polyring_posts pp JOIN
+            polyring_feeds pf on pp.fid=pf.fid where pf.enabled>0''')
         posts = self.cursor.fetchall()
         return posts
 
     def add_polyring_post(self, post, fid):
-        # title, descr,pubdate,fid,link
-        self.cursor.execute('''INSERT INTO polyring_posts(title,description,pubdate,fid,link) VALUES(?,?,?,?,?)''',
-                            (post.title, post.descr, post.pubdate, fid, post.link))
+        # title, descr,pubdate,fid,link, guid
+        self.cursor.execute("INSERT INTO polyring_posts(title,description,pubdate,fid,link,guid) VALUES(?,?,?,?,?,?)",
+                            (post.title, post.descr, post.pubdate, fid, post.link,post.guid))
         self.conn.commit()
 
     def get_loops(self):
