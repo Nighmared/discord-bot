@@ -111,9 +111,9 @@ class Test_APIs:
 	def test_uptime(self):
 		import uptime
 		a_time = datetime.now()
-		tracker = uptime.uptime(a_time)
+		tracker = uptime.Uptime(a_time)
 		sleep(1)
-		res_string = tracker.getUptime()
+		res_string = tracker.get_uptime()
 		print(res_string)
 		assert "Second" in res_string
 		assert ("Seconds" in res_string) == False
@@ -122,7 +122,7 @@ class Test_APIs:
 		assert ("Hour" in res_string) == False
 		assert ("Minute" in res_string) == False
 		sleep(3)
-		res_string = tracker.getUptime()
+		res_string = tracker.get_uptime()
 		assert "Seconds" in res_string
 		assert ("Second " in res_string) == False
 		assert ("Year" in res_string) == False
