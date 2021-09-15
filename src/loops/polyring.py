@@ -45,8 +45,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
         post_guid_set = self.get_post_guid_set(posts)
         stuff_to_send = self.filter_new_posts(feeds, post_guid_set)
         for fid, post in stuff_to_send:
-            # await self.send_new_post(post)
-            print("WOULD HAVE SENT POST", post.title)
+            await self.send_new_post(post)
             self.dbhandler.add_polyring_post(post=post, fid=fid)
         self.dbhandler.ping_loop("Polyring", time())
     
