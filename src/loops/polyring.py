@@ -169,6 +169,8 @@ class Post:
             link = "http://" + link
         self.link = link
         self.pubdate = pubdate
+        if not guid.startswith("http"):
+            guid = "http://" + guid
         self.guid = guid
         self.tuple = (self.title, self.descr, self.pubdate, self.link, self.author)
     
