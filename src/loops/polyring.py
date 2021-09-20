@@ -112,10 +112,10 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     link = link.text
                 try:
                     desc = unescape(fp.find(desc_key).text[:40] + "...")
-                except AttributeError:  # ignore fucky feeds
+                except (TypeError,AttributeError) as e:  # ignore fucky feeds
                     try:
                         desc = unescape(fp.find(("summary", "description")[dumbfuckingjekyll]).text[:40] + "...")
-                    except AttributeError:
+                    except (TypeError, AttributeError) as e:
                         desc = "[No description tag provided]"
                 post = Post(title, descr=desc, author=author, link=link, pubdate=pub, guid=guid)
                 if post.guid not in post_guid_set:
