@@ -603,6 +603,7 @@ class CommandHandler:
 
 	@command
 	async def nhentai(self,message:discord.Message)->tuple:
+		PROTECTED_SERVERS = (747752542741725244, )
 		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
 				return (2,None,None)
 		args = message.content[1:].split(" ")
@@ -625,21 +626,27 @@ class CommandHandler:
 				link = f"{link.rstrip('.blurred.jpg')}.jpg"
 			img_id = link.rstrip(".blurred.jpg")
 			url = "https://http.cat/451"
-			if message.guild and message.guild.id != 747752542741725244:
+
+			if message.guild and message.guild.id not in PROTECTED_SERVERS:
 				url = f"https://nhentai.net/g/{img_id.lstrip('nhentai/')}"
 			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.MISCCOLOR, url=url)
-			try:
-				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
-			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
-				link2 = link.rstrip(".blurred.jpg")+".jpg"
-				#print("[commandhandler.py] nh command; lin2 in catch block = ",link2)
+			
+			if message.guild and message.guild.id in PROTECTED_SERVERS:
+				embObj.set_image(url="https://http.cat/451")
+				file_to_send = None
+			else:
+				try:
+					file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
+				except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
+					link2 = link.rstrip(".blurred.jpg")+".jpg"
+					#print("[commandhandler.py] nh command; lin2 in catch block = ",link2)
 
-				self.nh_handler._blur(link2,sigma)
-				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
-			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
-		nh_log = open("nhentai/log.txt","a")
-		nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
-		nh_log.close()
+					self.nh_handler._blur(link2,sigma)
+					file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
+				embObj.set_image(url="attachment://SPOILER_FILE.jpg")
+				nh_log = open("nhentai/log.txt","a")
+				nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
+				nh_log.close()
 		return (0,embObj,file_to_send)
 	
 	@command
