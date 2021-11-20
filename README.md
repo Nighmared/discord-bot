@@ -14,9 +14,7 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 
 #### Structure
 
-
-
-```
+\n\n```
 ../
 ├── src
 │   ├── loops
@@ -31,8 +29,12 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   ├── botlogger.py
 │   ├── bot.py
 │   ├── client2.py
+│   ├── client_debug.log
+│   ├── clientdebug.log
+│   ├── client_log.log
 │   ├── client.py
 │   ├── commandhandler.py
+│   ├── curses_metrics.log
 │   ├── dbhandler.py
 │   ├── discordbot.db
 │   ├── dotree.sh
@@ -42,6 +44,7 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   ├── issues_passing.png
 │   ├── issues.py
 │   ├── joniii.pub
+│   ├── keys.log
 │   ├── loophandler.py
 │   ├── meme.py
 │   ├── msglist.py
@@ -56,10 +59,11 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   ├── uptime.py
 │   └── xkcd.py
 ├── LICENSE
+├── Pipfile
+├── Pipfile.lock
 ├── README.md
 ├── README_TEXT.md
 └── requirements.txt
 
-3 directories, 38 files
-
- ```
+3 directories, 45 files
+\n ```
