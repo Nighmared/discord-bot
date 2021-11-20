@@ -606,6 +606,13 @@ class CommandHandler:
 		PROTECTED_SERVERS = (747752542741725244, )
 		if not (type(message.channel) != discord.channel.TextChannel or message.channel.is_nsfw()):
 				return (2,None,None)
+
+		if message.guild and message.guild.id in PROTECTED_SERVERS:
+			embObj = discord.Embed(title="nHentai Random Cover",description="nonononono",color = self.MISCCOLOR, url="https://http.cat/451")
+			embObj.set_image(url="https://http.cat/451")
+			file_to_send = None
+			return (0,embObj,file_to_send)
+
 		args = message.content[1:].split(" ")
 		user_pl = self.dbhandler.get_perm_level(message.author.id)
 		nsfw = int(self.dbhandler.get_from_misc("nsfw"))!=0 or type(message.channel)==discord.channel.DMChannel
@@ -613,6 +620,8 @@ class CommandHandler:
 		error = 0
 		img_id = -1
 		sigma = int(self.dbhandler.get_from_misc("blur_sigma"))
+
+
 		if len(args)>1 and args[1].isnumeric and user_pl>self.dbhandler.get_cmd_perm("nhentai"):
 			img_id = args[1]
 			link = self.dbhandler.get_nhentai_path_by_id(img_id,ignore_block=nsfw)[0]
@@ -630,23 +639,17 @@ class CommandHandler:
 			if message.guild and message.guild.id not in PROTECTED_SERVERS:
 				url = f"https://nhentai.net/g/{img_id.lstrip('nhentai/')}"
 			embObj = discord.Embed(title="nHentai Random Cover",description=img_id,color = self.MISCCOLOR, url=url)
-			
-			if message.guild and message.guild.id in PROTECTED_SERVERS:
-				embObj.set_image(url="https://http.cat/451")
-				file_to_send = None
-			else:
-				try:
-					file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
-				except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
-					link2 = link.rstrip(".blurred.jpg")+".jpg"
-					#print("[commandhandler.py] nh command; lin2 in catch block = ",link2)
-
-					self.nh_handler._blur(link2,sigma)
-					file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
-				embObj.set_image(url="attachment://SPOILER_FILE.jpg")
-				nh_log = open("nhentai/log.txt","a")
-				nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
-				nh_log.close()
+		
+			try:
+				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
+			except FileNotFoundError: #accidentally pushed dumb shit; this will rarely occur but prolly fixes it
+				link2 = link.rstrip(".blurred.jpg")+".jpg"
+				self.nh_handler._blur(link2,sigma)
+				file_to_send = discord.File(link,filename="SPOILER_FILE.jpg",spoiler=True)
+			embObj.set_image(url="attachment://SPOILER_FILE.jpg")
+			nh_log = open("nhentai/log.txt","a")
+			nh_log.write(f">Sent nhentai/{str(img_id).lstrip('nhentai/')}\n")
+			nh_log.close()
 		return (0,embObj,file_to_send)
 	
 	@command
