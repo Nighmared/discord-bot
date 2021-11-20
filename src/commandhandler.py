@@ -49,7 +49,7 @@ class CommandHandler:
 		"issues":"issues.py",
 		"msglist":"msglist.py",
 		"neko":"neko.py",
-		"nhentai":"nhentai.py",
+		"nhentai":"nhentai/nhentai.py",
 		"uptime":"uptime.py",
 		"push":"push.sh",
 		"runner":"runner.sh",
