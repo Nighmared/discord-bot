@@ -283,7 +283,7 @@ class Dbhandler:
 
     def add_average(self, uid: int, guess: int) -> None:
         LOWER_BOUND = 100
-        UPPER_BOUND = 10_000
+        UPPER_BOUND = 23_000
         if guess < LOWER_BOUND or guess > UPPER_BOUND:
             logger.info(f"Found guess {guess} from uid {uid} to be useless, skipping.")
             return
