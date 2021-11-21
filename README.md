@@ -16,7 +16,7 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 
  
 
- \`\`\` 
+ ``` 
 
 ../
 ├── src
@@ -69,5 +69,5 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 └── requirements.txt
 
 3 directories, 45 files
- \`\`\` 
+ ``` 
 
