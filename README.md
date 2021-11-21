@@ -14,9 +14,7 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 
 #### Structure
 
-\n\n
-
-```
+\n\n```
 ../
 ├── src
 │   ├── loops
@@ -68,4 +66,4 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 └── requirements.txt
 
 3 directories, 45 files
-\n ```
+ ```
