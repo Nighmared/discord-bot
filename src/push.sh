@@ -8,9 +8,9 @@ r_top=$(cat ../README_TEXT.md)
 struct=$(bash dotree.sh)
 echo "">../README.md #clean
 cat ../README_TEXT.md>>../README.md
-echo "\n\n\`\`\`">>../README.md
+echo $'\n\n \`\`\`'>>../README.md
 bash dotree.sh>>../README.md
-echo " \`\`\`">>../README.md
+echo $' \`\`\` \n'>>../README.md
 echo "Updated tree part of README 1/2"
 
 
