@@ -48,6 +48,7 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   ├── issues.py
 │   ├── joniii.pub
 │   ├── keys.log
+│   ├── logging
 │   ├── loophandler.py
 │   ├── meme.py
 │   ├── msglist.py
@@ -68,6 +69,6 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 ├── README_TEXT.md
 └── requirements.txt
 
-3 directories, 45 files
+3 directories, 46 files
  ``` 
 
