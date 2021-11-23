@@ -1,4 +1,4 @@
-
+#! /usr/bin/env python3
 import logging
 from re import split #for cmd handling
 import discord # api library

@@ -708,7 +708,7 @@ class CommandHandler:
 	@command
 	async def polyreload(self,message:discord.Message)->tuple:
 		try:
-			self.dbhandler.update_polyring_feeds(polyring.update_feeds())
+			self.dbhandler.update_polyring_feeds(polyring.update_feeds(), command_user_id=message.author.id)
 			return (0,None)
 		except Exception as e:
 			logger.error(str(e))

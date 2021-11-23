@@ -236,12 +236,12 @@ class Dbhandler:
                             (template_name, template_id))
         self.conn.commit()
 
-    def update_polyring_feeds(self, feed_list: list):
+    def update_polyring_feeds(self, feed_list: list, command_user_id: int = None):
         # self.cursor.execute('''DELETE FROM polyring_feeds''')
         for blog in feed_list:
             try:
-                self.cursor.execute('''INSERT INTO polyring_feeds(author,blog_url,feed_url) VALUES(?,?,?)''',
-                                    (blog["title"], blog["url"], blog["feed"]))
+                self.cursor.execute('''INSERT INTO polyring_feeds(author,blog_url,feed_url, added_by) VALUES(?,?,?,?)''',
+                                    (blog["title"], blog["url"], blog["feed"], command_user_id))
             except Exception as e:
                 try:
                     self.cursor.execute('''UPDATE polyring_feeds SET blog_url=?, feed_url=? where author=?''',
