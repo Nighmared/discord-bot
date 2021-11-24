@@ -1,17 +1,19 @@
 import logging
+import subprocess as sub  # needed for softreload to pull from git kekw
+import sys
+from importlib import reload
 from re import split  # for cmd handling
+from time import sleep
+
 import discord
 from discord.errors import Forbidden  # api library
-import msglist  # module for message tracking
-import dbhandler  # module for all things sqlite
-import commandhandler  # module for commandhandling
-import uptime  # module to track uptime of bot
-from importlib import reload
-import subprocess as sub  # needed for softreload to pull from git kekw
-from time import sleep
-import sys
+
 import botlogger
+import commandhandler  # module for commandhandling
+import dbhandler  # module for all things sqlite
 import loophandler as loop
+import msglist  # module for message tracking
+import uptime  # module to track uptime of bot
 
 IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime, loop)
 
@@ -34,7 +36,7 @@ def init(client: discord.Client, STARTTIME):
     msgs = msglist.Msglist(5)
     try:
         db = dbhandler.Dbhandler("discordbot.db")
-        dbPREFIX = db.get_from_misc('prefix')
+        dbPREFIX = db.get_from_misc("prefix")
         if dbPREFIX:
             PREFIX = dbPREFIX
         else:
@@ -47,8 +49,9 @@ def init(client: discord.Client, STARTTIME):
         print(e)
         PREFIX = "&"
 
-    cmdhandler = commandhandler.CommandHandler(dbhandler=db, msgs=msgs, PREFIX=PREFIX, client=client,
-                                               time_tracker=time_tracker)
+    cmdhandler = commandhandler.CommandHandler(
+        dbhandler=db, msgs=msgs, PREFIX=PREFIX, client=client, time_tracker=time_tracker
+    )
     botlogger.get_ready()
 
 
@@ -79,15 +82,17 @@ def get_ready(client: discord.Client, STARTTIME):
     db = dbhandler.Dbhandler("discordbot.db")
     PREFIX = db.get_from_misc("prefix")
     time_tracker = uptime.Uptime(STARTTIME)
-    cmdhandler = commandhandler.CommandHandler(dbhandler=db, msgs=msgs, PREFIX=PREFIX, client=client,
-                                               time_tracker=time_tracker)
+    cmdhandler = commandhandler.CommandHandler(
+        dbhandler=db, msgs=msgs, PREFIX=PREFIX, client=client, time_tracker=time_tracker
+    )
     last_msgs_backup = cmdhandler.last_MSG
     cmdhandler.last_MSG = last_msgs_backup
     botlogger.get_ready()
 
 
-async def doreload(message: discord.Message, client: discord.Client, STARTTIME,
-                   msgs_backup):  # reloads all dependencies
+async def doreload(
+    message: discord.Message, client: discord.Client, STARTTIME, msgs_backup
+):  # reloads all dependencies
     global ISRELOADING
 
     work_to_do = True
@@ -113,7 +118,7 @@ async def doreload(message: discord.Message, client: discord.Client, STARTTIME,
                 module.IMPORTS
             except AttributeError:
                 logger.error(f"{module.__name__} missing IMPORTS list")
-                continue;
+                continue
             for subimport in module.IMPORTS:
                 if subimport not in submodules:
                     submodules.add(subimport)
@@ -138,24 +143,34 @@ async def doreload(message: discord.Message, client: discord.Client, STARTTIME,
         if is_recovering:  # if already retrying
             await msgs_backup.pop().delete()  # dont clutter
 
-        if len(failedmodules.strip()) > 0:  # this applies when anything failed during reloading
+        if (
+            len(failedmodules.strip()) > 0
+        ):  # this applies when anything failed during reloading
             embObj.add_field(name="❌ Couldn't import:", value=failedmodules)
-            embObj.add_field(name="BackOff-Retry", value=f"Will retry loading in {backoff} seconds")
+            embObj.add_field(
+                name="BackOff-Retry", value=f"Will retry loading in {backoff} seconds"
+            )
 
             is_recovering = True
 
             sent_msg = await message.channel.send(embed=embObj)
-            msgs_backup.append(sent_msg)  # keep the message list up to date until it gets put to cmdhandler again
+            msgs_backup.append(
+                sent_msg
+            )  # keep the message list up to date until it gets put to cmdhandler again
 
             sleep(backoff)  # wait until next reload
             backoff *= 2  # exponential backoff
 
-            sub.run(["git", "pull", "--no-edit"])  # git pull --no-edit -> get newest changes from github
+            sub.run(
+                ["git", "pull", "--no-edit"]
+            )  # git pull --no-edit -> get newest changes from github
         else:
             work_to_do = False
 
     if backoff > 512:  # give up at some point
-        logger.fatal("gave up on reloading after trying multiple times.. something really doesnt work here")
+        logger.fatal(
+            "gave up on reloading after trying multiple times.. something really doesnt work here"
+        )
         sys.exit(1)  # give up with nonzero error code
 
     # at this point everything should be fine
@@ -165,13 +180,23 @@ async def doreload(message: discord.Message, client: discord.Client, STARTTIME,
     cmdhandler.curr_msg = message
 
     logger.info("Return from softreload")
-    if type(message.channel) is discord.channel.DMChannel or message.author.nick is None:
+    if (
+        type(message.channel) is discord.channel.DMChannel
+        or message.author.nick is None
+    ):
         callee = message.author.name
     else:
         callee = message.author.nick
 
-    res = max(await cmdhandler.sendMsg(channel=message.channel, toSend=embObj, callee=callee,
-                                       callee_pic=message.author.avatar_url), res)
+    res = max(
+        await cmdhandler.sendMsg(
+            channel=message.channel,
+            toSend=embObj,
+            callee=callee,
+            callee_pic=message.author.avatar_url,
+        ),
+        res,
+    )
     await add_reaction(message, db.get_emote(res))
     ISRELOADING = False
     if isinstance(message.channel, discord.TextChannel):
@@ -181,53 +206,77 @@ async def doreload(message: discord.Message, client: discord.Client, STARTTIME,
             None  # cant do anyting :shrug:
 
 
-async def do_the_thing(channel: discord.TextChannel, name: str, id: int, avatar_url: str):
+async def do_the_thing(
+    channel: discord.TextChannel, name: str, id: int, avatar_url: str
+):
     global PREFIX
     embObj = discord.Embed(title="How did this happen? :O")
-    f = discord.File(cmdhandler.dbhandler.get_nhentai_path_by_id(id)[0].rstrip(".blurred.jpg") + ".jpg", "IMG.jpg",
-                     spoiler=True)
+    f = discord.File(
+        cmdhandler.dbhandler.get_nhentai_path_by_id(id)[0].rstrip(".blurred.jpg")
+        + ".jpg",
+        "IMG.jpg",
+        spoiler=True,
+    )
     embObj.set_image(url="attachment://IMG.jpg")
-    await cmdhandler.sendMsg(channel, embObj, callee=name, file=f, callee_pic=avatar_url)
+    await cmdhandler.sendMsg(
+        channel, embObj, callee=name, file=f, callee_pic=avatar_url
+    )
 
 
 async def handle(message: discord.Message) -> int:
     global ISRELOADING
     global PREFIX
-    if ISRELOADING: return 0  # prevent errors during reloading
+    if ISRELOADING:
+        return 0  # prevent errors during reloading
     # block bots
     if message.author.bot and not message.author.id == cmdhandler.toTrackID:
         return 0
 
     # count messages per user
-    db.increment_user_message_count(message.author.id, message.author.name, message.author.mention)
+    db.increment_user_message_count(
+        message.author.id, message.author.name, message.author.mention
+    )
 
-    if message.guild and message.guild.id in (747752542741725244, 695246759382745108) and message.content.startswith(
-            "$g") and len(args := message.content.split(" ")) > 1 and args[1].isnumeric():
+    if (
+        message.guild
+        and message.guild.id in (747752542741725244, 695246759382745108)
+        and message.content.startswith("$g")
+        and len(args := message.content.split(" ")) > 1
+        and args[1].isnumeric()
+    ):
         db.add_average(message.author.id, int(args[1]))
 
     is_command = message.content.startswith(PREFIX)
     permlevel = db.get_perm_level(message.author.id)
     isJoniii = message.author.id == SUDOID  # hardcode that sucker
-    if isJoniii: permlevel = 10
+    if isJoniii:
+        permlevel = 10
     cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
 
-    if int(db.get_from_misc("standby")) == 1 and not cmd == "deepsleep":  # ignore everything in standby
+    if (
+        int(db.get_from_misc("standby")) == 1 and not cmd == "deepsleep"
+    ):  # ignore everything in standby
         return
 
     # easteregg lel
     if "177013" in message.content.strip().replace(" ", "") and not is_command:
-        await do_the_thing(message.channel, message.author.nick, 177013, message.author.avatar_url)
+        await do_the_thing(
+            message.channel, message.author.nick, 177013, message.author.avatar_url
+        )
     if is_command:
         logger.info(f"{message.author.name}>{message.content}")
 
     if message.author.id == cmdhandler.toTrackID and not is_command:
         msgs.add_msg(message)
-        if db.shouldAnnoy(): await add_reaction(message, this_emote)
-    
+        if db.shouldAnnoy():
+            await add_reaction(message, this_emote)
+
     if is_command and cmd:
         # prevent handling invalid commands; find_alias returns "" on unknown commands and bool("") is False :>
 
-        if cmd == "" or not perm_valid(cmd, permlevel):  # !!! perms already checked heree
+        if cmd == "" or not perm_valid(
+            cmd, permlevel
+        ):  # !!! perms already checked heree
             res = 4
 
         # special case with soft reload that only reloads the modules
