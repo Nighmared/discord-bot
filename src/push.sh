@@ -16,6 +16,7 @@ echo "Updated tree part of README 1/3"
 black ../
 isort ../
 
+echo "Autoformatted and sorted imports 2/3"
 
 pytest -x
 retcode=$?
@@ -31,7 +32,7 @@ then
 	return 1
 fi
 
-echo "Passed tests 2/2"
+echo "Passed tests 3/3"
 
 git add -u
 git commit -S 
