@@ -3,14 +3,13 @@ import xml.etree.ElementTree as ET
 from html import unescape
 from time import sleep, time
 
+import dbhandler
 import discord
 import discord.ext.commands
 import requests
 from discord.errors import Forbidden
 from discord.ext import tasks
 from requests.exceptions import Timeout
-
-import dbhandler
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
@@ -191,7 +190,7 @@ class Post:
         self.author = author
         if not (link.startswith("http") or link.startswith("https")):
             link = "http://" + link
-        self.link = link
+        self.link = link.strip()
         self.pubdate = pubdate
         if not guid.startswith("http"):
             guid = "http://" + guid
