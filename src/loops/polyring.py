@@ -190,11 +190,11 @@ class Post:
         self.author = author
         if not (link.startswith("http") or link.startswith("https")):
             link = "http://" + link
-        self.link = link.strip()
+        self.link = link
         self.pubdate = pubdate
         if not guid.startswith("http"):
             guid = "http://" + guid
-        self.guid = guid
+        self.guid = guid.strip()
         self.tuple = (self.title, self.descr, self.pubdate, self.link, self.author)
 
     def embed(self):
