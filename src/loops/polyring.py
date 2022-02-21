@@ -204,6 +204,7 @@ class Post:
             color=POLYRING_COLOR,
             url=self.guid,
         )
+        print(embObj)
         embObj.set_author(name=self.author)
         return embObj
 
