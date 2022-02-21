@@ -111,7 +111,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 pub = fp.find(date_key).text
                 title = fp.find("title").text
                 link = fp.find("link")
-                guid = fp.find(guid_key).text
+                guid = fp.find(guid_key).text.strip()
                 if dumbfuckingjekyll:
                     link = link.attrib["href"]
                 else:
@@ -194,7 +194,6 @@ class Post:
         self.pubdate = pubdate
         if not guid.startswith("http"):
             guid = "http://" + guid
-        self.guid = guid.strip()
         self.tuple = (self.title, self.descr, self.pubdate, self.link, self.author)
 
     def embed(self):
