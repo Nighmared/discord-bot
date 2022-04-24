@@ -2,7 +2,7 @@ import logging
 
 import requests
 
-IMPORTS = (somecustomscriptiforgottotrack,)
+IMPORTS = ()
 logger = logging.getLogger("botlogger")
 
 
