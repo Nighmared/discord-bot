@@ -46,3 +46,6 @@ def get_latest() -> dict:
 
 def _make_url(comic_id: int) -> str:
     return f"https://xkcd.com/{comic_id}/info.0.json"
+
+
+def

@@ -70,8 +70,8 @@ class CommandHandler:
         "bot": "bot.py",
         "commandhandler": "commandhandler.py",
         "cmd": "commandhandler.py",
-        "msghandler": "msghandler.py",
-        "msg": "msghandler.py",
+        "handler": "handler.py",
+        "msg": "handler.py",
         "inspire": "inspirobot.py",
         "meme": "meme.py",
         "robohash": "robohash.py",
@@ -1187,6 +1187,7 @@ class CommandHandler:
 
     @command
     async def showsourcecode(self, message: discord.Message) -> tuple:
+        error = 0
         args = message.content[1:].split(" ")
         if len(args) < 2:
             embObj = discord.Embed(
@@ -1225,6 +1226,7 @@ class CommandHandler:
                     return (0, msg)
             else:
                 return (4, None)
+        return (error, None)
 
     @command
     async def source(self, message: discord.Message) -> tuple:
