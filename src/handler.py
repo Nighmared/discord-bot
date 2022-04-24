@@ -114,7 +114,7 @@ async def doreload(
         for module in IMPORTS:
             try:
                 reload(module)
-            except (ModuleNotFoundError, SyntaxError) as e:
+            except ModuleNotFoundError as e:
                 failedmodules += module.__name__ + "\n"
                 failedmodules += "⤷" + str(e).split("'")[1] + "\n"
                 continue
