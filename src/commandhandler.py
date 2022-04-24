@@ -1538,6 +1538,7 @@ class CommandHandler:
                     name="Explanation",
                     value=f"https://www.explainxkcd.com/wiki/index.php/{res['num']}",
                 )
+                embObj.add_field(name="Alt", value=res["alt"], inline=False)
                 return (0, embObj)
             else:
                 embObj = discord.Embed(
@@ -1560,6 +1561,7 @@ class CommandHandler:
                     name="Explanation",
                     value=f"https://www.explainxkcd.com/wiki/index.php/{res['num']}",
                 )
+                embObj.add_field(name="Alt", value=res["alt"], inline=False)
                 return (0, embObj)
             else:
                 embObj = discord.Embed(

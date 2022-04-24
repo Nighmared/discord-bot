@@ -23,6 +23,7 @@ def get_comic(comic_id: int) -> dict:
             "num": j["num"],
             "title": j["safe_title"],
             "img_url": j["img"],
+            "alt": j["alt"],
         }
 
 
@@ -39,6 +40,7 @@ def get_latest() -> dict:
         "num": j["num"],
         "title": j["safe_title"],
         "img_url": j["img"],
+        "alt": j["alt"],
     }
 
 
