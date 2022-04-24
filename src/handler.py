@@ -2,7 +2,6 @@ import logging
 import subprocess as sub  # needed for softreload to pull from git kekw
 import sys
 from importlib import reload
-from re import split  # for cmd handling
 from time import sleep
 
 import discord
@@ -36,9 +35,9 @@ def init(client: discord.Client, STARTTIME):
     msgs = msglist.Msglist(5)
     try:
         db = dbhandler.Dbhandler("discordbot.db")
-        dbPREFIX = db.get_from_misc("prefix")
-        if dbPREFIX:
-            PREFIX = dbPREFIX
+        prefix_in_db = db.get_from_misc("prefix")
+        if prefix_in_db:
+            PREFIX = prefix_in_db
         else:
             PREFIX = "°"  # fallback :>
 
@@ -50,7 +49,11 @@ def init(client: discord.Client, STARTTIME):
         PREFIX = "&"
 
     cmdhandler = commandhandler.CommandHandler(
-        dbhandler=db, msgs=msgs, PREFIX=PREFIX, client=client, time_tracker=time_tracker
+        dbhandler_instance=db,
+        msgs=msgs,
+        PREFIX=PREFIX,
+        client=client,
+        time_tracker=time_tracker,
     )
     botlogger.get_ready()
 
@@ -74,8 +77,6 @@ async def add_reaction(message, emote):
         return 1
 
 
-# FIXME this is dumb, make less dumb ffs -> give all classes "backup" and "restore" methods so it can be just
-#  iterating over stuff
 def get_ready(client: discord.Client, STARTTIME):
     global msgs, db, time_tracker, cmdhandler, PREFIX
     msgs = msglist.Msglist(5)
@@ -83,7 +84,11 @@ def get_ready(client: discord.Client, STARTTIME):
     PREFIX = db.get_from_misc("prefix")
     time_tracker = uptime.Uptime(STARTTIME)
     cmdhandler = commandhandler.CommandHandler(
-        dbhandler=db, msgs=msgs, PREFIX=PREFIX, client=client, time_tracker=time_tracker
+        dbhandler_instance=db,
+        msgs=msgs,
+        PREFIX=PREFIX,
+        client=client,
+        time_tracker=time_tracker,
     )
     last_msgs_backup = cmdhandler.last_MSG
     cmdhandler.last_MSG = last_msgs_backup
@@ -135,10 +140,10 @@ async def doreload(
                 failedmodules += "➥" + str(e).split("'")[1] + "\n"
                 continue
 
-        embObj = discord.Embed(title="Soft Reloading")
-        embObj.add_field(name="✅ Reloaded modules:", value=modulenames)
-        embObj.set_author(name=message.author.name, icon_url=message.author.avatar_url)
-        embObj.timestamp = uptime.get_now_utc()
+        embed = discord.Embed(title="Soft Reloading")
+        embed.add_field(name="✅ Reloaded modules:", value=modulenames)
+        embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+        embed.timestamp = uptime.get_now_utc()
 
         if is_recovering:  # if already retrying
             await msgs_backup.pop().delete()  # dont clutter
@@ -146,14 +151,14 @@ async def doreload(
         if (
             len(failedmodules.strip()) > 0
         ):  # this applies when anything failed during reloading
-            embObj.add_field(name="❌ Couldn't import:", value=failedmodules)
-            embObj.add_field(
+            embed.add_field(name="❌ Couldn't import:", value=failedmodules)
+            embed.add_field(
                 name="BackOff-Retry", value=f"Will retry loading in {backoff} seconds"
             )
 
             is_recovering = True
 
-            sent_msg = await message.channel.send(embed=embObj)
+            sent_msg = await message.channel.send(embed=embed)
             msgs_backup.append(
                 sent_msg
             )  # keep the message list up to date until it gets put to cmdhandler again
@@ -181,7 +186,7 @@ async def doreload(
 
     logger.info("Return from softreload")
     if (
-        type(message.channel) is discord.channel.DMChannel
+        isinstance(message.channel, discord.channel.DMChannel)
         or message.author.nick is None
     ):
         callee = message.author.name
@@ -191,7 +196,7 @@ async def doreload(
     res = max(
         await cmdhandler.sendMsg(
             channel=message.channel,
-            toSend=embObj,
+            toSend=embed,
             callee=callee,
             callee_pic=message.author.avatar_url,
         ),
@@ -203,23 +208,23 @@ async def doreload(
         try:
             await message.delete()
         except Forbidden:
-            None  # cant do anyting :shrug:
+            pass  # cant do anyting :shrug:
 
 
 async def do_the_thing(
-    channel: discord.TextChannel, name: str, id: int, avatar_url: str
+    channel: discord.TextChannel, name: str, cover_id: int, avatar_url: str
 ):
     global PREFIX
-    embObj = discord.Embed(title="How did this happen? :O")
-    f = discord.File(
-        cmdhandler.dbhandler.get_nhentai_path_by_id(id)[0].rstrip(".blurred.jpg")
+    embed = discord.Embed(title="How did this happen? :O")
+    file = discord.File(
+        cmdhandler.dbhandler.get_nhentai_path_by_id(cover_id)[0].rstrip(".blurred.jpg")
         + ".jpg",
         "IMG.jpg",
         spoiler=True,
     )
-    embObj.set_image(url="attachment://IMG.jpg")
+    embed.set_image(url="attachment://IMG.jpg")
     await cmdhandler.sendMsg(
-        channel, embObj, callee=name, file=f, callee_pic=avatar_url
+        channel, embed, callee=name, file=file, callee_pic=avatar_url
     )
 
 
@@ -248,13 +253,13 @@ async def handle(message: discord.Message) -> int:
 
     is_command = message.content.startswith(PREFIX)
     permlevel = db.get_perm_level(message.author.id)
-    isJoniii = message.author.id == SUDOID  # hardcode that sucker
-    if isJoniii:
+    is_joniii = message.author.id == SUDOID  # hardcode that sucker
+    if is_joniii:
         permlevel = 10
     cmd = db.find_alias(message.content[1:].split(" ")[0].lower())
 
     if (
-        int(db.get_from_misc("standby")) == 1 and not cmd == "deepsleep"
+        int(db.get_from_misc("standby")) == 1 and cmd != "deepsleep"
     ):  # ignore everything in standby
         return
 
@@ -272,7 +277,8 @@ async def handle(message: discord.Message) -> int:
             await add_reaction(message, this_emote)
 
     if is_command and cmd:
-        # prevent handling invalid commands; find_alias returns "" on unknown commands and bool("") is False :>
+        # prevent handling invalid commands
+        # find_alias returns "" on unknown commands and bool("") is False :>
 
         if cmd == "" or not perm_valid(
             cmd, permlevel

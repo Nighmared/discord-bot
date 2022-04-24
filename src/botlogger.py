@@ -1,3 +1,7 @@
+"""
+defines custom pretty formatter for logs and provides methods to initialize a logger using
+said formatter
+"""
 import logging
 
 DEFAULT = "\033[0m"
@@ -16,8 +20,11 @@ logger = logging.getLogger("botlogger")
 
 
 def get_ready():
-    for h in logger.handlers:
-        logger.removeHandler(h)
+    """
+    initializes custom logging formatter
+    """
+    for handler in logger.handlers:
+        logger.removeHandler(handler)
 
     fhandler = logging.FileHandler("bot.log", mode="a")
     formatter = BotFormatter(
@@ -30,9 +37,15 @@ def get_ready():
 
 
 class BotFormatter(logging.Formatter):
+    """Custom formatter for prettier logging
+    even has colors"""
+
     def __init__(
         self, fmt: str, datefmt: str, style: str = "%", validate: bool = ...
     ) -> None:
+        logging.Formatter.__init__(
+            self, fmt=fmt, datefmt=datefmt, style=style, validate=validate
+        )
 
         self.debug_formatter = logging.Formatter(
             fmt=BLUE + fmt + DEFAULT, datefmt=datefmt

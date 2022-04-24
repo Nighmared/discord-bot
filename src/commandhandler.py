@@ -85,14 +85,14 @@ class CommandHandler:
 
     def __init__(
         self,
-        dbhandler: dbhandler.Dbhandler,
+        dbhandler_instance: dbhandler.Dbhandler,
         msgs: msglist,
         PREFIX: str,
         time_tracker,
         client: discord.ext.commands.Bot,
     ):
         self.msgs = msgs
-        self.dbhandler = dbhandler
+        self.dbhandler = dbhandler_instance
         self.toTrackID = 0
         self.toTrackName = "nobody"
         self.toTrackUser = None
@@ -100,7 +100,7 @@ class CommandHandler:
         self.PREFIX = PREFIX
         self.client = client
         self.uptime_tracker = time_tracker
-        self.nh_handler = nhentai.handler(self.dbhandler)
+        self.nh_handler = nhentai.Handler(self.dbhandler)
 
     def perm_valid(self, cmd: str, permlevel: int) -> bool:
         return permlevel >= self.dbhandler.get_cmd_perm(cmd)
@@ -235,7 +235,7 @@ class CommandHandler:
             template_id = args[2].strip()
             self.dbhandler.add_meme_template(template_name, int(template_id))
             return (0, None)
-        except Exception as e:
+        except Exception:
             return (1, None)
 
     @command
@@ -629,7 +629,7 @@ class CommandHandler:
             if probable_sqli:
                 embObj = discord.Embed(
                     title="makememe",
-                    description=f"This seems sus af..{self.dbhandler.get_emote(id=1)}",
+                    description=f"This seems sus af..{self.dbhandler.get_emote(emote_id=1)}",
                     color=self.QUERYCOLOR,
                 )
                 embObj.add_field(name="WHODIDTHIS", value=message.author.mention)

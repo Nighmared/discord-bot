@@ -9,8 +9,8 @@ logger = logging.getLogger("botlogger")
 CURR_URL = "https://xkcd.com/info.0.json"
 
 
-def get_comic(id: int) -> dict:
-    req = requests.get(url=_make_url(id))
+def get_comic(comic_id: int) -> dict:
+    req = requests.get(url=_make_url(comic_id))
     if req.status_code == 404:
         return {
             "success": False,
@@ -33,15 +33,14 @@ def get_latest() -> dict:
             "success": False,
             "error": f".. something went wrong af... \n status code: {req.status_code}",
         }
-    else:
-        j = req.json()
-        return {
-            "success": True,
-            "num": j["num"],
-            "title": j["safe_title"],
-            "img_url": j["img"],
-        }
+    j = req.json()
+    return {
+        "success": True,
+        "num": j["num"],
+        "title": j["safe_title"],
+        "img_url": j["img"],
+    }
 
 
-def _make_url(id: int) -> str:
-    return f"https://xkcd.com/{id}/info.0.json"
+def _make_url(comic_id: int) -> str:
+    return f"https://xkcd.com/{comic_id}/info.0.json"

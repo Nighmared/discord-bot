@@ -31,9 +31,8 @@ class Dbhandler:
 
     def add_user(self, uid: int, name: str, permlev: int):
         self.cursor.execute(
-            """INSERT INTO users(uid, permlevel, name) VALUES(?,?,?)"""(
-                uid, permlev, name
-            )
+            """INSERT INTO users(uid, permlevel, name) VALUES(?,?,?)""",
+            (uid, permlev, name),
         )
         self.conn.commit()
         return 0
@@ -58,7 +57,7 @@ class Dbhandler:
             )
         else:
             self.cursor.execute(
-                f"""INSERT INTO users(uid,permlevel,name,msgcount,readable_name) VALUES(?,?,?,?,?)""",
+                """INSERT INTO users(uid,permlevel,name,msgcount,readable_name) VALUES(?,?,?,?,?)""",
                 (author_uid, 0, mention, 1, name),
             )
         self.conn.commit()
@@ -79,7 +78,7 @@ class Dbhandler:
         exists = len(res) != 0
         if exists:
             self.cursor.execute(
-                f"""UPDATE users SET permlevel = ? WHERE uid==? """, (newpermlev, uid)
+                """UPDATE users SET permlevel = ? WHERE uid==? """, (newpermlev, uid)
             )
         else:
             self.add_user(uid, name, newpermlev)
@@ -88,7 +87,7 @@ class Dbhandler:
     def get_cmd_perm(self, cmd):
         try:
             self.cursor.execute(
-                f"""SELECT permlevel FROM commands WHERE cmdname==? """, (cmd,)
+                """SELECT permlevel FROM commands WHERE cmdname==? """, (cmd,)
             )
             res = self.cursor.fetchall()[0][0]
         except Exception:
@@ -147,18 +146,18 @@ class Dbhandler:
         return res.strip() == "True"
 
     def add_issue(self, issue_t):
-        id, title, tag_s = issue_t
-        self.cursor.execute(f"""SELECT * FROM issues WHERE id=={id}""")
+        issue_id, title, tag_s = issue_t
+        self.cursor.execute(f"""SELECT * FROM issues WHERE id=={issue_id}""")
         res = self.cursor.fetchall()
         if len(res) == 0:
             self.cursor.execute(
                 f"""INSERT INTO issues(id,title,tags) VALUES(?,?,?)""",
-                (id, title, tag_s),
+                (issue_id, title, tag_s),
             )
         self.conn.commit()
 
-    def fixissue(self, id: int):
-        self.cursor.execute("""DELETE FROM issues WHERE id==?""", (id,))
+    def fixissue(self, issue_id: int):
+        self.cursor.execute("""DELETE FROM issues WHERE id==?""", (issue_id,))
 
     def cmd_is_enabled(self, cmd: str) -> bool:
         self.cursor.execute("""select enabled from commands where cmdname==?""", (cmd,))
@@ -168,8 +167,8 @@ class Dbhandler:
             enabled = False
         return enabled
 
-    def get_emote(self, id: int) -> str:
-        self.cursor.execute("""SELECT value FROM emotes WHERE id==?""", (id,))
+    def get_emote(self, emote_id: int) -> str:
+        self.cursor.execute("""SELECT value FROM emotes WHERE id==?""", (emote_id,))
         res = self.cursor.fetchall()[0][0]
         return res
 
@@ -186,9 +185,9 @@ class Dbhandler:
         self.set_to_misc("standby", 0)
         return 0
 
-    def add_nhentai_file(self, id, path_to_blurred):
+    def add_nhentai_file(self, nh_id, path_to_blurred):
         self.cursor.execute(
-            f"""INSERT INTO nhentai(id, path) VALUES({id},'{path_to_blurred}') """
+            f"""INSERT INTO nhentai(id, path) VALUES({nh_id},'{path_to_blurred}') """
         )
         self.conn.commit()
 
@@ -197,8 +196,8 @@ class Dbhandler:
         res = self.cursor.fetchall()
         return res
 
-    def get_nhentai_path_by_id(self, id, ignore_block=False):
-        self.cursor.execute(f"""select path,blocked from nhentai where id={id}""")
+    def get_nhentai_path_by_id(self, nh_id, ignore_block=False):
+        self.cursor.execute(f"""select path,blocked from nhentai where id={nh_id}""")
         res = self.cursor.fetchall()
         if len(res) == 0:
             res.append((-1,))
@@ -221,31 +220,31 @@ class Dbhandler:
         self.conn.commit()
         return new_val > 0
 
-    def nhentai_block(self, id, noswitch=False) -> None:
-        self.cursor.execute("""select blocked from nhentai where id=?""", (id,))
+    def nhentai_block(self, nh_id, noswitch=False) -> None:
+        self.cursor.execute("""select blocked from nhentai where id=?""", (nh_id,))
         res = self.cursor.fetchall()
         if len(res) > 0:
             curr_state = res[0][0]
             if noswitch:
                 self.cursor.execute(
-                    """UPDATE nhentai SET blocked=1 WHERE id=?""", (id,)
+                    """UPDATE nhentai SET blocked=1 WHERE id=?""", (nh_id,)
                 )
             else:
                 self.cursor.execute(
                     """UPDATE nhentai SET blocked=? WHERE id=?""",
-                    (1 - int(curr_state), id),
+                    (1 - int(curr_state), nh_id),
                 )
         else:
             self.cursor.execute(
-                """insert into nhentai values(?,?,?)""", (id, f"fake_{id}", 1)
+                """insert into nhentai values(?,?,?)""", (nh_id, f"fake_{nh_id}", 1)
             )
 
         self.conn.commit()
 
         if noswitch or not int(curr_state):
-            logger.info(f"Blocked nhentai id {id}")
+            logger.info(f"Blocked nhentai id {nh_id}")
         else:
-            logger.info(f"Unblocked nhentai id {id}")
+            logger.info(f"Unblocked nhentai id {nh_id}")
 
     def add_meme(self, template_name: str, uid: int, caption: str, img_url: str) -> int:
         try:
@@ -264,8 +263,8 @@ class Dbhandler:
         )
         res = self.cursor.fetchall()
         templates = {}
-        for name, id in res:
-            templates[name] = id
+        for name, template_id in res:
+            templates[name] = template_id
         return templates
 
     def add_meme_template(self, template_name, template_id):

@@ -1,8 +1,6 @@
 import logging
 from datetime import datetime
 from random import random
-from re import A
-from sys import stdout
 from time import sleep
 
 import requests

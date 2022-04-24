@@ -3,7 +3,6 @@ import logging
 import subprocess as sub  # needed for softreload to pull from git kekw
 from datetime import datetime
 from importlib import reload
-from re import split  # for cmd handling
 from sys import argv, exit
 
 import discord  # api library
@@ -22,9 +21,9 @@ with open(".token.txt") as t_file:
 
 STARTTIME = datetime.now()
 
-client = Bot(
-    FALLBACK_PREFIX
-)  # not using these parts of the discord library, so doesn't matter what prefix is given to the bot instance
+# not using these parts of the discord library,
+# so doesn't matter what prefix is given to the bot instance
+client = Bot(FALLBACK_PREFIX)
 handler.init(client, STARTTIME)
 
 

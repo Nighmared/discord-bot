@@ -3,13 +3,14 @@ import xml.etree.ElementTree as ET
 from html import unescape
 from time import sleep, time
 
-import dbhandler
 import discord
 import discord.ext.commands
 import requests
 from discord.errors import Forbidden
 from discord.ext import tasks
 from requests.exceptions import Timeout
+
+import dbhandler
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
@@ -37,7 +38,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 int(self.dbhandler.get_from_misc("debug")) > 0
             ):  # dont send polyring posts on debug deploy...
                 return
-        except Exception as e:
+        except Exception:
             logger.error("db error")
             sleep(2)
             if int(self.dbhandler.get_from_misc("debug")) > 0:
@@ -76,7 +77,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 continue
             except Exception as e:
                 logger.fatal(str(e))
-                logger.warn(
+                logger.warning(
                     f"Skipping {author}  because of above error, url= {f_url}, status = {requests.get(url=f_url, headers=header).status_code}"
                 )
                 continue
@@ -99,7 +100,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 continue
 
             if len(feed_posts) == 0:
-                logger.warn("no posts found for " + author + "! skipping this feed")
+                logger.warning("no posts found for " + author + "! skipping this feed")
                 continue
 
             date_key = ("pubDate", "published")[dumbfuckingjekyll]
@@ -154,7 +155,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
             try:
                 msg = await discord_chan.send(embed=post.embed())
                 await msg.add_reaction("<:yay:853288251325153320>")
-            except Forbidden as e:
+            except Forbidden:
                 if channel_id == 833645549742981190:
                     logger.fatal(
                         "Got Forbidden when trying to post a new polyring post. time to ping lukas!"
