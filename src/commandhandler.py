@@ -1222,7 +1222,11 @@ class CommandHandler:
                         msg += f"{str(line_indx+1).rjust(3)}| {lines[line_indx]}\n"
                         line_indx += 1
                     msg += "\n" + "`" * 3
-                    msg += f"> Answering to {message.author.nick}"
+                    caller_name: str = message.author.nick
+                    caller_name = caller_name.translate(
+                        {ord("@"): "\@", ord("#"): "\#", ord("<"): "\<", ord(">"): "\>"}
+                    )
+                    msg += f"> Answering to {caller_name}"
                     return (0, msg)
             else:
                 return (4, None)
