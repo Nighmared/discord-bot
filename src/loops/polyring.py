@@ -75,8 +75,9 @@ class PolyringFetcher(discord.ext.commands.Cog):
             except Timeout:
                 logger.error(f"Timed out trying to fetch feed of {author}. Skipping.")
                 continue
-            except Exception as e:
-                logger.fatal(str(e))
+
+            except Exception:
+                logger.fatal("Got error when trying to fetch feed", exc_info=1)
                 logger.warning(
                     f"Skipping {author}  because of above error, url= {f_url}, status = {requests.get(url=f_url, headers=header).status_code}"
                 )
@@ -100,7 +101,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 continue
 
             if len(feed_posts) == 0:
-                logger.warning("no posts found for " + author + "! skipping this feed")
+                logger.warning("no posts found for %s! skipping this feed", author)
                 continue
 
             date_key = ("pubDate", "published")[dumbfuckingjekyll]
