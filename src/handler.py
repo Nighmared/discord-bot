@@ -211,21 +211,8 @@ async def doreload(
             pass  # cant do anyting :shrug:
 
 
-async def do_the_thing(
-    channel: discord.TextChannel, name: str, cover_id: int, avatar_url: str
-):
-    global PREFIX
-    embed = discord.Embed(title="How did this happen? :O")
-    file = discord.File(
-        cmdhandler.dbhandler.get_nhentai_path_by_id(cover_id)[0].rstrip(".blurred.jpg")
-        + ".jpg",
-        "IMG.jpg",
-        spoiler=True,
-    )
-    embed.set_image(url="attachment://IMG.jpg")
-    await cmdhandler.sendMsg(
-        channel, embed, callee=name, file=file, callee_pic=avatar_url
-    )
+async def do_the_thing(message: discord.Message):
+    await message.add_reaction("🤫")
 
 
 async def handle(message: discord.Message) -> int:
@@ -265,9 +252,7 @@ async def handle(message: discord.Message) -> int:
 
     # easteregg lel
     if "177013" in message.content.strip().replace(" ", "") and not is_command:
-        await do_the_thing(
-            message.channel, message.author.nick, 177013, message.author.avatar_url
-        )
+        await do_the_thing(message)
     if is_command:
         logger.info(f"{message.author.name}>{message.content}")
 
