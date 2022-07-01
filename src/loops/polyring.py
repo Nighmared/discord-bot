@@ -113,7 +113,9 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 pub = fp.find(date_key).text
                 title = fp.find("title").text
                 link = fp.find("link")
-                guid = fp.find(guid_key).text.strip()
+                # for some reason its possible for some rss values to start with
+                # "tag:" :reeeeee:
+                guid = fp.find(guid_key).text.strip().lstrip("tag:")
                 if dumbfuckingjekyll:
                     link = link.attrib["href"]
                 else:
