@@ -1,5 +1,5 @@
 while true
 do
 git pull --no-edit
-python3.8 bot.py
+python3.9 bot.py
 done
