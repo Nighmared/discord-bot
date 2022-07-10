@@ -2,6 +2,7 @@ import logging
 import xml.etree.ElementTree as ET
 from html import unescape
 from time import sleep, time
+from typing import Tuple
 
 import discord
 import discord.ext.commands
@@ -95,13 +96,13 @@ class PolyringFetcher(discord.ext.commands.Cog):
             res.add(guid)
         return res
 
-    def filter_new_posts(self, feeds, post_guid_set) -> list[tuple[int, Post]]:
+    def filter_new_posts(self, feeds, post_guid_set) -> list[Tuple[int, Post]]:
         header = {
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0",
             "Accept": "text/html",
             "Accept-Language": "en-US",
         }
-        new_posts: list[tuple[int, Post]] = []
+        new_posts: list[Tuple[int, Post]] = []
         for fid, f_url, author in feeds:
             # print(f_url)
             try:
