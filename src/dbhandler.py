@@ -96,7 +96,7 @@ class Dbhandler:
         else:
             self.add_user(uid, name, newpermlev)
 
-    def get_cmd_perm(self, cmd):
+    def get_cmd_perm(self, cmd: str):
         try:
             with self.conn:
                 self.cursor.execute(
@@ -105,7 +105,7 @@ class Dbhandler:
                 res = self.cursor.fetchall()[0][0]
         except Exception:
             # print("[dbhandler.py] (get_cmd_perm) frick cmd not added",cmd)
-            logger.warning("Unable to look up permission level of ? ", (cmd))
+            logger.warning("Unable to look up permission level of %s ", cmd)
             res = 8  # return dumb high number as default
         return res
 
@@ -311,15 +311,15 @@ class Dbhandler:
                         """INSERT INTO polyring_feeds(author,blog_url,feed_url, added_by) VALUES(?,?,?,?)""",
                         (blog["title"], blog["url"], blog["feed"], command_user_id),
                     )
-            except Exception as e:
+            except Exception as error:
                 try:
                     with self.conn:
                         self.cursor.execute(
                             """UPDATE polyring_feeds SET blog_url=?, feed_url=? where author=?""",
                             (blog["url"], blog["feed"], blog["title"]),
                         )
-                except OperationalError as e:
-                    logger.error(str(e))
+                except OperationalError as error:
+                    logger.error(str(error))
                 continue
 
     def get_polyring_feeds(self):
@@ -339,13 +339,16 @@ class Dbhandler:
             posts = self.cursor.fetchall()
         return posts
 
-    def add_polyring_post(self, post, fid):
+    def add_polyring_post(self, post, fid) -> int:
         # title, descr,pubdate,fid,link, guid
         with self.conn:
             self.cursor.execute(
                 "INSERT INTO polyring_posts(title,description,pubdate,fid,link,guid) VALUES(?,?,?,?,?,?)",
                 (post.title, post.descr, post.pubdate, fid, post.link, post.guid),
             )
+            self.cursor.execute("SELECT last_insert_rowid()")
+            new_post_id = int(self.cursor.fetchall()[0][0])
+        return new_post_id
 
     def get_loops(self):
         with self.conn:

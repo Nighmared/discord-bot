@@ -6,7 +6,7 @@ from time import sleep, time
 import discord
 import discord.ext.commands
 import requests
-from discord.errors import Forbidden
+from discord.errors import Forbidden, HTTPException
 from discord.ext import tasks
 from requests.exceptions import Timeout
 
@@ -17,6 +17,40 @@ logger = logging.getLogger("botlogger")
 
 POLYRING_CHANNELS = (833645549742981190,)
 POLYRING_COLOR = 0x1F407A
+
+
+class Post:
+    def __init__(
+        self,
+        title: str,
+        descr: str,
+        author: str,
+        link: str,
+        pubdate: str,
+        guid: str,
+    ):
+        self.title = title
+        self.descr = descr
+        self.author = author
+        if not (link.startswith("http") or link.startswith("https")):
+            link = "http://" + link
+        self.link = link
+        self.pubdate = pubdate
+        if not guid.startswith("http"):
+            guid = "http://" + guid
+        self.guid = guid
+        self.tuple = (self.title, self.descr, self.pubdate, self.link, self.author)
+        self.post_id = -1
+
+    def embed(self):
+        embObj = discord.Embed(
+            title=self.title,
+            description=self.descr,
+            color=POLYRING_COLOR,
+            url=self.guid,
+        )
+        embObj.set_author(name=self.author)
+        return embObj
 
 
 class PolyringFetcher(discord.ext.commands.Cog):
@@ -44,12 +78,13 @@ class PolyringFetcher(discord.ext.commands.Cog):
             if int(self.dbhandler.get_from_misc("debug")) > 0:
                 return
 
-        feeds = self.dbhandler.get_polyring_feeds()
-        posts = self.dbhandler.get_polyring_posts()
+        feeds: tuple[int, str, str] = self.dbhandler.get_polyring_feeds()
+        posts: list[Post] = self.dbhandler.get_polyring_posts()
         post_guid_set = self.get_post_guid_set(posts)
         stuff_to_send = self.filter_new_posts(feeds, post_guid_set)
         for fid, post in stuff_to_send:
-            self.dbhandler.add_polyring_post(post=post, fid=fid)
+            new_pid = self.dbhandler.add_polyring_post(post=post, fid=fid)
+            post.post_id = new_pid
             await self.send_new_post(post)
         self.dbhandler.ping_loop("Polyring", time())
 
@@ -60,26 +95,29 @@ class PolyringFetcher(discord.ext.commands.Cog):
             res.add(guid)
         return res
 
-    def filter_new_posts(self, feeds, post_guid_set):
+    def filter_new_posts(self, feeds, post_guid_set) -> list[tuple[int, Post]]:
         header = {
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0",
             "Accept": "text/html",
             "Accept-Language": "en-US",
         }
-        new_posts = []
+        new_posts: list[tuple[int, Post]] = []
         for fid, f_url, author in feeds:
             # print(f_url)
             try:
                 resp = requests.get(url=f_url.strip(), headers=header, timeout=10)
                 xml_root = ET.fromstring(resp.content.strip())
             except Timeout:
-                logger.error(f"Timed out trying to fetch feed of {author}. Skipping.")
+                logger.error("Timed out trying to fetch feed of %s. Skipping.", author)
                 continue
 
             except Exception:
                 logger.fatal("Got error when trying to fetch feed", exc_info=1)
                 logger.warning(
-                    f"Skipping {author}  because of above error, url= {f_url}, status = {requests.get(url=f_url, headers=header).status_code}"
+                    "Skipping %s  because of above error, url=%s, status = %i",
+                    author,
+                    f_url,
+                    requests.get(url=f_url, headers=header).status_code,
                 )
                 continue
             dumbfuckingjekyll = xml_root.find("channel") is None
@@ -122,7 +160,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     link = link.text
                 try:
                     desc = unescape(fp.find(desc_key).text[:40] + "...")
-                except (TypeError, AttributeError) as e:  # ignore fucky feeds
+                except (TypeError, AttributeError):  # ignore fucky feeds
                     try:
                         desc = unescape(
                             fp.find(("summary", "description")[dumbfuckingjekyll]).text[
@@ -130,17 +168,18 @@ class PolyringFetcher(discord.ext.commands.Cog):
                             ]
                             + "..."
                         )
-                    except (TypeError, AttributeError) as e:
+                    except (TypeError, AttributeError):
                         desc = "[No description tag provided]"
                 post = Post(
                     title, descr=desc, author=author, link=link, pubdate=pub, guid=guid
                 )
                 if post.guid not in post_guid_set:
-                    logger.info(f"adding new post by {author}")
+                    logger.info("adding new post by %s", author)
                     new_posts.append((fid, post))
         if len(new_posts) > 0:
             logger.info(
-                f"returning from post doing stuff thingy with {len(new_posts)} new posts"
+                "returning from post doing stuff thingy with %i new posts",
+                len(new_posts),
             )
         return new_posts
 
@@ -149,7 +188,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
             elem.tag = elem.tag.split("}")[-1]  # fix stupid tagnames ffs
         return xml_root
 
-    async def send_new_post(self, post):
+    async def send_new_post(self, post: Post):
         for channel_id in POLYRING_CHANNELS:
             discord_chan = await self.client.fetch_channel(
                 channel_id
@@ -169,47 +208,29 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     )
                 else:
                     logger.fatal(
-                        f"Got forbidden when trying to send polyring posts. channel id: {channel_id}"
+                        "Got forbidden when trying to send polyring posts. channel id: %i",
+                        channel_id,
                     )
                 continue
+            except HTTPException as error:
+
+                if error.code == 50035:
+                    # discord error code for invalid form body
+                    # is probably misformed url
+                    logger.warning(
+                        "Polyring post with id %i could"
+                        "not be sent because the url is probably bad. Will be ignored!",
+                        post.post_id,
+                    )
+                else:
+                    # if not something specifically handled, just
+                    # pass on
+                    raise error
 
     def cog_unload(self):
         self.dbhandler.close_down()
         self.getnews.stop()
         super.cog_unload()
-
-
-class Post:
-    def __init__(
-        self,
-        title: str,
-        descr: str,
-        author: str,
-        link: str,
-        pubdate: str,
-        guid: str,
-    ):
-        self.title = title
-        self.descr = descr
-        self.author = author
-        if not (link.startswith("http") or link.startswith("https")):
-            link = "http://" + link
-        self.link = link
-        self.pubdate = pubdate
-        if not guid.startswith("http"):
-            guid = "http://" + guid
-        self.guid = guid
-        self.tuple = (self.title, self.descr, self.pubdate, self.link, self.author)
-
-    def embed(self):
-        embObj = discord.Embed(
-            title=self.title,
-            description=self.descr,
-            color=POLYRING_COLOR,
-            url=self.guid,
-        )
-        embObj.set_author(name=self.author)
-        return embObj
 
 
 def update_feeds() -> list:
