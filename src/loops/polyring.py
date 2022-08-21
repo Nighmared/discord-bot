@@ -1,6 +1,7 @@
 import logging
 import xml.etree.ElementTree as ET
 from html import unescape
+import socket
 from time import sleep, time
 
 import discord
@@ -17,6 +18,9 @@ logger = logging.getLogger("botlogger")
 
 POLYRING_CHANNELS = (833645549742981190,)
 POLYRING_COLOR = 0x1F407A
+
+# increase default socket timeout
+socket.setdefaulttimeout(10)
 
 
 class Post:
@@ -107,8 +111,31 @@ class PolyringFetcher(discord.ext.commands.Cog):
             try:
                 resp = requests.get(url=f_url.strip(), headers=header, timeout=10)
                 xml_root = ET.fromstring(resp.content.strip())
+
+            except ET.ParseError:
+                logger.error(
+                    "Got error when trying to parse XML response from %ss feed. Url: %s",
+                    author,
+                    f_url.strip(),
+                    exc_info=1,
+                )
+            except socket.timeout:
+                logger.error(
+                    "Got socket timeout error when receiving results from %s [Feed author: %s]. Skipping",
+                    f_url.strip(),
+                    author,
+                )
+                continue
             except Timeout:
                 logger.error("Timed out trying to fetch feed of %s. Skipping.", author)
+                continue
+
+            except requests.exceptions.RequestException:
+                logger.error(
+                    "Got unhandled exception from request when trying to fetch %ss feed. Skipping.",
+                    author,
+                    exc_info=1,
+                )
                 continue
 
             except Exception:
@@ -117,7 +144,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     "Skipping %s  because of above error, url=%s, status = %i",
                     author,
                     f_url,
-                    requests.get(url=f_url, headers=header).status_code,
+                    resp.status_code,
                 )
                 continue
             dumbfuckingjekyll = xml_root.find("channel") is None
@@ -135,7 +162,9 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 feed_posts = xml_root.find("channel").findall("item")
 
             if feed_posts is None:
-                logger.fatal(f"{author} has weird feed. fuck you Aaron. <3")
+                logger.fatal(
+                    "%s has weird feed. fuck you Aaron. <3", author, exc_info=1
+                )
                 continue
 
             if len(feed_posts) == 0:
