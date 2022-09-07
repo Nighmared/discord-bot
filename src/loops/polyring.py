@@ -1,7 +1,7 @@
 import logging
+import socket
 import xml.etree.ElementTree as ET
 from html import unescape
-import socket
 from time import sleep, time
 
 import discord
@@ -180,13 +180,24 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 pub = fp.find(date_key).text
                 title = fp.find("title").text
                 link = fp.find("link")
-                # for some reason its possible for some rss values to start with
-                # "tag:" :reeeeee:
-                guid = fp.find(guid_key).text.strip().lstrip("tag:")
+
                 if dumbfuckingjekyll:
                     link = link.attrib["href"]
                 else:
                     link = link.text
+                guid_res = fp.find(guid_key)
+                if guid_res is None:
+                    # yet another generator??
+                    if "B!Soft" in xml_root.find("generator").text:
+                        desc_key = "description"
+                    logger.warning(
+                        "Couldn't find guid for %s. Using <link> as guid instead", f_url
+                    )
+                    guid_res = link
+
+                # for some reason its possible for some rss values to start with
+                # "tag:" :reeeeee:
+                guid = guid_res.strip().lstrip("tag:")
                 try:
                     desc = unescape(fp.find(desc_key).text[:40] + "...")
                 except (TypeError, AttributeError):  # ignore fucky feeds
@@ -222,7 +233,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
             discord_chan = await self.client.fetch_channel(
                 channel_id
             )  # type: discord.TextChannel
-            logger.debug("fetched polyring channel:" + str(discord_chan))
+            logger.debug("fetched polyring channel: %s", str(discord_chan))
             try:
                 msg = await discord_chan.send(embed=post.embed())
                 await msg.add_reaction("<:yay:853288251325153320>")
