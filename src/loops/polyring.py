@@ -192,7 +192,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     )
                     guid_res = link
 
-                    generator_res = xml_root.find("generator")
+                    generator_res = xml_root.find("channel").find("generator")
                     if generator_res:
                         if "B!Soft" in generator_res.text:
                             desc_key = "description"
