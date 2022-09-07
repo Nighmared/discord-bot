@@ -162,9 +162,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 feed_posts = xml_root.find("channel").findall("item")
 
             if feed_posts is None:
-                logger.fatal(
-                    "%s has weird feed. fuck you Aaron. <3", author, exc_info=1
-                )
+                logger.fatal("%s has weird feed. <3", author, exc_info=1)
                 continue
 
             if len(feed_posts) == 0:
@@ -188,12 +186,22 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 guid_res = fp.find(guid_key)
                 if guid_res is None:
                     # yet another generator??
-                    if "B!Soft" in xml_root.find("generator").text:
-                        desc_key = "description"
+                    # check for B!Soft used by Solitude
                     logger.warning(
                         "Couldn't find guid for %s. Using <link> as guid instead", f_url
                     )
                     guid_res = link
+
+                    generator_res = xml_root.find("generator")
+                    if generator_res:
+                        if "B!Soft" in generator_res.text:
+                            desc_key = "description"
+                    else:
+                        logger.fatal(
+                            "No idea whats wrong with this feed.. Author: %s, feed: %s",
+                            author,
+                            f_url,
+                        )
 
                 else:
                     guid_res = guid_res.text
