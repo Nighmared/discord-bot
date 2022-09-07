@@ -195,6 +195,9 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     )
                     guid_res = link
 
+                else:
+                    guid_res = guid_res.text
+
                 # for some reason its possible for some rss values to start with
                 # "tag:" :reeeeee:
                 guid = guid_res.strip().lstrip("tag:")
