@@ -187,8 +187,9 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 if guid_res is None:
                     # yet another generator??
                     # check for B!Soft used by Solitude
-                    logger.warning(
-                        "Couldn't find guid for %s. Using <link> as guid instead", f_url
+                    logger.debug(
+                        "Couldn't find guid for post on %s. Using <link> as guid instead",
+                        f_url,
                     )
                     guid_res = link
 
