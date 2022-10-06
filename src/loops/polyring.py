@@ -119,6 +119,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     f_url.strip(),
                     exc_info=1,
                 )
+                continue
             except socket.timeout:
                 logger.error(
                     "Got socket timeout error when receiving results from %s [Feed author: %s]. Skipping",
