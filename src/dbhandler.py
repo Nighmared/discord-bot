@@ -3,6 +3,7 @@ import sqlite3 as sql
 import subprocess as sub
 from datetime import datetime as dt
 from sqlite3.dbapi2 import OperationalError
+from typing import Any, Optional, Union
 
 FALLBACK_PREFIX = "°"  # for transition from static prefix, hotfix in case shit fails
 
@@ -79,7 +80,7 @@ class Dbhandler:
             res = self.cursor.fetchall()
         return res
 
-    def set_perm(self, user, newpermlev):
+    def set_perm(self, user, newpermlev) -> int:
         # first check if user exists
         uid = user.id
         name = user.mention
@@ -95,6 +96,7 @@ class Dbhandler:
                 )
         else:
             self.add_user(uid, name, newpermlev)
+        return 0
 
     def get_cmd_perm(self, cmd: str):
         try:
@@ -109,13 +111,13 @@ class Dbhandler:
             res = 8  # return dumb high number as default
         return res
 
-    def get_from_misc(self, key):
+    def get_from_misc(self, key) -> str:
         with self.conn:
             self.cursor.execute("""select value from misc where key==?""", (key,))
             try:
                 return self.cursor.fetchall()[0][0]
             except IndexError:
-                return None
+                return ""
 
     def set_to_misc(self, key, value):
         with self.conn:
@@ -141,16 +143,16 @@ class Dbhandler:
         else:
             return ""
 
-    def _execComm(self, command: str, raw=False):
+    def _raw_execComm(self, command) -> list[Any]:
         with self.conn:
             self.cursor.execute(command)
             res = self.cursor.fetchall()
-        if raw:
-            return res
+        return res
+
+    def _execComm(self, command: str) -> Union[str, int]:
+        res = self._raw_execComm(command)
         if len(res) > 0:
-            out = ""
-            for r in res:
-                out += str(r) + "\n"
+            out = "\n".join(res)
             return out
         else:
             return -10
@@ -251,7 +253,7 @@ class Dbhandler:
             self.cursor.execute("""select blocked from nhentai where id=?""", (nh_id,))
             res = self.cursor.fetchall()
         if len(res) > 0:
-            curr_state = res[0][0]
+            curr_state: str = res[0][0]
             if noswitch:
                 with self.conn:
                     self.cursor.execute(
@@ -268,13 +270,16 @@ class Dbhandler:
                 self.cursor.execute(
                     """insert into nhentai values(?,?,?)""", (nh_id, f"fake_{nh_id}", 1)
                 )
+                curr_state = "1"
 
         if noswitch or not int(curr_state):
             logger.info("Blocked nhentai id %i", nh_id)
         else:
             logger.info("Unblocked nhentai id %i", nh_id)
 
-    def add_meme(self, template_name: str, uid: int, caption: str, img_url: str) -> int:
+    def add_meme(
+        self, template_name: str, uid: int, caption: str, img_url: str
+    ) -> Optional[int]:
         try:
             with self.conn:
                 self.cursor.execute(
@@ -303,7 +308,9 @@ class Dbhandler:
                 (template_name, template_id),
             )
 
-    def update_polyring_feeds(self, feed_list: list, command_user_id: int = None):
+    def update_polyring_feeds(
+        self, feed_list: list, command_user_id: Optional[int] = None
+    ):
         for blog in feed_list:
             try:
                 with self.conn:
@@ -322,7 +329,7 @@ class Dbhandler:
                     logger.error(str(error))
                 continue
 
-    def get_polyring_feeds(self):
+    def get_polyring_feeds(self) -> list[tuple[int, str, str]]:
         with self.conn:
             self.cursor.execute(
                 """SELECT fid,feed_url,author from polyring_feeds where enabled=1"""

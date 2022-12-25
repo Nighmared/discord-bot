@@ -1,5 +1,6 @@
 import logging
 import socket
+from typing import Optional
 import xml.etree.ElementTree as ET
 from html import unescape
 from time import sleep, time
@@ -82,7 +83,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
             if int(self.dbhandler.get_from_misc("debug")) > 0:
                 return
 
-        feeds: tuple[int, str, str] = self.dbhandler.get_polyring_feeds()
+        feeds = self.dbhandler.get_polyring_feeds()
         posts: list[Post] = self.dbhandler.get_polyring_posts()
         post_guid_set = self.get_post_guid_set(posts)
         stuff_to_send = self.filter_new_posts(feeds, post_guid_set)
@@ -108,6 +109,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
         new_posts: list[tuple[int, Post]] = []
         for fid, f_url, author in feeds:
             # print(f_url)
+            resp: Optional[requests.Response] = None
             try:
                 resp = requests.get(url=f_url.strip(), headers=header, timeout=10)
                 xml_root = ET.fromstring(resp.content.strip())
@@ -117,7 +119,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     "Got error when trying to parse XML response from %ss feed. Url: %s",
                     author,
                     f_url.strip(),
-                    exc_info=1,
+                    exc_info=True,
                 )
                 continue
             except socket.timeout:
@@ -135,17 +137,17 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 logger.error(
                     "Got unhandled exception from request when trying to fetch %ss feed. Skipping.",
                     author,
-                    exc_info=1,
+                    exc_info=True,
                 )
                 continue
 
             except Exception:
-                logger.fatal("Got error when trying to fetch feed", exc_info=1)
+                logger.fatal("Got error when trying to fetch feed", exc_info=True)
                 logger.warning(
                     "Skipping %s  because of above error, url=%s, status = %i",
                     author,
                     f_url,
-                    resp.status_code,
+                    resp.status_code if resp is not None else -1,
                 )
                 continue
             dumbfuckingjekyll = xml_root.find("channel") is None
@@ -163,7 +165,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 feed_posts = xml_root.find("channel").findall("item")
 
             if feed_posts is None:
-                logger.fatal("%s has weird feed. <3", author, exc_info=1)
+                logger.fatal("%s has weird feed. <3", author, exc_info=True)
                 continue
 
             if len(feed_posts) == 0:
@@ -243,10 +245,14 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
     async def send_new_post(self, post: Post):
         for channel_id in POLYRING_CHANNELS:
-            discord_chan = await self.client.fetch_channel(
-                channel_id
-            )  # type: discord.TextChannel
+            discord_chan = await self.client.fetch_channel(channel_id)
+            if not (isinstance(discord_chan, (discord.TextChannel, discord.DMChannel))):
+                logger.exception(
+                    "!! Polyring channel with id %i is not sendable!", channel_id
+                )
+                continue
             logger.debug("fetched polyring channel: %s", str(discord_chan))
+
             try:
                 msg = await discord_chan.send(embed=post.embed())
                 await msg.add_reaction("<:yay:853288251325153320>")
@@ -256,6 +262,9 @@ class PolyringFetcher(discord.ext.commands.Cog):
                         "Got Forbidden when trying to post a new polyring post. time to ping lukas!"
                     )
                     spam_chan = await self.client.fetch_channel(768600365602963496)
+                    if not isinstance(spam_chan, discord.TextChannel):
+                        logger.exception("Spam channel is no longer textchannel???")
+                        continue
                     await spam_chan.send(
                         content="<@!223932775474921472> BRUH GIB PERMS FOR POLYRING"
                     )
@@ -280,10 +289,9 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     # pass on
                     raise error
 
-    def cog_unload(self):
+    async def cog_unload(self):
         self.dbhandler.close_down()
         self.getnews.stop()
-        super.cog_unload()
 
 
 def update_feeds() -> list:

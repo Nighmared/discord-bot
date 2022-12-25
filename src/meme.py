@@ -1,4 +1,5 @@
 import logging
+from typing import Literal, Optional, Union
 
 import requests
 
@@ -18,7 +19,10 @@ except FileNotFoundError:
 
 def get_meme(
     template_name: str, text0: str, text1: str, dbhandler: dbhandler.Dbhandler
-) -> tuple:  # returns (errorcode:int, img_url:str, error_descr:str)
+) -> Union[
+    tuple[Literal[0], str, None, str],
+    tuple[int, None, str, None],
+]:  # returns (errorcode:int, img_url:str, error_descr:str,meme_url:str)
     TEMPLATE_IDS = dbhandler.get_meme_templates()
     if template_name not in TEMPLATE_IDS.keys():
         return (3, None, "Invalid template name", None)
@@ -46,7 +50,7 @@ def get_meme(
     try:
         return (0, p_req.json()["data"]["url"], None, p_req.json()["data"]["page_url"])
     except KeyError:
-        return (1, "", p_req.content.decode(), None)
+        return (1, None, p_req.content.decode(), None)
 
 
 def get_popular_memes() -> list:

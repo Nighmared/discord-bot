@@ -14,6 +14,7 @@ logger = logging.getLogger("botlogger")
 
 class GuessCleaner(discord.ext.commands.Cog):
     def __init__(self, client: discord.ext.commands.Bot, handler_ref):
+        super().__init__()
         self.client = client
         self.handler_ref = handler_ref
         self.dbhandler = dbhandler.Dbhandler(
@@ -32,7 +33,6 @@ class GuessCleaner(discord.ext.commands.Cog):
 
         self.dbhandler.ping_loop("Magic Loop", time())
 
-    def cog_unload(self):
+    async def cog_unload(self):
         self.dbhandler.close_down()
         self.cleaner.stop()
-        super.cog_unload()

@@ -22,7 +22,7 @@ async def init(client: discord.ext.commands.Bot, handler_ref: handler):  # type:
 
 
 async def discard(client: discord.ext.commands.Bot):
-    cognames = client.cogs.copy().keys()
+    cognames = list(client.cogs.keys())
     logger.info("removing cogs")
     for cogname in cognames:
         await client.remove_cog(cogname)

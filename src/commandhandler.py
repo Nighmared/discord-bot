@@ -3,11 +3,14 @@ import traceback
 from sqlite3 import OperationalError
 from sys import version_info as python_version
 from time import time as current_time_sec
+from typing import Awaitable, Callable, Optional, Union
 
 import discord
 import discord.ext.commands
-from discord.channel import TextChannel
+from discord.abc import PrivateChannel
 from discord.errors import Forbidden, NotFound
+from discord.ext.commands import Bot
+
 
 import dbhandler
 import inspirobot
@@ -28,8 +31,8 @@ IMPORTS = (
     nhentai,
     inspirobot,
     meme,
-    stalk,
     robohash,
+    stalk,
     shorten,
     xkcd,
     polyring,
@@ -37,12 +40,34 @@ IMPORTS = (
 logger = logging.getLogger("botlogger")
 
 
-cmd_handling_funcs = {}
+cmd_handling_funcs: dict[
+    str,
+    Callable[
+        ["CommandHandler", discord.Message],
+        Awaitable[
+            Union[
+                tuple[int, Optional[discord.Embed]],
+                tuple[int, Optional[discord.Embed], discord.File],
+            ]
+        ],
+    ],
+] = {}
 
 
 def command(func):
     cmd_handling_funcs[func.__name__] = func
     return func
+
+
+def get_nick_or_name(user: Union[discord.User, discord.Member]) -> str:
+    name = user.name
+    if isinstance(user, discord.Member) and user.nick is not None:
+        name = user.nick
+    return name
+
+
+def get_author(message: discord.Message) -> str:
+    return get_nick_or_name(message.author)
 
 
 class CommandHandler:
@@ -86,10 +111,10 @@ class CommandHandler:
     def __init__(
         self,
         dbhandler_instance: dbhandler.Dbhandler,
-        msgs: msglist,
+        msgs: msglist.Msglist,
         PREFIX: str,
         time_tracker,
-        client: discord.ext.commands.Bot,
+        client: Bot,
     ):
         self.msgs = msgs
         self.dbhandler = dbhandler_instance
@@ -108,19 +133,19 @@ class CommandHandler:
     async def sendMsg(
         self,
         channel,
-        toSend: discord.Embed,
+        toSend: Union[discord.Embed, str],
         file=None,
-        callee="INVALID",
-        callee_pic: str = None,
+        caller="INVALID",
+        caller_pic: Optional[str] = None,
     ):
         try:
-            if type(toSend) == discord.embeds.Embed:
-                if callee == "INVALID":
+            if isinstance(toSend, discord.Embed):
+                if caller == "INVALID":
                     toSend.set_footer(
                         text=f"Answering to {self.curr_msg.author.name}\n <fix footer for dis cmd>"
                     )  # tf is this line??? FIXME
                 else:
-                    toSend.set_author(name=callee, icon_url=callee_pic)
+                    toSend.set_author(name=caller, icon_url=caller_pic)
                     toSend.timestamp = (
                         self.uptime_tracker.get_now_utc()
                     )  # important cuz for some reason discord adjusts time assuming utc time...
@@ -155,14 +180,7 @@ class CommandHandler:
         if not self.perm_valid(cmd, permlevel):
             return 4
 
-        try:
-            callee = (
-                message.author.nick
-                if message.author.nick is not None
-                else message.author.name
-            )
-        except AttributeError:
-            callee = message.author.name
+        caller = get_author(message)
 
         if cmd == "reload":
             error, embObj = await self.reload(message)
@@ -170,8 +188,8 @@ class CommandHandler:
                 await self.sendMsg(
                     channel=message.channel,
                     toSend=embObj,
-                    callee=callee,
-                    callee_pic=message.author.avatar.url
+                    caller=caller,
+                    caller_pic=message.author.avatar.url
                     if message.author.avatar
                     else "",
                 )
@@ -192,15 +210,17 @@ class CommandHandler:
             err2 = await self.sendMsg(
                 message.channel,
                 embObj,
-                callee=callee,
+                caller=caller,
                 file=file,
-                callee_pic=message.author.avatar.url,
+                caller_pic=message.author.avatar.url if message.author.avatar else None,
             )
             error = (error, err2)[error == 0]
         return error
 
     @command
-    async def addcommand(self, message: discord.Message) -> tuple:
+    async def addcommand(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             args = message.content[1:].split(" ")
             self.dbhandler._execComm(
@@ -230,7 +250,9 @@ class CommandHandler:
             return (3, embObj)
 
     @command
-    async def add_meme_template(self, message: discord.Message) -> tuple:
+    async def add_meme_template(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             args = message.content[1:].split(" ")
             template_name = args[1]
@@ -241,20 +263,25 @@ class CommandHandler:
             return (1, None)
 
     @command
-    async def banner(self, message: discord.Message) -> tuple:
+    async def banner(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             channel, guild = message.channel, message.guild
-            banner_url = guild.banner_url
+            if guild is None:
+                return (1, None)
+            banner_url = guild.banner.url if guild.banner is not None else None
             embObj = discord.Embed(
                 title="Banner", description=guild.name, color=self.NORMALCOLOR
             )
-            embObj.set_image(url=banner_url)
+            if banner_url is not None:
+                embObj.set_image(url=banner_url)
             return (0, embObj)
         except:
             return (1, None)
 
     @command
-    async def changelog(self, message: discord.Message) -> tuple:
+    async def changelog(self, _message: discord.Message) -> tuple[int, discord.Embed]:
         try:
             embObj = discord.Embed(
                 title="Latest Changes",
@@ -271,14 +298,16 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def createbackup(self, message: discord.Message) -> tuple:
+    async def createbackup(self, message: discord.Message) -> tuple[int, discord.Embed]:
         error = self.dbhandler.create_backup()
         res = ("Created Backup of DB", "Something went wrong")[error > 0]
         embObj = discord.Embed(title="Backup", description=res, color=self.QUERYCOLOR)
         return (error, embObj)
 
     @command
-    async def deepsleep(self, message: discord.Message) -> tuple:
+    async def deepsleep(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             self.dbhandler.set_to_misc(
                 "standby", (1, 0)[int(self.dbhandler.get_from_misc("standby"))]
@@ -298,7 +327,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def deleteall(self, message: discord.Message) -> tuple:
+    async def deleteall(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         while len(self.last_MSG) > 0:
             try:
                 await self.last_MSG.pop().delete()
@@ -307,7 +338,9 @@ class CommandHandler:
         return (0, None)
 
     @command
-    async def deletelast(self, message: discord.Message) -> tuple:
+    async def deletelast(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         args = message.content[1:].split(" ")
         if len(self.last_MSG) == 0:
             error = 3
@@ -328,7 +361,9 @@ class CommandHandler:
         return (error, None)
 
     @command
-    async def easter(self, message: discord.Message) -> tuple:
+    async def easter(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         embObj = discord.Embed(
             title="What is this?",
             description="cmljZXB1cml0eXRlc3QubW9iaS9bZGlzY29yZG5hbWVfb2ZfMjIzOTMyNzc1NDc0OTIxNDcyXS5odG1s",
@@ -338,7 +373,9 @@ class CommandHandler:
         return (error, None)
 
     @command
-    async def easterranks(self, message: discord.Message) -> tuple:
+    async def easterranks(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             txt = self.dbhandler.get_from_misc("easter")
             embObj = discord.Embed(title="Easter Egg Hunt leaderboard", description=txt)
@@ -352,7 +389,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def endtrack(self, message: discord.Message) -> tuple:
+    async def endtrack(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         toTrackID = 0
         toTrackName = "nobody"
         self.msgs.set_user(toTrackName)
@@ -362,7 +401,9 @@ class CommandHandler:
         return (0, embObj)
 
     @command
-    async def execsql(self, message: discord.Message) -> tuple:
+    async def execsql(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         cont = message.content
         origlen = len(cont[1:].split(" ")[0].lower())
         query = cont[(origlen + 1) :].strip()
@@ -370,12 +411,11 @@ class CommandHandler:
             res = self.dbhandler._execComm(query)
         except OperationalError as e:
             logger.error(f"Something went wrong with the DB (Query: {query} ")
-            # print("[commandhandler.py] Something went wrong with sqlite")
             embObj = discord.Embed(
                 title="ExecSQL", description=str(e), color=self.ERRORCOLOR
             )
             return (3, embObj)  # command is fuckd up probably
-        if res != -10:
+        if res != -10 and not isinstance(res, int):
             embObj = discord.Embed(
                 title="Query Result", description=">" + query, color=self.QUERYCOLOR
             )
@@ -415,7 +455,9 @@ class CommandHandler:
             return (0, None)
 
     @command
-    async def fixissue(self, message: discord.Message) -> tuple:
+    async def fixissue(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         args = message.content[1:].split(" ")
         try:
             arg = int(args[1])
@@ -426,7 +468,9 @@ class CommandHandler:
         return (error, None)
 
     @command
-    async def getmemes(self, message: discord.Message) -> tuple:
+    async def getmemes(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         memes = meme.get_popular_memes()
         embObj = discord.Embed(title="currently popular memes", color=self.MISCCOLOR)
         pagecount = 0
@@ -444,7 +488,9 @@ class CommandHandler:
         return (0, embObj)
 
     @command
-    async def gettrack(self, message: discord.Message) -> tuple:
+    async def gettrack(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         embObj = discord.Embed(
             title="Tracker",
             description=f"currently tracking {self.toTrackName}",
@@ -453,8 +499,8 @@ class CommandHandler:
         return (0, embObj)
 
     @command
-    async def ga(self, message: discord.Message) -> tuple:
-        dm_chan = await message.author.create_dm()  # type: discord.DMChannel
+    async def ga(self, message: discord.Message) -> tuple[int, Optional[discord.Embed]]:
+        dm_chan = await message.author.create_dm()
         dm_emb_obj = discord.Embed(
             title="Average of tracked guesses",
             description=f"Result: {self.dbhandler.get_avg_guess(message.author.id)}",
@@ -466,7 +512,9 @@ class CommandHandler:
         return 0, emb_obj
 
     @command
-    async def help(self, message: discord.Message) -> tuple:
+    async def help(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             channel = message.channel
             args = message.content[1:].split(" ")
@@ -474,12 +522,11 @@ class CommandHandler:
 
             if len(args) > 1 and args[1].isnumeric:
                 permlevel = int(args[1])
-            cmds = self.dbhandler._execComm(
+            cmds = self.dbhandler._raw_execComm(
                 """SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC""",
-                raw=True,
             )
-            emotes = self.dbhandler._execComm(
-                """SELECT value,desc FROM emotes ORDER BY id ASC""", raw=True
+            emotes = self.dbhandler._raw_execComm(
+                "SELECT value,desc FROM emotes ORDER BY id ASC"
             )
             final_cmd = []
             for c in cmds:
@@ -487,7 +534,7 @@ class CommandHandler:
                     final_cmd.append((c[0], c[1], c[2]))
             embObj = discord.Embed(
                 title="Help",
-                description="Displaying all available commands depending on callees permissionlevel",
+                description="Displaying all available commands depending on callers permissionlevel",
                 color=self.SYSTEMCOLOR,
             )
 
@@ -517,11 +564,13 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def info(self, message: discord.Message) -> tuple:
+    async def info(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
 
             embObj = discord.Embed(
-                title=self.client.user.name,
+                title=self.client.user.name if self.client.user else "Not logged in",
                 description="Info about the greatest bot",
                 color=self.SYSTEMCOLOR,
                 url="http://brrr.nighmared.tech",
@@ -563,7 +612,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def inspire(self, message: discord.Message) -> tuple:
+    async def inspire(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         error, cont = inspirobot.get_img_url()
         if error > 0:
             embObj = discord.Embed(
@@ -580,7 +631,9 @@ class CommandHandler:
         return (error, embObj)
 
     @command
-    async def loopstatus(self, message: discord.Message) -> tuple:
+    async def loopstatus(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         def time_string(time_diff: int) -> str:
             hours = int(time_diff / 3600)
             time_diff %= 3600
@@ -618,7 +671,15 @@ class CommandHandler:
         return 0, emb_obj
 
     @command
-    async def makememe(self, message: discord.Message) -> tuple:
+    async def makememe(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
+
+        error = 0
+        img_url: Optional[str] = None
+        post_url: Optional[str] = None
+        error_descr: Optional[str] = None
+
         try:
             probable_sqli = message.content.count('"') > 2
             space_split_args = message.content.split(" ")
@@ -648,10 +709,9 @@ class CommandHandler:
             error, img_url, error_descr, post_url = meme.get_meme(
                 template_name, text0, text1, self.dbhandler
             )
+
         except IndexError:
-            error = 3
             error_descr = "Invalid Usage"
-        if error == 3:  # -> invalid template
             embObj = discord.Embed(
                 title="makememe", description=error_descr, color=self.ERRORCOLOR
             )
@@ -670,29 +730,31 @@ class CommandHandler:
                 inline=False,
             )
             return (3, embObj)
-        elif error == 1:
+        if error != 0 or img_url is None:
             embObj = discord.Embed(
                 title="makememe", description=error_descr, color=self.ERRORCOLOR
             )
             return (1, embObj)
-        else:
-            self.dbhandler.add_meme(
-                uid=message.author.id,
-                img_url=img_url,
-                caption=caption,
-                template_name=template_name,
-            )
-            embObj = discord.Embed(
-                title="makememe",
-                description="Here's your meme",
-                color=self.MISCCOLOR,
-                url=post_url,
-            )
-            embObj.set_image(url=img_url)
-            return (0, embObj)
+
+        self.dbhandler.add_meme(
+            uid=message.author.id,
+            img_url=img_url,
+            caption=caption,
+            template_name=template_name,
+        )
+        embObj = discord.Embed(
+            title="makememe",
+            description="Here's your meme",
+            color=self.MISCCOLOR,
+            url=post_url,
+        )
+        embObj.set_image(url=img_url)
+        return (0, embObj)
 
     @command
-    async def mostmessages(self, message: discord.Message) -> tuple:
+    async def mostmessages(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             res = self.dbhandler.get_most_messages()
             embObj = discord.Embed(
@@ -721,11 +783,13 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def msgarchive(self, message: discord.Message) -> tuple:
+    async def msgarchive(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             msgls = self.msgs.sendable()
             if len(msgls) == "":
-                error = 2
+                return (2, None)
             else:
                 embObj = discord.Embed(
                     title="Tracker",
@@ -736,7 +800,7 @@ class CommandHandler:
                 for msg in msgls:
                     fieldStr += f"{str(msg.created_at)[:-4]} {msg.author.nick}-> {msg.channel.name}: {msg.content[:100]}\n"
                 embObj.add_field(name="Messagehistory", value=fieldStr, inline=True)
-            return (0, embObj)
+                return (0, embObj)
         except Exception as e:
             embObj = discord.Embed(
                 title="Tracker",
@@ -746,7 +810,7 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def neko(self, message: discord.Message) -> tuple:
+    async def neko(self, _message: discord.Message) -> tuple[int, discord.Embed]:
         try:
             embObj = discord.Embed(
                 title="Neko", description=neko.getNeko(), color=self.MISCCOLOR
@@ -759,9 +823,13 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def newprefix(self, message: discord.Message) -> tuple:
+    async def newprefix(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         args = message.content.split(" ")
         error = 0
+        errormsg = ""
+        emb_obj: Optional[discord.Embed] = None
         if len(args) != 2:
             error = 3
             errormsg = "Mismatch in number of args given."
@@ -802,14 +870,18 @@ class CommandHandler:
         return error, emb_obj
 
     @command
-    async def nhentai(self, message: discord.Message) -> tuple:
+    async def nhentai(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed], Optional[discord.File]]:
         PROTECTED_SERVERS = (747752542741725244,)
         if not (
-            type(message.channel) != discord.channel.TextChannel
-            or message.channel.is_nsfw()
+            isinstance(message.channel, discord.DMChannel)
+            or (
+                isinstance(message.channel, (discord.TextChannel, discord.Thread))
+                and message.channel.is_nsfw()
+            )
         ):
             return (2, None, None)
-
         if message.guild and message.guild.id in PROTECTED_SERVERS:
             embObj = discord.Embed(
                 title="nHentai Random Cover",
@@ -820,7 +892,8 @@ class CommandHandler:
             embObj.set_image(url="https://http.cat/451")
             file_to_send = None
             return (0, embObj, file_to_send)
-
+        embObj: Optional[discord.Embed] = None
+        file_to_send: Optional[discord.File] = None
         args = message.content[1:].split(" ")
         user_pl = self.dbhandler.get_perm_level(message.author.id)
         nsfw = (
@@ -876,7 +949,9 @@ class CommandHandler:
         return (0, embObj, file_to_send)
 
     @command
-    async def nhentaiblock(self, message: discord.Message) -> tuple:
+    async def nhentaiblock(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         args = message.content[1:].replace("  ", " ").split(" ")
         if len(args) > 1 and args[1].isnumeric:
             error = self.nh_handler.nhentai_block(args[1])
@@ -885,7 +960,9 @@ class CommandHandler:
         return (error, None)
 
     @command
-    async def nhentailog(self, message: discord.Message) -> tuple:
+    async def nhentailog(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             log_len = min(int(self.dbhandler.get_from_misc("nh_log_len")), 48)
             with open("nhentai/log.txt") as log_file:
@@ -913,7 +990,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def ping(self, message: discord.Message) -> tuple:
+    async def ping(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         embObj = discord.Embed(
             title="Ping", description="Pong!", color=self.SYSTEMCOLOR
         )
@@ -921,11 +1000,9 @@ class CommandHandler:
         embObj.add_field(
             name="Latency", value=str(self.client.latency * 1000)[:5] + "ms"
         )
-        callee = (
-            message.author.name if message.author.nick is None else message.author.nick
-        )
+        caller = get_author(message)
         embObj.set_author(
-            name=callee,
+            name=caller,
             icon_url=message.author.avatar.url if message.author.avatar else "",
         )
         embObj.timestamp = self.uptime_tracker.get_now_utc()
@@ -942,7 +1019,9 @@ class CommandHandler:
         return (0, None)  # nothing to return as already sent
 
     @command
-    async def polyreload(self, message: discord.Message) -> tuple:
+    async def polyreload(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             self.dbhandler.update_polyring_feeds(
                 polyring.update_feeds(), command_user_id=message.author.id
@@ -953,13 +1032,15 @@ class CommandHandler:
             return (1, None)
 
     @command
-    async def pubkey(self, message: discord.Message) -> tuple:
+    async def pubkey(
+        self, message: discord.Message
+    ) -> tuple[int, discord.Embed, discord.File]:
         embObj = discord.Embed(title="PUBLIC KEY", color=0x000000)
         file = discord.File("joniii.pub")
         return (0, embObj, file)
 
     @command
-    async def reload(self, message: discord.Message) -> tuple:
+    async def reload(self, _message: discord.Message) -> tuple[int, discord.Embed]:
         embObj = discord.Embed(
             title="Reloading...",
             description="let's hope this doesn't fuck anything up...",
@@ -968,7 +1049,9 @@ class CommandHandler:
         return (99, embObj)
 
     @command
-    async def reloadissues(self, message: discord.Message) -> tuple:
+    async def reloadissues(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             ls = issues.getIssues()
             if ls[0][0] == -1:
@@ -989,12 +1072,16 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def robohash(self, message: discord.Message) -> tuple:
+    async def robohash(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         command_len = len(message.content.split(" ")[0])
         return (0, robohash.get_embed(message.content[command_len:].strip()))
 
     @command
-    async def say(self, message: discord.Message) -> tuple:
+    async def say(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         channel = message.channel
         args = message.content[1:].split(" ")
         resttxt = ""
@@ -1012,7 +1099,9 @@ class CommandHandler:
         return (error, None)
 
     @command
-    async def setcache(self, message: discord.Message) -> tuple:
+    async def setcache(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         args = message.content[1:].split(" ")
         cachelen = args[1]
 
@@ -1032,7 +1121,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def setchangelog(self, message: discord.Message) -> tuple:
+    async def setchangelog(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             args = message.content[1:].split(" ")
             new_changelog = " ".join(args[1:])
@@ -1047,7 +1138,10 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def setperm(self, message: discord.Message) -> tuple:
+    async def setperm(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
+        error = 0
         own_perm_lev = self.dbhandler.get_perm_level(message.author.id)
         user = message.mentions[0]
         args = message.content[1:].replace("  ", " ").split(" ")
@@ -1064,7 +1158,7 @@ class CommandHandler:
                 error = self.dbhandler.set_perm(user, newpermlev=perm_lev)
                 embObj = discord.Embed(
                     title="setperm",
-                    description=f"{user.nick} now has permission level {perm_lev}",
+                    description=f"{get_nick_or_name(user)} now has permission level {perm_lev}",
                     color=self.SYSTEMCOLOR,
                 )
             except Exception as e:
@@ -1075,7 +1169,9 @@ class CommandHandler:
         return (error, embObj)
 
     @command
-    async def setstatus(self, message: discord.Message) -> tuple:
+    async def setstatus(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             cont = message.content
             args = cont[1:].split(" ")
@@ -1104,7 +1200,7 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def settrack(self, message: discord.Message) -> int:
+    async def settrack(self, message: discord.Message) -> tuple[int, discord.Embed]:
         try:
             user = message.mentions[0]
             self.toTrackID = user.id
@@ -1123,7 +1219,7 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def setversion(self, message) -> tuple:
+    async def setversion(self, message) -> tuple[int, Optional[discord.Embed]]:
         try:
             args = message.content[1:].split(" ")
             version = args[1]
@@ -1141,7 +1237,7 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def shortlink(self, message) -> tuple:
+    async def shortlink(self, message) -> tuple[int, Optional[discord.Embed]]:
         try:
             url_arg = message.content[1:].split(" ")[1]
         except IndexError:
@@ -1160,11 +1256,13 @@ class CommandHandler:
         return (error, embObj)
 
     @command
-    async def showissues(self, message: discord.Message) -> tuple:
+    async def showissues(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
 
-            res = self.dbhandler._execComm(
-                "select * from issues", True
+            res = self.dbhandler._raw_execComm(
+                "SELECT * FROM issues"
             )  # FIXME add a func in dbhandler to do this! NO DIRECT EXECS OUTSIDE OF DBHANDLER!!!!
             embObj = discord.Embed(title="Issues", color=self.ISSUECOLOR)
             for id, title, tags in res:
@@ -1191,7 +1289,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def showsourcecode(self, message: discord.Message) -> tuple:
+    async def showsourcecode(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[Union[discord.Embed, str]]]:
         error = 0
         args = message.content[1:].split(" ")
         if len(args) < 2:
@@ -1227,9 +1327,14 @@ class CommandHandler:
                         msg += f"{str(line_indx+1).rjust(3)}| {lines[line_indx]}\n"
                         line_indx += 1
                     msg += "\n" + "`" * 3
-                    caller_name: str = message.author.nick
+                    caller_name: str = get_author(message)
                     caller_name = caller_name.translate(
-                        {ord("@"): "\@", ord("#"): "\#", ord("<"): "\<", ord(">"): "\>"}
+                        {
+                            ord("@"): "\\@",
+                            ord("#"): "\\#",
+                            ord("<"): "\\<",
+                            ord(">"): "\\>",
+                        }
                     )
                     msg += f"> Answering to {caller_name}"
                     return (0, msg)
@@ -1238,7 +1343,9 @@ class CommandHandler:
         return (error, None)
 
     @command
-    async def source(self, message: discord.Message) -> tuple:
+    async def source(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         return (
             0,
             discord.Embed(
@@ -1249,209 +1356,27 @@ class CommandHandler:
         )
 
     @command
-    async def stalk(self, message: discord.Message) -> tuple:
-        def make_date_nice(date) -> str:
-            return date.strftime("`%A, %d %B %Y, %H:%M`")
-
-        args = message.content[1:].split(" ")
-        try:
-            target_id = args[1]
-        except IndexError:
-            target_id = message.author.id
-        t_id = int(target_id)
-        try:
-            try:  # id belongs to a member of the guild
-                target = await message.guild.fetch_member(target_id)
-                embObj = discord.Embed(
-                    title="Stalking | User",
-                    description=f"Info about {target.mention}",
-                    color=self.TRACKERCOLOR,
-                )
-                embObj.add_field(
-                    name="Username", value=f"{target.name}#{target.discriminator}"
-                )
-                embObj.add_field(name="UID", value=target.id, inline=False)
-                embObj.add_field(
-                    name="Account Created",
-                    value=make_date_nice(target.created_at),
-                    inline=False,
-                )
-                embObj.add_field(
-                    name="Joined Server",
-                    value=make_date_nice(target.joined_at),
-                    inline=False,
-                )
-                embObj.add_field(name="Is bot", value=target.bot)
-                embObj.add_field(name="Highest Role", value=target.top_role.mention)
-                embObj.set_image(url=target.avatar.url)
-                embObj.set_thumbnail(url=message.guild.icon_url)
-            except NotFound:  # id belongs to a non-member user
-                try:
-                    target = await self.client.fetch_user(target_id)
-                    embObj = discord.Embed(
-                        title="Stalking | User",
-                        description=f"Info about {target.mention}",
-                        color=self.TRACKERCOLOR,
-                    )
-                    embObj.add_field(
-                        name="Username", value=f"{target.name}#{target.discriminator}"
-                    )
-                    embObj.add_field(name="UID", value=target.id, inline=False)
-                    embObj.add_field(
-                        name="Account Created", value=make_date_nice(target.created_at)
-                    )
-                    embObj.add_field(name="Is bot", value=target.bot)
-                    embObj.set_image(url=target.avatar.url)
-                except NotFound:  # id belongs to a channel
-
-                    try:
-                        try:
-                            target = await self.client.fetch_channel(target_id)
-                        except Forbidden:
-                            target = list(
-                                filter(
-                                    lambda x: x.id == t_id,
-                                    await message.guild.fetch_channels(),
-                                )
-                            )[0]
-                        embObj = discord.Embed(
-                            title="Stalking | Channel",
-                            description=f"Info about {target.mention}",
-                            color=self.TRACKERCOLOR,
-                        )
-                        embObj.add_field(name="Channel Name", value=target.name)
-                        if isinstance(target, discord.TextChannel):
-                            attrs = " None "
-                            if target.is_nsfw():
-                                attrs = "NSFW "
-                            if target.is_news():
-                                attrs += " NEWS "
-                            embObj.add_field(
-                                name="Special Attributes", value=str(attrs)
-                            )
-                            embObj.add_field(name="Topic", value=target.topic)
-                            embObj.add_field(
-                                name="Category", value=target.category.mention
-                            )
-
-                        elif isinstance(target, discord.VoiceChannel):  # voice channel
-                            embObj.add_field(name="Bitrate", value=target.bitrate)
-                            embObj.add_field(name="Max User #", value=target.user_limit)
-                            embObj.add_field(
-                                name="Category", value=target.category.mention
-                            )
-
-                        else:  # category channel
-                            embObj.add_field(name="NSFW", value=target.is_nsfw())
-                            txt_chans = [x.mention for x in target.text_channels]
-                            vic_chans = [x.mention for x in target.voice_channels]
-                            if len(txt_chans) > 0:
-                                embObj.add_field(name="Text Channels", value=txt_chans)
-                            if len(vic_chans) > 0:
-                                embObj.add_field(name="Voice Channels", value=vic_chans)
-
-                        embObj.add_field(name="Server", value=target.guild.name)
-                        embObj.add_field(
-                            name="Created at", value=make_date_nice(target.created_at)
-                        )
-                        embObj.set_thumbnail(url=target.guild.icon_url)
-
-                    except NotFound:  # guild
-                        try:
-                            target = await self.client.fetch_guild(target_id)
-                            embObj = discord.Embed(
-                                title="Stalking | Server",
-                                description=f"Info about {target.name}",
-                                color=self.TRACKERCOLOR,
-                            )
-                            embObj.add_field(
-                                name="Boosts", value=target.premium_subscription_count
-                            )
-                            embObj.add_field(
-                                name="Boost Level", value=target.premium_tier
-                            )
-                            embObj.add_field(
-                                name="Description",
-                                value=target.description,
-                                inline=False,
-                            )
-                            embObj.add_field(
-                                name="Created at",
-                                value=make_date_nice(target.created_at),
-                                inline=False,
-                            )
-                            embObj.add_field(
-                                name="Owner",
-                                value=(
-                                    await self.client.fetch_user(target.owner_id)
-                                ).mention,
-                            )
-                            embObj.add_field(
-                                name="Max Members", value=f"{target.max_members} "
-                            )
-                            embObj.add_field(
-                                name="Region", value=str(target.region).capitalize()
-                            )
-                            role_str = ""
-                            for role in target.roles[::-1]:
-                                if len(role_str + role.mention) > 512:
-                                    role_str += "..."
-                                    break
-                                role_str += f"{role.mention} "
-                            embObj.add_field(name="Roles", value=role_str, inline=False)
-                            embObj.set_thumbnail(url=message.guild.icon_url)
-                            embObj.set_image(url=message.guild.banner_url)
-                        except (NotFound, Forbidden):  # role?
-                            try:
-                                target = list(
-                                    filter(lambda x: x.id == t_id, message.guild.roles)
-                                )[0]
-                            except IndexError:
-                                target = None
-                            if target is None:
-                                embObj = discord.Embed(
-                                    title="Stalking | ...what is this?",
-                                    description=f"Couldnt find out what {target_id} represents.. sawry\n Probably a Server the bot has no access to",
-                                    color=self.ERRORCOLOR,
-                                )
-                            else:  # yup role
-                                embObj = discord.Embed(
-                                    title="Stalking | Role",
-                                    description=f"Info about {target.mention}",
-                                    color=self.TRACKERCOLOR,
-                                )
-                                embObj.add_field(name="Color", value=str(target.color))
-                                embObj.add_field(
-                                    name="Pingable", value=target.mentionable
-                                )
-                                embObj.add_field(
-                                    name="Default role", value=target.is_default()
-                                )
-                                embObj.add_field(name="Position", value=target.position)
-                                embObj.add_field(
-                                    name="Created at",
-                                    value=make_date_nice(target.created_at),
-                                    inline=False,
-                                )
-                                embObj.set_thumbnail(url=message.guild.icon_url)
-
-            return (0, embObj)
-        except Exception as e:
-            traceback.print_exc()
-            embObj = discord.Embed(
-                title="Stalking",
-                description=str(e) + str(type(e)),
-                color=self.ERRORCOLOR,
-            )
-            return (1, embObj)
+    async def stalk(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
+        return await stalk.stalk(
+            self.client, self.TRACKERCOLOR, self.ERRORCOLOR, message
+        )
 
     @command
-    async def superdelete(self, message: discord.Message) -> tuple:
-        target_msg = await message.channel.fetch_message(message.reference.message_id)
-        embObj = None
+    async def superdelete(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
+        if message.reference is not None and message.reference.message_id is not None:
+            target_msg = await message.channel.fetch_message(
+                message.reference.message_id
+            )
+        else:
+            # no message referenced?
+            return (3, None)
+        error = 0
         try:
             await target_msg.delete()
-            error = 0
         except discord.Forbidden:
             error = 4
         except discord.NotFound:
@@ -1462,10 +1387,13 @@ class CommandHandler:
             embObj = discord.Embed(
                 title="Superdelete", description=str(e), color=self.ERRORCOLOR
             )
+            return (1, embObj)
         return (error, None)
 
     @command
-    async def togglecmd(self, message: discord.Message) -> tuple:
+    async def togglecmd(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             args = message.content[1:].split(" ")
             if args[1].strip() == "?":
@@ -1493,7 +1421,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def togglensfw(self, message: discord.Message) -> tuple:
+    async def togglensfw(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             new_state = self.dbhandler.toggle_nsfw()
             embObj = discord.Embed(
@@ -1516,7 +1446,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def triggerannoy(self, message: discord.Message) -> tuple:
+    async def triggerannoy(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             self.dbhandler.set_to_misc(
                 "annoyreaction", (not self.dbhandler.shouldAnnoy())
@@ -1534,7 +1466,9 @@ class CommandHandler:
             return (1, embObj)
 
     @command
-    async def xkcd(self, message: discord.Message) -> tuple:
+    async def xkcd(
+        self, message: discord.Message
+    ) -> tuple[int, Optional[discord.Embed]]:
         try:
             url_arg = message.content.split(" ")[1]
             res = xkcd.get_comic(int(url_arg))
