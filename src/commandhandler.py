@@ -171,7 +171,9 @@ class CommandHandler:
                     channel=message.channel,
                     toSend=embObj,
                     callee=callee,
-                    callee_pic=message.author.avatar_url,
+                    callee_pic=message.author.avatar.url
+                    if message.author.avatar
+                    else "",
                 )
                 > 0
             ):
@@ -192,7 +194,7 @@ class CommandHandler:
                 embObj,
                 callee=callee,
                 file=file,
-                callee_pic=message.author.avatar_url,
+                callee_pic=message.author.avatar.url,
             )
             error = (error, err2)[error == 0]
         return error
@@ -922,7 +924,10 @@ class CommandHandler:
         callee = (
             message.author.name if message.author.nick is None else message.author.nick
         )
-        embObj.set_author(name=callee, icon_url=message.author.avatar_url)
+        embObj.set_author(
+            name=callee,
+            icon_url=message.author.avatar.url if message.author.avatar else "",
+        )
         embObj.timestamp = self.uptime_tracker.get_now_utc()
         channel = message.channel
 
@@ -1278,7 +1283,7 @@ class CommandHandler:
                 )
                 embObj.add_field(name="Is bot", value=target.bot)
                 embObj.add_field(name="Highest Role", value=target.top_role.mention)
-                embObj.set_image(url=target.avatar_url)
+                embObj.set_image(url=target.avatar.url)
                 embObj.set_thumbnail(url=message.guild.icon_url)
             except NotFound:  # id belongs to a non-member user
                 try:
@@ -1296,7 +1301,7 @@ class CommandHandler:
                         name="Account Created", value=make_date_nice(target.created_at)
                     )
                     embObj.add_field(name="Is bot", value=target.bot)
-                    embObj.set_image(url=target.avatar_url)
+                    embObj.set_image(url=target.avatar.url)
                 except NotFound:  # id belongs to a channel
 
                     try:

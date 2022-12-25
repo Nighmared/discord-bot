@@ -92,7 +92,7 @@ class PolyringFetcher(discord.ext.commands.Cog):
             await self.send_new_post(post)
         self.dbhandler.ping_loop("Polyring", time())
 
-    def get_post_guid_set(self, posts) -> dict:
+    def get_post_guid_set(self, posts) -> set:
         res = set()
         for post in posts:
             guid = post[5]

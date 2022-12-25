@@ -23,14 +23,16 @@ STARTTIME = datetime.now()
 
 # not using these parts of the discord library,
 # so doesn't matter what prefix is given to the bot instance
-client = Bot(FALLBACK_PREFIX)
+intents = discord.Intents.default()
+intents.message_content = True
+client = Bot(FALLBACK_PREFIX, intents=intents)
 handler.init(client, STARTTIME)
 
 
 @client.event
 async def on_ready():
     handler.ISRELOADING = False
-    loop.init(client, handler_ref=handler)
+    await loop.init(client, handler_ref=handler)  # type: ignore
     print(f"[bot.py] {client.user} has connected")
     logger.info("Bot Online")
     activity = discord.Activity(
@@ -53,7 +55,7 @@ async def on_message(message: discord.Message):
         await handler.doreload(
             message, client=client, STARTTIME=STARTTIME, msgs_backup=msgs_backup
         )
-        loop.init(client, handler)
+        loop.init(client, handler)  # type: ignore
 
 
 if __name__ == "__main__" and len(argv) == 1:
