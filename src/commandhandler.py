@@ -1,5 +1,4 @@
 import logging
-import traceback
 from sqlite3 import OperationalError
 from sys import version_info as python_version
 from time import time as current_time_sec
@@ -7,8 +6,6 @@ from typing import Awaitable, Callable, Optional, Union
 
 import discord
 import discord.ext.commands
-from discord.abc import PrivateChannel
-from discord.errors import Forbidden, NotFound
 from discord.ext.commands import Bot
 
 
@@ -166,13 +163,15 @@ class CommandHandler:
         cmd = self.dbhandler.find_alias(cmd)
         if cmd == "":
             logger.warning(
-                f"{message.author.name}#{message.author.discriminator} tried to use an invalid command"
+                f"{message.author.name}#{message.author.discriminator}"
+                + " tried to use an invalid command"
             )
             return 3
         if not self.dbhandler.cmd_is_enabled(cmd):
             error = 4
             logger.warning(
-                f"{message.author.name}#{message.author.discriminator} tried to use a disabled command ({cmd})"
+                f"{message.author.name}#{message.author.discriminator} tried"
+                + " to use a disabled command ({cmd})"
             )
             return error
         error = 0
@@ -224,27 +223,16 @@ class CommandHandler:
         try:
             args = message.content[1:].split(" ")
             self.dbhandler._execComm(
-                f"""
-			INSERT INTO commands(
-				"cmdname",
-				"permlevel",
-				"helptext",
-				"alias",
-				"enabled"
-				)
-			VALUES(
-				"{args[1]}",
-				{args[2]},
-				"{args[3]}",
-				"{args[4]}",
-				"{args[5]}"
-				)"""
+                "INSERT INTO commands"
+                + '("cmdname","permlevel","helptext","alias","enabled")'
+                + f'VALUES("{args[1]}",{args[2]},"{args[3]}","{args[4]}","{args[5]}")'
             )
             return (0, None)
         except (OperationalError, IndexError):
             embObj = discord.Embed(
                 title="Addcommand",
-                description=f"Usage: {self.PREFIX}addcommand <cmdname:str> <permlevel:int> <help_text:str> <alias:str> <enabled:[0,1]>",
+                description=f"Usage: {self.PREFIX}addcommand <cmdname:str>"
+                + " <permlevel:int> <help_text:str> <alias:str> <enabled:[0,1]>",
                 color=self.QUERYCOLOR,
             )
             return (3, embObj)
@@ -267,7 +255,7 @@ class CommandHandler:
         self, message: discord.Message
     ) -> tuple[int, Optional[discord.Embed]]:
         try:
-            channel, guild = message.channel, message.guild
+            guild = message.guild
             if guild is None:
                 return (1, None)
             banner_url = guild.banner.url if guild.banner is not None else None
@@ -277,7 +265,7 @@ class CommandHandler:
             if banner_url is not None:
                 embObj.set_image(url=banner_url)
             return (0, embObj)
-        except:
+        except Exception:
             return (1, None)
 
     @command
@@ -312,9 +300,10 @@ class CommandHandler:
             self.dbhandler.set_to_misc(
                 "standby", (1, 0)[int(self.dbhandler.get_from_misc("standby"))]
             )
+            verb = ("leaving", "entering")[int(self.dbhandler.get_from_misc("standby"))]
             embObj = discord.Embed(
                 title="DeepSleep Mode",
-                description=f"{('leaving','entering')[int(self.dbhandler.get_from_misc('standby'))]} ~~Lockdown~~ DeepSleep mode",
+                description=f"{verb} ~~Lockdown~~ DeepSleep mode",
                 color=self.SYSTEMCOLOR,
             )
             return (0, embObj)
@@ -333,7 +322,7 @@ class CommandHandler:
         while len(self.last_MSG) > 0:
             try:
                 await self.last_MSG.pop().delete()
-            except:
+            except Exception:
                 continue
         return (0, None)
 
@@ -366,7 +355,8 @@ class CommandHandler:
     ) -> tuple[int, Optional[discord.Embed]]:
         embObj = discord.Embed(
             title="What is this?",
-            description="cmljZXB1cml0eXRlc3QubW9iaS9bZGlzY29yZG5hbWVfb2ZfMjIzOTMyNzc1NDc0OTIxNDcyXS5odG1s",
+            description="cmljZXB1cml0eXRlc3QubW9iaS9bZGlzY29yZ"
+            + "G5hbWVfb2ZfMjIzOTMyNzc1NDc0OTIxNDcyXS5odG1s",
         )
         error = await self.sendMsg(toSend=embObj, channel=message.channel)
         await self.last_MSG.pop(-1).delete(delay=0.5)
@@ -392,9 +382,9 @@ class CommandHandler:
     async def endtrack(
         self, message: discord.Message
     ) -> tuple[int, Optional[discord.Embed]]:
-        toTrackID = 0
-        toTrackName = "nobody"
-        self.msgs.set_user(toTrackName)
+        self.toTrackID = 0
+        self.toTrackName = "nobody"
+        self.msgs.set_user(self.toTrackName)
         embObj = discord.Embed(
             title="Tracker", description="stopped tracking", color=self.TRACKERCOLOR
         )
@@ -406,7 +396,8 @@ class CommandHandler:
     ) -> tuple[int, Optional[discord.Embed]]:
         cont = message.content
         origlen = len(cont[1:].split(" ")[0].lower())
-        query = cont[(origlen + 1) :].strip()
+        start_indx = origlen + 1
+        query = cont[start_indx:].strip()
         try:
             res = self.dbhandler._execComm(query)
         except OperationalError as e:
@@ -516,14 +507,14 @@ class CommandHandler:
         self, message: discord.Message
     ) -> tuple[int, Optional[discord.Embed]]:
         try:
-            channel = message.channel
             args = message.content[1:].split(" ")
             permlevel = self.dbhandler.get_perm_level(message.author.id)
 
             if len(args) > 1 and args[1].isnumeric:
                 permlevel = int(args[1])
             cmds = self.dbhandler._raw_execComm(
-                """SELECT cmdname,helptext,alias,permlevel from commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC""",
+                "SELECT cmdname,helptext,alias,permlevel from"
+                + " commands where enabled==1 ORDER BY cmdname ASC, permlevel ASC",
             )
             emotes = self.dbhandler._raw_execComm(
                 "SELECT value,desc FROM emotes ORDER BY id ASC"
@@ -534,7 +525,8 @@ class CommandHandler:
                     final_cmd.append((c[0], c[1], c[2]))
             embObj = discord.Embed(
                 title="Help",
-                description="Displaying all available commands depending on callers permissionlevel",
+                description="Displaying all available commands depending on "
+                + "callers permissionlevel",
                 color=self.SYSTEMCOLOR,
             )
 
@@ -565,7 +557,7 @@ class CommandHandler:
 
     @command
     async def info(
-        self, message: discord.Message
+        self, _message: discord.Message
     ) -> tuple[int, Optional[discord.Embed]]:
         try:
 
@@ -580,7 +572,8 @@ class CommandHandler:
                     name="TESTING DEPLOYMENT", value=f"Prefix: `{self.PREFIX}`"
                 )
             embObj.set_thumbnail(
-                url="https://repository-images.githubusercontent.com/324449465/a07d7880-4890-11eb-8bfa-a5db39975455"
+                url="https://repository-images.githubusercontent.com/"
+                + "324449465/a07d7880-4890-11eb-8bfa-a5db39975455"
             )
             # 	embObj.set_author(name="joniii")
             embObj.add_field(name="Author", value="<@!291291715598286848>")
@@ -590,9 +583,12 @@ class CommandHandler:
                 value=f"`{self.dbhandler.get_from_misc('version')}`",
                 inline=False,
             )
+
             embObj.add_field(
                 name="discord.py Version",
-                value=f"`{discord.version_info.major}.{discord.version_info.minor}.{discord.version_info.micro}`",
+                value=f"`{discord.version_info.major}."
+                + f"{discord.version_info.minor}."
+                + f"{discord.version_info.micro}`",
             )
             embObj.add_field(
                 name="Python Version",
@@ -700,7 +696,6 @@ class CommandHandler:
                 embObj.add_field(name="Tag for easy search", value="GGB SQLI")
                 return (3, embObj)
             template_name = space_split_args[1]
-            top_caption = False
             text0 = text1 = ""
             crosssplit = caption.split("#")
             text0 = crosssplit[0]
@@ -726,7 +721,9 @@ class CommandHandler:
             embObj.add_field(name=f"Templates Page {page} ", value=templates)
             embObj.add_field(
                 name="Usage",
-                value=f'{self.PREFIX}makememe <template_name>  "upper caption # lower caption"\n Example:\n {self.PREFIX}makememe spongebob_mocking "spam is not nsfw" \n {self.PREFIX}makememe drake "studying # adding dumb features to my bot"',
+                value=f'{self.PREFIX}makememe <template_name>  "upper caption # lower caption"'
+                + f'\n Example:\n {self.PREFIX}makememe spongebob_mocking "spam is not nsfw" '
+                + f'\n {self.PREFIX}makememe drake "studying # adding dumb features to my bot"',
                 inline=False,
             )
             return (3, embObj)
@@ -759,22 +756,26 @@ class CommandHandler:
             res = self.dbhandler.get_most_messages()
             embObj = discord.Embed(
                 title="Message Leaderboard",
-                description="Showing which user has sent the most messages\n [Tracking started on 18.01.2021]",
+                description="Showing which user has sent the most messages\n "
+                + "[Tracking started on 18.01.2021]",
                 color=self.TRACKERCOLOR,
             )
             field_value = ""
             rank = 1
             for entry in res:
-                to_add = f"{str(rank).rjust(3)}. {str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
+                to_add = (
+                    f"{str(rank).rjust(3)}. "
+                    + f"{str(entry[0]).rjust(32)} {str(entry[1]).rjust(5)}\n"
+                )
                 if len(field_value + to_add) > self.FIELDSIZELIMIT:
-                    embObj.add_field(name=f"Ranking", value=field_value, inline=False)
+                    embObj.add_field(name="Ranking", value=field_value, inline=False)
                     field_value = ""
                     break
                 else:
                     field_value += to_add
                 rank += 1
             if field_value != "":
-                embObj.add_field(name=f"Ranking", value=field_value, inline=False)
+                embObj.add_field(name="Ranking", value=field_value, inline=False)
             return (0, embObj)
         except Exception as e:
             embObj = discord.Embed(
@@ -798,7 +799,10 @@ class CommandHandler:
                 )
                 fieldStr = ""
                 for msg in msgls:
-                    fieldStr += f"{str(msg.created_at)[:-4]} {msg.author.nick}-> {msg.channel.name}: {msg.content[:100]}\n"
+                    fieldStr += (
+                        f"{str(msg.created_at)[:-4]} {msg.author.nick}->"
+                        + f" {msg.channel.name}: {msg.content[:100]}\n"
+                    )
                 embObj.add_field(name="Messagehistory", value=fieldStr, inline=True)
                 return (0, embObj)
         except Exception as e:
@@ -936,7 +940,8 @@ class CommandHandler:
                 file_to_send = discord.File(
                     link, filename="SPOILER_FILE.jpg", spoiler=True
                 )
-            except FileNotFoundError:  # accidentally pushed dumb shit; this will rarely occur but prolly fixes it
+            except FileNotFoundError:
+                # accidentally pushed dumb shit; this will rarely occur but prolly fixes it
                 link2 = link.rstrip(".blurred.jpg") + ".jpg"
                 self.nh_handler._blur(link2, sigma)
                 file_to_send = discord.File(
@@ -1055,7 +1060,7 @@ class CommandHandler:
         try:
             ls = issues.getIssues()
             if ls[0][0] == -1:
-                error = 1
+                return (1, None)
             else:
                 self.dbhandler._execComm("DELETE FROM issues")
                 for issue in ls:
@@ -1091,7 +1096,7 @@ class CommandHandler:
         text = parts[0]
         try:
             repnum = int(parts[1])
-        except:
+        except Exception:
             repnum = 0
         error = await self.sendMsg(channel, f"{text}")
         for counter in range(0, repnum):
@@ -1176,7 +1181,6 @@ class CommandHandler:
             cont = message.content
             args = cont[1:].split(" ")
             type = 1
-            error = 0
             splitbyquot = cont.split('"')
             if len(splitbyquot) not in (2, 3):
                 if len(args) < 2:
@@ -1278,7 +1282,7 @@ class CommandHandler:
                 if tags_s == "":
                     tags_s = "[No Tags]"
                 embObj.add_field(name=f"{id}. {title}", value=tags_s, inline=False)
-            # FIXME this doesnt work with discord caching, instead use github api to check workflow status and send static failed/passed image based on that
+
             badge_link = issues.get_badge_link()
             embObj.set_thumbnail(url=badge_link)
             return (0, embObj)
@@ -1404,7 +1408,8 @@ class CommandHandler:
             if totogglecmd.strip() == "":
                 return (3, None)
             self.dbhandler._execComm(
-                f'''UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]} WHERE cmdname=="{totogglecmd}"'''
+                f"UPDATE commands SET enabled={(1,0)[self.dbhandler.cmd_is_enabled(totogglecmd)]}"
+                + f' WHERE cmdname=="{totogglecmd}"'
             )
             return (0, None)
         except IndexError:
@@ -1455,7 +1460,8 @@ class CommandHandler:
             )
             embObj = discord.Embed(
                 title="Tracker",
-                description=f" Turned reaction annoyance {('Off','On')[self.dbhandler.shouldAnnoy()]}",
+                description=" Turned reaction annoyance"
+                + f" {('Off','On')[self.dbhandler.shouldAnnoy()]}",
                 color=self.TRACKERCOLOR,
             )
             return (0, embObj)

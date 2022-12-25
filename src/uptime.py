@@ -1,16 +1,16 @@
 import logging
-from datetime import datetime as dt
+from datetime import datetime
 
 IMPORTS = ()
 logger = logging.getLogger("botlogger")
 
 
 class Uptime:
-    def __init__(self, starttime):
+    def __init__(self, starttime: datetime):
         self.start = starttime
 
     def get_uptime(self):
-        curr = dt.now()
+        curr = datetime.now()
         diff = curr - self.start
         secs = diff.seconds
         mins = int(secs / 60)
@@ -43,8 +43,8 @@ class Uptime:
     def get_now_utc(
         self,
     ):  # dumb wrapper function so i dont have to import datetime separately in commandhandler
-        return dt.utcnow()
+        return datetime.utcnow()
 
 
 def get_now_utc():
-    return dt.utcnow()
+    return datetime.utcnow()

@@ -197,7 +197,8 @@ async def stalk(
                         if target is None:
                             embObj = discord.Embed(
                                 title="Stalking | ...what is this?",
-                                description=f"Couldnt find out what {target_id} represents.. sawry\n Probably a Server the bot has no access to",
+                                description=f"Couldnt find out what {target_id} represents.."
+                                + "sawry\n Probably a Server the bot has no access to",
                                 color=errorcolor,
                             )
                         else:  # yup role

@@ -1,3 +1,4 @@
+from datetime import datetime
 import logging
 import subprocess as sub  # needed for softreload to pull from git kekw
 import sys
@@ -25,13 +26,16 @@ logger = logging.getLogger("botlogger")
 ISRELOADING = True
 PREFIX = "°"  # default value for initialization
 
-msgs: msglist.Msglist
+
+# HACK these globals are super sketchy...
+
 time_tracker: uptime.Uptime
-cmdhandler: commandhandler.CommandHandler
-db: dbhandler.Dbhandler
+msgs: msglist.Msglist = None  # type: ignore
+cmdhandler: commandhandler.CommandHandler = None  # type: ignore
+db: dbhandler.Dbhandler = None  # type: ignore
 
 
-def init(client: Bot, STARTTIME):
+def init(client: Bot, STARTTIME: datetime):
     global cmdhandler, time_tracker, msgs, db, PREFIX
     time_tracker = uptime.Uptime(STARTTIME)
     msgs = msglist.Msglist(5)

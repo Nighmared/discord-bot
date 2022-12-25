@@ -61,7 +61,9 @@ class Post:
 class PolyringFetcher(discord.ext.commands.Cog):
     def __init__(self, client: discord.ext.commands.Bot, handler_ref):
         self.client = client
-        self.dbhandler: dbhandler.Dbhandler = dbhandler.Dbhandler("discordbot.db")
+        self.dbhandler: dbhandler.Dbhandler = dbhandler.Dbhandler(
+            "discordbot.db",
+        )
         self.handler_ref = handler_ref
         self.getnews.start()
 
@@ -124,7 +126,8 @@ class PolyringFetcher(discord.ext.commands.Cog):
                 continue
             except socket.timeout:
                 logger.error(
-                    "Got socket timeout error when receiving results from %s [Feed author: %s]. Skipping",
+                    "Got socket timeout error when receiving results from %s [Feed author: %s].\
+                         Skipping",
                     f_url.strip(),
                     author,
                 )

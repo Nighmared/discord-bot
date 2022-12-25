@@ -3,7 +3,6 @@ from datetime import datetime
 from random import random
 from time import sleep
 
-import requests
 
 XKCD_NUM_LIMIT = 2000
 
@@ -13,8 +12,8 @@ RH_STRINGLEN_LIMIT = 30
 class Test_Basics:
     def test_imports_tuples(self):
         """
-        makes sure all modules that are reloaded on a softreload actually have the correct structure,
-        specifically that they all have an "IMPORTS" **tuple**
+        makes sure all modules that are reloaded on a softreload actually have
+        the correct structure, specifically that they all have an "IMPORTS" **tuple**
         """
         import handler as msgh  # same as above
 
@@ -23,7 +22,8 @@ class Test_Basics:
         for impo in msgh.IMPORTS:
             if (
                 type(impo.IMPORTS) != tuple
-            ):  # make sure that all modules have an IMPORTS tuple defined, otherwise softreload can break
+            ):  # make sure that all modules have an IMPORTS tuple defined,
+                # otherwise softreload can break
                 print("\033[0;31m", end="")
                 print(f"Failed Module: {impo.__name__}")
                 print("\033[0m")
@@ -46,7 +46,8 @@ class Test_Basics:
 
     def test_logger_everywhere(self):
         """
-        Checks that all modules have a logger defined, basically just making it ready for further improvements
+        Checks that all modules have a logger defined, basically just making it
+        ready for further improvements
         """
         import handler as msgh
 
@@ -79,6 +80,24 @@ class Test_Basics:
         import xkcd
         from nhentai import nhentai
 
+        anti_lint = (  # noqa: F841
+            discord,
+            bot,
+            commandhandler,
+            dbhandler,
+            handler,
+            inspirobot,
+            issues,
+            meme,
+            msglist,
+            neko,
+            robohash,
+            stalk,
+            uptime,
+            xkcd,
+            nhentai,
+        )
+
 
 class Test_APIs:
     def test_xkcd(
@@ -87,9 +106,9 @@ class Test_APIs:
         import xkcd
 
         res = xkcd.get_latest()
-        assert res["success"] == True
+        assert res["success"]
         res = xkcd.get_comic(int(random() * XKCD_NUM_LIMIT))
-        assert res["success"] == True
+        assert res["success"]
 
     def test_robohash(self):  # -...
         import robohash
@@ -99,19 +118,19 @@ class Test_APIs:
         for i in range(dummy_string_len):
             dummy_string += chr(97 + int(random() * 26))
 
-        res = robohash.get_embed(dummy_string)  # check that it doesnt fail
+        robohash.get_embed(dummy_string)  # check that it doesnt fail
 
     def test_issues(self):
         import issues
 
         res = issues.getIssues()
-        assert issues != (-1, -1)
+        assert res != (-1, -1)
 
     def test_inspiro(self):
         import inspirobot
 
         res = inspirobot.get_img_url()
-        assert res[0] == False  # first element is boolean error flag
+        assert not res[0]  # first element is boolean error flag
 
     def test_uptime(self):
         import uptime
@@ -122,32 +141,32 @@ class Test_APIs:
         res_string = tracker.get_uptime()
         print(res_string)
         assert "Second" in res_string
-        assert ("Seconds" in res_string) == False
-        assert ("Year" in res_string) == False
-        assert ("Day" in res_string) == False
-        assert ("Hour" in res_string) == False
-        assert ("Minute" in res_string) == False
+        assert not ("Seconds" in res_string)
+        assert not ("Year" in res_string)
+        assert not ("Day" in res_string)
+        assert not ("Hour" in res_string)
+        assert not ("Minute" in res_string)
         sleep(3)
         res_string = tracker.get_uptime()
         assert "Seconds" in res_string
-        assert ("Second " in res_string) == False
-        assert ("Year" in res_string) == False
-        assert ("Day" in res_string) == False
-        assert ("Hour" in res_string) == False
-        assert ("Minute" in res_string) == False
+        assert not ("Second " in res_string)
+        assert not ("Year" in res_string)
+        assert not ("Day" in res_string)
+        assert not ("Hour" in res_string)
+        assert not ("Minute" in res_string)
 
 
 class Test_Invalid_Input:
     def test_robohash(self):
         import robohash
 
-        res = robohash.get_embed("")
+        robohash.get_embed("")
 
     def test_xkcd(self):
         import xkcd
 
         res = xkcd.get_comic(-1)
-        assert res["success"] == False
+        assert not res["success"]
 
 
 class Tests_Slow_Cases:
@@ -160,7 +179,5 @@ class Tests_Slow_Cases:
     def test_shorten_invalid(self):
         import shorten
 
-        res = shorten.shorten_link(-1)
-        assert res[0] != 0
         res = shorten.shorten_link("")
         assert res[0] != 0

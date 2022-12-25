@@ -1,6 +1,7 @@
 import logging
 import random
 import re
+from typing import Optional
 
 import requests
 import skimage
@@ -48,7 +49,9 @@ class Handler:
 
         return newname
 
-    def __download_random_image(self, indx_arg=None) -> str:
+    def __download_random_image(
+        self, indx_arg=None
+    ) -> tuple[Optional[str], Optional[int]]:
         cached_ids = [x[0] for x in self.db_instance.get_nhentai_ids()]
         blocked_ids = [int(x) for x in self.db_instance.get_nhentai_blocked()]
         if indx_arg and indx_arg in blocked_ids:
@@ -64,7 +67,7 @@ class Handler:
                 return None, indx_arg
 
         indx = int(random.random() * self.RANDLIMIT) if indx_arg is None else indx_arg
-        if indx in cached_ids and not indx in blocked_ids:  # if already been downloaded
+        if indx in cached_ids and indx not in blocked_ids:  # if already been downloaded
             return None, indx
 
         response = requests.get(f"https://nhentai.net/g/{indx}")
@@ -83,6 +86,8 @@ class Handler:
 
         cont = response.text
         match = re.search(r'(https://i\.nhentai\.net).*?"', cont)
+        if match is None:
+            return None, indx
         link = match.group(0).rstrip('"')
         logger.info(f"Freshly downloaded {link}")
         img_response = requests.get(link, stream=True)

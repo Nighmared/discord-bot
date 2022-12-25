@@ -68,7 +68,8 @@ class Dbhandler:
         else:
             with self.conn:
                 self.cursor.execute(
-                    """INSERT INTO users(uid,permlevel,name,msgcount,readable_name) VALUES(?,?,?,?,?)""",
+                    "INSERT INTO users(uid,permlevel,name,msgcount,readable_name)"
+                    + " VALUES(?,?,?,?,?)",
                     (author_uid, 0, mention, 1, name),
                 )
 
@@ -169,7 +170,7 @@ class Dbhandler:
         if len(res) == 0:
             with self.conn:
                 self.cursor.execute(
-                    f"""INSERT INTO issues(id,title,tags) VALUES(?,?,?)""",
+                    """INSERT INTO issues(id,title,tags) VALUES(?,?,?)""",
                     (issue_id, title, tag_s),
                 )
 
@@ -283,7 +284,8 @@ class Dbhandler:
         try:
             with self.conn:
                 self.cursor.execute(
-                    "INSERT INTO generated_memes(template_name, user, caption, img_url)	VALUES (?, ?, ?, ?)",
+                    "INSERT INTO generated_memes(template_name, user, caption, img_url)	VALUES"
+                    + " (?, ?, ?, ?)",
                     (template_name, uid, caption, img_url.strip()),
                 )
             return 0
@@ -293,7 +295,7 @@ class Dbhandler:
     def get_meme_templates(self) -> dict:
         with self.conn:
             self.cursor.execute(
-                """SELECT template_name,template_id FROM meme_templates order by template_name asc"""
+                "SELECT template_name,template_id FROM meme_templates order by template_name asc"
             )
             res = self.cursor.fetchall()
         templates = {}
@@ -315,10 +317,11 @@ class Dbhandler:
             try:
                 with self.conn:
                     self.cursor.execute(
-                        """INSERT INTO polyring_feeds(author,blog_url,feed_url, added_by) VALUES(?,?,?,?)""",
+                        "INSERT INTO polyring_feeds(author,blog_url,feed_url, added_by)"
+                        + " VALUES(?,?,?,?)",
                         (blog["title"], blog["url"], blog["feed"], command_user_id),
                     )
-            except Exception as error:
+            except Exception:
                 try:
                     with self.conn:
                         self.cursor.execute(
@@ -340,8 +343,8 @@ class Dbhandler:
     def get_polyring_posts(self):
         with self.conn:
             self.cursor.execute(
-                """SELECT pp.title, pp.description, pp.pubdate,pp.link,pf.author,pp.guid from polyring_posts pp JOIN
-                polyring_feeds pf on pp.fid=pf.fid where pf.enabled>0"""
+                "SELECT pp.title, pp.description, pp.pubdate,pp.link,pf.author,pp.guid from "
+                + "polyring_posts pp JOIN polyring_feeds pf on pp.fid=pf.fid where pf.enabled>0"
             )
             posts = self.cursor.fetchall()
         return posts
@@ -350,7 +353,8 @@ class Dbhandler:
         # title, descr,pubdate,fid,link, guid
         with self.conn:
             self.cursor.execute(
-                "INSERT INTO polyring_posts(title,description,pubdate,fid,link,guid) VALUES(?,?,?,?,?,?)",
+                "INSERT INTO polyring_posts(title,description,pubdate,fid,link,guid)"
+                + " VALUES(?,?,?,?,?,?)",
                 (post.title, post.descr, post.pubdate, fid, post.link, post.guid),
             )
             self.cursor.execute("SELECT last_insert_rowid()")
@@ -378,7 +382,7 @@ class Dbhandler:
         UPPER_BOUND = 50_000
         if guess < LOWER_BOUND or guess > UPPER_BOUND:
             logger.info(
-                f"Found guess %i from uid %i to be useless, skipping.", guess, uid
+                "Found guess %i from uid %i to be useless, skipping.", guess, uid
             )
             return
         with self.conn:

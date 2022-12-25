@@ -3,7 +3,7 @@ defines custom pretty formatter for logs and provides methods to initialize a lo
 said formatter
 """
 import logging
-from typing import Literal, Union
+from typing import Literal
 
 DEFAULT = "\033[0m"
 BLACK = "\033[1;30m"
