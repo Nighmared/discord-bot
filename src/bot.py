@@ -21,8 +21,7 @@ with open(".token.txt") as t_file:
 
 STARTTIME = datetime.now()
 
-# not using these parts of the discord library,
-# so doesn't matter what prefix is given to the bot instance
+# doesn't matter what prefix is given to the bot instance
 intents = discord.Intents.default()
 intents.message_content = True
 client = Bot(FALLBACK_PREFIX, intents=intents)

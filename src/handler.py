@@ -1,7 +1,7 @@
-from datetime import datetime
 import logging
 import subprocess as sub  # needed for softreload to pull from git kekw
 import sys
+from datetime import datetime
 from importlib import reload
 from time import sleep
 from typing import Optional
@@ -39,8 +39,8 @@ def init(client: Bot, STARTTIME: datetime):
     global cmdhandler, time_tracker, msgs, db, PREFIX
     time_tracker = uptime.Uptime(STARTTIME)
     msgs = msglist.Msglist(5)
+    db = dbhandler.Dbhandler("discordbot.db")
     try:
-        db = dbhandler.Dbhandler("discordbot.db")
         prefix_in_db = db.get_from_misc("prefix")
         if prefix_in_db:
             PREFIX = prefix_in_db

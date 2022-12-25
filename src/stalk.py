@@ -6,7 +6,6 @@ import discord
 from discord.abc import PrivateChannel
 from discord.ext.commands import Bot
 
-
 IMPORTS = ()
 logger = logging.getLogger("botlogger")
 

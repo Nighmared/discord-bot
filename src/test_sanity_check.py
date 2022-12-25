@@ -3,7 +3,6 @@ from datetime import datetime
 from random import random
 from time import sleep
 
-
 XKCD_NUM_LIMIT = 2000
 
 RH_STRINGLEN_LIMIT = 30

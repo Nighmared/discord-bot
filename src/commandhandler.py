@@ -8,7 +8,6 @@ import discord
 import discord.ext.commands
 from discord.ext.commands import Bot
 
-
 import dbhandler
 import inspirobot
 import issues

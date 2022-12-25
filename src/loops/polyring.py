@@ -1,9 +1,9 @@
 import logging
 import socket
-from typing import Optional
 import xml.etree.ElementTree as ET
 from html import unescape
 from time import sleep, time
+from typing import Optional
 
 import discord
 import discord.ext.commands

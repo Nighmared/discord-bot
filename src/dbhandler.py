@@ -1,4 +1,5 @@
 import logging
+import os
 import sqlite3 as sql
 import subprocess as sub
 from datetime import datetime as dt
@@ -18,7 +19,8 @@ class Dbhandler:
         self.conn = sql.connect(filename)
         self.cursor = self.conn.cursor()
         self.cursor.execute("""PRAGMA foreign_keys=ON;""")
-        if self.get_from_misc("prefix") is None:
+        no_db = os.environ.get("BOT_NO_DB", default="false") == "true"
+        if not no_db and self.get_from_misc("prefix") is None:
             self.set_to_misc("prefix", FALLBACK_PREFIX)  # Failsafe, kinda
 
     def get_perm_level(self, uid):
