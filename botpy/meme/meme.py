@@ -3,7 +3,7 @@ from typing import Literal, Union
 
 import requests
 
-from bot.sql import dbhandler
+from botpy.sql import dbhandler
 
 IMPORTS = (dbhandler,)
 

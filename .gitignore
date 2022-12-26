@@ -1,7 +1,7 @@
-bot/.token.txt
-bot/.imgflip_creds.txt
+botpy/.token.txt
+botpy/.imgflip_creds.txt
 */__pycache__/*
-bot/*/__pycache__/*
+botpy/*/__pycache__/*
 *.db
 PREFIX.txt
 *.log

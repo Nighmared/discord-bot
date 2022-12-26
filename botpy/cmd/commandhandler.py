@@ -8,18 +8,18 @@ import discord
 import discord.ext.commands
 from discord.ext.commands import Bot
 
-from bot.inspirobot import inspirobot
-from bot.issues import issues
-from bot.loops import polyring
-from bot.meme import meme
-from bot.msglist import msglist
-from bot.neko import neko
-from bot.nhentai import nhentai
-from bot.robohash import robohash
-from bot.shorten import shorten
-from bot.sql import dbhandler
-from bot.stalk import stalk
-from bot.xkcd import xkcd
+from botpy.inspirobot import inspirobot
+from botpy.issues import issues
+from botpy.loops import polyring
+from botpy.meme import meme
+from botpy.msglist import msglist
+from botpy.neko import neko
+from botpy.nhentai import nhentai
+from botpy.robohash import robohash
+from botpy.shorten import shorten
+from botpy.sql import dbhandler
+from botpy.stalk import stalk
+from botpy.xkcd import xkcd
 
 IMPORTS = (
     dbhandler,

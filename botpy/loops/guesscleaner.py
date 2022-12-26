@@ -6,7 +6,7 @@ from discord.ext import tasks
 
 __name__ = "loops.magicstuff"
 
-from bot.sql import dbhandler
+from botpy.sql import dbhandler
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")

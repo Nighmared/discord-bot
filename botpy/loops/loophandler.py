@@ -3,8 +3,8 @@ import logging
 import discord
 import discord.ext.commands
 
-from bot.handler import handler
-from bot.loops import guesscleaner, polyring
+from botpy.handler import handler
+from botpy.loops import guesscleaner, polyring
 
 IMPORTS = (polyring, guesscleaner)
 logger = logging.getLogger("botlogger")

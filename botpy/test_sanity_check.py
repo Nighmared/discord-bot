@@ -3,7 +3,7 @@ from datetime import datetime
 from random import random
 from time import sleep
 
-from bot.handler import handler
+from botpy.handler import handler
 
 XKCD_NUM_LIMIT = 2000
 
@@ -16,7 +16,7 @@ class Test_Basics:
         makes sure all modules that are reloaded on a softreload actually have
         the correct structure, specifically that they all have an "IMPORTS" **tuple**
         """
-        import bot.handler.handler as msgh  # same as above
+        import botpy.handler.handler as msgh  # same as above
 
         print("sdf\n")
         print("\033[0;32m")
@@ -50,7 +50,7 @@ class Test_Basics:
         Checks that all modules have a logger defined, basically just making it
         ready for further improvements
         """
-        import bot.handler.handler as msgh
+        import botpy.handler.handler as msgh
 
         for impo in msgh.IMPORTS:
             print("checking " + impo.__name__)
@@ -66,21 +66,21 @@ class Test_Basics:
         """
         import discord
 
-        from bot import bot
-        from bot.cmd import commandhandler
-        from bot.inspirobot import inspirobot
-        from bot.issues import issues
-        from bot.loops import polyring
-        from bot.meme import meme
-        from bot.msglist import msglist
-        from bot.neko import neko
-        from bot.nhentai import nhentai
-        from bot.robohash import robohash
-        from bot.shorten import shorten
-        from bot.sql import dbhandler
-        from bot.stalk import stalk
-        from bot.uptime import uptime
-        from bot.xkcd import xkcd
+        from botpy import bot
+        from botpy.cmd import commandhandler
+        from botpy.inspirobot import inspirobot
+        from botpy.issues import issues
+        from botpy.loops import polyring
+        from botpy.meme import meme
+        from botpy.msglist import msglist
+        from botpy.neko import neko
+        from botpy.nhentai import nhentai
+        from botpy.robohash import robohash
+        from botpy.shorten import shorten
+        from botpy.sql import dbhandler
+        from botpy.stalk import stalk
+        from botpy.uptime import uptime
+        from botpy.xkcd import xkcd
 
         anti_lint = (  # noqa: F841
             discord,
@@ -107,7 +107,7 @@ class Test_APIs:
     def test_xkcd(
         self,
     ):  # run example xkcd call to make sure json structure is still okay
-        import bot.xkcd.xkcd as xkcd
+        import botpy.xkcd.xkcd as xkcd
 
         res = xkcd.get_latest()
         assert res["success"]
@@ -115,7 +115,7 @@ class Test_APIs:
         assert res["success"]
 
     def test_robohash(self):  # -...
-        import bot.robohash.robohash as robohash
+        import botpy.robohash.robohash as robohash
 
         dummy_string_len = int(random() * RH_STRINGLEN_LIMIT + 10)
         dummy_string = ""
@@ -125,19 +125,19 @@ class Test_APIs:
         robohash.get_embed(dummy_string)  # check that it doesnt fail
 
     def test_issues(self):
-        import bot.issues.issues as issues
+        import botpy.issues.issues as issues
 
         res = issues.getIssues()
         assert res != (-1, -1)
 
     def test_inspiro(self):
-        import bot.inspirobot.inspirobot as inspirobot
+        import botpy.inspirobot.inspirobot as inspirobot
 
         res = inspirobot.get_img_url()
         assert not res[0]  # first element is boolean error flag
 
     def test_uptime(self):
-        import bot.uptime.uptime as uptime
+        import botpy.uptime.uptime as uptime
 
         a_time = datetime.now()
         tracker = uptime.Uptime(a_time)
@@ -162,12 +162,12 @@ class Test_APIs:
 
 class Test_Invalid_Input:
     def test_robohash(self):
-        import bot.robohash.robohash as robohash
+        import botpy.robohash.robohash as robohash
 
         robohash.get_embed("")
 
     def test_xkcd(self):
-        import bot.xkcd.xkcd as xkcd
+        import botpy.xkcd.xkcd as xkcd
 
         res = xkcd.get_comic(-1)
         assert not res["success"]
@@ -175,13 +175,13 @@ class Test_Invalid_Input:
 
 class Tests_Slow_Cases:
     def test_shorten(self):  # same as for xkcd
-        import bot.shorten.shorten as shorten
+        import botpy.shorten.shorten as shorten
 
         res = shorten.shorten_link("ethz.wtf")
         assert res[0] == 0  # no error
 
     def test_shorten_invalid(self):
-        import bot.shorten.shorten as shorten
+        import botpy.shorten.shorten as shorten
 
         res = shorten.shorten_link("")
         assert res[0] != 0

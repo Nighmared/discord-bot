@@ -19,13 +19,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
  ``` 
 
 ../
-├── bot
+├── botpy
 │   ├── botlogger
 │   │   └── botlogger.py
 │   ├── cmd
 │   │   └── commandhandler.py
 │   ├── handler
-│   │   └── handler.py
+│   │   ├── handler.py
+│   │   └── __init__.py
 │   ├── inspirobot
 │   │   └── inspirobot.py
 │   ├── issues
@@ -76,6 +77,6 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 ├── README_TEXT.md
 └── requirements.txt
 
-18 directories, 38 files
+18 directories, 39 files
  ``` 
 

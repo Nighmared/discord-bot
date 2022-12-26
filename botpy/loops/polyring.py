@@ -12,7 +12,7 @@ from discord.errors import Forbidden, HTTPException
 from discord.ext import tasks
 from requests.exceptions import Timeout
 
-from bot.sql import dbhandler
+from botpy.sql import dbhandler
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")

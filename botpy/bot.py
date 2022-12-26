@@ -8,8 +8,8 @@ from sys import argv, exit
 import discord  # api library
 from discord.ext.commands import Bot
 
-from bot.handler import handler  # handle all incoming msgs
-from bot.loops import loophandler as loop
+from botpy.handler import handler  # handle all incoming msgs
+from botpy.loops import loophandler as loop
 
 logger = logging.getLogger("botlogger")
 
