@@ -10,7 +10,11 @@ IMPORTS = (polyring, guesscleaner)
 logger = logging.getLogger("botlogger")
 
 
-async def init(client: discord.ext.commands.Bot, handler_ref: handler):  # type: ignore
+async def init(
+    client: discord.ext.commands.Bot,
+    handler_ref: handler,  # type: ignore
+    db_path: str,
+):
     LOOPCOGS = (
         polyring.PolyringFetcher,
         guesscleaner.GuessCleaner,
@@ -18,7 +22,7 @@ async def init(client: discord.ext.commands.Bot, handler_ref: handler):  # type:
 
     logger.info("adding cogs")
     for cog in LOOPCOGS:
-        await client.add_cog(cog(client, handler_ref))
+        await client.add_cog(cog(client, handler_ref, db_path))
 
 
 async def discard(client: discord.ext.commands.Bot):

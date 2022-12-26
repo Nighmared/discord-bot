@@ -59,10 +59,10 @@ class Post:
 
 
 class PolyringFetcher(discord.ext.commands.Cog):
-    def __init__(self, client: discord.ext.commands.Bot, handler_ref):
+    def __init__(self, client: discord.ext.commands.Bot, handler_ref, dbfile: str):
         self.client = client
         self.dbhandler: dbhandler.Dbhandler = dbhandler.Dbhandler(
-            "discordbot.db",
+            dbfile,
         )
         self.handler_ref = handler_ref
         self.getnews.start()

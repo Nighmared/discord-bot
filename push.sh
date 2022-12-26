@@ -4,21 +4,21 @@
 #version: 1
 
 #here comes readme magic
-r_top=$(cat ../README_TEXT.md)
+r_top=$(cat README_TEXT.md)
 struct=$(bash dotree.sh)
-echo "">../README.md #clean
-cat ../README_TEXT.md>>../README.md
-echo $' \n\n ``` \n'>>../README.md
-bash dotree.sh>>../README.md
-echo $' ``` \n'>>../README.md
+echo "">README.md #clean
+cat ../README_TEXT.md>>README.md
+echo $' \n\n ``` \n'>>README.md
+bash dotree.sh>>README.md
+echo $' ``` \n'>>README.md
 echo "Updated tree part of README 1/3"
 
-black ../
-isort ../
+black .
+isort .
 
 echo "Autoformatted and sorted imports 2/3"
 
-pytest -x
+pytest -x botpy
 retcode=$?
 if [ $retcode != 0 ]
 then

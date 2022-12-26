@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 import logging
+import os
 import subprocess as sub  # needed for softreload to pull from git kekw
 from datetime import datetime
 from importlib import reload
@@ -16,8 +17,20 @@ logger = logging.getLogger("botlogger")
 
 FALLBACK_PREFIX = "°"
 
-with open(".token.txt") as t_file:
-    TOKEN = t_file.read()
+dir_path = os.path.dirname(os.path.abspath("__file__"))
+TOKEN = os.environ.get("DISCORD_BOT_TOKEN", default="--")
+if TOKEN == "--":
+    potential_token_path = os.path.join(dir_path, os.path.pardir, ".token.txt")
+    try:
+        with open(".token.txt", "r") as t_file:
+            TOKEN = t_file.read()
+    except FileNotFoundError:
+        logger.exception(
+            "Could not find a token in $DISCORD_BOT_TOKEN or botrun/.token.txt\n aborting"
+        )
+
+db_path = os.path.join(dir_path, "data/discordbot.db")
+
 
 STARTTIME = datetime.now()
 
@@ -25,13 +38,17 @@ STARTTIME = datetime.now()
 intents = discord.Intents.default()
 intents.message_content = True
 client = Bot(FALLBACK_PREFIX, intents=intents)
-handler.init(client, STARTTIME)
+handler.init(client, STARTTIME, db_path)
 
 
 @client.event
 async def on_ready():
     handler.ISRELOADING = False
-    await loop.init(client, handler_ref=handler)  # type: ignore
+    await loop.init(
+        client,
+        handler_ref=handler,  # type: ignore
+        db_path=db_path,
+    )
     print(f"[bot.py] {client.user} has connected")
     logger.info("Bot Online")
     activity = discord.Activity(
@@ -54,7 +71,7 @@ async def on_message(message: discord.Message):
         await handler.doreload(
             message, client=client, STARTTIME=STARTTIME, msgs_backup=msgs_backup
         )
-        loop.init(client, handler)  # type: ignore
+        loop.init(client, handler, db_path=db_path)  # type: ignore
 
 
 if __name__ == "__main__" and len(argv) == 1:

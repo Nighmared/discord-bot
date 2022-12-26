@@ -35,11 +35,12 @@ cmdhandler: commandhandler.CommandHandler = None  # type: ignore
 db: dbhandler.Dbhandler = None  # type: ignore
 
 
-def init(client: Bot, STARTTIME: datetime):
+def init(client: Bot, STARTTIME: datetime, db_path: str):
     global cmdhandler, time_tracker, msgs, db, PREFIX
     time_tracker = uptime.Uptime(STARTTIME)
     msgs = msglist.Msglist(5)
-    db = dbhandler.Dbhandler("discordbot.db")
+    print(db_path)
+    db = dbhandler.Dbhandler(db_path)
     try:
         prefix_in_db = db.get_from_misc("prefix")
         if prefix_in_db:

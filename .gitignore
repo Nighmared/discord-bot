@@ -1,4 +1,4 @@
-botpy/.token.txt
+/.token.txt
 botpy/.imgflip_creds.txt
 */__pycache__/*
 botpy/*/__pycache__/*
@@ -9,3 +9,4 @@ PREFIX.txt
 venv
 .idea
 .vscode
+*.egg-info

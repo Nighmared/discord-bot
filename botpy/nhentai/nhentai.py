@@ -1,4 +1,5 @@
 import logging
+import os
 import random
 import re
 from typing import Optional
@@ -14,8 +15,9 @@ from botpy.sql import dbhandler
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")
 
-
-with open("nhentai/tags.blacklist", "r") as f:
+dir_path = os.path.dirname(__file__)
+blacklist_path = os.path.join(dir_path, "tags.blacklist")
+with open(blacklist_path, "r") as f:
     NONO_TAGS = [x.strip() for x in f.readlines()]
 
 

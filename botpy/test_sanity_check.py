@@ -66,7 +66,6 @@ class Test_Basics:
         """
         import discord
 
-        from botpy import bot
         from botpy.cmd import commandhandler
         from botpy.inspirobot import inspirobot
         from botpy.issues import issues
@@ -81,6 +80,7 @@ class Test_Basics:
         from botpy.stalk import stalk
         from botpy.uptime import uptime
         from botpy.xkcd import xkcd
+        from botrun import bot
 
         anti_lint = (  # noqa: F841
             discord,
