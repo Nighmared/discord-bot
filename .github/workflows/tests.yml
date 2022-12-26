@@ -33,16 +33,15 @@ jobs:
       #prepares everything
       - name: setup
         run: |
-          cd src
-          pip install -r ../requirements.txt
-          echo "nope">PREFIX.txt 
-          echo "nopenopenope">.token.txt
+          pip install -r requirements.txt
+          python setup.py develop
+          echo "nope">botpy/PREFIX.txt 
+          echo "nopenopenope">botrun/.token.txt
 
         # checks if program can run
       - name: "run"
         run: |
-          cd src
-          python bot.py debug
+          python botrun/bot.py debug
 
   pytest:
     # The type of runner that the job will run on
@@ -59,12 +58,12 @@ jobs:
       - name: setup
         run: |
           pip install -r requirements.txt
-          cd src
-          echo "nope">PREFIX.txt 
-          echo "nopenopenope">.token.txt
+          python setup.py develop
+          echo "nope">botpy/PREFIX.txt 
+          echo "nopenopenope">botrun/.token.txt
 
       #runs pytest
       - name: "run tests"
         run: |
-          cd src
+          cd botpy
           pytest -vx
