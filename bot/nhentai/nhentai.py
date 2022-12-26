@@ -9,7 +9,7 @@ import skimage.filters
 import skimage.io
 from bs4 import BeautifulSoup
 
-import dbhandler
+from bot.sql import dbhandler
 
 IMPORTS = (dbhandler,)
 logger = logging.getLogger("botlogger")

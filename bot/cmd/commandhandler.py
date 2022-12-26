@@ -8,20 +8,21 @@ import discord
 import discord.ext.commands
 from discord.ext.commands import Bot
 
-import dbhandler
-import inspirobot
-import issues
-import loops.polyring as polyring
-import meme
-import msglist
-import neko
-import robohash
-import shorten
-import stalk
-import xkcd
-from nhentai import nhentai
+from bot.inspirobot import inspirobot
+from bot.issues import issues
+from bot.loops import polyring
+from bot.meme import meme
+from bot.msglist import msglist
+from bot.neko import neko
+from bot.nhentai import nhentai
+from bot.robohash import robohash
+from bot.shorten import shorten
+from bot.sql import dbhandler
+from bot.stalk import stalk
+from bot.xkcd import xkcd
 
 IMPORTS = (
+    dbhandler,
     neko,
     issues,
     nhentai,
@@ -32,6 +33,7 @@ IMPORTS = (
     shorten,
     xkcd,
     polyring,
+    msglist,
 )
 logger = logging.getLogger("botlogger")
 

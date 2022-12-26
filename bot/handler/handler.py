@@ -10,12 +10,12 @@ import discord
 from discord.errors import Forbidden  # api library
 from discord.ext.commands import Bot
 
-import botlogger
-import commandhandler  # module for commandhandling
-import dbhandler  # module for all things sqlite
-import loophandler as loop
-import msglist  # module for message tracking
-import uptime  # module to track uptime of bot
+from bot.botlogger import botlogger
+from bot.cmd import commandhandler  # module for commandhandling
+from bot.loops import loophandler as loop
+from bot.msglist import msglist  # module for message tracking
+from bot.sql import dbhandler  # module for all things sqlite
+from bot.uptime import uptime  # module to track uptime of bot
 
 IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime, loop)
 

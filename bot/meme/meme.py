@@ -3,9 +3,9 @@ from typing import Literal, Union
 
 import requests
 
-import dbhandler
+from bot.sql import dbhandler
 
-IMPORTS = ()
+IMPORTS = (dbhandler,)
 
 logger = logging.getLogger("botlogger")
 

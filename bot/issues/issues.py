@@ -10,8 +10,14 @@ logger = logging.getLogger("botlogger")
 
 IMPORTS = ()
 
-PASSING = "https://raw.githubusercontent.com/Nighmared/discord-bot/master/src/issues_passing.png"
-FAILING = "https://raw.githubusercontent.com/Nighmared/discord-bot/master/src/issues_failing.png"
+PASSING = (
+    "https://raw.githubusercontent.com/"
+    + "Nighmared/discord-bot/master/bot/issues/issues_passing.png"
+)
+FAILING = (
+    "https://raw.githubusercontent.com/"
+    + "Nighmared/discord-bot/master/bot/issues/issues_failing.png"
+)
 
 
 def getIssues() -> list[Union[tuple[int, int], tuple[int, str, str]]]:
