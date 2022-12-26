@@ -9,7 +9,7 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 - a file ".token.txt" with the discord token
 - a file ".imgflip_creds.txt" containing credentials to imgflip in order to use the api for meme generation [format: username;password]
 
-[![Tests](https://github.com/Nighmared/discord-bot/actions/workflows/tests.yml/badge.svg)](https://github.com/Nighmared/discord-bot/actions/workflows/tests.yml)
+[![Exec Tests](https://github.com/Nighmared/discord-bot/actions/workflows/tests.yml/badge.svg)](https://github.com/Nighmared/discord-bot/actions/workflows/tests.yml)
 [![Code Style](https://github.com/Nighmared/discord-bot/actions/workflows/compliance.yml/badge.svg)](https://github.com/Nighmared/discord-bot/actions/workflows/compliance.yml)
 
 #### Structure
