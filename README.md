@@ -10,6 +10,14 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 - a file ".token.txt" with the discord token
 - a file ".imgflip_creds.txt" containing credentials to imgflip in order to use the api for meme generation [format: username;password]
 
+# running it
+
+```
+pip install -e .
+python botrun/bot.py
+```
+
+
 [![Exec Tests](https://github.com/Nighmared/discord-bot/actions/workflows/tests.yml/badge.svg)](https://github.com/Nighmared/discord-bot/actions/workflows/tests.yml)
 [![Code Style](https://github.com/Nighmared/discord-bot/actions/workflows/compliance.yml/badge.svg)](https://github.com/Nighmared/discord-bot/actions/workflows/compliance.yml)
 [![CodeQL](https://github.com/Nighmared/discord-bot/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Nighmared/discord-bot/actions/workflows/github-code-scanning/codeql)
@@ -74,6 +82,12 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   └── top_level.txt
 ├── botrun
 │   └── bot.py
+├── build
+│   ├── bdist.linux-x86_64
+│   └── lib
+│       └── botpy
+│           ├── __init__.py
+│           └── test_sanity_check.py
 ├── data
 │   └── discordbot.db
 ├── discord_bot.egg-info
@@ -81,6 +95,9 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 │   ├── PKG-INFO
 │   ├── SOURCES.txt
 │   └── top_level.txt
+├── dist
+│   ├── discord_bot-1.0-py3.11.egg
+│   └── discord_bot-1.0-py3.9.egg
 ├── bot.log
 ├── discordbot.db
 ├── dotree.sh
@@ -92,6 +109,6 @@ Running the bot requires a DB that isnt currently tracked by the git repo, hmu i
 ├── setup.py
 └── update-readme.sh
 
-23 directories, 49 files
+28 directories, 53 files
  ``` 
 
