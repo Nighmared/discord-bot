@@ -26,7 +26,6 @@ async def stalk(
         if message.guild is None:
             raise ValueError
         try:  # id belongs to a member of the guild
-
             target = await message.guild.fetch_member(t_id)
             embObj = discord.Embed(
                 title="Stalking | User",
@@ -72,7 +71,6 @@ async def stalk(
                 if target.avatar is not None:
                     embObj.set_image(url=target.avatar.url)
             except discord.NotFound:  # id belongs to a channel
-
                 try:
                     try:
                         target = await client.fetch_channel(t_id)

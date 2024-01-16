@@ -42,7 +42,6 @@ def getIssues() -> list[Union[tuple[int, int], tuple[int, str, str]]]:
 
 
 def get_badge_link() -> str:
-
     url = f"https://api.github.com/repos/{author}/{repo_name}/actions/runs"
     res = requests.get(url)
     parsed = res.json()
