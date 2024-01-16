@@ -10,7 +10,7 @@ FALLBACK_PREFIX = "°"  # for transition from static prefix, hotfix in case shit
 
 logger = logging.getLogger("botlogger")
 
-IMPORTS = ()
+IMPORTS = tuple()
 
 
 class Dbhandler:
@@ -136,7 +136,7 @@ class Dbhandler:
             )  # WHERE enabled==1''')
             res = self.cursor.fetchall()
         aliases = {}
-        for (cmdname, alias) in res:
+        for cmdname, alias in res:
             aliases[alias] = cmdname
 
         if shortcut in aliases.keys():

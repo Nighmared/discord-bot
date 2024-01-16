@@ -18,7 +18,6 @@ class Test_Basics:
         """
         import botpy.handler.handler as msgh  # same as above
 
-        print("sdf\n")
         print("\033[0;32m")
         for impo in msgh.IMPORTS:
             if not isinstance(impo.IMPORTS, tuple):
