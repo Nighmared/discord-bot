@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+from modulefinder import Module
 from random import random
 from time import sleep
 
@@ -19,6 +20,8 @@ class Test_Basics:
         import botpy.handler.handler as msgh  # same as above
 
         print("\033[0;32m")
+        checked_modules: set[Module] = set()
+
         for impo in msgh.IMPORTS:
             if not isinstance(impo.IMPORTS, tuple):
                 # make sure that all modules have an IMPORTS tuple defined,
@@ -29,9 +32,13 @@ class Test_Basics:
                 assert False  # fail
             else:
                 print(f"Valid Module: {impo.__name__}".ljust(40), end="\n")
+            checked_modules.add(impo)
             for subimp in impo.IMPORTS:
+                if subimp in checked_modules:
+                    print(f"Skipping Module: {subimp.__name__}")
+                    continue
                 if not isinstance(
-                    subimp, tuple
+                    subimp.IMPORTS, tuple
                 ):  # same but for imports of the imported modules
                     print("\033[0;31m", end="")
                     print(f"Failed Module: {subimp.__name__}".ljust(40))
@@ -39,6 +46,7 @@ class Test_Basics:
                     assert False  # fail it here
                 else:
                     print(f"Valid Module: {subimp.__name__}".ljust(40))
+                checked_modules.add(subimp)
 
         print("\033[0m")
         print("\n\n")
