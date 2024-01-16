@@ -6,6 +6,8 @@ from datetime import datetime as dt
 from sqlite3.dbapi2 import OperationalError
 from typing import Any, Optional, Union
 
+from discord import Member, User
+
 FALLBACK_PREFIX = "°"  # for transition from static prefix, hotfix in case shit fails
 
 logger = logging.getLogger("botlogger")
@@ -14,7 +16,7 @@ IMPORTS = tuple()
 
 
 class Dbhandler:
-    def __init__(self, filename):
+    def __init__(self, filename: str):
         no_db = os.environ.get("BOT_NO_DB", default="false") == "true"
         if no_db:
             logger.warning(
@@ -29,7 +31,7 @@ class Dbhandler:
         if self.get_from_misc("prefix") is None:
             self.set_to_misc("prefix", FALLBACK_PREFIX)  # Failsafe, kinda
 
-    def get_perm_level(self, uid):
+    def get_perm_level(self, uid: int):
         with self.conn:
             self.cursor.execute(f"""SELECT permlevel from users where uid=={uid};""")
             try:
@@ -47,7 +49,7 @@ class Dbhandler:
             )
         return 0
 
-    def increment_user_message_count(self, author_uid: int, name: str, mention):
+    def increment_user_message_count(self, author_uid: int, name: str, mention: str):
         with self.conn:
             self.cursor.execute(
                 """SELECT uid,msgcount,name,readable_name FROM users;"""
@@ -89,7 +91,7 @@ class Dbhandler:
             res = self.cursor.fetchall()
         return res
 
-    def set_perm(self, user, newpermlev) -> int:
+    def set_perm(self, user: Union[User, Member], newpermlev: int) -> int:
         # first check if user exists
         uid = user.id
         name = user.mention
@@ -120,7 +122,7 @@ class Dbhandler:
             res = 8  # return dumb high number as default
         return res
 
-    def get_from_misc(self, key) -> str:
+    def get_from_misc(self, key: str) -> str:
         with self.conn:
             self.cursor.execute("""select value from misc where key==?""", (key,))
             try:
@@ -128,7 +130,7 @@ class Dbhandler:
             except IndexError:
                 return ""
 
-    def set_to_misc(self, key, value):
+    def set_to_misc(self, key: str, value: str):
         with self.conn:
             self.cursor.execute(
                 """update misc SET value=? where key==?""",
@@ -152,7 +154,7 @@ class Dbhandler:
         else:
             return ""
 
-    def _raw_execComm(self, command) -> list[Any]:
+    def _raw_execComm(self, command: str) -> list[Any]:
         with self.conn:
             self.cursor.execute(command)
             res = self.cursor.fetchall()
@@ -170,7 +172,7 @@ class Dbhandler:
         res = self.get_from_misc("annoyreaction")
         return res.strip() == "True"
 
-    def add_issue(self, issue_t):
+    def add_issue(self, issue_t: tuple[int, str, str]):
         issue_id, title, tag_s = issue_t
         with self.conn:
             self.cursor.execute(f"""SELECT * FROM issues WHERE id=={issue_id}""")
@@ -217,7 +219,7 @@ class Dbhandler:
         self.set_to_misc("standby", 0)
         return 0
 
-    def add_nhentai_file(self, nh_id, path_to_blurred):
+    def add_nhentai_file(self, nh_id: int, path_to_blurred: str):
         with self.conn:
             self.cursor.execute(
                 f"""INSERT INTO nhentai(id, path) VALUES({nh_id},'{path_to_blurred}') """
@@ -229,7 +231,7 @@ class Dbhandler:
             res = self.cursor.fetchall()
         return res
 
-    def get_nhentai_path_by_id(self, nh_id, ignore_block=False):
+    def get_nhentai_path_by_id(self, nh_id: int, ignore_block: bool = False):
         with self.conn:
             self.cursor.execute(
                 f"""select path,blocked from nhentai where id={nh_id}"""
@@ -257,7 +259,7 @@ class Dbhandler:
         self.conn.commit()
         return new_val > 0
 
-    def nhentai_block(self, nh_id, noswitch=False) -> None:
+    def nhentai_block(self, nh_id: int, noswitch: bool = False) -> None:
         with self.conn:
             self.cursor.execute("""select blocked from nhentai where id=?""", (nh_id,))
             res = self.cursor.fetchall()
@@ -311,7 +313,7 @@ class Dbhandler:
             templates[name] = template_id
         return templates
 
-    def add_meme_template(self, template_name, template_id):
+    def add_meme_template(self, template_name: str, template_id: str):
         with self.conn:
             self.cursor.execute(
                 """INSERT INTO meme_templates(template_name,template_id) VALUES(?,?)""",
@@ -413,7 +415,7 @@ class Dbhandler:
         with self.conn:
             self.cursor.execute("DELETE FROM guesses")
 
-    def get_avg_guess(self, ownuid) -> int:
+    def get_avg_guess(self, ownuid: int) -> int:
         with self.conn:
             self.cursor.execute(
                 "SELECT avg(guess) FROM guesses WHERE uid!=?", (ownuid,)
