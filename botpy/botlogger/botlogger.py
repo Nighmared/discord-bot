@@ -3,6 +3,7 @@ defines custom pretty formatter for logs and provides methods to initialize a lo
 said formatter
 """
 import logging
+from typing import Literal
 
 DEFAULT = "\033[0m"
 BLACK = "\033[1;30m"
@@ -41,12 +42,15 @@ class BotFormatter(logging.Formatter):
     even has colors"""
 
     def __init__(
-        self, fmt: str, datefmt: str, style: str = "%", validate: bool = ...
+        self,
+        fmt: str,
+        datefmt: str,
+        style: Literal["%", "{", "$"] = "%",
+        validate: bool = ...,
     ) -> None:
-        logging.Formatter.__init__(
-            self, fmt=fmt, datefmt=datefmt, style=style, validate=validate
-        )
+        super().__init__(fmt=fmt, datefmt=datefmt, style=style, validate=validate)
 
+        no_format = logging.Formatter(fmt=WHITE + fmt + DEFAULT, datefmt=datefmt)
         self.debug_formatter = logging.Formatter(
             fmt=BLUE + fmt + DEFAULT, datefmt=datefmt
         )
@@ -61,7 +65,7 @@ class BotFormatter(logging.Formatter):
             fmt=RED + fmt + DEFAULT, datefmt=datefmt
         )
         self.formatters = (
-            None,
+            no_format,
             self.debug_formatter,
             self.info_formatter,
             self.warning_formatter,

@@ -1,18 +1,21 @@
 import logging
 import subprocess as sub  # needed for softreload to pull from git kekw
 import sys
+from datetime import datetime
 from importlib import reload
 from time import sleep
+from typing import Optional
 
 import discord
 from discord.errors import Forbidden  # api library
+from discord.ext.commands import Bot
 
-import botlogger
-import commandhandler  # module for commandhandling
-import dbhandler  # module for all things sqlite
-import loophandler as loop
-import msglist  # module for message tracking
-import uptime  # module to track uptime of bot
+from botpy.botlogger import botlogger
+from botpy.cmd import commandhandler  # module for commandhandling
+from botpy.loops import loophandler as loop
+from botpy.msglist import msglist  # module for message tracking
+from botpy.sql import dbhandler  # module for all things sqlite
+from botpy.uptime import uptime  # module to track uptime of bot
 
 IMPORTS = (botlogger, msglist, dbhandler, commandhandler, uptime, loop)
 
@@ -23,18 +26,22 @@ logger = logging.getLogger("botlogger")
 ISRELOADING = True
 PREFIX = "°"  # default value for initialization
 
-msgs: msglist.Msglist = None
-time_tracker: uptime.Uptime = None
-cmdhandler: commandhandler.CommandHandler = None
-db: dbhandler.Dbhandler = None
+
+# HACK these globals are super sketchy...
+
+time_tracker: uptime.Uptime
+msgs: msglist.Msglist = None  # type: ignore
+cmdhandler: commandhandler.CommandHandler = None  # type: ignore
+db: dbhandler.Dbhandler = None  # type: ignore
 
 
-def init(client: discord.Client, STARTTIME):
+def init(client: Bot, STARTTIME: datetime, db_path: str):
     global cmdhandler, time_tracker, msgs, db, PREFIX
     time_tracker = uptime.Uptime(STARTTIME)
     msgs = msglist.Msglist(5)
+    print(db_path)
+    db = dbhandler.Dbhandler(db_path)
     try:
-        db = dbhandler.Dbhandler("discordbot.db")
         prefix_in_db = db.get_from_misc("prefix")
         if prefix_in_db:
             PREFIX = prefix_in_db
@@ -77,7 +84,7 @@ async def add_reaction(message, emote):
         return 1
 
 
-def get_ready(client: discord.Client, STARTTIME):
+def get_ready(client: Bot, STARTTIME):
     global msgs, db, time_tracker, cmdhandler, PREFIX
     msgs = msglist.Msglist(5)
     db = dbhandler.Dbhandler("discordbot.db")
@@ -96,7 +103,10 @@ def get_ready(client: discord.Client, STARTTIME):
 
 
 async def doreload(
-    message: discord.Message, client: discord.Client, STARTTIME, msgs_backup
+    message: discord.Message,
+    client: Bot,
+    STARTTIME,
+    msgs_backup,
 ):  # reloads all dependencies
     global ISRELOADING
 
@@ -105,8 +115,8 @@ async def doreload(
     is_recovering = False
 
     reload(discord)
-    loop.discard(client)
-
+    await loop.discard(client)
+    embed = discord.Embed(title="Soft Reloading")
     while work_to_do:
         failedmodules = ""
         modulenames = "discord.py\nhandler\n"
@@ -142,7 +152,10 @@ async def doreload(
 
         embed = discord.Embed(title="Soft Reloading")
         embed.add_field(name="✅ Reloaded modules:", value=modulenames)
-        embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+        embed.set_author(
+            name=message.author.name,
+            icon_url=message.author.avatar.url if message.author.avatar else None,
+        )
         embed.timestamp = uptime.get_now_utc()
 
         if is_recovering:  # if already retrying
@@ -185,20 +198,18 @@ async def doreload(
     cmdhandler.curr_msg = message
 
     logger.info("Return from softreload")
-    if (
-        isinstance(message.channel, discord.channel.DMChannel)
-        or message.author.nick is None
-    ):
-        callee = message.author.name
-    else:
+    callee = message.author.name
+    if isinstance(message.author, discord.Member) and message.author.nick is not None:
         callee = message.author.nick
 
     res = max(
         await cmdhandler.sendMsg(
             channel=message.channel,
             toSend=embed,
-            callee=callee,
-            callee_pic=message.author.avatar_url,
+            caller=callee,
+            caller_pic=message.author.avatar.url
+            if message.author.avatar is not None
+            else None,
         ),
         res,
     )
@@ -215,7 +226,7 @@ async def do_the_thing(message: discord.Message):
     await message.add_reaction("🤫")
 
 
-async def handle(message: discord.Message) -> int:
+async def handle(message: discord.Message) -> Optional[int]:
     global ISRELOADING
     global PREFIX
     if ISRELOADING:

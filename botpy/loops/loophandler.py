@@ -1,28 +1,32 @@
 import logging
+
 import discord
 import discord.ext.commands
 
-import handler
-import loops.guesscleaner as guesscleaner
-import loops.polyring as polyring
+from botpy.handler import handler
+from botpy.loops import guesscleaner, polyring
 
 IMPORTS = (polyring, guesscleaner)
 logger = logging.getLogger("botlogger")
 
 
-async def init(client: discord.ext.commands.Bot, handler_ref: handler):  # type: ignore
+async def init(
+    client: discord.ext.commands.Bot,
+    handler_ref: handler,  # type: ignore
+    db_path: str,
+):
     LOOPCOGS = (
         polyring.PolyringFetcher,
-        guesscleaner.GuessCleaner,
+        # guesscleaner.GuessCleaner,
     )
 
     logger.info("adding cogs")
     for cog in LOOPCOGS:
-        await client.add_cog(cog(client, handler_ref))
+        await client.add_cog(cog(client, handler_ref, db_path))
 
 
 async def discard(client: discord.ext.commands.Bot):
-    cognames = client.cogs.copy().keys()
+    cognames = list(client.cogs.keys())
     logger.info("removing cogs")
     for cogname in cognames:
         await client.remove_cog(cogname)

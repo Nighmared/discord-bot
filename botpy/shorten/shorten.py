@@ -15,8 +15,8 @@ def shorten_link(url: str) -> tuple:
             url:str		url to be shortened
     @Returns
             (errorcode:int,result:str)
-                                    errorcode: int indicating whether operation succeeded or failed
-                                    result: on success, new url of shortened link, else error description
+            errorcode: int indicating whether operation succeeded or failed
+            result: on success, new url of shortened link, else error description
     """
     try:
         request_url = BASE_URL + url.strip()

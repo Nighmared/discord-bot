@@ -1,4 +1,5 @@
 import logging
+from typing import Optional, Union
 
 import requests
 
@@ -9,8 +10,17 @@ logger = logging.getLogger("botlogger")
 
 IMPORTS = ()
 
+PASSING = (
+    "https://raw.githubusercontent.com/"
+    + "Nighmared/discord-bot/master/bot/issues/issues_passing.png"
+)
+FAILING = (
+    "https://raw.githubusercontent.com/"
+    + "Nighmared/discord-bot/master/bot/issues/issues_failing.png"
+)
 
-def getIssues() -> list:
+
+def getIssues() -> list[Union[tuple[int, int], tuple[int, str, str]]]:
     url = f"https://api.github.com/repos/{author}/{repo_name}/issues"
     r = requests.get(url)
     if r.status_code != 200:
@@ -32,16 +42,15 @@ def getIssues() -> list:
 
 
 def get_badge_link() -> str:
-    PASSING = "https://raw.githubusercontent.com/Nighmared/discord-bot/master/src/issues_passing.png"
-    FAILING = "https://raw.githubusercontent.com/Nighmared/discord-bot/master/src/issues_failing.png"
+
     url = f"https://api.github.com/repos/{author}/{repo_name}/actions/runs"
     res = requests.get(url)
     parsed = res.json()
     runs = parsed["workflow_runs"]
     indx = 0
+    conclusion: Optional[str] = None
     while indx < len(runs) and (conclusion := runs[indx]["conclusion"]) is None:
         indx += 1
-    print(conclusion)
     if conclusion == "success":
         return PASSING
     return FAILING

@@ -1,67 +1,71 @@
-# This is a basic workflow to help you get started with Actions
+name: Exec Tests
+run-name: Exec Tests
+env:
+  BOT_NO_DB: true
 
-name: Tests
-
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  Build:
+  dryrun:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
+    env:
+      BOT_NO_DB: true
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9.5"
 
-      
       #prepares everything
       - name: setup
         run: |
-          cd src
-          pip3 install -r ../requirements.txt
-          echo "nope">PREFIX.txt 
-          echo "nopenopenope">.token.txt
+          pip install -r requirements.txt
+          python setup.py develop
+          echo "nope">botpy/PREFIX.txt 
+          echo "nopenopenope">botrun/.token.txt
 
-       # checks if program can run
-      - name: "Check for hard errors"
+        # checks if program can run
+      - name: "run"
         run: |
-          cd src
-          python3 bot.py debug
+          python botrun/bot.py debug
 
-
-  Unit_Tests:
+  pytest:
+    env:
+      BOT_NO_DB: true
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9.5"
 
       - name: setup
         run: |
-          cd src
-          pip3 install -r ../requirements.txt
-          echo "nope">PREFIX.txt 
-          echo "nopenopenope">.token.txt
+          pip install -r requirements.txt
+          python setup.py develop
+          echo "nope">botpy/PREFIX.txt 
+          echo "nopenopenope">botrun/.token.txt
 
       #runs pytest
-      - name: "Unit Tests"
+      - name: "run tests"
         run: |
-          cd src
+          cd botpy
           pytest -vx
-
-      
-
-

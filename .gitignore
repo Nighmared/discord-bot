@@ -1,11 +1,12 @@
-src/.token.txt
-src/.imgflip_creds.txt
+/.token.txt
+botpy/.imgflip_creds.txt
 */__pycache__/*
-src/*/__pycache__/*
+botpy/*/__pycache__/*
 *.db
 PREFIX.txt
 *.log
 *.pyc
-venv
+.venv
 .idea
 .vscode
+*.egg-info
