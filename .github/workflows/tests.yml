@@ -37,7 +37,7 @@ jobs:
       - name: "Check for hard errors"
         run: |
           cd src
-          python3.8 bot.py debug
+          python3 bot.py debug
 
 
   Unit_Tests:
