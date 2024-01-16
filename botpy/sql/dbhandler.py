@@ -15,12 +15,18 @@ IMPORTS = tuple()
 
 class Dbhandler:
     def __init__(self, filename):
+        no_db = os.environ.get("BOT_NO_DB", default="false") == "true"
+        if no_db:
+            logger.warning(
+                "Not initializing dbhandler because of BOT_NO_DB env variable"
+            )
+            return
+
         self.db_fname = filename
         self.conn = sql.connect(filename)
         self.cursor = self.conn.cursor()
         self.cursor.execute("""PRAGMA foreign_keys=ON;""")
-        no_db = os.environ.get("BOT_NO_DB", default="false") == "true"
-        if not no_db and self.get_from_misc("prefix") is None:
+        if self.get_from_misc("prefix") is None:
             self.set_to_misc("prefix", FALLBACK_PREFIX)  # Failsafe, kinda
 
     def get_perm_level(self, uid):
