@@ -1,5 +1,5 @@
 discord.py==2.1.0
-beautifulsoup4==4.11.1
+beautifulsoup4==4.12.2
 lxml==4.9.1
 scipy==1.8.1
 scikit-image==0.19.3
