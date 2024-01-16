@@ -44,6 +44,8 @@ jobs:
           python botrun/bot.py debug
 
   pytest:
+    env:
+      BOT_NO_DB: true
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
 
