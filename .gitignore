@@ -6,7 +6,7 @@ botpy/*/__pycache__/*
 PREFIX.txt
 *.log
 *.pyc
-venv
+.venv
 .idea
 .vscode
 *.egg-info

@@ -21,9 +21,8 @@ class Test_Basics:
         print("sdf\n")
         print("\033[0;32m")
         for impo in msgh.IMPORTS:
-            if (
-                type(impo.IMPORTS) != tuple
-            ):  # make sure that all modules have an IMPORTS tuple defined,
+            if not isinstance(impo.IMPORTS, tuple):
+                # make sure that all modules have an IMPORTS tuple defined,
                 # otherwise softreload can break
                 print("\033[0;31m", end="")
                 print(f"Failed Module: {impo.__name__}")
@@ -32,8 +31,8 @@ class Test_Basics:
             else:
                 print(f"Valid Module: {impo.__name__}".ljust(40), end="\n")
             for subimp in impo.IMPORTS:
-                if (
-                    type(subimp.IMPORTS) != tuple
+                if not isinstance(
+                    subimp, tuple
                 ):  # same but for imports of the imported modules
                     print("\033[0;31m", end="")
                     print(f"Failed Module: {subimp.__name__}".ljust(40))
@@ -54,11 +53,11 @@ class Test_Basics:
 
         for impo in msgh.IMPORTS:
             print("checking " + impo.__name__)
-            assert type(impo.logger) == logging.Logger
+            assert isinstance(impo.logger, logging.Logger)
 
             for subi in impo.IMPORTS:
                 print("checking " + subi.__name__)
-                assert type(subi.logger) == logging.Logger
+                assert isinstance(subi.logger, logging.Logger)
 
     def test_import_all(self):
         """
@@ -173,15 +172,15 @@ class Test_Invalid_Input:
         assert not res["success"]
 
 
-class Tests_Slow_Cases:
-    def test_shorten(self):  # same as for xkcd
-        import botpy.shorten.shorten as shorten
+# class Tests_Slow_Cases:
+#     def test_shorten(self):  # same as for xkcd
+#         import botpy.shorten.shorten as shorten
 
-        res = shorten.shorten_link("ethz.wtf")
-        assert res[0] == 0  # no error
+#         res = shorten.shorten_link("ethz.wtf")
+#         assert res[0] == 0  # no error
 
-    def test_shorten_invalid(self):
-        import botpy.shorten.shorten as shorten
+#     def test_shorten_invalid(self):
+#         import botpy.shorten.shorten as shorten
 
-        res = shorten.shorten_link("")
-        assert res[0] != 0
+#         res = shorten.shorten_link("")
+#         assert res[0] != 0

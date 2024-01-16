@@ -206,7 +206,6 @@ class CommandHandler:
         else:
             error, embObj, file = res
         if embObj is not None:
-
             err2 = await self.sendMsg(
                 message.channel,
                 embObj,
@@ -534,7 +533,7 @@ class CommandHandler:
             txt = []
             currFieldCont = ""
             currFieldIndex = 1
-            for (cmdn, text, alias) in final_cmd:
+            for cmdn, text, alias in final_cmd:
                 txt = f'`{self.PREFIX}{cmdn}` (`{self.PREFIX}{alias}`)\t {text.replace("_"," ")}\n'
                 if len(currFieldCont + txt) > self.FIELDSIZELIMIT:
                     embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
@@ -546,7 +545,7 @@ class CommandHandler:
                 currFieldCont = "[Well.. nothing :/]"  # lol
             embObj.add_field(name=f"Page {currFieldIndex}", value=currFieldCont)
             emote_val = ""
-            for (emote, desc) in emotes:
+            for emote, desc in emotes:
                 emote_val += f"{emote}\t{desc}\n"
             embObj.add_field(name="Emotes", value=emote_val, inline=False)
             return (0, embObj)
@@ -561,7 +560,6 @@ class CommandHandler:
         self, _message: discord.Message
     ) -> tuple[int, Optional[discord.Embed]]:
         try:
-
             embObj = discord.Embed(
                 title=self.client.user.name if self.client.user else "Not logged in",
                 description="Info about the greatest bot",
@@ -671,7 +669,6 @@ class CommandHandler:
     async def makememe(
         self, message: discord.Message
     ) -> tuple[int, Optional[discord.Embed]]:
-
         error = 0
         img_url: Optional[str] = None
         post_url: Optional[str] = None
@@ -901,9 +898,8 @@ class CommandHandler:
         file_to_send: Optional[discord.File] = None
         args = message.content[1:].split(" ")
         user_pl = self.dbhandler.get_perm_level(message.author.id)
-        nsfw = (
-            int(self.dbhandler.get_from_misc("nsfw")) != 0
-            or type(message.channel) == discord.channel.DMChannel
+        nsfw = int(self.dbhandler.get_from_misc("nsfw")) != 0 or isinstance(
+            message.channel, discord.channel.DMChannel
         )
         link = ""
         error = 0
@@ -1265,7 +1261,6 @@ class CommandHandler:
         self, message: discord.Message
     ) -> tuple[int, Optional[discord.Embed]]:
         try:
-
             res = self.dbhandler._raw_execComm(
                 "SELECT * FROM issues"
             )  # FIXME add a func in dbhandler to do this! NO DIRECT EXECS OUTSIDE OF DBHANDLER!!!!

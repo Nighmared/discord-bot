@@ -25,9 +25,11 @@ if TOKEN == "--":
         with open(".token.txt", "r") as t_file:
             TOKEN = t_file.read()
     except FileNotFoundError:
-        logger.exception(
-            "Could not find a token in $DISCORD_BOT_TOKEN or botrun/.token.txt\n aborting"
+        logger.warning(
+            "Could not find a token in $DISCORD_BOT_TOKEN or botrun/.token.txt\n"
+            + "this might be okay in testing"
         )
+
 
 db_path = os.path.join(dir_path, "data/discordbot.db")
 

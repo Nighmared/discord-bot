@@ -17,7 +17,7 @@ async def init(
 ):
     LOOPCOGS = (
         polyring.PolyringFetcher,
-        guesscleaner.GuessCleaner,
+        # guesscleaner.GuessCleaner,
     )
 
     logger.info("adding cogs")

@@ -1,4 +1,5 @@
 import logging
+import re
 import socket
 import xml.etree.ElementTree as ET
 from html import unescape
@@ -215,7 +216,13 @@ class PolyringFetcher(discord.ext.commands.Cog):
 
                 # for some reason its possible for some rss values to start with
                 # "tag:" :reeeeee:
+                GUID_PATTERN = r"^.*\.[a-z]+\/(.*)"
                 guid = guid_res.strip().lstrip("tag:")
+                guid_match = re.match(GUID_PATTERN, guid)
+                if guid_match is None:
+                    logger.warning("Couldn't parse guid for %s", guid)
+                    continue
+                guid = guid_match.group(1)
                 try:
                     desc = unescape(fp.find(desc_key).text[:40] + "...")
                 except (TypeError, AttributeError):  # ignore fucky feeds
@@ -229,7 +236,12 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     except (TypeError, AttributeError):
                         desc = "[No description tag provided]"
                 post = Post(
-                    title, descr=desc, author=author, link=link, pubdate=pub, guid=guid
+                    title,
+                    descr=desc,
+                    author=author,
+                    link=link,
+                    pubdate=pub,
+                    guid=guid,
                 )
                 if post.guid not in post_guid_set:
                     logger.info("adding new post by %s", author)
@@ -278,7 +290,6 @@ class PolyringFetcher(discord.ext.commands.Cog):
                     )
                 continue
             except HTTPException as error:
-
                 if error.code == 50035:
                     # discord error code for invalid form body
                     # is probably misformed url
